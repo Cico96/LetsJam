@@ -8,6 +8,7 @@ public class LetsjamApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LetsjamApplication.class, args);
+		//commento per dio
 	}
 
 }
