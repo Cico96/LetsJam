@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Brano {
-	//Test testabile testato con la testa testardina
+	//Test testabile testato con la testa testardosa
 	private Long id_brano;
 	private String autore;
 	private String titolo;
