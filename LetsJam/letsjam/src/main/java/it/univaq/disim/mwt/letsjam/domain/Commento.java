@@ -13,7 +13,7 @@ public class Commento {
 	private String contenuto;
 	private LocalDate data;
 	private Commento commento_padre;
-	
+	//mi sto spazientendo
 	private Spartito spartito;
 	private Utente utente;
 
