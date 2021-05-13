@@ -5,10 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class LetsjamApplication {
-	//viva la mamma
 	public static void main(String[] args) {
 		SpringApplication.run(LetsjamApplication.class, args);
-		//commento per dio
 	}
 
 }

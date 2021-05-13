@@ -16,7 +16,5 @@ public class Utente {
 	private Long avatar;
 	private Boolean admin;
 	
-	private Set<Spartito> spartiti = new HashSet<>();
-	//upload spartito?
 
 }
