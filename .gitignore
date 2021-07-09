@@ -4,3 +4,4 @@
 /.apt_generated_tests
 /.settings
 target/
+.vscode
