@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class Spartito {
 	
-	private Long id_spartito;
+	private Long id;
 	private String titolo;
 	private String tipo;
 	private String contenuto;
@@ -20,3 +20,4 @@ public class Spartito {
 	private Set<Utente> likes = new HashSet<>();
 	
 }
+

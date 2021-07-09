@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class Strumento {
 	
-	private Long id_strumento;
+	private Long id;
 	private String nome;
 	private String chiave;
 

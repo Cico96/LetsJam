@@ -10,9 +10,9 @@ import lombok.Setter;
 @Setter
 public class Genere {
 	
-	private Long id_genere;
+	private Long id;
 	private String nome;
 	private String descrizione;
-	private Set<Genere> generi_preferiti = new HashSet<>();
+	private Set<Genere> generiPreferiti = new HashSet<>();
 
 }

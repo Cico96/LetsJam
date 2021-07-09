@@ -1,7 +1,5 @@
 package it.univaq.disim.mwt.letsjam.domain;
 
-import java.util.HashSet;
-import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,10 +7,10 @@ import lombok.Setter;
 @Setter
 public class Utente {
 	
-	private Long id_utente;
+	private Long id;
 	private String username;
 	private String password;
-	private String genere_preferito;
+	private String generePreferito;
 	private Long avatar;
 	private Boolean admin;
 	
