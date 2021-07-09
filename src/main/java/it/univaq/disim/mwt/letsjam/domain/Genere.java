@@ -13,6 +13,5 @@ public class Genere {
 	private Long id;
 	private String nome;
 	private String descrizione;
-	private Set<Genere> generiPreferiti = new HashSet<>();//commento al volo qua
-
+	private Set<Genere> generiPreferiti = new HashSet<>();
 }
