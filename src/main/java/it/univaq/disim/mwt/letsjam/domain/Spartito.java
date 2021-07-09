@@ -20,3 +20,4 @@ public class Spartito {
 	private Set<Utente> likes = new HashSet<>();
 	
 }
+

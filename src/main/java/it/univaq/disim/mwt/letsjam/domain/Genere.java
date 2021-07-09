@@ -14,5 +14,4 @@ public class Genere {
 	private String nome;
 	private String descrizione;
 	private Set<Genere> generiPreferiti = new HashSet<>();
-
 }
