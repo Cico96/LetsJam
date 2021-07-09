@@ -15,5 +15,4 @@ public class Genere {
 	private String descrizione;
 	private Set<Genere> generiPreferiti = new HashSet<>();
 	//bacco col colbacco
-	//ai ai9
 }
