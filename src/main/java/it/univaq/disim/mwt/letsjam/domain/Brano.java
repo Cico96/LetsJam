@@ -10,4 +10,5 @@ public class Brano {
 	private String autore;
 	private String titolo;
 	private Genere genere;
+	//Vino, vino rosso o vino rosso
 }
