@@ -1,0 +1,13 @@
+
+spring:
+  datasource:
+    url: jdbc:mysql://m5swbox4ji7moog2:bdp6wgmdc2pb8kx1@pei17y9c5bpuh987.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/ujq7eikcfczmrslt
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #data:
+    #mongodb:
+      #uri: ${MONGODB_URI}
+
+###############################################
+########### LETSJAM PROPERTIES ################
+###############################################
+

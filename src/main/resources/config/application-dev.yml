@@ -1,0 +1,14 @@
+
+spring:
+  datasource:
+    url: 
+    username: root
+    password: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #data:
+    #mongodb:
+      #uri: ${MONGODB_URI_DEV}
+
+###############################################
+########### LETSJAM PROPERTIES ################
+###############################################
