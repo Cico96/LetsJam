@@ -16,7 +16,7 @@ public class Spartito {
 	private String contenuto;
 	
 	private Brano brano;
-	private Utente utente;//inserimento
+	private Utente utente;
 	private Set<Utente> likes = new HashSet<>();
 	
 }
