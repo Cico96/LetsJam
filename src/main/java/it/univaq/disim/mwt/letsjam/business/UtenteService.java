@@ -5,21 +5,21 @@ import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 public interface UtenteService {
 	
-	Utente findUserById(Long id) throws BusinessException;
+	Utente findUtenteById(Long id) throws BusinessException;
 	
-	Utente findUserByUsername(String username) throws BusinessException;
+	Utente findUtenteByUsername(String username) throws BusinessException;
 	
-	boolean existsUserByUsername(String username) throws BusinessException;
+	boolean existsUtenteByUsername(String username) throws BusinessException;
 	
-	boolean existsUserByEmail(String email) throws BusinessException;
+	boolean existsUtenteByEmail(String email) throws BusinessException;
 	
 	void save (Utente utente) throws BusinessException;
 	
 	Utente insert(Utente utente) throws BusinessException;
 	
-	void deleteUserById(Long id) throws BusinessException;
+	void deleteUtenteById(Long id) throws BusinessException;
 	
-	boolean userIsAdmin(Long id) throws BusinessException;
+	boolean UtenteIsAdmin(Long id) throws BusinessException;
 	
 	void update(Utente utente) throws BusinessException;
 	
