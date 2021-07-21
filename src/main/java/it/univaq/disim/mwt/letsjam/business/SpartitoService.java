@@ -13,7 +13,7 @@ public interface SpartitoService {
 	
 	Spartito findSpartitoByVerificato(String titolo) throws BusinessException;
 	
-	void addLike(Spartito spartito, Long id_utente) throws BusinessException;
+	//void addLike(Spartito spartito, Long id_utente) throws BusinessException;
 	
 	void update(Spartito spartito) throws BusinessException;
 	

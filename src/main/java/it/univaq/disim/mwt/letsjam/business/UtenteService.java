@@ -23,6 +23,6 @@ public interface UtenteService {
 	
 	void update(Utente utente) throws BusinessException;
 	
-	void addGenerePreferito(Long id, String nome_genere) throws BusinessException;
+	//void addGenerePreferito(Long id, String nome_genere) throws BusinessException;
 	
 }
