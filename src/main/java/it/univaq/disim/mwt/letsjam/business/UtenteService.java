@@ -1,11 +1,15 @@
 package it.univaq.disim.mwt.letsjam.business;
 
+
+
+import java.util.Optional;
+
 import it.univaq.disim.mwt.letsjam.domain.Utente;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 public interface UtenteService {
 	
-	Utente findUtenteById(Long id) throws BusinessException;
+	Optional<Utente> findUtenteById(Long id) throws BusinessException;
 	
 	Utente findUtenteByUsername(String username) throws BusinessException;
 	

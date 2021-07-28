@@ -7,27 +7,70 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.univaq.disim.mwt.letsjam.business.UtenteService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UtenteRepository;
 import it.univaq.disim.mwt.letsjam.domain.Utente;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 @Service
 @Transactional
-public class UtenteServiceImpl {
+public class UtenteServiceImpl implements UtenteService {
 	
 	@Autowired
 	private UtenteRepository utenteRepository;
 	
-	public Optional<Utente> findById(Long id) throws BusinessException {
+	@Override
+	public Optional<Utente> findUtenteById(Long id) throws BusinessException {
 		return utenteRepository.findById(id);
 	}
 	
-	public boolean findUtenteByUsername(String username) throws BusinessException {
-		return utenteRepository.findUtenteByUsername(username);
+	@Override
+	public Utente findUtenteByUsername(String username) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean existsUtenteByUsername(String username) throws BusinessException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean existsUtenteByEmail(String email) throws BusinessException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void save(Utente utente) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Utente insert(Utente utente) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteUtenteById(Long id) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean UtenteIsAdmin(Long id) throws BusinessException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void update(Utente utente) throws BusinessException {
+		// TODO Auto-generated method stub
+		
 	}
 	
-	public boolean findUtenteByEmail(String email) throws BusinessException {
-		return utenteRepository.findUtenteByEmail(email);
-	}
 
 }
