@@ -18,10 +18,17 @@ public class DummyController {
 	@Autowired
 	private UtenteService utenteService;
 	
-    @GetMapping("/")
-    public String home(@RequestParam(name="id", required=false, defaultValue="1") Long id, Model model){
-    	 Optional<Utente> utente = utenteService.findUtenteById(id);
-         model.addAttribute("name", utente.get().getFirstname());
+//    @GetMapping("/")
+//    public String home(@RequestParam(name="id", required=false, defaultValue="1") Long id, Model model){
+//    	 Optional<Utente> utente = utenteService.findUtenteById(id);
+//         model.addAttribute("name", utente.get().getFirstname());
+//        return "home/home";
+//    }
+	
+	@GetMapping("/")
+    public String home(@RequestParam(name="email", defaultValue="prova@gmail.com") String email, Model model){
+    	 Boolean utente = utenteService.existsUtenteByEmail(email);
+         model.addAttribute("name", utente);
         return "home/home";
     }
     

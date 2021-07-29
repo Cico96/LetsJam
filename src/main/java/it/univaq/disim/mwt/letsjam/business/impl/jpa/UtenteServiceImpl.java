@@ -25,28 +25,23 @@ public class UtenteServiceImpl implements UtenteService {
 	}
 	
 	@Override
-	public Utente findUtenteByUsername(String username) throws BusinessException {
+	public Optional<Utente> findUtenteByUsername(String username) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return utenteRepository.findByUsername(username);
 	}
 
 	@Override
 	public boolean existsUtenteByUsername(String username) throws BusinessException {
 		// TODO Auto-generated method stub
-		return false;
+		return utenteRepository.existsUtenteByUsername(username);
 	}
 
 	@Override
 	public boolean existsUtenteByEmail(String email) throws BusinessException {
 		// TODO Auto-generated method stub
-		return false;
+		return utenteRepository.existsUtenteByUsername(email);
 	}
 
-	@Override
-	public void save(Utente utente) throws BusinessException {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public Utente insert(Utente utente) throws BusinessException {

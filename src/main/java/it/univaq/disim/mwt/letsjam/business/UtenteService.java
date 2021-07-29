@@ -11,13 +11,11 @@ public interface UtenteService {
 	
 	Optional<Utente> findUtenteById(Long id) throws BusinessException;
 	
-	Utente findUtenteByUsername(String username) throws BusinessException;
+	Optional<Utente> findUtenteByUsername(String username) throws BusinessException;
 	
 	boolean existsUtenteByUsername(String username) throws BusinessException;
 	
 	boolean existsUtenteByEmail(String email) throws BusinessException;
-	
-	void save (Utente utente) throws BusinessException;
 	
 	Utente insert(Utente utente) throws BusinessException;
 	
