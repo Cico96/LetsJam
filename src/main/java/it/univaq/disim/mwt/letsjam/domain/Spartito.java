@@ -6,11 +6,11 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -18,6 +18,7 @@ import javax.validation.constraints.Size;
 import it.univaq.disim.mwt.letsjam.presentation.validation.OnCreate;
 import it.univaq.disim.mwt.letsjam.presentation.validation.OnUpdate;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 import lombok.Getter;
@@ -38,8 +39,9 @@ public class Spartito extends AbstractPersistableEntity{
 	@NotNull
 	private Boolean verificato;
 
-	@NotEmpty(groups ={OnCreate.class, Default.class})
-	private String contenuto;
+	@JsonInclude()
+	@Transient
+	private SpartitoData data;
 	
 	@OneToOne
 	private Brano brano;
