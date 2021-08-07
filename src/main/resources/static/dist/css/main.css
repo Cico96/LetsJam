@@ -1947,7 +1947,7 @@ ol {
   content: "";
   right: 0;
   width: 50%;
-  background-image: url(../images/hero/hero-image.jpg);
+  background-image: url("../../dist/img/hero-image.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
