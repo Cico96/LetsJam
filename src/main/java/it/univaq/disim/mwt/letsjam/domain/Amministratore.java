@@ -13,7 +13,7 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@Table(name = "administrators")
+@Table(name = "amministratori")
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @DiscriminatorValue("admin")
