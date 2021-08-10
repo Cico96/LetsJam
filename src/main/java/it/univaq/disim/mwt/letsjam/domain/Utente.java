@@ -66,7 +66,7 @@ public class Utente extends AbstractPersistableEntity{
     name = "spartiti_likes", 
     joinColumns = @JoinColumn(name = "utente_id"), 
     inverseJoinColumns = @JoinColumn(name = "spartito_id"))
-    private Set<Spartito> likedSPartiti;
+    private Set<Spartito> likedSpartiti;
 	
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
     @JoinTable(
@@ -75,23 +75,7 @@ public class Utente extends AbstractPersistableEntity{
     inverseJoinColumns = @JoinColumn(name = "genere_id"))
     private Set<Genere> generiPreferiti = new HashSet<>();
 
-    public void like(Spartito spartito){
-        likedSPartiti.add(spartito);
-    }
-
-    public void dislike(Spartito spartito){
-        likedSPartiti.remove(spartito);
-    }
-
-    public void addGenerePreferito(Genere genere){
-        generiPreferiti.add(genere);
-    }
-
-    public void removeGenerePreferito(Genere genere){
-        generiPreferiti.remove(genere);
-    }
-
-
+    
 	@Override
     public boolean equals(Object o) {
         if (this == o) return true;

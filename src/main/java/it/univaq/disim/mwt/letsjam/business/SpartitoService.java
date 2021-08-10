@@ -5,6 +5,8 @@ import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 public interface SpartitoService {
 	
+	Spartito addSpartito(Spartito spartito) throws BusinessException;
+	
 	Spartito findSpartitoById(Long id) throws BusinessException;
 	
 	Spartito findSpartitoByTitolo(String titolo) throws BusinessException;

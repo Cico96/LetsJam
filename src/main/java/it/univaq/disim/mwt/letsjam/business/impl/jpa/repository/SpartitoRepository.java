@@ -11,5 +11,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface SpartitoRepository extends JpaRepository<Spartito, Long>{
     
     Optional<Spartito> findById(Long id);
-
+    
 }

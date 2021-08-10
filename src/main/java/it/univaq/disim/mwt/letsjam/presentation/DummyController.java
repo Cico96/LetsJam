@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.univaq.disim.mwt.letsjam.business.GenereService;
+import it.univaq.disim.mwt.letsjam.business.SpartitoService;
 import it.univaq.disim.mwt.letsjam.business.UtenteService;
-import it.univaq.disim.mwt.letsjam.domain.Genere;
+import it.univaq.disim.mwt.letsjam.domain.Spartito;
+import it.univaq.disim.mwt.letsjam.domain.SpartitoData;
 import it.univaq.disim.mwt.letsjam.domain.Utente;
 
 @Controller
@@ -21,10 +23,20 @@ public class DummyController {
 	private UtenteService utenteService;
 	@Autowired
 	private GenereService genereService;
+	@Autowired
+	private SpartitoService spartitoService;
 	
     @GetMapping("/")
-    public String home(@RequestParam(name="email", required=false, defaultValue="prova@prova.it") String email, Model model){
-    	 Boolean utente = utenteService.existsUtenteByEmail(email);
+    public String home(@RequestParam(name="id", required=false, defaultValue="13") Long id, Model model){
+    	 Utente utente = utenteService.findUtenteById(id);
+    	 Spartito spartito = new Spartito();
+    	 SpartitoData sd = new SpartitoData();
+    	 sd.setContent("vaffamocc");
+    	 spartito.setTitolo("mannagg a bucchin");
+    	 spartito.setVerificato(true);
+    	 spartito.setData(sd);
+    	 spartitoService.addSpartito(spartito);
+    	 utenteService.like(utente, spartito);
          model.addAttribute("name", utente);
         return "home/home";
     }

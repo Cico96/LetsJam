@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import it.univaq.disim.mwt.letsjam.domain.Genere;
 import it.univaq.disim.mwt.letsjam.domain.Utente;
 
 @Repository
@@ -19,6 +18,6 @@ public interface UtenteRepository extends JpaRepository<Utente, Long> {
 	
 	boolean existsUtenteByEmail(String email);
 	
-	//void update(Utente utente, Genere genere);
+	void deleteUtenteById(Long id);
 
 }

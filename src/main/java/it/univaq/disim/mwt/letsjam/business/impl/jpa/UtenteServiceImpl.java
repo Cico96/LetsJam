@@ -1,6 +1,7 @@
 package it.univaq.disim.mwt.letsjam.business.impl.jpa;
 
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import it.univaq.disim.mwt.letsjam.business.UtenteService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UtenteRepository;
 import it.univaq.disim.mwt.letsjam.domain.Genere;
+import it.univaq.disim.mwt.letsjam.domain.Spartito;
 import it.univaq.disim.mwt.letsjam.domain.Utente;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
@@ -64,9 +66,30 @@ public class UtenteServiceImpl implements UtenteService {
 
 	@Override
 	public void update(Utente utente, Genere genere) throws BusinessException {
-		
-		//Utente utenteToUpdate = utenteRepository.findById(utente.getId()).orElse(utente);
-		utente.addGenerePreferito(genere);
+		utente.getGeneriPreferiti().add(genere);
+		utenteRepository.save(utente);
+	}
+
+	@Override
+	public void like(Utente utente, Spartito spartito) throws BusinessException {
+		// TODO Auto-generated method stub
+		Set<Spartito> spartiti = utente.getLikedSpartiti();
+		spartiti.add(spartito);
+		utente.setLikedSpartiti(spartiti);
+		utenteRepository.save(utente);
+	}
+
+	@Override
+	public void dislike(Utente utente, Spartito spartito) throws BusinessException {
+		// TODO Auto-generated method stub
+		utente.getLikedSpartiti().remove(spartito);
+		utenteRepository.save(utente);
+	}
+
+	@Override
+	public void remove(Utente utente, Genere genere) throws BusinessException {
+		// TODO Auto-generated method stub
+		utente.getGeneriPreferiti().remove(genere);
 		utenteRepository.save(utente);
 	}
 	

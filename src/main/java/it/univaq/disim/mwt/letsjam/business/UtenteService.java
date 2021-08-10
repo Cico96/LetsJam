@@ -3,6 +3,7 @@ package it.univaq.disim.mwt.letsjam.business;
 import java.util.Optional;
 
 import it.univaq.disim.mwt.letsjam.domain.Genere;
+import it.univaq.disim.mwt.letsjam.domain.Spartito;
 import it.univaq.disim.mwt.letsjam.domain.Utente;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
@@ -24,6 +25,12 @@ public interface UtenteService {
 	
 	void update(Utente utente, Genere genere) throws BusinessException;
 	
-	//void addGenerePreferito(Long id, String nome_genere) throws BusinessException;
+	void like (Utente utente, Spartito spartito) throws BusinessException;
+	
+	void dislike(Utente utente, Spartito spartito) throws BusinessException;
+	
+	//void addGenerePreferito(Utente utente, Genere genere) throws BusinessException;
+	
+	void remove(Utente utente, Genere genere) throws BusinessException;
 	
 }

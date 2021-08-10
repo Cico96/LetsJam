@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.univaq.disim.mwt.letsjam.business.SpartitoService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SpartitoDataRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SpartitoRepository;
 import it.univaq.disim.mwt.letsjam.domain.Spartito;
@@ -15,7 +16,7 @@ import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 @Service
 @Transactional
-public class SpartitoServiceImpl {
+public class SpartitoServiceImpl implements SpartitoService {
     
     @Autowired
 	private SpartitoRepository spartitoRepository;
@@ -30,7 +31,8 @@ public class SpartitoServiceImpl {
         spartito.setData(data);
         return spartito;
 	}
-
+    
+    @Override
     public Spartito addSpartito(Spartito spartito) throws BusinessException{
         Spartito s = spartitoRepository.save(spartito);
         SpartitoData data = spartito.getData();
@@ -38,4 +40,46 @@ public class SpartitoServiceImpl {
         spartitoDataRepository.save(data);
         return spartito;
     }
+
+	@Override
+	public Spartito findSpartitoByTitolo(String titolo) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Spartito findSpartitoByContento(String contenuto) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Spartito findSpartitoByVerificato(String titolo) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(Spartito spartito) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteSpartitoById(Long id) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Spartito insert(Spartito spartito) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void save(Spartito spartito) throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
 }
