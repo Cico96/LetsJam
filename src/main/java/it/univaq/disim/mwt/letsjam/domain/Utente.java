@@ -53,8 +53,6 @@ public class Utente extends AbstractPersistableEntity{
     @NotEmpty(groups = {OnCreate.class, Default.class})
     private String password;
 	
-	private String generePreferito;
-
     @Lob
     @JsonIgnore
     @Basic(fetch = FetchType.LAZY)

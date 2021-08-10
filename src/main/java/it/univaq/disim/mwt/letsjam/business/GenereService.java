@@ -5,7 +5,10 @@ import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 public interface GenereService {
 	
+	
 	Genere findGenereById(Long id) throws BusinessException;
 	
 	Genere findGenereByNome(String nome) throws BusinessException;
+	
+	void save(Genere genere) throws BusinessException;
 }

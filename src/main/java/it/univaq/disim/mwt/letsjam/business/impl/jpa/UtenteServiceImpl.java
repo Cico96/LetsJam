@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import it.univaq.disim.mwt.letsjam.business.UtenteService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UtenteRepository;
+import it.univaq.disim.mwt.letsjam.domain.Genere;
 import it.univaq.disim.mwt.letsjam.domain.Utente;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
@@ -20,8 +21,8 @@ public class UtenteServiceImpl implements UtenteService {
 	private UtenteRepository utenteRepository;
 	
 	@Override
-	public Optional<Utente> findUtenteById(Long id) throws BusinessException {
-		return utenteRepository.findById(id);
+	public Utente findUtenteById(Long id) throws BusinessException {
+		return utenteRepository.findById(id).get();
 	}
 	
 	@Override
@@ -39,19 +40,19 @@ public class UtenteServiceImpl implements UtenteService {
 	@Override
 	public boolean existsUtenteByEmail(String email) throws BusinessException {
 		// TODO Auto-generated method stub
-		return utenteRepository.existsUtenteByUsername(email);
+		return utenteRepository.existsUtenteByEmail(email);
 	}
 
 
 	@Override
 	public Utente insert(Utente utente) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return utenteRepository.save(utente);
 	}
 
 	@Override
 	public void deleteUtenteById(Long id) throws BusinessException {
-		// TODO Auto-generated method stub
+		utenteRepository.deleteById(id);
 		
 	}
 
@@ -62,9 +63,11 @@ public class UtenteServiceImpl implements UtenteService {
 	}
 
 	@Override
-	public void update(Utente utente) throws BusinessException {
-		// TODO Auto-generated method stub
+	public void update(Utente utente, Genere genere) throws BusinessException {
 		
+		//Utente utenteToUpdate = utenteRepository.findById(utente.getId()).orElse(utente);
+		utente.addGenerePreferito(genere);
+		utenteRepository.save(utente);
 	}
 	
 

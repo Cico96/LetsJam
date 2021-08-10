@@ -1,15 +1,14 @@
 package it.univaq.disim.mwt.letsjam.business;
 
-
-
 import java.util.Optional;
 
+import it.univaq.disim.mwt.letsjam.domain.Genere;
 import it.univaq.disim.mwt.letsjam.domain.Utente;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 public interface UtenteService {
 	
-	Optional<Utente> findUtenteById(Long id) throws BusinessException;
+	Utente findUtenteById(Long id) throws BusinessException;
 	
 	Optional<Utente> findUtenteByUsername(String username) throws BusinessException;
 	
@@ -23,7 +22,7 @@ public interface UtenteService {
 	
 	boolean UtenteIsAdmin(Long id) throws BusinessException;
 	
-	void update(Utente utente) throws BusinessException;
+	void update(Utente utente, Genere genere) throws BusinessException;
 	
 	//void addGenerePreferito(Long id, String nome_genere) throws BusinessException;
 	
