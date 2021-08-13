@@ -1,6 +1,5 @@
 package it.univaq.disim.mwt.letsjam.business.impl.jpa;
 
-import java.util.Optional;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -25,10 +24,10 @@ public class UtenteServiceImpl implements UtenteService {
 	@Override
 	public Utente findUtenteById(Long id) throws BusinessException {
 		return utenteRepository.findById(id).get();
-	}
+		}
 	
 	@Override
-	public Optional<Utente> findUtenteByUsername(String username) throws BusinessException {
+	public Utente findUtenteByUsername(String username) throws BusinessException {
 		// TODO Auto-generated method stub
 		return utenteRepository.findByUsername(username);
 	}

@@ -1,7 +1,5 @@
 package it.univaq.disim.mwt.letsjam.business;
 
-import java.util.Optional;
-
 import it.univaq.disim.mwt.letsjam.domain.Genere;
 import it.univaq.disim.mwt.letsjam.domain.Spartito;
 import it.univaq.disim.mwt.letsjam.domain.Utente;
@@ -11,7 +9,7 @@ public interface UtenteService {
 	
 	Utente findUtenteById(Long id) throws BusinessException;
 	
-	Optional<Utente> findUtenteByUsername(String username) throws BusinessException;
+	Utente findUtenteByUsername(String username) throws BusinessException;
 	
 	boolean existsUtenteByUsername(String username) throws BusinessException;
 	
