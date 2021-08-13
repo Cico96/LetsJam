@@ -82,14 +82,18 @@ public class UtenteServiceImpl implements UtenteService {
 	@Override
 	public void dislike(Utente utente, Spartito spartito) throws BusinessException {
 		// TODO Auto-generated method stub
-		utente.getLikedSpartiti().remove(spartito);
+		Set<Spartito> spartiti = utente.getLikedSpartiti();
+		spartiti.remove(spartito);
+		utente.setLikedSpartiti(spartiti);
 		utenteRepository.save(utente);
 	}
 
 	@Override
 	public void remove(Utente utente, Genere genere) throws BusinessException {
 		// TODO Auto-generated method stub
-		utente.getGeneriPreferiti().remove(genere);
+		Set<Genere> generi = utente.getGeneriPreferiti();
+		generi.add(genere);
+		utente.setGeneriPreferiti(generi);
 		utenteRepository.save(utente);
 	}
 	
