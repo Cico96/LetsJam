@@ -16,11 +16,10 @@ public class CustomUserDetailsService implements UserDetailsService{
     UtenteService utenteService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Utente utente = null;
         try{
-            utente = utenteService
-                    .findUtenteByUsername(username);
+            utente = utenteService.findUtenteByEmail(email);
         }
         catch(BusinessException e){
             e.printStackTrace();

@@ -32,6 +32,11 @@ public class UtenteServiceImpl implements UtenteService {
 	}
 
 	@Override
+	public Utente findUtenteByEmail(String email) throws BusinessException {
+		return utenteRepository.findByEmail(email);
+	}
+
+	@Override
 	public boolean existsUtenteByUsername(String username) throws BusinessException {
 		// TODO Auto-generated method stub
 		return utenteRepository.existsUtenteByUsername(username);
@@ -99,7 +104,6 @@ public class UtenteServiceImpl implements UtenteService {
 	public Utente addUtente(Utente utente) throws BusinessException {
 		utenteRepository.save(utente);
 		return utente;
-	}
-	
+	}	
 
 }

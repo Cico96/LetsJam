@@ -26,8 +26,15 @@ public class AuthController {
 
     @PostMapping("/register")
     public String registerSumbit(@ModelAttribute Utente utente, Model model){
+        //Controllo che non esista già un utente con la stessa email
+        if(utenteService.existsUtenteByEmail(utente.getEmail())){
+            model.addAttribute("error", "Email già esistente, inserisci un nuovo indirizzo email");
+            return "auth/register";
+        }
+        //Cripto la password
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         utente.setPassword(encoder.encode(utente.getPassword()));
+        //Salvo l'utente appena creato
         utenteService.addUtente(utente);
         System.out.println(utente.getRuolo()+" "+utente.getFirstname()+" "+utente.getLastname()+": registrato con successo");
             return "auth/login";

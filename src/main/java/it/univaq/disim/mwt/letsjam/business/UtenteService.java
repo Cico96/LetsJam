@@ -11,6 +11,8 @@ public interface UtenteService {
 	
 	Utente findUtenteByUsername(String username) throws BusinessException;
 	
+	Utente findUtenteByEmail(String email) throws BusinessException;
+
 	boolean existsUtenteByUsername(String username) throws BusinessException;
 	
 	boolean existsUtenteByEmail(String email) throws BusinessException;
