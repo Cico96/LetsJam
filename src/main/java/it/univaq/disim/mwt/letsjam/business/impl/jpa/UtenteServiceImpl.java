@@ -1,6 +1,5 @@
 package it.univaq.disim.mwt.letsjam.business.impl.jpa;
 
-import java.util.Optional;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -25,11 +24,11 @@ public class UtenteServiceImpl implements UtenteService {
 	@Override
 	public Utente findUtenteById(Long id) throws BusinessException {
 		return utenteRepository.findById(id).get();
-	}
+		}
 	
 	@Override
 	public Utente findUtenteByUsername(String username) throws BusinessException {
-		return utenteRepository.findByUsername(username).get();
+		return utenteRepository.findByUsername(username);
 	}
 
 	@Override
@@ -81,14 +80,18 @@ public class UtenteServiceImpl implements UtenteService {
 	@Override
 	public void dislike(Utente utente, Spartito spartito) throws BusinessException {
 		// TODO Auto-generated method stub
-		utente.getLikedSpartiti().remove(spartito);
+		Set<Spartito> spartiti = utente.getLikedSpartiti();
+		spartiti.remove(spartito);
+		utente.setLikedSpartiti(spartiti);
 		utenteRepository.save(utente);
 	}
 
 	@Override
 	public void remove(Utente utente, Genere genere) throws BusinessException {
 		// TODO Auto-generated method stub
-		utente.getGeneriPreferiti().remove(genere);
+		Set<Genere> generi = utente.getGeneriPreferiti();
+		generi.add(genere);
+		utente.setGeneriPreferiti(generi);
 		utenteRepository.save(utente);
 	}
 

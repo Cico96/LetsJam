@@ -1,7 +1,5 @@
 package it.univaq.disim.mwt.letsjam.business;
 
-import java.util.Optional;
-
 import it.univaq.disim.mwt.letsjam.domain.Genere;
 import it.univaq.disim.mwt.letsjam.domain.Spartito;
 import it.univaq.disim.mwt.letsjam.domain.Utente;
