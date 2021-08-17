@@ -11,7 +11,7 @@ public interface UtenteService {
 	
 	Utente findUtenteById(Long id) throws BusinessException;
 	
-	Optional<Utente> findUtenteByUsername(String username) throws BusinessException;
+	Utente findUtenteByUsername(String username) throws BusinessException;
 	
 	boolean existsUtenteByUsername(String username) throws BusinessException;
 	
@@ -33,4 +33,5 @@ public interface UtenteService {
 	
 	void remove(Utente utente, Genere genere) throws BusinessException;
 	
+	Utente addUtente(Utente utente) throws BusinessException;
 }

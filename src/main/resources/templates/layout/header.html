@@ -42,12 +42,14 @@
 	                                    </li>
 	                                    <li class="nav-item"><a href="#">Brani</a></li>
 	                                    <li class="nav-item"><a href="contact.html">Contact</a></li>
+										<li class="nav-item"><a sec:authorize="isAuthenticated()" sec:authentication="name"></a></li>
 	                                </ul>
 	                            </div>
 	                            <!-- navbar collapse -->
 	                            <div class="button">
-	                                <a href="contact.html" class="btn">Login</a>
-	                            </div>
+	                                <a sec:authorize="!isAuthenticated()" href="/login" class="btn">Login</a>
+									<a sec:authorize="isAuthenticated()" href="/logout" class="btn">Logout</a>
+								</div>
 	                        </nav>
 	                        <!-- navbar -->
 	

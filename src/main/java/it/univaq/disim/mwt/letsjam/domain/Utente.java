@@ -16,6 +16,7 @@ import it.univaq.disim.mwt.letsjam.presentation.validation.EmailUnique;
 import it.univaq.disim.mwt.letsjam.presentation.validation.OnCreate;
 import it.univaq.disim.mwt.letsjam.presentation.validation.OnUpdate;
 import it.univaq.disim.mwt.letsjam.presentation.validation.UsernameUnique;
+import it.univaq.disim.mwt.letsjam.security.RuoloUtente;
 import lombok.*;
 
 @Entity
@@ -25,6 +26,7 @@ import lombok.*;
 @Getter
 @Setter
 @DiscriminatorColumn(name = "role")
+@DiscriminatorValue("utente")
 public class Utente extends AbstractPersistableEntity{
 	
 	@NotEmpty(groups ={OnCreate.class, Default.class})
@@ -58,9 +60,6 @@ public class Utente extends AbstractPersistableEntity{
     @Basic(fetch = FetchType.LAZY)
 	private Byte[] avatar;
 	
-	// Da sostituire con il @DiscriminatorColumn(name = "role")
-	//private Boolean admin;
-
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
     @JoinTable(
     name = "spartiti_likes", 
@@ -91,6 +90,12 @@ public class Utente extends AbstractPersistableEntity{
 	@Override
     public int hashCode() {
         return Objects.hash(firstname, lastname, email, username, password);
+    }
+
+    @Transient
+    public RuoloUtente getRuolo(){
+        return RuoloUtente.valueOf(this.getClass().getAnnotation(DiscriminatorValue.class).value().toUpperCase());
+        //return RuoloUtente.UTENTE;
     }
 }
 

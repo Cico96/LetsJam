@@ -28,9 +28,8 @@ public class UtenteServiceImpl implements UtenteService {
 	}
 	
 	@Override
-	public Optional<Utente> findUtenteByUsername(String username) throws BusinessException {
-		// TODO Auto-generated method stub
-		return utenteRepository.findByUsername(username);
+	public Utente findUtenteByUsername(String username) throws BusinessException {
+		return utenteRepository.findByUsername(username).get();
 	}
 
 	@Override
@@ -91,6 +90,12 @@ public class UtenteServiceImpl implements UtenteService {
 		// TODO Auto-generated method stub
 		utente.getGeneriPreferiti().remove(genere);
 		utenteRepository.save(utente);
+	}
+
+	@Override
+	public Utente addUtente(Utente utente) throws BusinessException {
+		utenteRepository.save(utente);
+		return utente;
 	}
 	
 

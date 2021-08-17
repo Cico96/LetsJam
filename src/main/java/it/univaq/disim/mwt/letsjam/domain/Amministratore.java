@@ -16,7 +16,7 @@ import lombok.ToString;
 @Table(name = "amministratori")
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-@DiscriminatorValue("admin")
+@DiscriminatorValue("amministratore")
 @NoArgsConstructor
 public class Amministratore extends Utente{
     
