@@ -19,6 +19,11 @@
 	<link rel="stylesheet" href="dist/css/tiny-slider.css" />
 	<link rel="stylesheet" href="dist/css/glightbox.min.css" />
 	<link rel="stylesheet" href="dist/css/main.css" />
+	<th:block layout:fragment="css">
+		<link rel="stylesheet" type="text/css" th:href="@{dist/css/header.css}"/>
+	</th:block>
+
+
 </head>
 
 <body>
@@ -42,6 +47,7 @@
 	<footer class="main-footer" th:replace="~{layout/footer :: footer}">
 	</footer>
 
+	<!-- ========================= Scripts here ========================= -->
 	<script src="dist/js/bootstrap.min.js"></script>
 	<script src="dist/js/count-up.min.js"></script>
 	<script src="dist/js/wow.min.js"></script>
@@ -50,6 +56,7 @@
 	<script src="dist/js/imagesloaded.min.js"></script>
 	<script src="dist/js/isotope.min.js"></script>
 	<script src="dist/js/main.js"></script>
+	<script type="text/javascript" th:src="@{dist/js/i18n.js}" ></script>
 </body>
 
 </html>

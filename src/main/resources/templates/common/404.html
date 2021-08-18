@@ -11,9 +11,14 @@
             <div class="row">
                 <div class="col-lg-8 offset-lg-2 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title" th:text="#{error.title}"></h1>
-                        <p th:text="${statusCode}"></p>
+                        <h1 class="page-title">Error Page</h1>
+                        <p>Business plan draws on a wide range of knowledge from different business<br> disciplines.
+                            Business draws on a wide range of different business .</p>
                     </div>
+                    <ul class="breadcrumb-nav">
+                        <li><a href="index.html">Home</a></li>
+                        <li>Error 404, page not found</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -25,12 +30,19 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-12">
+                    <!-- Error Image -->
+                    <div class="error-image">
+                        <img src="assets/images/error.svg" alt="#">
+                    </div>
+                    <!--/ End Error Image -->
+                </div>
+                <div class="col-lg-6 col-12">
                     <!-- Error Text -->
                     <div class="error-text">
-                        <h2 th:text="${errorMessage}"><span>Error</span></h2>
-                        <p th:text="${stackTrace}"></p>
+                        <h2><span>Sorry!</span>Page Not Found</h2>
+                        <p>Oops! The page you are looking for does not exist. It might have been moved or deleted.</p>
                         <div class="button">
-                            <a href="/" class="btn" th:text="#{error.gohome}"></a>
+                            <a href="index.html" class="btn">Go Homepage</a>
                         </div>
                     </div>
                     <!--/ End Error Text -->

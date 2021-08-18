@@ -1,5 +1,6 @@
 package it.univaq.disim.mwt.letsjam.presentation;
 
+import java.net.http.HttpClient.Redirect;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import it.univaq.disim.mwt.letsjam.business.GenereService;
 import it.univaq.disim.mwt.letsjam.business.SpartitoService;
@@ -36,7 +38,7 @@ public class DummyController {
 	@Autowired
 	private SpartitoService spartitoService;
 	
-    @GetMapping("/")
+    @GetMapping("/home")
     public String home(Model model, Principal principal){
         model.addAttribute("name", "Chicco");
         if(principal !=null){
@@ -47,6 +49,10 @@ public class DummyController {
         return "home/home";
     }
 	
+    @GetMapping("/")
+    public RedirectView homeRedirect(Model model){
+        return new RedirectView("home");
+    }
 //	@GetMapping("/")
 //    public String home(@RequestParam(name="id", defaultValue="1") Long id, Model model){
 //    	 Utente utente = new Utente();
@@ -58,11 +64,6 @@ public class DummyController {
 //         model.addAttribute("name", utente.getGeneriPreferiti().iterator().next().getNome());
 //        return "home/home";
 //    }
-
-    @GetMapping("/error")
-    public String error(Model model){
-        return "common/error";
-    }
     
     @GetMapping("/forbidden")
     public String forbidden(Model model){
