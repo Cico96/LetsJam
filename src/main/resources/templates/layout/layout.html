@@ -9,21 +9,18 @@
 	<title th:text="#{common.applicationtitle}">Let's Jam</title>
 
 	<!-- Web Font -->
-	<link href="https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap"
-		rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 	<!-- ========================= CSS here ========================= -->
-	<link rel="stylesheet" href="dist/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="dist/css/LineIcons.2.0.css" />
-	<link rel="stylesheet" href="dist/css/animate.css" />
-	<link rel="stylesheet" href="dist/css/tiny-slider.css" />
-	<link rel="stylesheet" href="dist/css/glightbox.min.css" />
-	<link rel="stylesheet" href="dist/css/main.css" />
 	<th:block layout:fragment="css">
+		<link rel="stylesheet" type="text/css" th:href="@{dist/css/bootstrap.min.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{dist/css/LineIcons.2.0.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{dist/css/animate.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{dist/css/tiny-slider.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{dist/css/glightbox.min.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{dist/css/main.css}" />
 		<link rel="stylesheet" type="text/css" th:href="@{dist/css/header.css}"/>
 	</th:block>
-
-
 </head>
 
 <body>

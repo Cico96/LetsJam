@@ -10,7 +10,13 @@ window.addEventListener('load', (event) => {
             location.href = newUrl;
         }
         else{
-            let newUrl = window.location.href+"?lang="+toReplace;
+            let newUrl;
+            if(window.location.href.search("\\?")){
+                newUrl = window.location.href+"&lang="+toReplace;
+            }
+            else{
+                newUrl = window.location.href+"?lang="+toReplace;
+            } 
             location.href = newUrl;
         }
     });

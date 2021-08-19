@@ -2,21 +2,53 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
-        <title>Spring Security Example </title>
+        <title>Login - Let's Jam </title>
     </head>
     <body>
-        <div th:if="${param.error}">
-            Invalid username and password.
-        </div>
-        <div th:if="${param.logout}">
-            You have been logged out.
-        </div>
-        <form th:action="@{/login}" method="post">
-            <div><label> Email : <input type="text" name="email"/> </label></div>
-            <div><label> Password: <input type="password" name="password"/> </label></div>
-            <div><input type="submit" value="Sign In"/></div>
-        </form>
+        <th:block layout:fragment="css">
+            <link rel="stylesheet" type="text/css" th:href="@{dist/css/bootstrap.min.css}" />
+            <link rel="stylesheet" type="text/css" th:href="@{dist/css/LineIcons.2.0.css}" />
+            <link rel="stylesheet" type="text/css" th:href="@{dist/css/animate.css}" />
+            <link rel="stylesheet" type="text/css" th:href="@{dist/css/tiny-slider.css}" />
+            <link rel="stylesheet" type="text/css" th:href="@{dist/css/glightbox.min.css}" />
+            <link rel="stylesheet" type="text/css" th:href="@{dist/css/main.css}" />
+            <link rel="stylesheet" type="text/css" th:href="@{dist/css/login.css}"/>
+        </th:block>
+        <script type="text/javascript" th:src="@{dist/js/login.js}" ></script>
+        <script type="text/javascript" th:src="@{dist/js/i18n.js}" ></script>
 
-        <a href="/register">Registrati</a>
+        <div th:if="${param.error}" class="error-message" th:text="#{login.error}"></div>
+        <div th:if="${param.logout}" class="warning-message" th:text="#{login.loggedout}"></div>
+
+        <div class="form-container">
+            <h2 class="mb-4" th:text="#{login.welcome}"></h2>
+            <div class="logo-container mb-4">
+                <img th:src="@{dist/img/logo.png}" alt="letsjam logo">
+            </div>
+            <form th:action="@{/login}" method="post"  style="width: 90%;">
+                <div class="input-container mb-3">
+                    <label class="mb-1"> Email </label>
+                    <input type="text" name="email" th:placeholder="#{login.email.placeholder}"/>
+                </div>
+
+                <div class="input-container mb-3">
+                    <label class="mb-1"> Password </label>
+                    <input type="password" name="password" th:placeholder="#{login.email.placeholder}"/>
+                </div>
+                <div class="input-container mb-3 align-items-center">
+                    <div class="button wow fadeInUp" data-wow-delay=".7s" style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp;">
+                        <a class="btn" th:text="#{login.login}"></a>
+                    </div>
+                </div>
+            </form>
+            <a href="/register" class="mt-2" style="font-size: 16px;" th:text="#{login.register}"></a>
+
+            <div class="internationalization">
+                <p class="lang" style="display: none;" th:text="${#locale}"></p>
+                <img class="flag-container" th:if="${#locale.toString() == 'it'}" th:src="@{dist/img/i18n/it-flag.png}" alt="it">
+				<img class="flag-container" th:if="${#locale.toString() == 'en'}" th:src="@{dist/img/i18n/uk-flag.png}" alt="en">
+            </div>
+        </div>
+        
     </body>
 </html>
