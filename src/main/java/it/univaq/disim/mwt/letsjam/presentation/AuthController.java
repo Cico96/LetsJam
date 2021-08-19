@@ -28,7 +28,7 @@ public class AuthController {
     public String registerSumbit(@ModelAttribute Utente utente, Model model){
         //Controllo che non esista già un utente con la stessa email
         if(utenteService.existsUtenteByEmail(utente.getEmail())){
-            model.addAttribute("error", "Email già esistente, inserisci un nuovo indirizzo email");
+            model.addAttribute("error", "email");
             return "auth/register";
         }
         //Cripto la password

@@ -1,23 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrati</title>
-</head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title th:text="#{login.register}+' - Let\'s Jam'"></title>
+    </head>
 <body>
-    <h1>Registrati</h1>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" type="text/css" th:href="@{dist/css/bootstrap.min.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{dist/css/LineIcons.2.0.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{dist/css/animate.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{dist/css/tiny-slider.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{dist/css/glightbox.min.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{dist/css/main.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{dist/css/login.css}"/>
+    </th:block>
+    <script type="text/javascript" th:src="@{dist/js/login.js}" ></script>
+    <script type="text/javascript" th:src="@{dist/js/i18n.js}" ></script>
+    
+    <div th:if="${error == 'email'}" class="error-message" th:text="#{register.email.error}"></div>
+    <div th:if="${error == 'password'}" class="error-message" th:text="#{register.password.error}"></div>
 
-    <p style="color: red" th:if="@{error}" th:text="${error}"></p>
+    <div class="form-container flex-row" style="width:900px;">
+        <div class="d-flex flex-column align-items-center justify-content-between pb-4" style="flex:5; height: 100%;">
+            <h2 class="mb-4 text-center" th:text="#{login.register}"></h2>
+            <div class="logo-container mb-4">
+                <img th:src="@{dist/img/logo.png}" alt="letsjam logo">
+            </div>
+            <div class="internationalization justify-content-center">
+                <p class="lang" style="display: none;" th:text="${#locale}"></p>
+                <img class="flag-container" th:if="${#locale.toString() == 'it'}" th:src="@{dist/img/i18n/it-flag.png}" alt="it">
+                <img class="flag-container" th:if="${#locale.toString() == 'en'}" th:src="@{dist/img/i18n/uk-flag.png}" alt="en">
+            </div>
+            <a href="/login" class="mt-2" style="font-size: 16px;" th:text="#{login.login}"></a>
+        </div>
+        
+        <form th:action="@{/register}" method="post" th:object="${utente}"  style="width: 90%;flex:7;">
+            
+            <div class="input-container mb-3">
+                <label class="mb-1" th:text="#{common.firstname}"></label>
+                <input type="text" th:field="*{firstname}" th:placeholder="#{register.firstname.placeholder}"/>
+            </div>
 
-    <form th:action="@{/register}" method="post" th:object="${utente}">
-        <div><label> First Name : <input type="text" th:field="*{firstname}"/> </label></div>
-        <div><label> Last Name : <input type="text" th:field="*{lastname}"/> </label></div>
-        <div><label> Email : <input type="text" th:field="*{email}"/> </label></div>
-        <div><label> User Name : <input type="text" th:field="*{username}"/> </label></div>
-        <div><label> Password: <input type="password" th:field="*{password}"/> </label></div>
-        <div><input type="submit" value="Sign In"/></div>
-    </form>
+            <div class="input-container mb-3">
+                <label class="mb-1" th:text="#{common.lastname}"></label>
+                <input type="text" th:field="*{lastname}" th:placeholder="#{register.lastname.placeholder}"/>
+            </div>
+
+            <div class="input-container mb-3">
+                <label class="mb-1">Username</label>
+                <input type="text" th:field="*{username}" th:placeholder="#{register.username.placeholder}"/>
+            </div>
+
+            <div class="input-container mb-3">
+                <label class="mb-1"> Email </label>
+                <input type="text" name="email" th:placeholder="#{login.email.placeholder}"/>
+            </div>
+
+            <div class="input-container mb-3">
+                <label class="mb-1"> Password </label>
+                <input type="password" name="password" th:placeholder="#{login.password.placeholder}"/>
+            </div>
+            <div class="input-container mb-3 align-items-center">
+                <div class="button wow fadeInUp" data-wow-delay=".7s" style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp;">
+                    <a class="btn" th:text="#{login.register}"></a>
+                </div>
+            </div>
+        </form>
+        
+    </div>
 </body>
 </html>

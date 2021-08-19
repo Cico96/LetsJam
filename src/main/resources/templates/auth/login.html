@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
-        <title>Login - Let's Jam </title>
+        <title th:text="#{login.login}+' - Let\'s Jam'"></title>
     </head>
     <body>
         <th:block layout:fragment="css">
@@ -33,7 +33,7 @@
 
                 <div class="input-container mb-3">
                     <label class="mb-1"> Password </label>
-                    <input type="password" name="password" th:placeholder="#{login.email.placeholder}"/>
+                    <input type="password" name="password" th:placeholder="#{login.password.placeholder}"/>
                 </div>
                 <div class="input-container mb-3 align-items-center">
                     <div class="button wow fadeInUp" data-wow-delay=".7s" style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp;">
