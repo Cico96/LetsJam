@@ -16,7 +16,7 @@ window.addEventListener('load', (event) => {
         }
         else{
             let newUrl;
-            if(window.location.href.search("\\?")){
+            if(window.location.href.search("\\?") > 0){
                 newUrl = window.location.href+"&lang="+toReplace;
             }
             else{
