@@ -1,4 +1,9 @@
-//Script per la gestione del cambio di lingua
+/*
+Script per la gestione del cambio di lingua
+Richiede che nella pagina siano presenti:
+1 elemento con classe "lang" che abbia come innerText il valore del locale corrente
+almeno 1 elemento con classe "flag-container" che rappresenti la bandiera
+*/
 window.addEventListener('load', (event) => {
     let locale = document.querySelector('.lang');
     locale = locale.innerText;
