@@ -59,7 +59,7 @@ input:focus{
 }
 
 .warning-message{
-    background: #e899077a;
+    background: #e89907a1;
     padding: 1em;
     width: 500px;
     margin-top: -30px;
@@ -94,4 +94,8 @@ input:focus{
     display: flex;
     width: 100%;
     justify-content: flex-end;
+}
+
+label{
+    font-weight: 500;
 }
