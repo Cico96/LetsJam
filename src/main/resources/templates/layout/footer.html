@@ -13,9 +13,11 @@
 	                        <!-- Single Widget -->
 	                        <div class="f-about single-footer">
 	                            <div class="logo">
-	                                <a href="index.html"><img src="assets/images/logo/footer-logo.svg" alt="Logo"></a>
+	                                <a href="index.html">
+	                                	<img src="assets/images/logo/footer-logo.svg" th:src="@{/dist/img/logow.png}" alt="LETS FUCKING JAM">
+	                                </a>
 	                            </div>
-	                            <p>Start building your creative website with our awesome template Massive.</p>
+	                            <p th:text="#{footer.logoDescription}"/>
 	                            <div class="footer-social">
 	                                <ul>
 	                                    <li><a href="#"><i class="lni lni-instagram"></i></a></li>
