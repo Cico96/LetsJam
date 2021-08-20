@@ -53,6 +53,10 @@ public class CustomUserDetails implements UserDetails{
     public Long getId(){
         return utente.getId();
     }
+    
+	public Utente getUtente() {
+		return utente;
+	}
 
     @Override
     public String toString(){
