@@ -6,3 +6,4 @@
 target/
 .vscode
 src/main/resources/config/application-dev.yml
+.idea

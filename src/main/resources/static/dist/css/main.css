@@ -3842,9 +3842,14 @@ blockquote span {
   text-transform: capitalize;
   margin-bottom: 30px;
   font-weight: 500;
-  border-left: 3px solid #3763EB;
+  /*border-left: 3px solid #3763EB;*/
   padding-left: 10px;
   padding-top: 3px;
+}
+.footer .single-footer p.name {
+  color: white;
+  border-left: 3px solid #3763EB;
+  padding-left: 10px;
 }
 
 .footer .f-link ul li {
