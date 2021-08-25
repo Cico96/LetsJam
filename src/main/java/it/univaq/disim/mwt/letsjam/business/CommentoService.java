@@ -13,5 +13,4 @@ public interface CommentoService {
 	
 	void update(Commento commento) throws BusinessException;
 	
-	void save(Commento commento) throws BusinessException;
 }

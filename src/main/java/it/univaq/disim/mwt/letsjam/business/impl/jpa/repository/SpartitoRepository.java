@@ -12,8 +12,6 @@ public interface SpartitoRepository extends JpaRepository<Spartito, Long>{
     
     Spartito findSpartitoByTitolo(String titolo);
     
-//    Spartito findSpartitoByContenuto(String contenuto);
-    
     Spartito findSpartitoByVerificato(String titolo);
     
     void deleteSpartitoById(Long id);

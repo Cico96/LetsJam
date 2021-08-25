@@ -10,5 +10,4 @@ public interface GenereService {
 	
 	Genere findGenereByNome(String nome) throws BusinessException;
 	
-	void save(Genere genere) throws BusinessException;
 }
