@@ -1,12 +1,13 @@
 package it.univaq.disim.mwt.letsjam.business.impl.jpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import it.univaq.disim.mwt.letsjam.business.BranoService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.BranoRepository;
 import it.univaq.disim.mwt.letsjam.domain.Brano;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
-
+@Service
 public class BranoServiceImpl implements BranoService {
 	@Autowired
 	private BranoRepository branoRepository;

@@ -10,7 +10,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface SpartitoRepository extends JpaRepository<Spartito, Long>{
     
-    Spartito findSpartitoByTitolo(String titolo);
+    Spartito findSpartitoById(Long id);
+    
+	Spartito findSpartitoByTitolo(String titolo);
     
     Spartito findSpartitoByVerificato(String titolo);
     

@@ -22,6 +22,7 @@ public class SpartitoServiceImpl implements SpartitoService {
     @Autowired
     private SpartitoDataRepository spartitoDataRepository;
     
+    @Override
     public Spartito findSpartitoById(Long id) throws BusinessException {
 
         SpartitoData data = spartitoDataRepository.findById(id.toString()).get();
