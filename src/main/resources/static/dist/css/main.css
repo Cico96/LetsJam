@@ -3842,9 +3842,17 @@ blockquote span {
   text-transform: capitalize;
   margin-bottom: 30px;
   font-weight: 500;
-  border-left: 3px solid #3763EB;
   padding-left: 10px;
   padding-top: 3px;
+}
+.footer .single-footer p.name {
+  color: white;
+  border-left: 3px solid #3763EB;
+  padding-left: 10px;
+}
+.footer .single-footer div.name-wrap {
+  display: flex;
+  justify-content: space-around
 }
 
 .footer .f-link ul li {
@@ -4297,9 +4305,9 @@ blockquote span {
     padding-bottom: 60px;
     padding-top: 30px;
   }
-  .footer .f-about p {
-    padding-right: 80px;
-  }
+  /*.footer .f-about p {*/
+  /*  padding-right: 80px;*/
+  /*}*/
   .footer .single-footer {
     margin-top: 30px;
   }
@@ -4773,9 +4781,9 @@ blockquote span {
     padding-bottom: 60px;
     padding-top: 30px;
   }
-  .footer .f-about p {
-    padding-right: 80px;
-  }
+  /*.footer .f-about p {*/
+  /*  padding-right: 80px;*/
+  /*}*/
   .footer .single-footer {
     margin-top: 30px;
   }
