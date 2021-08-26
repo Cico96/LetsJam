@@ -49,22 +49,13 @@ public class DummyController {
         if(principal !=null){
             Utente utente = utenteService.findUtenteByUsername(principal.getName());
             model.addAttribute("utente", utente);
-//            long id = 1;
-//            Utente prova = utenteService.findUtenteById(id);
-//    		//Spartito spartito = new Spartito();
-//            String titolo = "Vino Tosto";
-//            Spartito spartito = spartitoService.findSpartitoByTitolo(titolo);
-//    		utenteService.insert(prova);
-//    		spartitoService.insert(spartito);
-//    		String contenuto = "Commento prova prova";
-//    		String com = "commento a cazzo";
-//    		Commento risposta = new Commento();
-//    		Commento commento = new Commento();
-//    		commento.setContenuto(com);
-//    		risposta.setContenuto(contenuto);
-//    		commentoService.addRisposta(risposta, id, contenuto);
-    		//commentoService.update(commento);
-    		model.addAttribute("name", utente);
+    		//model.addAttribute("name", utente);
+    		Commento commento = new Commento();
+    		commentoService.update(commento);
+    		String contenuto = "risposta";
+    		long id_utente = 14;
+    		commentoService.addRisposta(commento,id_utente,contenuto);
+    		model.addAttribute("name", commento.getContenuto());
         }
         return "home/home";
     }
