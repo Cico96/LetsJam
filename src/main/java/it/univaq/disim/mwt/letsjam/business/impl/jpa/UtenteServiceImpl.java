@@ -23,7 +23,7 @@ public class UtenteServiceImpl implements UtenteService {
 	
 	@Override
 	public Utente findUtenteById(Long id) throws BusinessException {
-		return utenteRepository.findById(id).get();
+		return utenteRepository.findUtenteById(id);
 		}
 	
 	@Override

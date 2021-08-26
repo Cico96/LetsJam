@@ -18,10 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import it.univaq.disim.mwt.letsjam.business.CommentoService;
 import it.univaq.disim.mwt.letsjam.business.GenereService;
 import it.univaq.disim.mwt.letsjam.business.SpartitoService;
 import it.univaq.disim.mwt.letsjam.business.UtenteService;
+import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.CommentoRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UtenteRepository;
+import it.univaq.disim.mwt.letsjam.domain.Commento;
 import it.univaq.disim.mwt.letsjam.domain.Spartito;
 import it.univaq.disim.mwt.letsjam.domain.SpartitoData;
 import it.univaq.disim.mwt.letsjam.domain.Utente;
@@ -37,6 +40,8 @@ public class DummyController {
 	private GenereService genereService;
 	@Autowired
 	private SpartitoService spartitoService;
+	@Autowired
+	private CommentoService commentoService;
 	
     @GetMapping("/home")
     public String home(Model model, Principal principal){
@@ -44,7 +49,22 @@ public class DummyController {
         if(principal !=null){
             Utente utente = utenteService.findUtenteByUsername(principal.getName());
             model.addAttribute("utente", utente);
-            model.addAttribute("name", utente.getFirstname()+" "+utente.getLastname());
+//            long id = 1;
+//            Utente prova = utenteService.findUtenteById(id);
+//    		//Spartito spartito = new Spartito();
+//            String titolo = "Vino Tosto";
+//            Spartito spartito = spartitoService.findSpartitoByTitolo(titolo);
+//    		utenteService.insert(prova);
+//    		spartitoService.insert(spartito);
+//    		String contenuto = "Commento prova prova";
+//    		String com = "commento a cazzo";
+//    		Commento risposta = new Commento();
+//    		Commento commento = new Commento();
+//    		commento.setContenuto(com);
+//    		risposta.setContenuto(contenuto);
+//    		commentoService.addRisposta(risposta, id, contenuto);
+    		//commentoService.update(commento);
+    		model.addAttribute("name", utente);
         }
         return "home/home";
     }
@@ -54,7 +74,7 @@ public class DummyController {
         return new RedirectView("home");
     }
 //	@GetMapping("/")
-//    public String home(@RequestParam(name="id", defaultValue="1") Long id, Model model){
+//    public String home(@RequestParam(name="contenuto", defaultValue="Commento prova")String contenuto, Model model){
 //    	 Utente utente = new Utente();
 //    	 utente.setUsername("Achille lu tost3");
 //    	 Genere genere = new Genere();
@@ -62,6 +82,9 @@ public class DummyController {
 //    	 genereService.save(genere);
 //    	 utenteService.update(utente, genere);
 //         model.addAttribute("name", utente.getGeneriPreferiti().iterator().next().getNome());
+		
+		//Commento commento = new Commento();
+		
 //        return "home/home";
 //    }
     

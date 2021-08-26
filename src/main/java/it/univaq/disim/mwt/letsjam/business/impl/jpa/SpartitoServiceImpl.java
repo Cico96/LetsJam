@@ -1,7 +1,5 @@
 package it.univaq.disim.mwt.letsjam.business.impl.jpa;
 
-import java.util.Optional;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +22,7 @@ public class SpartitoServiceImpl implements SpartitoService {
     @Autowired
     private SpartitoDataRepository spartitoDataRepository;
     
+    @Override
     public Spartito findSpartitoById(Long id) throws BusinessException {
 
         SpartitoData data = spartitoDataRepository.findById(id.toString()).get();
@@ -44,42 +43,41 @@ public class SpartitoServiceImpl implements SpartitoService {
 	@Override
 	public Spartito findSpartitoByTitolo(String titolo) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return spartitoRepository.findSpartitoByTitolo(titolo);
 	}
 
-	@Override
-	public Spartito findSpartitoByContento(String contenuto) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public Spartito findSpartitoByContenuto(String contenuto) throws BusinessException {
+//		// tablature o spartiti
+//		return null;
+//	}
 
 	@Override
 	public Spartito findSpartitoByVerificato(String titolo) throws BusinessException {
 		// TODO Auto-generated method stub
+		Spartito spartito = spartitoRepository.findSpartitoByTitolo(titolo);
+		if(spartito.getVerificato()) {
+			return spartito;
+		}
 		return null;
 	}
 
 	@Override
 	public void update(Spartito spartito) throws BusinessException {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void deleteSpartitoById(Long id) throws BusinessException {
 		// TODO Auto-generated method stub
+		spartitoRepository.deleteById(id);
 		
 	}
 
 	@Override
 	public Spartito insert(Spartito spartito) throws BusinessException {
 		// TODO Auto-generated method stub
-		return null;
+		return spartitoRepository.save(spartito);
 	}
 
-	@Override
-	public void save(Spartito spartito) throws BusinessException {
-		// TODO Auto-generated method stub
-		
-	}
 }

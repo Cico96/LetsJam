@@ -11,7 +11,7 @@ public interface SpartitoService {
 	
 	Spartito findSpartitoByTitolo(String titolo) throws BusinessException;
 	
-	Spartito findSpartitoByContento (String contenuto) throws BusinessException;
+//	Spartito findSpartitoByContenuto (String contenuto) throws BusinessException;
 	
 	Spartito findSpartitoByVerificato(String titolo) throws BusinessException;
 	
@@ -23,7 +23,4 @@ public interface SpartitoService {
 	
 	Spartito insert(Spartito spartito) throws BusinessException;
 	
-	void save(Spartito spartito) throws BusinessException;
-	
-	//metodo insert e update hanno bisogno di un id utente?
 }

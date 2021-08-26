@@ -10,7 +10,7 @@ import it.univaq.disim.mwt.letsjam.domain.Utente;
 @Repository
 public interface UtenteRepository extends JpaRepository<Utente, Long> {
 	
-	Optional<Utente> findById(Long id);
+	Utente findUtenteById(Long id);
 	
 	Utente findByUsername(String username);
 
