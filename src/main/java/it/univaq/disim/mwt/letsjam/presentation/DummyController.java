@@ -45,26 +45,13 @@ public class DummyController {
 	
     @GetMapping("/home")
     public String home(Model model, Principal principal){
-        model.addAttribute("name", "Chicco");
+        Spartito spartito = spartitoService.findSpartitoById((long)1);
+        Utente u = spartito.getUtente();
+        model.addAttribute("spartito", spartito);
+        model.addAttribute("name", u.getFirstname());
         if(principal !=null){
-            Utente utente = utenteService.findUtenteByUsername(principal.getName());
-            model.addAttribute("utente", utente);
-//            long id = 1;
-//            Utente prova = utenteService.findUtenteById(id);
-//    		//Spartito spartito = new Spartito();
-//            String titolo = "Vino Tosto";
-//            Spartito spartito = spartitoService.findSpartitoByTitolo(titolo);
-//    		utenteService.insert(prova);
-//    		spartitoService.insert(spartito);
-//    		String contenuto = "Commento prova prova";
-//    		String com = "commento a cazzo";
-//    		Commento risposta = new Commento();
-//    		Commento commento = new Commento();
-//    		commento.setContenuto(com);
-//    		risposta.setContenuto(contenuto);
-//    		commentoService.addRisposta(risposta, id, contenuto);
-    		//commentoService.update(commento);
-    		model.addAttribute("name", utente);
+            //Utente utente = utenteService.findUtenteByUsername(principal.getName());
+            //model.addAttribute("utente", utente);
         }
         return "home/home";
     }

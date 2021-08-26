@@ -1,3 +1,147 @@
-.test p{
-    color: red;
+.musicsheet-card{
+    padding: 40px 30px;
+    background-color: #f6f9fc;
+    border-radius: 10px;
+    position: relative;
+    z-index: 2;
+    transition: all 0.4s ease;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
 }
+
+.musicsheet-card:hover h3{
+    color: white;
+}
+
+.musicsheet-card .icon{
+    background-color: #3763EB;
+    display: inline-block;
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
+    text-align: center;
+    border-radius: 60px 60px 60px 0;
+    font-size: 25px;
+    margin: 20px 0;
+    position: relative;
+    transition: all 0.4s ease;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+}
+
+.musicsheet-card .icon i{
+    color: #fff;
+    transition: all 0.4s ease;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+}
+
+.musicsheet-card p{
+    font-size: 13px;
+    margin-top: 25px;
+    transition: all 0.4s ease;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+}
+
+.musicsheet-card::before{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #3763EB;
+    content: "";
+    z-index: -1;
+    border-radius: 10px;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: all 0.4s cubic-bezier(0.94, 0.05, 0.23, 1.04);
+    transition: all 0.4s cubic-bezier(0.94, 0.05, 0.23, 1.04);
+    -moz-transition: all 0.4s cubic-bezier(0.94, 0.05, 0.23, 1.04);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.musicsheet-card .icon ::after {
+    position: absolute;
+    left: 0;
+    bottom: -25px;
+    height: 2px;
+    width: 30px;
+    background-color: #3763EB;
+    content: "";
+    transition: all 0.4s ease;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    border-radius: 3px;
+}
+
+.musicsheet-card p{
+    font-size: 18px;
+}
+
+.musicsheet-card:hover::before {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+  }
+  
+  .musicsheet-card:hover h3 a {
+    color: #fff;
+  }
+  
+  .musicsheet-card:hover p {
+    color: #fff;
+  }
+  
+  .musicsheet-card:hover .icon {
+    background-color: #fff;
+  }
+  
+  .musicsheet-card:hover .icon ::after {
+    background-color: #fff;
+    width: 50px;
+  }
+  
+  .musicsheet-card:hover .icon i {
+    color: #3763EB;
+  }
+
+  .musicsheet-card .avatar{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: #3763EB;
+  }
+
+  .musicsheet-card span{
+      font-weight: 600;
+      margin-right: 10px;
+      color: #3763EB;
+  }
+
+  .musicsheet-card:hover span{
+    color: white;
+  }
+
+  .musicsheet-card:hover{
+      cursor: pointer;
+  }
+
+.interaction-container .icon{
+    height: 40px;
+    width: 40px;
+    margin: 0;
+}
+
+.interaction-container .icon i::after{
+    display: none;
+}
+
+.icon img{
+    width: 70%; 
+    height: 70%;
+}
+

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
@@ -23,8 +24,8 @@ import lombok.Setter;
 @Setter
 public class Commento extends AbstractPersistableEntity{
 	
-	@NotEmpty(groups ={OnCreate.class, Default.class})
 	@Size(min = 3, max = 500, groups = {OnCreate.class, OnUpdate.class, Default.class})
+	@NotNull
 	private String contenuto;
 	
 	@OneToOne
