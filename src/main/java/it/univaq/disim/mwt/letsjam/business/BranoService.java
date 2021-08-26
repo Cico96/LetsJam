@@ -10,5 +10,4 @@ public interface BranoService {
 	Brano findBranoByTitolo(String titolo) throws BusinessException;
 	
 	Brano findBranoByAutore(String autore) throws BusinessException;
-	//commento a cazzo di cane
 }
