@@ -13,6 +13,16 @@
     color: white;
 }
 
+.round{
+  border-radius: 50% !important;
+}
+
+.round svg{
+  margin-top: -20px;
+  width: 50% !important;
+  height: 50% !important;
+}
+
 .musicsheet-card .icon{
     background-color: #3763EB;
     display: inline-block;
@@ -81,6 +91,21 @@
     font-size: 18px;
 }
 
+.musicsheet-card .avatar{
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  background-color: #3763EB;
+}
+
+.musicsheet-card span{
+    font-weight: 600;
+    margin-right: 10px;
+    color: #3763EB;
+}
+
+/** ---- HOVER --- **/
+
 .musicsheet-card:hover::before {
     opacity: 1;
     visibility: visible;
@@ -109,19 +134,6 @@
     color: #3763EB;
   }
 
-  .musicsheet-card .avatar{
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    background-color: #3763EB;
-  }
-
-  .musicsheet-card span{
-      font-weight: 600;
-      margin-right: 10px;
-      color: #3763EB;
-  }
-
   .musicsheet-card:hover span{
     color: white;
   }
@@ -129,6 +141,12 @@
   .musicsheet-card:hover{
       cursor: pointer;
   }
+
+  .musicsheet-card:hover svg{
+    fill: #3763EB;
+  }
+
+/** ---- END HOVER --- **/
 
 .interaction-container .icon{
     height: 40px;
@@ -141,7 +159,14 @@
 }
 
 .icon img{
-    width: 70%; 
-    height: 70%;
+  width: 70%; 
+  height: 70%;
 }
+
+.icon svg{
+  width: 70%; 
+  height: 70%;
+  fill: white;
+}
+
 

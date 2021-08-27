@@ -9,10 +9,12 @@ layout:decorate="~{layout/layout}">
             <div class="d-flex flex-row align-items-center justify-content-between">
                 <h3 th:text="${spartito.titolo}"></h3>
                 <div class="d-flex flex-row align-items-center justify-content-between interaction-container" style="gap: 10px;">
-                    <div class="icon">
+                    <div class="icon round">
+                        <svg th:replace="fragments/icons :: like"></svg>
                         <i></i>
                     </div>
-                    <div class="icon">
+                    <div class="icon round">
+                        <svg th:replace="fragments/icons :: comment"></svg>
                         <i></i>
                     </div>
                 </div>
@@ -27,23 +29,25 @@ layout:decorate="~{layout/layout}">
                     <div class="avatar">
                         &nbsp;
                     </div>
-                    <p th:text="${spartito.utente.firstname+' '+spartito.utente.lastname}" class="mt-1"style="margin:0"></p>
+                    <p th:text="${spartito.utente.username}" class="mt-1"style="margin:0; text-transform: capitalize;"></p>
                 </div>
                 </div>
                 <div class="d-flex flex-row align-items-center justify-content-end" style="gap:20px">
                     <div class="icon">
-                        <img th:src="@{dist/img/instruments-icons/drums.png}"></img>
+                            <svg th:replace="fragments/icons :: drums"></svg>
+                            <i></i>
+                    </div>
+                    <div class="icon">
+                        <svg th:replace="fragments/icons :: guitar"></svg>
                         <i></i>
                     </div>
-
                     <div class="icon">
-                        <i class="lni lni-microscope"></i>
+                        <svg th:replace="fragments/icons :: piano"></svg>
+                        <i></i>
                     </div>
                     <div class="icon">
-                        <i class="lni lni-microscope"></i>
-                    </div>
-                    <div class="icon">
-                        <i class="lni lni-microscope"></i>
+                        <svg th:replace="fragments/icons :: violin"></svg>
+                        <i></i>
                     </div>
                 </div>
             </div>

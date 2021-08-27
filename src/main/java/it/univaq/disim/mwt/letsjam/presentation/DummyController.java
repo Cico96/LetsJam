@@ -46,12 +46,11 @@ public class DummyController {
     @GetMapping("/home")
     public String home(Model model, Principal principal){
         Spartito spartito = spartitoService.findSpartitoById((long)1);
-        Utente u = spartito.getUtente();
         model.addAttribute("spartito", spartito);
-        model.addAttribute("name", u.getFirstname());
+        model.addAttribute("name", "Chicco");
         if(principal !=null){
-            //Utente utente = utenteService.findUtenteByUsername(principal.getName());
-            //model.addAttribute("utente", utente);
+            Utente utente = utenteService.findUtenteByUsername(principal.getName());
+            model.addAttribute("utente", utente);
         }
         return "home/home";
     }
