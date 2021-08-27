@@ -24,11 +24,14 @@ public class SpartitoServiceImpl implements SpartitoService {
     
     @Override
     public Spartito findSpartitoById(Long id) throws BusinessException {
-
-        SpartitoData data = spartitoDataRepository.findById(id.toString()).get();
 		Spartito spartito = spartitoRepository.findById(id).get();
-        spartito.setData(data);
         return spartito;
+	}
+	
+	@Override
+	public SpartitoData getSpartitoData(Long id) throws BusinessException{
+		SpartitoData data = spartitoDataRepository.findById(id.toString()).get();
+		return data;
 	}
     
     @Override
