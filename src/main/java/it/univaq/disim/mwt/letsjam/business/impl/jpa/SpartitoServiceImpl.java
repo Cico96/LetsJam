@@ -3,14 +3,22 @@ package it.univaq.disim.mwt.letsjam.business.impl.jpa;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import it.univaq.disim.mwt.letsjam.business.SpartitoService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SpartitoDataRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SpartitoRepository;
 import it.univaq.disim.mwt.letsjam.domain.Spartito;
+import it.univaq.disim.mwt.letsjam.domain.Genere;
 import it.univaq.disim.mwt.letsjam.domain.SpartitoData;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -27,7 +35,7 @@ public class SpartitoServiceImpl implements SpartitoService {
 		Spartito spartito = spartitoRepository.findById(id).get();
         return spartito;
 	}
-	
+
 	@Override
 	public SpartitoData getSpartitoData(Long id) throws BusinessException{
 		SpartitoData data = spartitoDataRepository.findById(id.toString()).get();
@@ -81,6 +89,16 @@ public class SpartitoServiceImpl implements SpartitoService {
 	public Spartito insert(Spartito spartito) throws BusinessException {
 		// TODO Auto-generated method stub
 		return spartitoRepository.save(spartito);
+	}
+
+	public Set<Spartito> getSpartitiFromGenere(Genere g) throws BusinessException{
+		return null;
+	}
+
+	@Override
+	public List<Spartito> getMostPopularMusicSheets() throws BusinessException{
+		Page<Spartito> spartiti = spartitoRepository.getMostPopularMusicSheets(PageRequest.of(0, 5));
+		return spartiti.toList();
 	}
 
 }

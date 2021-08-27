@@ -4,6 +4,9 @@ import it.univaq.disim.mwt.letsjam.domain.Spartito;
 import it.univaq.disim.mwt.letsjam.domain.SpartitoData;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
+import java.util.List;
+import java.util.Set;
+
 public interface SpartitoService {
 	
 	Spartito addSpartito(Spartito spartito) throws BusinessException;
@@ -26,4 +29,5 @@ public interface SpartitoService {
 	
 	Spartito insert(Spartito spartito) throws BusinessException;
 	
+	List<Spartito> getMostPopularMusicSheets() throws BusinessException;
 }

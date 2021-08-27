@@ -38,52 +38,11 @@
                         <p class="wow fadeInUp" data-wow-delay=".6s">Crea le tue varianti delle canzoni scrite da te nel nostro editor.
                             Condividi e collabora con migliaia di altri artisti di ogni provenienza uniti soltanto dalla musica.</p>
                     </div>
-                    
+
+                    <div th:each="spartito : ${mostpopular}">
                         <div th:replace="fragments/musicSheetCard :: musicSheetCard(spartito = ${spartito})"></div>
-                    
-                    
-                </div>
-            </div>
-            <div class="single-head">
-                <img class="service-patern wow fadeInLeft" data-wow-delay=".5s"
-                    src="assets/images/service/service-patern.png" alt="#">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <div class="single-service wow fadeInUp" data-wow-delay=".2s">
-                            <h3><a href="service-single.html">Esplora, Scopri e consulta spartiti musicali</a></h3>
-                            <div class="icon">
-                                <i class="lni lni-microscope"></i>
-                            </div>
-                            <p>Discover, Explore & Understanding The Product</p>
-                        </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <div class="single-service wow fadeInUp" data-wow-delay=".4s">
-                            <h3><a href="service-single.html">Crea e condividi i tuoi spartiti</a></h3>
-                            <div class="icon">
-                                <i class="lni lni-blackboard"></i>
-                            </div>
-                            <p>Art Direction & Brand Communication</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <div class="single-service wow fadeInUp" data-wow-delay=".6s">
-                            <h3><a href="service-single.html">Collabora e sprizza le tue frezze nella zizza</a></h3>
-                            <div class="icon">
-                                <i class="lni lni-ux"></i>
-                            </div>
-                            <p>Digital Product UX, Design & Development</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <div class="single-service wow fadeInUp" data-wow-delay=".8s">
-                            <h3><a href="service-single.html">Chatta e tieniti in coontatto con i tuoi colleghi</a></h3>
-                            <div class="icon">
-                                <i class="lni lni-graph"></i>
-                            </div>
-                            <p>Marketing Strategy & SEO Campaigns</p>
-                        </div>
-                    </div>
+                        
                 </div>
             </div>
         </div>

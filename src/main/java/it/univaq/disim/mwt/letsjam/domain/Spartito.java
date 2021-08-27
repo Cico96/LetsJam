@@ -49,7 +49,7 @@ public class Spartito extends AbstractPersistableEntity{
 	@OneToOne
 	private Utente utente;
 	
-	@ManyToMany(mappedBy = "likedSpartiti")
+	@ManyToMany(mappedBy = "likedSpartiti", fetch = FetchType.EAGER)
 	@Basic(fetch = FetchType.LAZY)
 	private Set<Utente> likes = new HashSet<>();
 	

@@ -6,7 +6,7 @@ layout:decorate="~{layout/layout}">
     <div th:fragment="musicSheetCard (spartito)" th:remove="tag">
         <div class="musicsheet-card wow fadeInUp mb-4" data-wow-delay=".2s">
             
-            <div class="d-flex flex-row align-items-center justify-content-between">
+            <div class="d-flex flex-row align-items-center justify-content-between mb-4">
                 <h3 th:text="${spartito.titolo}"></h3>
                 <div class="d-flex flex-row align-items-center justify-content-between interaction-container" style="gap: 10px;">
                     <div class="icon round">
@@ -22,9 +22,9 @@ layout:decorate="~{layout/layout}">
             <div class="d-flex flex-row align-items-center justify-content-between">
                 <div class="d-flex flex-column align-items-start justify-content-between">
                     
-                <p th:if="${spartito.brano}" th:text="${spartito.brano.titolo}" style="margin:0"></p>
-                <p th:unless="${spartito.brano}" ><span>Brano: </span>Inedito</p>
-                <p><span>Genere: </span>Rock n Roll</p>
+                <p th:if="${spartito.brano}" th:inline="text"style="margin:0"><span>Brano: </span> [[${spartito.brano.autore+' - '+spartito.brano.titolo}]]</p>
+                <p th:unless="${spartito.brano}"><span>Brano: </span>Inedito</p>
+                <p th:inline="text"><span>Genere: </span>[[${spartito.brano.genere.nome}]]</p>
                 <div class="d-flex align-items-center justify-content-between mt-4" style="gap:10px;">
                     <div class="avatar">
                         &nbsp;

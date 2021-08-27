@@ -5,6 +5,9 @@ import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,13 +20,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
-
+import java.util.Set;
+import java.util.Iterator;
+import java.util.List;
 import it.univaq.disim.mwt.letsjam.business.CommentoService;
 import it.univaq.disim.mwt.letsjam.business.GenereService;
 import it.univaq.disim.mwt.letsjam.business.SpartitoService;
 import it.univaq.disim.mwt.letsjam.business.UtenteService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.CommentoRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UtenteRepository;
+import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SpartitoRepository;
 import it.univaq.disim.mwt.letsjam.domain.Commento;
 import it.univaq.disim.mwt.letsjam.domain.Spartito;
 import it.univaq.disim.mwt.letsjam.domain.SpartitoData;
@@ -40,14 +46,27 @@ public class DummyController {
 	private GenereService genereService;
 	@Autowired
 	private SpartitoService spartitoService;
+    @Autowired
+	private SpartitoRepository spartitoRepository;
 	@Autowired
 	private CommentoService commentoService;
 	
     @GetMapping("/home")
     public String home(Model model, Principal principal){
-        Spartito spartito = spartitoService.findSpartitoById((long)1);
+        Spartito spartito = spartitoService.findSpartitoById((long)5);
         model.addAttribute("spartito", spartito);
         model.addAttribute("name", "Chicco");
+        
+        List<Spartito> spartiti = spartitoService.getMostPopularMusicSheets();
+
+        Iterator<Spartito> it = spartiti.iterator();
+        for(int i = 0; i < spartiti.size(); i++){
+            Spartito s = it.next();
+            System.out.println(s.getTitolo()+" "+s.getLikes().size());
+        }
+
+        model.addAttribute("mostpopular", spartiti);
+
         if(principal !=null){
             Utente utente = utenteService.findUtenteByUsername(principal.getName());
             model.addAttribute("utente", utente);
