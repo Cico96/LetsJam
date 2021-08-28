@@ -48,9 +48,9 @@ public class MusicSheetServiceImpl implements MusicSheetService {
     }
 
 	@Override
-	public MusicSheet findMusicSheetByTitol(String titol) throws BusinessException {
+	public MusicSheet findMusicSheetByTitle(String title) throws BusinessException {
 		// TODO Auto-generated method stub
-		return musicSheetRepository.findMusicSheetByTitle(titol);
+		return musicSheetRepository.findMusicSheetByTitle(title);
 	}
 
 //	@Override
@@ -60,9 +60,9 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 //	}
 
 	@Override
-	public MusicSheet findMusicSheetVerified(String titol) throws BusinessException {
+	public MusicSheet findMusicSheetVerified(String title) throws BusinessException {
 		// TODO Auto-generated method stub
-		MusicSheet musicSheet = musicSheetRepository.findMusicSheetByTitle(titol);
+		MusicSheet musicSheet = musicSheetRepository.findMusicSheetByTitle(title);
 		if(musicSheet.getVerified()) {
 			return musicSheet;
 		}

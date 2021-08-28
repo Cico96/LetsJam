@@ -15,11 +15,11 @@ public interface MusicSheetService {
 
 	MusicSheet findMusicSheetById(Long id) throws BusinessException;
 	
-	MusicSheet findMusicSheetByTitol(String titol) throws BusinessException;
+	MusicSheet findMusicSheetByTitle(String title) throws BusinessException;
 	
 //	Spartito findMusicSheetByContent (String content) throws BusinessException;
 	
-	MusicSheet findMusicSheetVerified(String titol) throws BusinessException;
+	MusicSheet findMusicSheetVerified(String title) throws BusinessException;
 	
 	//void addLike(Spartito spartito, Long id_utente) throws BusinessException;
 	
