@@ -8,16 +8,16 @@ import it.univaq.disim.mwt.letsjam.domain.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 	
-	User findUtenteById(Long id);
+	User findUserById(Long id);
 	
-	User findByUsername(String username);
+	User findUserByUsername(String username);
 
-	User findByEmail(String email);
+	User findUserByEmail(String email);
 	
-	boolean existsUtenteByUsername(String username);
+	boolean existsUserByUsername(String username);
 	
-	boolean existsUtenteByEmail(String email);
+	boolean existsUserByEmail(String email);
 	
-	void deleteUtenteById(Long id);
+	void deleteUserById(Long id);
 
 }

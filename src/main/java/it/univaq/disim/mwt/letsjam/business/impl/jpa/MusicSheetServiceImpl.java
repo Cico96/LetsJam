@@ -50,7 +50,7 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 	@Override
 	public MusicSheet findMusicSheetByTitol(String titol) throws BusinessException {
 		// TODO Auto-generated method stub
-		return musicSheetRepository.findSpartitoByTitolo(titol);
+		return musicSheetRepository.findMusicSheetByTitol(titol);
 	}
 
 //	@Override
@@ -62,7 +62,7 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 	@Override
 	public MusicSheet findMusicSheetVerified(String titol) throws BusinessException {
 		// TODO Auto-generated method stub
-		MusicSheet musicSheet = musicSheetRepository.findSpartitoByTitolo(titol);
+		MusicSheet musicSheet = musicSheetRepository.findMusicSheetByTitol(titol);
 		if(musicSheet.getVerificato()) {
 			return musicSheet;
 		}

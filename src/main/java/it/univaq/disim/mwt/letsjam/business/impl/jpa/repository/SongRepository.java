@@ -6,10 +6,10 @@ import it.univaq.disim.mwt.letsjam.domain.Song;
 
 public interface SongRepository extends JpaRepository<Song, Long> {
 	
-	Song findBranoById(Long id);
+	Song findSongById(Long id);
 	
-	Song findBranoByTitolo(String titolo);
+	Song findSongByTitol(String titol);
 	
-	Song findBranoByAutore(String autore);
+	Song findSongByAuthor(String author);
 
 }

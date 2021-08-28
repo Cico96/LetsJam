@@ -6,7 +6,7 @@ import it.univaq.disim.mwt.letsjam.domain.Instrument;
 
 public interface InstrumentRepository extends JpaRepository<Instrument, Long> {
 
-	Instrument findStrumentoById(Long id);
+	Instrument findInstrumentById(Long id);
 	
-	Instrument findStrumentoByNome(String nome);
+	Instrument findInstrumentByName(String name);
 }

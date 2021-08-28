@@ -8,8 +8,8 @@ import it.univaq.disim.mwt.letsjam.domain.Genre;
 @Repository
 public interface GenreRepository extends JpaRepository<Genre,Long> {
 	
-	Genre findGenereById(Long id);
+	Genre findGenreById(Long id);
 	
-	Genre findGenereByNome(String nome);
+	Genre findGenreByName(String name);
 
 }

@@ -6,6 +6,6 @@ import it.univaq.disim.mwt.letsjam.domain.Comment;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 	
-	Comment findCommentoById(Long id);
+	Comment findCommentById(Long id);
 
 }

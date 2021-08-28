@@ -15,13 +15,13 @@ import org.springframework.data.jpa.repository.Query;
 @Repository
 public interface MusicSheetRepository extends JpaRepository<MusicSheet, Long>{
     
-    MusicSheet findSpartitoById(Long id);
+    MusicSheet findMusicSheetById(Long id);
     
-	MusicSheet findSpartitoByTitolo(String titolo);
+	MusicSheet findMusicSheetByTitol(String titol);
     
-    MusicSheet findSpartitoByVerificato(String titolo);
+    MusicSheet findMusicSheetByVerified(String titol);
     
-    void deleteSpartitoById(Long id);
+    void deleteMusicSheetById(Long id);
     
     @Query(value="SELECT s FROM MusicSheet s ORDER BY size(s.likes) DESC")
     Page<MusicSheet> getMostPopularMusicSheets(Pageable pageable);
