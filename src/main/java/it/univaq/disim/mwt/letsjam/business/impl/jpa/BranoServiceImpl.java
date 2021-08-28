@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import it.univaq.disim.mwt.letsjam.business.BranoService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.BranoRepository;
-import it.univaq.disim.mwt.letsjam.domain.Brano;
+import it.univaq.disim.mwt.letsjam.domain.Song;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 @Service
 public class BranoServiceImpl implements BranoService {
@@ -13,19 +13,19 @@ public class BranoServiceImpl implements BranoService {
 	private BranoRepository branoRepository;
 
 	@Override
-	public Brano findBranoById(Long id) throws BusinessException {
+	public Song findBranoById(Long id) throws BusinessException {
 		// TODO Auto-generated method stub
 		return branoRepository.findBranoById(id);
 	}
 
 	@Override
-	public Brano findBranoByTitolo(String titolo) throws BusinessException {
+	public Song findBranoByTitolo(String titolo) throws BusinessException {
 		// TODO Auto-generated method stub
 		return branoRepository.findBranoByTitolo(titolo);
 	}
 
 	@Override
-	public Brano findBranoByAutore(String autore) throws BusinessException {
+	public Song findBranoByAutore(String autore) throws BusinessException {
 		// TODO Auto-generated method stub
 		return branoRepository.findBranoByAutore(autore);
 	}

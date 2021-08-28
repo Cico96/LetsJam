@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import it.univaq.disim.mwt.letsjam.business.UtenteService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UtenteRepository;
-import it.univaq.disim.mwt.letsjam.domain.Genere;
-import it.univaq.disim.mwt.letsjam.domain.Spartito;
+import it.univaq.disim.mwt.letsjam.domain.Genre;
+import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 @Service
@@ -68,33 +68,33 @@ public class UtenteServiceImpl implements UtenteService {
 	}
 
 	@Override
-	public void update(User user, Genere genere) throws BusinessException {
+	public void update(User user, Genre genere) throws BusinessException {
 		user.getGeneriPreferiti().add(genere);
 		utenteRepository.save(user);
 	}
 
 	@Override
-	public void like(User user, Spartito spartito) throws BusinessException {
+	public void like(User user, MusicSheet spartito) throws BusinessException {
 		// TODO Auto-generated method stub
-		Set<Spartito> spartiti = user.getLikedSpartiti();
+		Set<MusicSheet> spartiti = user.getLikedSpartiti();
 		spartiti.add(spartito);
 		user.setLikedSpartiti(spartiti);
 		utenteRepository.save(user);
 	}
 
 	@Override
-	public void dislike(User user, Spartito spartito) throws BusinessException {
+	public void dislike(User user, MusicSheet spartito) throws BusinessException {
 		// TODO Auto-generated method stub
-		Set<Spartito> spartiti = user.getLikedSpartiti();
+		Set<MusicSheet> spartiti = user.getLikedSpartiti();
 		spartiti.remove(spartito);
 		user.setLikedSpartiti(spartiti);
 		utenteRepository.save(user);
 	}
 
 	@Override
-	public void remove(User user, Genere genere) throws BusinessException {
+	public void remove(User user, Genre genere) throws BusinessException {
 		// TODO Auto-generated method stub
-		Set<Genere> generi = user.getGeneriPreferiti();
+		Set<Genre> generi = user.getGeneriPreferiti();
 		generi.add(genere);
 		user.setGeneriPreferiti(generi);
 		utenteRepository.save(user);

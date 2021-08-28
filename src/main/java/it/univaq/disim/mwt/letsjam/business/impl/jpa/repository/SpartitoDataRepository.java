@@ -7,11 +7,11 @@ import javax.transaction.Transactional;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import it.univaq.disim.mwt.letsjam.domain.SpartitoData;
+import it.univaq.disim.mwt.letsjam.domain.MusicSheetData;
 
 
 @Repository
-public interface SpartitoDataRepository extends MongoRepository<SpartitoData, String> {
+public interface SpartitoDataRepository extends MongoRepository<MusicSheetData, String> {
     
 
 }

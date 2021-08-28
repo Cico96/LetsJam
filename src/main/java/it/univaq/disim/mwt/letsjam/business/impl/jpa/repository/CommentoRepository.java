@@ -2,10 +2,10 @@ package it.univaq.disim.mwt.letsjam.business.impl.jpa.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import it.univaq.disim.mwt.letsjam.domain.Commento;
+import it.univaq.disim.mwt.letsjam.domain.Comment;
 
-public interface CommentoRepository extends JpaRepository<Commento, Long> {
+public interface CommentoRepository extends JpaRepository<Comment, Long> {
 	
-	Commento findCommentoById(Long id);
+	Comment findCommentoById(Long id);
 
 }

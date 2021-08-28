@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import it.univaq.disim.mwt.letsjam.business.GenereService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.GenereRepository;
-import it.univaq.disim.mwt.letsjam.domain.Genere;
+import it.univaq.disim.mwt.letsjam.domain.Genre;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 @Service
@@ -15,13 +15,13 @@ public class GenereServiceImpl implements GenereService {
 	private GenereRepository genereRepository;
 	
 	@Override
-	public Genere findGenereById(Long id) throws BusinessException {
+	public Genre findGenereById(Long id) throws BusinessException {
 		// TODO Auto-generated method stub
 		return genereRepository.findGenereById(id);
 	}
 
 	@Override
-	public Genere findGenereByNome(String nome) throws BusinessException {
+	public Genre findGenereByNome(String nome) throws BusinessException {
 		// TODO Auto-generated method stub
 		return genereRepository.findGenereByNome(nome);
 	}

@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 import it.univaq.disim.mwt.letsjam.business.SpartitoService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SpartitoDataRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SpartitoRepository;
-import it.univaq.disim.mwt.letsjam.domain.Spartito;
-import it.univaq.disim.mwt.letsjam.domain.Genere;
-import it.univaq.disim.mwt.letsjam.domain.SpartitoData;
+import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
+import it.univaq.disim.mwt.letsjam.domain.Genre;
+import it.univaq.disim.mwt.letsjam.domain.MusicSheetData;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 import java.util.HashSet;
@@ -31,28 +31,28 @@ public class SpartitoServiceImpl implements SpartitoService {
     private SpartitoDataRepository spartitoDataRepository;
     
     @Override
-    public Spartito findSpartitoById(Long id) throws BusinessException {
-		Spartito spartito = spartitoRepository.findById(id).get();
+    public MusicSheet findSpartitoById(Long id) throws BusinessException {
+		MusicSheet spartito = spartitoRepository.findById(id).get();
         return spartito;
 	}
 
 	@Override
-	public SpartitoData getSpartitoData(Long id) throws BusinessException{
-		SpartitoData data = spartitoDataRepository.findById(id.toString()).get();
+	public MusicSheetData getSpartitoData(Long id) throws BusinessException{
+		MusicSheetData data = spartitoDataRepository.findById(id.toString()).get();
 		return data;
 	}
     
     @Override
-    public Spartito addSpartito(Spartito spartito) throws BusinessException{
-        Spartito s = spartitoRepository.save(spartito);
-        SpartitoData data = spartito.getData();
+    public MusicSheet addSpartito(MusicSheet spartito) throws BusinessException{
+        MusicSheet s = spartitoRepository.save(spartito);
+        MusicSheetData data = spartito.getData();
         data.setId(spartito.getId().toString());
         spartitoDataRepository.save(data);
         return spartito;
     }
 
 	@Override
-	public Spartito findSpartitoByTitolo(String titolo) throws BusinessException {
+	public MusicSheet findSpartitoByTitolo(String titolo) throws BusinessException {
 		// TODO Auto-generated method stub
 		return spartitoRepository.findSpartitoByTitolo(titolo);
 	}
@@ -64,9 +64,9 @@ public class SpartitoServiceImpl implements SpartitoService {
 //	}
 
 	@Override
-	public Spartito findSpartitoByVerificato(String titolo) throws BusinessException {
+	public MusicSheet findSpartitoByVerificato(String titolo) throws BusinessException {
 		// TODO Auto-generated method stub
-		Spartito spartito = spartitoRepository.findSpartitoByTitolo(titolo);
+		MusicSheet spartito = spartitoRepository.findSpartitoByTitolo(titolo);
 		if(spartito.getVerificato()) {
 			return spartito;
 		}
@@ -74,7 +74,7 @@ public class SpartitoServiceImpl implements SpartitoService {
 	}
 
 	@Override
-	public void update(Spartito spartito) throws BusinessException {
+	public void update(MusicSheet spartito) throws BusinessException {
 		// TODO Auto-generated method stub
 	}
 
@@ -86,24 +86,24 @@ public class SpartitoServiceImpl implements SpartitoService {
 	}
 
 	@Override
-	public Spartito insert(Spartito spartito) throws BusinessException {
+	public MusicSheet insert(MusicSheet spartito) throws BusinessException {
 		// TODO Auto-generated method stub
 		return spartitoRepository.save(spartito);
 	}
 
-	public Set<Spartito> getSpartitiFromGenere(Genere g) throws BusinessException{
+	public Set<MusicSheet> getSpartitiFromGenere(Genre g) throws BusinessException{
 		return null;
 	}
 
 	@Override
-	public List<Spartito> getMostPopularMusicSheets() throws BusinessException{
-		Page<Spartito> spartiti = spartitoRepository.getMostPopularMusicSheets(PageRequest.of(0, 5));
+	public List<MusicSheet> getMostPopularMusicSheets() throws BusinessException{
+		Page<MusicSheet> spartiti = spartitoRepository.getMostPopularMusicSheets(PageRequest.of(0, 5));
 		return spartiti.toList();
 	}
 
 	@Override
-	public List<Spartito> getLastInsertMusicSheets() throws BusinessException {
-    	Page<Spartito> spartiti = spartitoRepository.getLastInsert(PageRequest.of(0,5));
+	public List<MusicSheet> getLastInsertMusicSheets() throws BusinessException {
+    	Page<MusicSheet> spartiti = spartitoRepository.getLastInsert(PageRequest.of(0,5));
 		return spartiti.toList();
 	}
 

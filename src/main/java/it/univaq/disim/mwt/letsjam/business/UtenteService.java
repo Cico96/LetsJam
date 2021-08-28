@@ -1,7 +1,7 @@
 package it.univaq.disim.mwt.letsjam.business;
 
-import it.univaq.disim.mwt.letsjam.domain.Genere;
-import it.univaq.disim.mwt.letsjam.domain.Spartito;
+import it.univaq.disim.mwt.letsjam.domain.Genre;
+import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
@@ -23,15 +23,15 @@ public interface UtenteService {
 	
 	boolean UtenteIsAdmin(Long id) throws BusinessException;
 	
-	void update(User user, Genere genere) throws BusinessException;
+	void update(User user, Genre genere) throws BusinessException;
 	
-	void like (User user, Spartito spartito) throws BusinessException;
+	void like (User user, MusicSheet spartito) throws BusinessException;
 	
-	void dislike(User user, Spartito spartito) throws BusinessException;
+	void dislike(User user, MusicSheet spartito) throws BusinessException;
 	
 	//void addGenerePreferito(Utente utente, Genere genere) throws BusinessException;
 	
-	void remove(User user, Genere genere) throws BusinessException;
+	void remove(User user, Genre genere) throws BusinessException;
 	
 	User addUtente(User user) throws BusinessException;
 }

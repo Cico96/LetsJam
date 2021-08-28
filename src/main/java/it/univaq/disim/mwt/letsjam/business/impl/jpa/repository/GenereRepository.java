@@ -3,13 +3,13 @@ package it.univaq.disim.mwt.letsjam.business.impl.jpa.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import it.univaq.disim.mwt.letsjam.domain.Genere;
+import it.univaq.disim.mwt.letsjam.domain.Genre;
 
 @Repository
-public interface GenereRepository extends JpaRepository<Genere,Long> {
+public interface GenereRepository extends JpaRepository<Genre,Long> {
 	
-	Genere findGenereById(Long id);
+	Genre findGenereById(Long id);
 	
-	Genere findGenereByNome(String nome);
+	Genre findGenereByNome(String nome);
 
 }

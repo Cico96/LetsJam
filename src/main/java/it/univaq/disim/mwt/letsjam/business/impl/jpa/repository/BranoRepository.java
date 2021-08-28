@@ -2,14 +2,14 @@ package it.univaq.disim.mwt.letsjam.business.impl.jpa.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import it.univaq.disim.mwt.letsjam.domain.Brano;
+import it.univaq.disim.mwt.letsjam.domain.Song;
 
-public interface BranoRepository extends JpaRepository<Brano, Long> {
+public interface BranoRepository extends JpaRepository<Song, Long> {
 	
-	Brano findBranoById(Long id);
+	Song findBranoById(Long id);
 	
-	Brano findBranoByTitolo(String titolo);
+	Song findBranoByTitolo(String titolo);
 	
-	Brano findBranoByAutore(String autore);
+	Song findBranoByAutore(String autore);
 
 }
