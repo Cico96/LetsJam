@@ -39,8 +39,8 @@
                             Condividi e collabora con migliaia di altri artisti di ogni provenienza uniti soltanto dalla musica.</p>
                     </div>
 
-                    <div th:each="spartito : ${mostpopular}">
-                        <div th:replace="fragments/musicSheetCard :: musicSheetCard(spartito = ${spartito})"></div>
+                    <div th:each="musicsheet : ${mostpopular}">
+                        <div th:replace="fragments/musicSheetCard :: musicSheetCard(musicsheet = ${musicsheet})"></div>
                     </div>
                         
                 </div>
@@ -60,8 +60,8 @@
                             Condividi e collabora con migliaia di altri artisti di ogni provenienza uniti soltanto dalla musica.</p>
                     </div>
 
-                    <div th:each="spartito : ${lastInsert}">
-                        <div th:replace="fragments/musicSheetCard :: musicSheetCard(spartito = ${spartito})"></div>
+                    <div th:each="musicsheet : ${lastInsert}">
+                        <div th:replace="fragments/musicSheetCard :: musicSheetCard(musicsheet = ${musicsheet})"></div>
                     </div>
 
                 </div>

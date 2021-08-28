@@ -17,13 +17,13 @@ public class GenreServiceImpl implements GenreService {
 	@Override
 	public Genre findGenreById(Long id) throws BusinessException {
 		// TODO Auto-generated method stub
-		return genereRepository.findGenereById(id);
+		return genereRepository.findGenreById(id);
 	}
 
 	@Override
 	public Genre findGenreByName(String name) throws BusinessException {
 		// TODO Auto-generated method stub
-		return genereRepository.findGenereByNome(name);
+		return genereRepository.findGenreByName(name);
 	}
 
 }

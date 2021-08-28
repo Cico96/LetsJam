@@ -20,12 +20,13 @@ public class CommentServiceImpl implements CommentService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired MusicSheetRepository musicSheetRepositoryRepository;
+	@Autowired 
+	private MusicSheetRepository musicSheetRepository;
 
 	@Override
 	public Comment findCommentById(Long id) throws BusinessException {
 		// TODO Auto-generated method stub
-		return commentRepository.findCommentoById(id);
+		return commentRepository.findCommentById(id);
 	}
 
 	@Override
@@ -38,8 +39,8 @@ public class CommentServiceImpl implements CommentService {
 	public void addComment(Long id_musicSheet, Long id_user, String content) throws BusinessException {
 		// TODO Auto-generated method stub
 		Comment new_commento = new Comment();
-		MusicSheet spartito = musicSheetRepositoryRepository.findSpartitoById(id_musicSheet);
-		User user = userRepository.findUtenteById(id_user);
+		MusicSheet spartito = musicSheetRepository.findSpartitoById(id_musicSheet);
+		User user = userRepository.findUserById(id_user);
 		new_commento.setMusicSheet(spartito);
 		new_commento.setUser(user);
 		new_commento.setContent(content);
@@ -51,7 +52,7 @@ public class CommentServiceImpl implements CommentService {
 		// TODO Auto-generated method stub
 		Comment risposta = new Comment();
 		risposta.setContent(content);
-		User user = userRepository.findUtenteById(id_user);
+		User user = userRepository.findUserById(id_user);
 		risposta.setUser(user);
 		risposta.setParentComment(comment);
 		commentRepository.save(risposta);

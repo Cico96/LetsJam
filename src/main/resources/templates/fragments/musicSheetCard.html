@@ -3,15 +3,15 @@
 layout:decorate="~{layout/layout}">
 <body>
     
-    <div th:fragment="musicSheetCard (spartito)" th:remove="tag">
+    <div th:fragment="musicSheetCard (musicsheet)" th:remove="tag">
         <div class="musicsheet-card wow fadeInUp mb-4" data-wow-delay=".2s">
             
             <div class="d-flex flex-row align-items-center justify-content-between mb-2">
-                <h3 th:text="${spartito.titolo}"></h3>
+                <h3 th:text="${musicsheet.title}"></h3>
                 <div class="d-flex flex-row align-items-center justify-content-between interaction-container" style="gap: 10px;">
                     <div class="action-container">
                         <svg th:replace="fragments/icons :: like"></svg>
-                        <span th:text="${spartito.likes.size}"></span>
+                        <span th:text="${musicsheet.likes.size}"></span>
                         <i></i>
                     </div>
                     <div class="action-container">
@@ -24,15 +24,15 @@ layout:decorate="~{layout/layout}">
             <div class="d-flex flex-row align-items-center justify-content-between">
                 <div class="d-flex flex-column align-items-start justify-content-between">
                     
-                <p th:if="${spartito.brano}" th:inline="text"style="margin:0"><span>Brano: </span> [[${spartito.brano.autore+' - '+spartito.brano.titolo}]]</p>
-                <p th:unless="${spartito.brano}"><span>Brano: </span>Inedito</p>
-                <p th:if="${spartito.brano != null && spartito.brano.genere != null}" th:inline="text"><span>Genere: </span>[[${spartito.brano.genere.nome}]]</p>
-                <p th:unless="${spartito.brano != null && spartito.brano.genere != null}"><span>Genere: </span> Non definito</p>
+                <p th:if="${musicsheet.song}" th:inline="text"style="margin:0"><span>Brano: </span> [[${spartito.brano.autore+' - '+spartito.brano.titolo}]]</p>
+                <p th:unless="${musicsheet.song}"><span>Brano: </span>Inedito</p>
+                <p th:if="${musicsheet.song != null && musicsheet.song.genre != null}" th:inline="text"><span>Genere: </span>[[${spartito.brano.genere.nome}]]</p>
+                <p th:unless="${musicsheet.song != null && musicsheet.song.genre != null}"><span>Genere: </span> Non definito</p>
                 <div class="d-flex align-items-center justify-content-between mt-4" style="gap:10px;">
                     <div class="avatar">
                         &nbsp;
                     </div>
-                    <p th:text="${spartito.user.username}" class="mt-1"style="margin:0; text-transform: capitalize;"></p>
+                    <p th:text="${musicsheet.user.username}" class="mt-1"style="margin:0; text-transform: capitalize;"></p>
                 </div>
                 </div>
                 <div class="d-flex flex-row align-items-center justify-content-end" style="gap:20px">

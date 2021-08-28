@@ -17,11 +17,11 @@ public interface MusicSheetRepository extends JpaRepository<MusicSheet, Long>{
     
     MusicSheet findSpartitoById(Long id);
     
-	MusicSheet findSpartitoByTitolo(String titolo);
+	MusicSheet findMusicSheetByTitle(String titolo);
     
-    MusicSheet findSpartitoByVerificato(String titolo);
+    MusicSheet findMusicSheetByVerified(String titolo);
     
-    void deleteSpartitoById(Long id);
+    void deleteMusicSheetById(Long id);
     
     @Query(value="SELECT s FROM MusicSheet s ORDER BY size(s.likes) DESC")
     Page<MusicSheet> getMostPopularMusicSheets(Pageable pageable);

@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User findUserById(Long id) throws BusinessException {
-		return utenteRepository.findUtenteById(id);
+		return utenteRepository.findUserById(id);
 		}
 	
 	@Override

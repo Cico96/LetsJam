@@ -15,19 +15,19 @@ public class SongServiceImpl implements SongService {
 	@Override
 	public Song findSongById(Long id) throws BusinessException {
 		// TODO Auto-generated method stub
-		return branoRepository.findBranoById(id);
+		return branoRepository.findSongById(id);
 	}
 
 	@Override
 	public Song findSongByTitol(String titol) throws BusinessException {
 		// TODO Auto-generated method stub
-		return branoRepository.findBranoByTitolo(titol);
+		return branoRepository.findSongByTitle(titol);
 	}
 
 	@Override
 	public Song findSongByAuthor(String author) throws BusinessException {
 		// TODO Auto-generated method stub
-		return branoRepository.findBranoByAutore(author);
+		return branoRepository.findSongByAuthor(author);
 	}
 
 }
