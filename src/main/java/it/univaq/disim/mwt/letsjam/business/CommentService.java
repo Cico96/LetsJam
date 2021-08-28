@@ -5,12 +5,12 @@ import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 public interface CommentService {
 	
-	void addCommento(Long id_spartito, Long id_utente, String contenuto) throws BusinessException;
+	void addComment(Long id_musicSheet, Long id_user, String content) throws BusinessException;
 	
-	Comment findCommentoById(Long id) throws BusinessException;
+	Comment findCommentById(Long id) throws BusinessException;
 	
-	void addRisposta(Comment commento, Long id_utente, String contenuto) throws BusinessException;
+	void addAnsewer(Comment comment, Long id_user, String contenut) throws BusinessException;
 	
-	void update(Comment commento) throws BusinessException;
+	void update(Comment comment) throws BusinessException;
 	
 }

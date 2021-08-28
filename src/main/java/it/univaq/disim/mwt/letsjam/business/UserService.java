@@ -25,9 +25,9 @@ public interface UserService {
 	
 	void update(User user, Genre genere) throws BusinessException;
 	
-	void like (User user, MusicSheet spartito) throws BusinessException;
+	void like (User user, MusicSheet musicSheet) throws BusinessException;
 	
-	void dislike(User user, MusicSheet spartito) throws BusinessException;
+	void dislike(User user, MusicSheet musicSheet) throws BusinessException;
 	
 	//void addGenerePreferito(Utente utente, Genere genere) throws BusinessException;
 	

@@ -6,8 +6,8 @@ import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 public interface GenreService {
 	
 	
-	Genre findGenereById(Long id) throws BusinessException;
+	Genre findGenreById(Long id) throws BusinessException;
 	
-	Genre findGenereByNome(String nome) throws BusinessException;
+	Genre findGenreByName(String name) throws BusinessException;
 	
 }

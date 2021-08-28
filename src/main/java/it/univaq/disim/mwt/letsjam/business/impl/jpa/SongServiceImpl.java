@@ -13,21 +13,21 @@ public class SongServiceImpl implements SongService {
 	private SongRepository branoRepository;
 
 	@Override
-	public Song findBranoById(Long id) throws BusinessException {
+	public Song findSongById(Long id) throws BusinessException {
 		// TODO Auto-generated method stub
 		return branoRepository.findBranoById(id);
 	}
 
 	@Override
-	public Song findBranoByTitolo(String titolo) throws BusinessException {
+	public Song findSongByTitol(String titol) throws BusinessException {
 		// TODO Auto-generated method stub
-		return branoRepository.findBranoByTitolo(titolo);
+		return branoRepository.findBranoByTitolo(titol);
 	}
 
 	@Override
-	public Song findBranoByAutore(String autore) throws BusinessException {
+	public Song findSongByAuthor(String author) throws BusinessException {
 		// TODO Auto-generated method stub
-		return branoRepository.findBranoByAutore(autore);
+		return branoRepository.findBranoByAutore(author);
 	}
 
 }

@@ -15,15 +15,15 @@ public class GenreServiceImpl implements GenreService {
 	private GenreRepository genereRepository;
 	
 	@Override
-	public Genre findGenereById(Long id) throws BusinessException {
+	public Genre findGenreById(Long id) throws BusinessException {
 		// TODO Auto-generated method stub
 		return genereRepository.findGenereById(id);
 	}
 
 	@Override
-	public Genre findGenereByNome(String nome) throws BusinessException {
+	public Genre findGenreByName(String name) throws BusinessException {
 		// TODO Auto-generated method stub
-		return genereRepository.findGenereByNome(nome);
+		return genereRepository.findGenereByNome(name);
 	}
 
 }
