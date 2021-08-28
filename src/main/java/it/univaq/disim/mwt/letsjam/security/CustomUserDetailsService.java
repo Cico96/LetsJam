@@ -19,7 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService{
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = null;
         try{
-            user = utenteService.findUtenteByEmail(email);
+            user = utenteService.findUserByEmail(email);
         }
         catch(BusinessException e){
             e.printStackTrace();

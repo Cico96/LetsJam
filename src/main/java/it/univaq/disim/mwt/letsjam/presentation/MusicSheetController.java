@@ -24,7 +24,7 @@ public class MusicSheetController {
 	@GetMapping("/spartito/{id}")
 	public String getSpartitoSingolo(@PathVariable("id") long id, Model model) throws BusinessException {
 		
-		MusicSheet spartito = spartitoService.findSpartitoById(id);
+		MusicSheet spartito = spartitoService.findMusicSheetById(id);
 		model.addAttribute("spartito", spartito);
 		return "spartito/allSpartiti";
 	}
@@ -33,7 +33,7 @@ public class MusicSheetController {
 	
 	@GetMapping("/spartito/{id}/delete")
 	public String deleteSpartito(@PathVariable("id") long id) {
-		spartitoService.deleteSpartitoById(id);
+		spartitoService.deleteMusicSheetById(id);
 		
 		return "home/home";
 		
