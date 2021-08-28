@@ -63,15 +63,15 @@ public class User extends AbstractPersistableEntity{
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
     @JoinTable(
     name = "spartiti_likes", 
-    joinColumns = @JoinColumn(name = "utente_id"), 
-    inverseJoinColumns = @JoinColumn(name = "spartito_id"))
+    joinColumns = @JoinColumn(name = "user_id"), 
+    inverseJoinColumns = @JoinColumn(name = "music_sheet_id"))
     private Set<MusicSheet> likedMusicSheets;
 	
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
     @JoinTable(
     name = "generi_preferiti", 
-    joinColumns = @JoinColumn(name = "utente_id"), 
-    inverseJoinColumns = @JoinColumn(name = "genere_id"))
+    joinColumns = @JoinColumn(name = "user_id"), 
+    inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private Set<Genre> preferredGenres = new HashSet<>();
 
     

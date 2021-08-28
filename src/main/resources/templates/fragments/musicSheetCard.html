@@ -24,11 +24,11 @@ layout:decorate="~{layout/layout}">
             <div class="d-flex flex-row align-items-center justify-content-between">
                 <div class="d-flex flex-column align-items-start justify-content-between">
                     
-                <p th:if="${musicsheet.song}" th:inline="text"style="margin:0"><span>Brano: </span> [[${spartito.brano.autore+' - '+spartito.brano.titolo}]]</p>
+                <p th:if="${musicsheet.song}" th:inline="text"style="margin:0"><span>Brano: </span> [[${musicsheet.song.author+' - '+musicsheet.song.title}]]</p>
                 <p th:unless="${musicsheet.song}"><span>Brano: </span>Inedito</p>
-                <p th:if="${musicsheet.song != null && musicsheet.song.genre != null}" th:inline="text"><span>Genere: </span>[[${spartito.brano.genere.nome}]]</p>
+                <p th:if="${musicsheet.song != null && musicsheet.song.genre != null}" th:inline="text"><span>Genere: </span>[[${musicsheet.song.genre.name}]]</p>
                 <p th:unless="${musicsheet.song != null && musicsheet.song.genre != null}"><span>Genere: </span> Non definito</p>
-                <div class="d-flex align-items-center justify-content-between mt-4" style="gap:10px;">
+                <div class="d-flex align-items-center justify-content-between mt-2" style="gap:10px;">
                     <div class="avatar">
                         &nbsp;
                     </div>
