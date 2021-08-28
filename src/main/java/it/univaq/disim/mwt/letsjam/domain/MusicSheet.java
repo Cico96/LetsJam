@@ -34,26 +34,26 @@ public class MusicSheet extends AbstractPersistableEntity{
 	
 	@NotEmpty(groups ={OnCreate.class, Default.class})
 	@Size(min = 3, max = 25, groups = {OnCreate.class, OnUpdate.class, Default.class})
-	private String titolo;
+	private String title;
 
 	@NotNull
-	private Boolean verificato;
+	private Boolean verified;
 
 	@JsonInclude()
 	@Transient
 	private MusicSheetData data;
 	
 	@OneToOne
-	private Song brano;
+	private Song song;
 	
 	@OneToOne
 	private User user;
 	
-	@ManyToMany(mappedBy = "likedSpartiti", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "likedMusicSheets", fetch = FetchType.EAGER)
 	@Basic(fetch = FetchType.LAZY)
 	private Set<User> likes = new HashSet<>();
 	
 	@OneToMany()
-	private Set<Instrument> strumenti;
+	private Set<Instrument> instruments;
 }
 

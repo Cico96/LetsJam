@@ -23,13 +23,13 @@ public class Comment extends AbstractPersistableEntity{
 	
 	@Size(min = 3, max = 500, groups = {OnCreate.class, OnUpdate.class, Default.class})
 	@NotNull
-	private String contenuto;
+	private String content;
 	
 	@OneToOne
-	private Comment commentoPadre;
+	private Comment parentComment;
 	
 	@OneToOne
-	private MusicSheet spartito;
+	private MusicSheet musicSheet;
 	
 	@OneToOne
 	private User user;

@@ -69,34 +69,34 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void update(User user, Genre genere) throws BusinessException {
-		user.getGeneriPreferiti().add(genere);
+		user.getPreferredGenres().add(genere);
 		utenteRepository.save(user);
 	}
 
 	@Override
 	public void like(User user, MusicSheet spartito) throws BusinessException {
 		// TODO Auto-generated method stub
-		Set<MusicSheet> spartiti = user.getLikedSpartiti();
+		Set<MusicSheet> spartiti = user.getLikedMusicSheets();
 		spartiti.add(spartito);
-		user.setLikedSpartiti(spartiti);
+		user.setLikedMusicSheets(spartiti);
 		utenteRepository.save(user);
 	}
 
 	@Override
 	public void dislike(User user, MusicSheet spartito) throws BusinessException {
 		// TODO Auto-generated method stub
-		Set<MusicSheet> spartiti = user.getLikedSpartiti();
+		Set<MusicSheet> spartiti = user.getLikedMusicSheets();
 		spartiti.remove(spartito);
-		user.setLikedSpartiti(spartiti);
+		user.setLikedMusicSheets(spartiti);
 		utenteRepository.save(user);
 	}
 
 	@Override
 	public void remove(User user, Genre genere) throws BusinessException {
 		// TODO Auto-generated method stub
-		Set<Genre> generi = user.getGeneriPreferiti();
-		generi.add(genere);
-		user.setGeneriPreferiti(generi);
+		Set<Genre> preferredGenres = user.getPreferredGenres();
+		preferredGenres.add(genere);
+		user.setPreferredGenres(preferredGenres);
 		utenteRepository.save(user);
 	}
 

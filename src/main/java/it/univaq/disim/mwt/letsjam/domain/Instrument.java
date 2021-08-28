@@ -23,10 +23,10 @@ public class Instrument extends AbstractPersistableEntity {
 	
 	@NotEmpty(groups ={OnCreate.class, Default.class})
 	@Size(min = 3, max = 50, groups = {OnCreate.class, OnUpdate.class, Default.class})
-	private String nome;
+	private String name;
 
 	@NotEmpty(groups ={OnCreate.class, Default.class})
 	@Size(min = 3, max = 50, groups = {OnCreate.class, OnUpdate.class, Default.class})
-	private String chiave;
+	private String key;
 
 }

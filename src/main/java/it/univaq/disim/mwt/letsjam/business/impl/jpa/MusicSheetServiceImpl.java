@@ -67,7 +67,7 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 	public MusicSheet findMusicSheetVerified(String titol) throws BusinessException {
 		// TODO Auto-generated method stub
 		MusicSheet musicSheet = spartitoRepository.findSpartitoByTitolo(titol);
-		if(musicSheet.getVerificato()) {
+		if(musicSheet.getVerified()) {
 			return musicSheet;
 		}
 		return null;

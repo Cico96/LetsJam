@@ -23,12 +23,12 @@ public class Song extends AbstractPersistableEntity{
 
 	@NotEmpty(groups ={OnCreate.class, Default.class})
 	@Size(min = 3, max = 50, groups = {OnCreate.class, OnUpdate.class, Default.class})
-	private String autore;
+	private String author;
 
 	@NotEmpty(groups ={OnCreate.class, Default.class})
 	@Size(min = 3, max = 200, groups = {OnCreate.class, OnUpdate.class, Default.class})
-	private String titolo;
+	private String title;
 	
 	@OneToOne
-	private Genre genere;
+	private Genre genre;
 }

@@ -40,9 +40,9 @@ public class CommentServiceImpl implements CommentService {
 		Comment new_commento = new Comment();
 		MusicSheet spartito = spartitoRepository.findSpartitoById(id_spartito);
 		User user = utenteRepository.findUtenteById(id_utente);
-		new_commento.setSpartito(spartito);
+		new_commento.setMusicSheet(spartito);
 		new_commento.setUser(user);
-		new_commento.setContenuto(contenuto);
+		new_commento.setContent(contenuto);
 		commentoRepository.save(new_commento);
 	}
 
@@ -50,10 +50,10 @@ public class CommentServiceImpl implements CommentService {
 	public void addRisposta(Comment commento, Long id_utente, String contenuto) {
 		// TODO Auto-generated method stub
 		Comment risposta = new Comment();
-		risposta.setContenuto(contenuto);
+		risposta.setContent(contenuto);
 		User user = utenteRepository.findUtenteById(id_utente);
 		risposta.setUser(user);
-		risposta.setCommentoPadre(commento);
+		risposta.setParentComment(commento);
 		commentoRepository.save(risposta);
 	}
 

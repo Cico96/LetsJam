@@ -65,14 +65,14 @@ public class User extends AbstractPersistableEntity{
     name = "spartiti_likes", 
     joinColumns = @JoinColumn(name = "utente_id"), 
     inverseJoinColumns = @JoinColumn(name = "spartito_id"))
-    private Set<MusicSheet> likedSpartiti;
+    private Set<MusicSheet> likedMusicSheets;
 	
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
     @JoinTable(
     name = "generi_preferiti", 
     joinColumns = @JoinColumn(name = "utente_id"), 
     inverseJoinColumns = @JoinColumn(name = "genere_id"))
-    private Set<Genre> generiPreferiti = new HashSet<>();
+    private Set<Genre> preferredGenres = new HashSet<>();
 
     
 	@Override
@@ -93,7 +93,7 @@ public class User extends AbstractPersistableEntity{
     }
 
     @Transient
-    public RuoloUtente getRuolo(){
+    public RuoloUtente getRoles(){
         return RuoloUtente.valueOf(this.getClass().getAnnotation(DiscriminatorValue.class).value().toUpperCase());
         //return RuoloUtente.UTENTE;
     }

@@ -22,10 +22,10 @@ public class Genre extends AbstractPersistableEntity {
 	
 	@NotEmpty(groups ={OnCreate.class, Default.class})
 	@Size(min = 3, max = 50, groups = {OnCreate.class, OnUpdate.class, Default.class})
-	private String nome;
+	private String name;
 
 	@NotEmpty(groups ={OnCreate.class, Default.class})
 	@Size(min = 3, max = 250, groups = {OnCreate.class, OnUpdate.class, Default.class})
-	private String descrizione;
+	private String description;
 
 }
