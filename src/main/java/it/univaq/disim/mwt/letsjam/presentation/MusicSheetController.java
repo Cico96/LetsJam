@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import it.univaq.disim.mwt.letsjam.business.SpartitoService;
+import it.univaq.disim.mwt.letsjam.business.MusicSheetService;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
@@ -14,7 +14,7 @@ import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 public class MusicSheetController {
 	
 	@Autowired
-	SpartitoService spartitoService;
+	MusicSheetService spartitoService;
 	
 	@GetMapping("/spartitiList")
 	public String getAllSpartiti() throws BusinessException {

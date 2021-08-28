@@ -5,7 +5,7 @@ import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
-public interface UtenteService {
+public interface UserService {
 	
 	User findUserById(Long id) throws BusinessException;
 	

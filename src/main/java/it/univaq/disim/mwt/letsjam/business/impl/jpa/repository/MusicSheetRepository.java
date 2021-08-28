@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.Query;
 
 
 @Repository
-public interface SpartitoRepository extends JpaRepository<MusicSheet, Long>{
+public interface MusicSheetRepository extends JpaRepository<MusicSheet, Long>{
     
     MusicSheet findSpartitoById(Long id);
     

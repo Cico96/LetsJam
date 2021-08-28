@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import it.univaq.disim.mwt.letsjam.business.UtenteService;
+import it.univaq.disim.mwt.letsjam.business.UserService;
 import it.univaq.disim.mwt.letsjam.domain.User;
 
 @Controller
 public class AuthController {
     
     @Autowired
-    UtenteService utenteService;
+    UserService utenteService;
 
     @GetMapping("/register")
     public String registerForm(Model model){

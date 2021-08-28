@@ -10,29 +10,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
-import it.univaq.disim.mwt.letsjam.business.CommentoService;
-import it.univaq.disim.mwt.letsjam.business.GenereService;
-import it.univaq.disim.mwt.letsjam.business.SpartitoService;
-import it.univaq.disim.mwt.letsjam.business.UtenteService;
-import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UtenteRepository;
-import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SpartitoRepository;
+import it.univaq.disim.mwt.letsjam.business.CommentService;
+import it.univaq.disim.mwt.letsjam.business.GenreService;
+import it.univaq.disim.mwt.letsjam.business.MusicSheetService;
+import it.univaq.disim.mwt.letsjam.business.UserService;
+import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UserRepository;
+import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetRepository;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 
 @Controller
 @RequestMapping("/")
 public class DummyController {
 	@Autowired
-	private UtenteService utenteService;
+	private UserService utenteService;
     @Autowired
-    private UtenteRepository utenteRepository;
+    private UserRepository utenteRepository;
 	@Autowired
-	private GenereService genereService;
+	private GenreService genereService;
 	@Autowired
-	private SpartitoService spartitoService;
+	private MusicSheetService spartitoService;
     @Autowired
-	private SpartitoRepository spartitoRepository;
+	private MusicSheetRepository spartitoRepository;
 	@Autowired
-	private CommentoService commentoService;
+	private CommentService commentoService;
 	
     @GetMapping("/home")
     public String home(Model model, Principal principal){

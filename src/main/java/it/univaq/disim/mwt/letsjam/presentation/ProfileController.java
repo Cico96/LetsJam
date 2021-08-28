@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import it.univaq.disim.mwt.letsjam.business.UtenteService;
+import it.univaq.disim.mwt.letsjam.business.UserService;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 import org.springframework.ui.Model;
@@ -14,7 +14,7 @@ import org.springframework.ui.Model;
 public class ProfileController {
 	
     @Autowired
-    UtenteService utenteService;
+    UserService utenteService;
     
 	@GetMapping("/profilo")
 	public String getProfilo(Model model) throws BusinessException {
