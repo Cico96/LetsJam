@@ -16,7 +16,7 @@ import it.univaq.disim.mwt.letsjam.business.SpartitoService;
 import it.univaq.disim.mwt.letsjam.business.UtenteService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UtenteRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SpartitoRepository;
-import it.univaq.disim.mwt.letsjam.domain.Spartito;
+import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 
 @Controller
 @RequestMapping("/")
@@ -36,12 +36,12 @@ public class DummyController {
 	
     @GetMapping("/home")
     public String home(Model model, Principal principal){
-        Spartito spartito = spartitoService.findSpartitoById((long)5);
+        MusicSheet spartito = spartitoService.findSpartitoById((long)5);
         model.addAttribute("spartito", spartito);
         model.addAttribute("name", "Chicco");
         
-        List<Spartito> spartiti = spartitoService.getMostPopularMusicSheets();
-        List<Spartito> new_spartiti = spartitoService.getLastInsertMusicSheets();
+        List<MusicSheet> spartiti = spartitoService.getMostPopularMusicSheets();
+        List<MusicSheet> new_spartiti = spartitoService.getLastInsertMusicSheets();
 
         model.addAttribute("mostpopular", spartiti);
         model.addAttribute("lastInsert", new_spartiti);
