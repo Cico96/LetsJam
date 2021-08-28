@@ -11,7 +11,7 @@ layout:decorate="~{layout/layout}">
                 <div class="d-flex flex-row align-items-center justify-content-between interaction-container" style="gap: 10px;">
                     <div class="action-container">
                         <svg th:replace="fragments/icons :: like"></svg>
-                        <span>100</span>
+                        <span th:text="${spartito.likes.size}"></span>
                         <i></i>
                     </div>
                     <div class="action-container">
