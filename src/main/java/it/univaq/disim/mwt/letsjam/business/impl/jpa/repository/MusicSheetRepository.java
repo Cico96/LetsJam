@@ -17,9 +17,9 @@ public interface MusicSheetRepository extends JpaRepository<MusicSheet, Long>{
     
     MusicSheet findMusicSheetById(Long id);
     
-	MusicSheet findMusicSheetByTitle(String titolo);
+	MusicSheet findMusicSheetByTitle(String title);
     
-    MusicSheet findMusicSheetByVerified(String titolo);
+    MusicSheet findMusicSheetByVerified(String title);
     
     void deleteMusicSheetById(Long id);
     
