@@ -16,7 +16,7 @@ import it.univaq.disim.mwt.letsjam.presentation.validation.EmailUnique;
 import it.univaq.disim.mwt.letsjam.presentation.validation.OnCreate;
 import it.univaq.disim.mwt.letsjam.presentation.validation.OnUpdate;
 import it.univaq.disim.mwt.letsjam.presentation.validation.UsernameUnique;
-import it.univaq.disim.mwt.letsjam.security.RuoloUtente;
+import it.univaq.disim.mwt.letsjam.security.UserRoles;
 import lombok.*;
 
 @Entity
@@ -93,9 +93,8 @@ public class User extends AbstractPersistableEntity{
     }
 
     @Transient
-    public RuoloUtente getRoles(){
-        return RuoloUtente.valueOf(this.getClass().getAnnotation(DiscriminatorValue.class).value().toUpperCase());
-        //return RuoloUtente.UTENTE;
+    public UserRoles getRoles(){
+        return UserRoles.valueOf(this.getClass().getAnnotation(DiscriminatorValue.class).value().toUpperCase());
     }
 }
 

@@ -1461,11 +1461,11 @@ ol {
 }
 
 .navbar-brand {
-  padding: 0;
+  padding: 10px;
 }
 
 .navbar-brand img {
-  width: 150px;
+  width: 110px;
 }
 
 .navbar-toggler {
@@ -3970,7 +3970,7 @@ blockquote span {
     bottom: 55px;
   }
   .navbar-brand img {
-    width: 130px;
+    width: 110px;
   }
   .header.index2 .navbar .navbar-nav .nav-item a {
     color: #081828;
@@ -5148,4 +5148,12 @@ blockquote span {
 .free-version-banner .button .btn {
   background-color: #fff;
   color: #3763EB;
+}
+
+.free-content-background{
+  background-image: url(../img/free-content-background.jpg);
+}
+
+.relative{
+  position: relative;
 }

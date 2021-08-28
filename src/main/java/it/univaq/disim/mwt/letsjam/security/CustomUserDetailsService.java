@@ -13,13 +13,13 @@ import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 @Service
 public class CustomUserDetailsService implements UserDetailsService{
     @Autowired
-    UserService utenteService;
+    UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = null;
         try{
-            user = utenteService.findUserByEmail(email);
+            user = userService.findUserByEmail(email);
         }
         catch(BusinessException e){
             e.printStackTrace();

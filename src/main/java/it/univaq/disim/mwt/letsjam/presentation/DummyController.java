@@ -17,12 +17,13 @@ import it.univaq.disim.mwt.letsjam.business.UserService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UserRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetRepository;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
+import it.univaq.disim.mwt.letsjam.domain.User;
 
 @Controller
 @RequestMapping("/")
 public class DummyController {
 	@Autowired
-	private UserService utenteService;
+	private UserService userService;
     @Autowired
     private UserRepository utenteRepository;
 	@Autowired
@@ -36,20 +37,16 @@ public class DummyController {
 	
     @GetMapping("/home")
     public String home(Model model, Principal principal){
-        MusicSheet spartito = spartitoService.findMusicSheetById((long)5);
-        model.addAttribute("spartito", spartito);
-        model.addAttribute("name", "Chicco");
-        
-        List<MusicSheet> spartiti = spartitoService.getMostPopularMusicSheets();
-        List<MusicSheet> new_spartiti = spartitoService.getLastInsertMusicSheets();
-
-        model.addAttribute("mostpopular", spartiti);
-        model.addAttribute("lastInsert", new_spartiti);
-
+        //Logged
+        List<MusicSheet> mostpopular = spartitoService.getMostPopularMusicSheets();
         if(principal !=null){
-            //Utente utente = utenteService.findUtenteByUsername(principal.getName());
-            //model.addAttribute("utente", utente);
+            List<MusicSheet> latest = spartitoService.getLastInsertMusicSheets();
+            model.addAttribute("mostpopular", mostpopular);
+            model.addAttribute("lastInsert", latest);
+            return "home/homeLogged";
         }
+        //Not Logged
+        model.addAttribute("mostpopular", mostpopular);
         return "home/home";
     }
 	

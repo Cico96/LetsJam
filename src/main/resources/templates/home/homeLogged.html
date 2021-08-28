@@ -1,10 +1,160 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
 	layout:decorate="~{layout/layout}">
-
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{dist/css/musicSheetCard.css}">
+</head>
 <body>
-<div layout:fragment="content">
-	
+<div layout:fragment="content" th:with="loggedUser=${#authentication.getPrincipal().getUser()}">
+	<!-- Start Hero Area -->
+    <section class="hero-area" >
+        <!-- Single Slider -->
+        <div class="hero-inner">
+            <div class="container">
+                <div class="row ">
+                    <div class="col-lg-6 co-12">
+                        <div class="home-slider">
+                            <div class="hero-text">
+                                <h1 th:inline="text">[[#{home.logged.title}]] [[${loggedUser.firstname +' '+loggedUser.lastname}]]</h1>
+                                <p class="wow fadeInUp" data-wow-delay=".5s" th:text="#{home.subtitle}"></p>
+                                <div class="button wow fadeInUp mb-5" data-wow-delay=".7s">
+                                    <a href="about-us.html" class="btn">Per saperne di più</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ End Single Slider -->
+    </section>
+        <!-- Start Service Area -->
+    <section class="services section"> 
+        <div class="container">
+            <div class="row">
+                <div class="col-12 relative">
+                    <div class="section-title align-left">
+                        <span class="wow fadeInDown" data-wow-delay=".2s" th:text="#{home.mostpopular}"></span>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s" th:text="#{home.mostpopular.title}"></h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">Crea le tue varianti delle canzoni scritte da te nel nostro editor.
+                            Condividi e collabora con migliaia di altri artisti di ogni provenienza uniti soltanto dalla musica.</p>
+                    </div>
+
+                    <div th:each="musicsheet : ${mostpopular}">
+                        <div th:replace="fragments/musicSheetCard :: musicSheetCard(musicsheet = ${musicsheet})"></div>
+                    </div>
+                    <img class="service-patern wow fadeInRight overlay-image" data-wow-delay=".5s" th:src="@{dist/img/service-patern.png}" alt="#" 
+                    style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;position: absolute;top: 287px;right: -25px;">
+                    <img class="service-patern wow fadeInRight overlay-image" data-wow-delay=".5s" th:src="@{dist/img/service-patern.png}" alt="#" 
+                    style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;position: absolute;bottom: -3px;left: -25px;">           
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /End Services Area -->
+    <!--Last insert-->
+    <section class="about-us section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 relative">
+                    <div class="section-title align-left">
+                        <span class="wow fadeInDown" data-wow-delay=".2s" th:text="#{home.lastInsert}"></span>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s" th:text="#{home.lastInsert.title}"></h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">Crea le tue varianti delle canzoni scrite da te nel nostro editor.
+                            Condividi e collabora con migliaia di altri artisti di ogni provenienza uniti soltanto dalla musica.</p>
+                    </div>
+
+                    <div th:each="musicsheet : ${lastInsert}">
+                        <div th:replace="fragments/musicSheetCard :: musicSheetCard(musicsheet = ${musicsheet})"></div>
+                    </div>
+					<img class="service-patern wow fadeInRight overlay-image" data-wow-delay=".5s" th:src="@{dist/img/service-patern.png}" alt="#" 
+                    style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;position: absolute;top: 287px;right: -25px;">
+                    <img class="service-patern wow fadeInRight overlay-image" data-wow-delay=".5s" th:src="@{dist/img/service-patern.png}" alt="#" 
+                    style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;position: absolute;bottom: -3px;left: -25px;">       
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Start About Us Area -->
+    <section class="about-us section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <div class="about-left">
+                        <div class="section-title align-left">
+                            <span class="wow fadeInDown" data-wow-delay=".2s">Che cosa facciamo</span>
+                            <h2 class="wow fadeInUp" data-wow-delay=".4s">Siamo una sfrizzinenzi all'avanguardia'</h2>
+                            <p class="wow fadeInUp" data-wow-delay=".6s">Veniamo incontro alle esigenze di tutti i tipi di frizzi</p>
+                        </div>
+                        <div class="about-tab wow fadeInUp" data-wow-delay=".4s">
+                            <!-- Nav Tab  -->
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#t-tab1"
+                                        role="tab">Content</a></li>
+                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#t-tab2"
+                                        role="tab">Strategy</a></li>
+                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#t-tab3"
+                                        role="tab">Development</a></li>
+                            </ul>
+                            <!--/ End Nav Tab -->
+                            <div class="tab-content" id="myTabContent">
+                                <!-- Tab 1 -->
+                                <div class="tab-pane fade show active" id="t-tab1" role="tabpanel">
+                                    <div class="tab-content">
+                                        <p>Duis aute irure dolor in reprehenderit in voluptate
+                                            velit esse cillum dolore eu fugiat nulla .Nemo en
+                                            ipsam voluptatem quia voluptas sit asper.</p>
+                                        <ul>
+                                            <li><i class="lni lni-checkmark-circle"></i> Commitment to excelence</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> Clients are our partners</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> Fun is an absolute must</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!--/ End Tab 1 -->
+                                <!-- Tab 2 -->
+                                <div class="tab-pane fade" id="t-tab2" role="tabpanel">
+                                    <div class="tab-content">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing ,
+                                            sed do eiusmod tempor incididunt ut labore et dolore.
+                                            Ut enim ad minim veniam, quis nostrud exercitation
+                                            ullamco laboris nisi ut aliquip ex ea commodo
+                                            consequat.</p>
+                                        <p>Duis aute irure dolor in reprehenderit in voluptate
+                                            velit esse cillum dolore eu fugiat nulla .Nemo en
+                                            ipsam voluptatem quia voluptas sit asper.</p>
+
+                                    </div>
+                                </div>
+                                <!--/ End Tab 2 -->
+                                <!-- Tab 3 -->
+                                <div class="tab-pane fade" id="t-tab3" role="tabpanel">
+                                    <div class="tab-content">
+                                        <p>Duis aute irure dolor in reprehenderit in voluptate
+                                            velit esse cillum dolore eu fugiat nulla .Nemo en
+                                            ipsam voluptatem quia voluptas sit asper.</p>
+                                        <ul>
+                                            <li><i class="lni lni-checkmark-circle"></i> Commitment to excelence</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> Clients are our partners</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> Fun is an absolute must</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!--/ End Tab 3 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <div class="about-right wow fadeInRight" data-wow-delay=".4s">
+                        <img src="assets/images/about/about-img.png" alt="#">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /End About Us Area -->
 </div>
 </body>
 
