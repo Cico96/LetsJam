@@ -23,7 +23,6 @@ public interface MusicSheetRepository extends JpaRepository<MusicSheet, Long>{
     
     void deleteSpartitoById(Long id);
     
-
     @Query(value="SELECT s FROM MusicSheet s ORDER BY size(s.likes) DESC")
     Page<MusicSheet> getMostPopularMusicSheets(Pageable pageable);
 

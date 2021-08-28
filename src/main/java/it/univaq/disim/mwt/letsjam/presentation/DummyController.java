@@ -36,7 +36,7 @@ public class DummyController {
 	
     @GetMapping("/home")
     public String home(Model model, Principal principal){
-        MusicSheet spartito = spartitoService.findSpartitoById((long)5);
+        MusicSheet spartito = spartitoService.findMusicSheetById((long)5);
         model.addAttribute("spartito", spartito);
         model.addAttribute("name", "Chicco");
         
