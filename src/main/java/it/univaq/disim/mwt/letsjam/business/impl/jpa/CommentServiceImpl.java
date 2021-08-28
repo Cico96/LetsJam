@@ -39,7 +39,7 @@ public class CommentServiceImpl implements CommentService {
 	public void addComment(Long id_musicSheet, Long id_user, String content) throws BusinessException {
 		// TODO Auto-generated method stub
 		Comment new_commento = new Comment();
-		MusicSheet spartito = musicSheetRepository.findSpartitoById(id_musicSheet);
+		MusicSheet spartito = musicSheetRepository.findMusicSheetById(id_musicSheet);
 		User user = userRepository.findUserById(id_user);
 		new_commento.setMusicSheet(spartito);
 		new_commento.setUser(user);

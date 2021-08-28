@@ -15,7 +15,7 @@ import org.springframework.data.jpa.repository.Query;
 @Repository
 public interface MusicSheetRepository extends JpaRepository<MusicSheet, Long>{
     
-    MusicSheet findSpartitoById(Long id);
+    MusicSheet findMusicSheetById(Long id);
     
 	MusicSheet findMusicSheetByTitle(String titolo);
     

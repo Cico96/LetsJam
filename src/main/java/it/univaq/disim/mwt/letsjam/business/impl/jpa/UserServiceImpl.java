@@ -28,24 +28,24 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User findUserByUsername(String username) throws BusinessException {
-		return utenteRepository.findByUsername(username);
+		return utenteRepository.findUserByUsername(username);
 	}
 
 	@Override
 	public User findUserByEmail(String email) throws BusinessException {
-		return utenteRepository.findByEmail(email);
+		return utenteRepository.findUserByEmail(email);
 	}
 
 	@Override
 	public boolean existsUserByUsername(String username) throws BusinessException {
 		// TODO Auto-generated method stub
-		return utenteRepository.existsUtenteByUsername(username);
+		return utenteRepository.existsUserByUsername(username);
 	}
 
 	@Override
 	public boolean existsUserByEmail(String email) throws BusinessException {
 		// TODO Auto-generated method stub
-		return utenteRepository.existsUtenteByEmail(email);
+		return utenteRepository.existsUserByEmail(email);
 	}
 
 
