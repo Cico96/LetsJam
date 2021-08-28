@@ -6,14 +6,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import it.univaq.disim.mwt.letsjam.business.UtenteService;
+import it.univaq.disim.mwt.letsjam.business.UserService;
 import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService{
     @Autowired
-    UtenteService utenteService;
+    UserService utenteService;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

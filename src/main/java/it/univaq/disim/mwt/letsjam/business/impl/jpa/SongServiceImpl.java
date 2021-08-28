@@ -3,14 +3,14 @@ package it.univaq.disim.mwt.letsjam.business.impl.jpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.univaq.disim.mwt.letsjam.business.BranoService;
-import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.BranoRepository;
+import it.univaq.disim.mwt.letsjam.business.SongService;
+import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SongRepository;
 import it.univaq.disim.mwt.letsjam.domain.Song;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 @Service
-public class BranoServiceImpl implements BranoService {
+public class SongServiceImpl implements SongService {
 	@Autowired
-	private BranoRepository branoRepository;
+	private SongRepository branoRepository;
 
 	@Override
 	public Song findBranoById(Long id) throws BusinessException {

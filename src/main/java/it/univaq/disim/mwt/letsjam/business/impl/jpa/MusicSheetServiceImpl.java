@@ -8,9 +8,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import it.univaq.disim.mwt.letsjam.business.SpartitoService;
-import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SpartitoDataRepository;
-import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SpartitoRepository;
+import it.univaq.disim.mwt.letsjam.business.MusicSheetService;
+import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetDataRepository;
+import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetRepository;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.Genre;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheetData;
@@ -22,13 +22,13 @@ import java.util.Set;
 
 @Service
 @Transactional
-public class SpartitoServiceImpl implements SpartitoService {
+public class MusicSheetServiceImpl implements MusicSheetService {
     
     @Autowired
-	private SpartitoRepository spartitoRepository;
+	private MusicSheetRepository spartitoRepository;
 
     @Autowired
-    private SpartitoDataRepository spartitoDataRepository;
+    private MusicSheetDataRepository spartitoDataRepository;
     
     @Override
     public MusicSheet findSpartitoById(Long id) throws BusinessException {

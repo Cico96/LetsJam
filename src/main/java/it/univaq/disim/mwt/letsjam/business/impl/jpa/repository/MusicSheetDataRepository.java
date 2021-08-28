@@ -11,7 +11,7 @@ import it.univaq.disim.mwt.letsjam.domain.MusicSheetData;
 
 
 @Repository
-public interface SpartitoDataRepository extends MongoRepository<MusicSheetData, String> {
+public interface MusicSheetDataRepository extends MongoRepository<MusicSheetData, String> {
     
 
 }

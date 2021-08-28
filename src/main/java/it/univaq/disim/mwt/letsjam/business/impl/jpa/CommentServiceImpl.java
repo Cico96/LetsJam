@@ -3,24 +3,24 @@ package it.univaq.disim.mwt.letsjam.business.impl.jpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.univaq.disim.mwt.letsjam.business.CommentoService;
-import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.CommentoRepository;
-import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SpartitoRepository;
-import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UtenteRepository;
+import it.univaq.disim.mwt.letsjam.business.CommentService;
+import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.CommentRepository;
+import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetRepository;
+import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UserRepository;
 import it.univaq.disim.mwt.letsjam.domain.Comment;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 @Service
-public class CommentoServiceImpl implements CommentoService {
+public class CommentServiceImpl implements CommentService {
 	@Autowired
-	private CommentoRepository commentoRepository;
+	private CommentRepository commentoRepository;
 	
 	@Autowired
-	private UtenteRepository utenteRepository;
+	private UserRepository utenteRepository;
 	
-	@Autowired SpartitoRepository spartitoRepository;
+	@Autowired MusicSheetRepository spartitoRepository;
 
 	@Override
 	public Comment findCommentoById(Long id) throws BusinessException {

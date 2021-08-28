@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import it.univaq.disim.mwt.letsjam.domain.Song;
 
-public interface BranoRepository extends JpaRepository<Song, Long> {
+public interface SongRepository extends JpaRepository<Song, Long> {
 	
 	Song findBranoById(Long id);
 	
