@@ -2,32 +2,31 @@ package it.univaq.disim.mwt.letsjam.security;
 
 import java.util.Collection;
 
+import it.univaq.disim.mwt.letsjam.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import it.univaq.disim.mwt.letsjam.domain.Utente;
-
 public class CustomUserDetails implements UserDetails{
 
-    private final Utente utente;
+    private final User user;
 
-    public CustomUserDetails(Utente utente){
-        this.utente = utente;
+    public CustomUserDetails(User user){
+        this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return utente.getRuolo().getAuthorities();
+        return user.getRuolo().getAuthorities();
     }
 
     @Override
     public String getPassword() {
-        return utente.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return utente.getUsername();
+        return user.getUsername();
     }
 
     @Override
@@ -51,16 +50,16 @@ public class CustomUserDetails implements UserDetails{
     }
 
     public Long getId(){
-        return utente.getId();
+        return user.getId();
     }
     
-	public Utente getUtente() {
-		return utente;
+	public User getUser() {
+		return user;
 	}
 
     @Override
     public String toString(){
-        return "Dettagli Utente: "+utente.getFirstname()+" "+utente.getLastname()+""+utente.getEmail();
+        return "Dettagli Utente: "+ user.getFirstname()+" "+ user.getLastname()+""+ user.getEmail();
     }
     
 }

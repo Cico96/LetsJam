@@ -101,4 +101,11 @@ public class SpartitoServiceImpl implements SpartitoService {
 		return spartiti.toList();
 	}
 
+	@Override
+	public List<Spartito> getLastInsertMusicSheets() throws BusinessException {
+    	Page<Spartito> spartiti = spartitoRepository.getLastInsert(PageRequest.of(0,5));
+		return spartiti.toList();
+	}
+
+
 }

@@ -1,39 +1,22 @@
 package it.univaq.disim.mwt.letsjam.presentation;
 
-import java.net.http.HttpClient.Redirect;
 import java.security.Principal;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
-import java.util.Set;
-import java.util.Iterator;
+
 import java.util.List;
 import it.univaq.disim.mwt.letsjam.business.CommentoService;
 import it.univaq.disim.mwt.letsjam.business.GenereService;
 import it.univaq.disim.mwt.letsjam.business.SpartitoService;
 import it.univaq.disim.mwt.letsjam.business.UtenteService;
-import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.CommentoRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UtenteRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SpartitoRepository;
-import it.univaq.disim.mwt.letsjam.domain.Commento;
 import it.univaq.disim.mwt.letsjam.domain.Spartito;
-import it.univaq.disim.mwt.letsjam.domain.SpartitoData;
-import it.univaq.disim.mwt.letsjam.domain.Utente;
 
 @Controller
 @RequestMapping("/")
@@ -58,18 +41,14 @@ public class DummyController {
         model.addAttribute("name", "Chicco");
         
         List<Spartito> spartiti = spartitoService.getMostPopularMusicSheets();
-
-        Iterator<Spartito> it = spartiti.iterator();
-        for(int i = 0; i < spartiti.size(); i++){
-            Spartito s = it.next();
-            System.out.println(s.getTitolo()+" "+s.getLikes().size());
-        }
+        List<Spartito> new_spartiti = spartitoService.getLastInsertMusicSheets();
 
         model.addAttribute("mostpopular", spartiti);
+        model.addAttribute("lastInsert", new_spartiti);
 
         if(principal !=null){
-            Utente utente = utenteService.findUtenteByUsername(principal.getName());
-            model.addAttribute("utente", utente);
+            //Utente utente = utenteService.findUtenteByUsername(principal.getName());
+            //model.addAttribute("utente", utente);
         }
         return "home/home";
     }

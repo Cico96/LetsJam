@@ -24,12 +24,13 @@ layout:decorate="~{layout/layout}">
                     
                 <p th:if="${spartito.brano}" th:inline="text"style="margin:0"><span>Brano: </span> [[${spartito.brano.autore+' - '+spartito.brano.titolo}]]</p>
                 <p th:unless="${spartito.brano}"><span>Brano: </span>Inedito</p>
-                <p th:inline="text"><span>Genere: </span>[[${spartito.brano.genere.nome}]]</p>
+                <p th:if="${spartito.brano != null && spartito.brano.genere != null}" th:inline="text"><span>Genere: </span>[[${spartito.brano.genere.nome}]]</p>
+                <p th:unless="${spartito.brano != null && spartito.brano.genere != null}"><span>Genere: </span> Non definito</p>
                 <div class="d-flex align-items-center justify-content-between mt-4" style="gap:10px;">
                     <div class="avatar">
                         &nbsp;
                     </div>
-                    <p th:text="${spartito.utente.username}" class="mt-1"style="margin:0; text-transform: capitalize;"></p>
+                    <p th:text="${spartito.user.username}" class="mt-1"style="margin:0; text-transform: capitalize;"></p>
                 </div>
                 </div>
                 <div class="d-flex flex-row align-items-center justify-content-end" style="gap:20px">

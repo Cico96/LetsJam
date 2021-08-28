@@ -27,7 +27,7 @@ import lombok.*;
 @Setter
 @DiscriminatorColumn(name = "role")
 @DiscriminatorValue("utente")
-public class Utente extends AbstractPersistableEntity{
+public class User extends AbstractPersistableEntity{
 	
 	@NotEmpty(groups ={OnCreate.class, Default.class})
 	@Size(min = 3, max = 25, groups = {OnCreate.class, OnUpdate.class, Default.class})
@@ -79,12 +79,12 @@ public class Utente extends AbstractPersistableEntity{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Utente utente = (Utente) o;
-        return Objects.equals(firstname, utente.firstname) &&
-                Objects.equals(lastname, utente.lastname) &&
-                Objects.equals(email, utente.email) &&
-                Objects.equals(username, utente.username) &&
-                Objects.equals(password, utente.password);
+        User user = (User) o;
+        return Objects.equals(firstname, user.firstname) &&
+                Objects.equals(lastname, user.lastname) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password);
     }
 
 	@Override

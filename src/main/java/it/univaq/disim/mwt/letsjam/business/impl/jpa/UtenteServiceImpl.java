@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.transaction.Transactional;
 
+import it.univaq.disim.mwt.letsjam.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,6 @@ import it.univaq.disim.mwt.letsjam.business.UtenteService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UtenteRepository;
 import it.univaq.disim.mwt.letsjam.domain.Genere;
 import it.univaq.disim.mwt.letsjam.domain.Spartito;
-import it.univaq.disim.mwt.letsjam.domain.Utente;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 @Service
@@ -22,17 +22,17 @@ public class UtenteServiceImpl implements UtenteService {
 	private UtenteRepository utenteRepository;
 	
 	@Override
-	public Utente findUtenteById(Long id) throws BusinessException {
+	public User findUtenteById(Long id) throws BusinessException {
 		return utenteRepository.findUtenteById(id);
 		}
 	
 	@Override
-	public Utente findUtenteByUsername(String username) throws BusinessException {
+	public User findUtenteByUsername(String username) throws BusinessException {
 		return utenteRepository.findByUsername(username);
 	}
 
 	@Override
-	public Utente findUtenteByEmail(String email) throws BusinessException {
+	public User findUtenteByEmail(String email) throws BusinessException {
 		return utenteRepository.findByEmail(email);
 	}
 
@@ -50,9 +50,9 @@ public class UtenteServiceImpl implements UtenteService {
 
 
 	@Override
-	public Utente insert(Utente utente) throws BusinessException {
+	public User insert(User user) throws BusinessException {
 		// TODO Auto-generated method stub
-		return utenteRepository.save(utente);
+		return utenteRepository.save(user);
 	}
 
 	@Override
@@ -68,42 +68,42 @@ public class UtenteServiceImpl implements UtenteService {
 	}
 
 	@Override
-	public void update(Utente utente, Genere genere) throws BusinessException {
-		utente.getGeneriPreferiti().add(genere);
-		utenteRepository.save(utente);
+	public void update(User user, Genere genere) throws BusinessException {
+		user.getGeneriPreferiti().add(genere);
+		utenteRepository.save(user);
 	}
 
 	@Override
-	public void like(Utente utente, Spartito spartito) throws BusinessException {
+	public void like(User user, Spartito spartito) throws BusinessException {
 		// TODO Auto-generated method stub
-		Set<Spartito> spartiti = utente.getLikedSpartiti();
+		Set<Spartito> spartiti = user.getLikedSpartiti();
 		spartiti.add(spartito);
-		utente.setLikedSpartiti(spartiti);
-		utenteRepository.save(utente);
+		user.setLikedSpartiti(spartiti);
+		utenteRepository.save(user);
 	}
 
 	@Override
-	public void dislike(Utente utente, Spartito spartito) throws BusinessException {
+	public void dislike(User user, Spartito spartito) throws BusinessException {
 		// TODO Auto-generated method stub
-		Set<Spartito> spartiti = utente.getLikedSpartiti();
+		Set<Spartito> spartiti = user.getLikedSpartiti();
 		spartiti.remove(spartito);
-		utente.setLikedSpartiti(spartiti);
-		utenteRepository.save(utente);
+		user.setLikedSpartiti(spartiti);
+		utenteRepository.save(user);
 	}
 
 	@Override
-	public void remove(Utente utente, Genere genere) throws BusinessException {
+	public void remove(User user, Genere genere) throws BusinessException {
 		// TODO Auto-generated method stub
-		Set<Genere> generi = utente.getGeneriPreferiti();
+		Set<Genere> generi = user.getGeneriPreferiti();
 		generi.add(genere);
-		utente.setGeneriPreferiti(generi);
-		utenteRepository.save(utente);
+		user.setGeneriPreferiti(generi);
+		utenteRepository.save(user);
 	}
 
 	@Override
-	public Utente addUtente(Utente utente) throws BusinessException {
-		utenteRepository.save(utente);
-		return utente;
+	public User addUtente(User user) throws BusinessException {
+		utenteRepository.save(user);
+		return user;
 	}	
 
 }

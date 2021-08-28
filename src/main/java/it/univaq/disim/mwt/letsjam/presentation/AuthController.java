@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import it.univaq.disim.mwt.letsjam.business.UtenteService;
-import it.univaq.disim.mwt.letsjam.domain.Utente;
+import it.univaq.disim.mwt.letsjam.domain.User;
 
 @Controller
 public class AuthController {
@@ -20,23 +20,23 @@ public class AuthController {
 
     @GetMapping("/register")
     public String registerForm(Model model){
-        model.addAttribute("utente", new Utente());
+        model.addAttribute("utente", new User());
             return "auth/register";
     }
 
     @PostMapping("/register")
-    public String registerSumbit(@ModelAttribute Utente utente, Model model){
+    public String registerSumbit(@ModelAttribute User user, Model model){
         //Controllo che non esista già un utente con la stessa email
-        if(utenteService.existsUtenteByEmail(utente.getEmail())){
+        if(utenteService.existsUtenteByEmail(user.getEmail())){
             model.addAttribute("error", "email");
             return "auth/register";
         }
         //Cripto la password
         PasswordEncoder encoder = new BCryptPasswordEncoder();
-        utente.setPassword(encoder.encode(utente.getPassword()));
+        user.setPassword(encoder.encode(user.getPassword()));
         //Salvo l'utente appena creato
-        utenteService.addUtente(utente);
-        System.out.println(utente.getRuolo()+" "+utente.getFirstname()+" "+utente.getLastname()+": registrato con successo");
+        utenteService.addUtente(user);
+        System.out.println(user.getRuolo()+" "+ user.getFirstname()+" "+ user.getLastname()+": registrato con successo");
             return "auth/login";
     }
     
