@@ -19,17 +19,17 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Commento extends AbstractPersistableEntity{
+public class Comment extends AbstractPersistableEntity{
 	
 	@Size(min = 3, max = 500, groups = {OnCreate.class, OnUpdate.class, Default.class})
 	@NotNull
 	private String contenuto;
 	
 	@OneToOne
-	private Commento commentoPadre;
+	private Comment commentoPadre;
 	
 	@OneToOne
-	private Spartito spartito;
+	private MusicSheet spartito;
 	
 	@OneToOne
 	private User user;

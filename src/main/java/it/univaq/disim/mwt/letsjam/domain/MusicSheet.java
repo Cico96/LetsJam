@@ -30,7 +30,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Spartito extends AbstractPersistableEntity{
+public class MusicSheet extends AbstractPersistableEntity{
 	
 	@NotEmpty(groups ={OnCreate.class, Default.class})
 	@Size(min = 3, max = 25, groups = {OnCreate.class, OnUpdate.class, Default.class})
@@ -41,10 +41,10 @@ public class Spartito extends AbstractPersistableEntity{
 
 	@JsonInclude()
 	@Transient
-	private SpartitoData data;
+	private MusicSheetData data;
 	
 	@OneToOne
-	private Brano brano;
+	private Song brano;
 	
 	@OneToOne
 	private User user;
@@ -54,6 +54,6 @@ public class Spartito extends AbstractPersistableEntity{
 	private Set<User> likes = new HashSet<>();
 	
 	@OneToMany()
-	private Set<Strumento> strumenti;
+	private Set<Instrument> strumenti;
 }
 

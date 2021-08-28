@@ -19,7 +19,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Brano extends AbstractPersistableEntity{
+public class Song extends AbstractPersistableEntity{
 
 	@NotEmpty(groups ={OnCreate.class, Default.class})
 	@Size(min = 3, max = 50, groups = {OnCreate.class, OnUpdate.class, Default.class})
@@ -30,5 +30,5 @@ public class Brano extends AbstractPersistableEntity{
 	private String titolo;
 	
 	@OneToOne
-	private Genere genere;
+	private Genre genere;
 }

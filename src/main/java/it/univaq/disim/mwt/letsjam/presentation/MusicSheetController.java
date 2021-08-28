@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import it.univaq.disim.mwt.letsjam.business.SpartitoService;
-import it.univaq.disim.mwt.letsjam.domain.Spartito;
+import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 @Controller
@@ -24,7 +24,7 @@ public class MusicSheetController {
 	@GetMapping("/spartito/{id}")
 	public String getSpartitoSingolo(@PathVariable("id") long id, Model model) throws BusinessException {
 		
-		Spartito spartito = spartitoService.findSpartitoById(id);
+		MusicSheet spartito = spartitoService.findSpartitoById(id);
 		model.addAttribute("spartito", spartito);
 		return "spartito/allSpartiti";
 	}

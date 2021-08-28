@@ -65,14 +65,14 @@ public class User extends AbstractPersistableEntity{
     name = "spartiti_likes", 
     joinColumns = @JoinColumn(name = "utente_id"), 
     inverseJoinColumns = @JoinColumn(name = "spartito_id"))
-    private Set<Spartito> likedSpartiti;
+    private Set<MusicSheet> likedSpartiti;
 	
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
     @JoinTable(
     name = "generi_preferiti", 
     joinColumns = @JoinColumn(name = "utente_id"), 
     inverseJoinColumns = @JoinColumn(name = "genere_id"))
-    private Set<Genere> generiPreferiti = new HashSet<>();
+    private Set<Genre> generiPreferiti = new HashSet<>();
 
     
 	@Override

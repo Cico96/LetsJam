@@ -7,8 +7,8 @@ import it.univaq.disim.mwt.letsjam.business.CommentoService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.CommentoRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SpartitoRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UtenteRepository;
-import it.univaq.disim.mwt.letsjam.domain.Commento;
-import it.univaq.disim.mwt.letsjam.domain.Spartito;
+import it.univaq.disim.mwt.letsjam.domain.Comment;
+import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
@@ -23,13 +23,13 @@ public class CommentoServiceImpl implements CommentoService {
 	@Autowired SpartitoRepository spartitoRepository;
 
 	@Override
-	public Commento findCommentoById(Long id) throws BusinessException {
+	public Comment findCommentoById(Long id) throws BusinessException {
 		// TODO Auto-generated method stub
 		return commentoRepository.findCommentoById(id);
 	}
 
 	@Override
-	public void update(Commento commento) throws BusinessException {
+	public void update(Comment commento) throws BusinessException {
 		// TODO Auto-generated method stub
 		commentoRepository.save(commento);
 	}
@@ -37,8 +37,8 @@ public class CommentoServiceImpl implements CommentoService {
 	@Override
 	public void addCommento(Long id_spartito, Long id_utente, String contenuto) throws BusinessException {
 		// TODO Auto-generated method stub
-		Commento new_commento = new Commento();
-		Spartito spartito = spartitoRepository.findSpartitoById(id_spartito);
+		Comment new_commento = new Comment();
+		MusicSheet spartito = spartitoRepository.findSpartitoById(id_spartito);
 		User user = utenteRepository.findUtenteById(id_utente);
 		new_commento.setSpartito(spartito);
 		new_commento.setUser(user);
@@ -47,9 +47,9 @@ public class CommentoServiceImpl implements CommentoService {
 	}
 
 	@Override
-	public void addRisposta(Commento commento, Long id_utente, String contenuto) {
+	public void addRisposta(Comment commento, Long id_utente, String contenuto) {
 		// TODO Auto-generated method stub
-		Commento risposta = new Commento();
+		Comment risposta = new Comment();
 		risposta.setContenuto(contenuto);
 		User user = utenteRepository.findUtenteById(id_utente);
 		risposta.setUser(user);

@@ -18,9 +18,9 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @DiscriminatorValue("amministratore")
 @NoArgsConstructor
-public class Amministratore extends User {
+public class Administrator extends User {
     
-    public Amministratore(Long id){
+    public Administrator(Long id){
         super();
         this.setId(id);
     }

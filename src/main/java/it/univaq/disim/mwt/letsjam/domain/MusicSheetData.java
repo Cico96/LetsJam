@@ -16,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class SpartitoData {
+public class MusicSheetData {
     
     @Id
     private String id;
