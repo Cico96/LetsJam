@@ -15,46 +15,46 @@ import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 @Service
 public class CommentServiceImpl implements CommentService {
 	@Autowired
-	private CommentRepository commentoRepository;
+	private CommentRepository commentRepository;
 	
 	@Autowired
-	private UserRepository utenteRepository;
+	private UserRepository userRepository;
 	
-	@Autowired MusicSheetRepository spartitoRepository;
+	@Autowired MusicSheetRepository musicSheetRepositoryRepository;
 
 	@Override
-	public Comment findCommentoById(Long id) throws BusinessException {
+	public Comment findCommentById(Long id) throws BusinessException {
 		// TODO Auto-generated method stub
-		return commentoRepository.findCommentoById(id);
+		return commentRepository.findCommentoById(id);
 	}
 
 	@Override
-	public void update(Comment commento) throws BusinessException {
+	public void update(Comment comment) throws BusinessException {
 		// TODO Auto-generated method stub
-		commentoRepository.save(commento);
+		commentRepository.save(comment);
 	}
 
 	@Override
-	public void addCommento(Long id_spartito, Long id_utente, String contenuto) throws BusinessException {
+	public void addComment(Long id_musicSheet, Long id_user, String content) throws BusinessException {
 		// TODO Auto-generated method stub
 		Comment new_commento = new Comment();
-		MusicSheet spartito = spartitoRepository.findSpartitoById(id_spartito);
-		User user = utenteRepository.findUtenteById(id_utente);
+		MusicSheet spartito = musicSheetRepositoryRepository.findSpartitoById(id_musicSheet);
+		User user = userRepository.findUtenteById(id_user);
 		new_commento.setMusicSheet(spartito);
 		new_commento.setUser(user);
-		new_commento.setContent(contenuto);
-		commentoRepository.save(new_commento);
+		new_commento.setContent(content);
+		commentRepository.save(new_commento);
 	}
 
 	@Override
-	public void addRisposta(Comment commento, Long id_utente, String contenuto) {
+	public void addAnsewer(Comment comment, Long id_user, String content) {
 		// TODO Auto-generated method stub
 		Comment risposta = new Comment();
-		risposta.setContent(contenuto);
-		User user = utenteRepository.findUtenteById(id_utente);
+		risposta.setContent(content);
+		User user = userRepository.findUtenteById(id_user);
 		risposta.setUser(user);
-		risposta.setParentComment(commento);
-		commentoRepository.save(risposta);
+		risposta.setParentComment(comment);
+		commentRepository.save(risposta);
 	}
 
 }

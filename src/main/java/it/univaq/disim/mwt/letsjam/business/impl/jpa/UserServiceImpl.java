@@ -74,19 +74,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void like(User user, MusicSheet spartito) throws BusinessException {
+	public void like(User user, MusicSheet musicSheet) throws BusinessException {
 		// TODO Auto-generated method stub
 		Set<MusicSheet> spartiti = user.getLikedMusicSheets();
-		spartiti.add(spartito);
+		spartiti.add(musicSheet);
 		user.setLikedMusicSheets(spartiti);
 		utenteRepository.save(user);
 	}
 
 	@Override
-	public void dislike(User user, MusicSheet spartito) throws BusinessException {
+	public void dislike(User user, MusicSheet musicSheet) throws BusinessException {
 		// TODO Auto-generated method stub
 		Set<MusicSheet> spartiti = user.getLikedMusicSheets();
-		spartiti.remove(spartito);
+		spartiti.remove(musicSheet);
 		user.setLikedMusicSheets(spartiti);
 		utenteRepository.save(user);
 	}

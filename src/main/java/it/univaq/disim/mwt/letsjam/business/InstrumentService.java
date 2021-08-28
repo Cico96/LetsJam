@@ -5,7 +5,7 @@ import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 public interface InstrumentService {
 	
-	Instrument findStrumentoById(Long id) throws BusinessException;
+	Instrument findInsstrumentById(Long id) throws BusinessException;
 	
-	Instrument findStrumentoByNome(String nome) throws BusinessException;
+	Instrument findInstrumentByNome(String name) throws BusinessException;
 }

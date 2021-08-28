@@ -13,15 +13,15 @@ public class InstrumentServiceImpl implements InstrumentService {
 	private InstrumentRepository strumentoRepository;
 
 	@Override
-	public Instrument findStrumentoById(Long id) throws BusinessException {
+	public Instrument findInsstrumentById(Long id) throws BusinessException {
 		// TODO Auto-generated method stub
 		return strumentoRepository.findStrumentoById(id);
 	}
 
 	@Override
-	public Instrument findStrumentoByNome(String nome) throws BusinessException {
+	public Instrument findInstrumentByNome(String name) throws BusinessException {
 		// TODO Auto-generated method stub
-		return strumentoRepository.findStrumentoByNome(nome);
+		return strumentoRepository.findStrumentoByNome(name);
 	}
 
 }
