@@ -34,7 +34,7 @@
             <a href="/login" class="mt-2" style="font-size: 16px;" th:text="#{login.login}"></a>
         </div>
         
-        <form th:action="@{/register}" method="post" th:object="${utente}"  style="width: 90%;flex:7;">
+        <form th:action="@{/register}" method="post" th:object="${user}"  style="width: 90%;flex:7;">
             
             <div class="input-container mb-3">
                 <label class="mb-1" th:text="#{common.firstname}"></label>

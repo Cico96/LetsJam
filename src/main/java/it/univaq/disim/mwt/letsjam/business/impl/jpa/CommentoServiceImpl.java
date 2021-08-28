@@ -9,7 +9,7 @@ import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SpartitoReposito
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UtenteRepository;
 import it.univaq.disim.mwt.letsjam.domain.Commento;
 import it.univaq.disim.mwt.letsjam.domain.Spartito;
-import it.univaq.disim.mwt.letsjam.domain.Utente;
+import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 @Service
@@ -39,9 +39,9 @@ public class CommentoServiceImpl implements CommentoService {
 		// TODO Auto-generated method stub
 		Commento new_commento = new Commento();
 		Spartito spartito = spartitoRepository.findSpartitoById(id_spartito);
-		Utente utente = utenteRepository.findUtenteById(id_utente);
+		User user = utenteRepository.findUtenteById(id_utente);
 		new_commento.setSpartito(spartito);
-		new_commento.setUtente(utente);
+		new_commento.setUser(user);
 		new_commento.setContenuto(contenuto);
 		commentoRepository.save(new_commento);
 	}
@@ -51,8 +51,8 @@ public class CommentoServiceImpl implements CommentoService {
 		// TODO Auto-generated method stub
 		Commento risposta = new Commento();
 		risposta.setContenuto(contenuto);
-		Utente utente = utenteRepository.findUtenteById(id_utente);
-		risposta.setUtente(utente);
+		User user = utenteRepository.findUtenteById(id_utente);
+		risposta.setUser(user);
 		risposta.setCommentoPadre(commento);
 		commentoRepository.save(risposta);
 	}

@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import it.univaq.disim.mwt.letsjam.business.UtenteService;
-import it.univaq.disim.mwt.letsjam.domain.Utente;
+import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 @Service
@@ -17,15 +17,15 @@ public class CustomUserDetailsService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Utente utente = null;
+        User user = null;
         try{
-            utente = utenteService.findUtenteByEmail(email);
+            user = utenteService.findUtenteByEmail(email);
         }
         catch(BusinessException e){
             e.printStackTrace();
         }
         
-        return new CustomUserDetails(utente);
+        return new CustomUserDetails(user);
     }
     
 }

@@ -1,20 +1,18 @@
 package it.univaq.disim.mwt.letsjam.business.impl.jpa.repository;
 
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import it.univaq.disim.mwt.letsjam.domain.Utente;
+import it.univaq.disim.mwt.letsjam.domain.User;
 
 @Repository
-public interface UtenteRepository extends JpaRepository<Utente, Long> {
+public interface UtenteRepository extends JpaRepository<User, Long> {
 	
-	Utente findUtenteById(Long id);
+	User findUtenteById(Long id);
 	
-	Utente findByUsername(String username);
+	User findByUsername(String username);
 
-	Utente findByEmail(String email);
+	User findByEmail(String email);
 	
 	boolean existsUtenteByUsername(String username);
 	

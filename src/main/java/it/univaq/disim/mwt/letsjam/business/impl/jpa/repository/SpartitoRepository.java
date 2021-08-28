@@ -27,4 +27,7 @@ public interface SpartitoRepository extends JpaRepository<Spartito, Long>{
     @Query(value="SELECT s FROM Spartito s ORDER BY size(s.likes) DESC")
     Page<Spartito> getMostPopularMusicSheets(Pageable pageable);
 
+    @Query(value = "SELECT s FROM Spartito s ORDER BY s.createDateTime DESC")
+    Page<Spartito> getLastInsert(Pageable pageable);
+
 }

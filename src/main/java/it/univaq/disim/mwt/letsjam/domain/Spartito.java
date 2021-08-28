@@ -47,11 +47,11 @@ public class Spartito extends AbstractPersistableEntity{
 	private Brano brano;
 	
 	@OneToOne
-	private Utente utente;
+	private User user;
 	
 	@ManyToMany(mappedBy = "likedSpartiti", fetch = FetchType.EAGER)
 	@Basic(fetch = FetchType.LAZY)
-	private Set<Utente> likes = new HashSet<>();
+	private Set<User> likes = new HashSet<>();
 	
 	@OneToMany()
 	private Set<Strumento> strumenti;

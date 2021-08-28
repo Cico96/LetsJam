@@ -30,4 +30,6 @@ public interface SpartitoService {
 	Spartito insert(Spartito spartito) throws BusinessException;
 	
 	List<Spartito> getMostPopularMusicSheets() throws BusinessException;
+
+	List<Spartito> getLastInsertMusicSheets() throws BusinessException;
 }
