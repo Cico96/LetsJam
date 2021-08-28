@@ -4,11 +4,11 @@ import java.util.Set;
 
 import javax.transaction.Transactional;
 
+import it.univaq.disim.mwt.letsjam.business.UtenteService;
 import it.univaq.disim.mwt.letsjam.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.univaq.disim.mwt.letsjam.business.UtenteService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UtenteRepository;
 import it.univaq.disim.mwt.letsjam.domain.Genre;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
@@ -22,28 +22,28 @@ public class UtenteServiceImpl implements UtenteService {
 	private UtenteRepository utenteRepository;
 	
 	@Override
-	public User findUtenteById(Long id) throws BusinessException {
+	public User findUserById(Long id) throws BusinessException {
 		return utenteRepository.findUtenteById(id);
 		}
 	
 	@Override
-	public User findUtenteByUsername(String username) throws BusinessException {
+	public User findUserByUsername(String username) throws BusinessException {
 		return utenteRepository.findByUsername(username);
 	}
 
 	@Override
-	public User findUtenteByEmail(String email) throws BusinessException {
+	public User findUserByEmail(String email) throws BusinessException {
 		return utenteRepository.findByEmail(email);
 	}
 
 	@Override
-	public boolean existsUtenteByUsername(String username) throws BusinessException {
+	public boolean existsUserByUsername(String username) throws BusinessException {
 		// TODO Auto-generated method stub
 		return utenteRepository.existsUtenteByUsername(username);
 	}
 
 	@Override
-	public boolean existsUtenteByEmail(String email) throws BusinessException {
+	public boolean existsUserByEmail(String email) throws BusinessException {
 		// TODO Auto-generated method stub
 		return utenteRepository.existsUtenteByEmail(email);
 	}
@@ -56,13 +56,13 @@ public class UtenteServiceImpl implements UtenteService {
 	}
 
 	@Override
-	public void deleteUtenteById(Long id) throws BusinessException {
+	public void deleteUserById(Long id) throws BusinessException {
 		utenteRepository.deleteById(id);
 		
 	}
 
 	@Override
-	public boolean UtenteIsAdmin(Long id) throws BusinessException {
+	public boolean UserIsAdmin(Long id) throws BusinessException {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -101,7 +101,7 @@ public class UtenteServiceImpl implements UtenteService {
 	}
 
 	@Override
-	public User addUtente(User user) throws BusinessException {
+	public User addUser(User user) throws BusinessException {
 		utenteRepository.save(user);
 		return user;
 	}	

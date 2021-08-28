@@ -31,30 +31,30 @@ public class SpartitoServiceImpl implements SpartitoService {
     private SpartitoDataRepository spartitoDataRepository;
     
     @Override
-    public MusicSheet findSpartitoById(Long id) throws BusinessException {
-		MusicSheet spartito = spartitoRepository.findById(id).get();
-        return spartito;
+    public MusicSheet findMusicSheetById(Long id) throws BusinessException {
+		MusicSheet musicSheet = spartitoRepository.findById(id).get();
+        return musicSheet;
 	}
 
 	@Override
-	public MusicSheetData getSpartitoData(Long id) throws BusinessException{
+	public MusicSheetData getMusicSheetData(Long id) throws BusinessException{
 		MusicSheetData data = spartitoDataRepository.findById(id.toString()).get();
 		return data;
 	}
     
     @Override
-    public MusicSheet addSpartito(MusicSheet spartito) throws BusinessException{
-        MusicSheet s = spartitoRepository.save(spartito);
-        MusicSheetData data = spartito.getData();
-        data.setId(spartito.getId().toString());
+    public MusicSheet addMusicSheet(MusicSheet musicSheet) throws BusinessException{
+        MusicSheet ms = spartitoRepository.save(musicSheet);
+        MusicSheetData data = musicSheet.getData();
+        data.setId(musicSheet.getId().toString());
         spartitoDataRepository.save(data);
-        return spartito;
+        return musicSheet;
     }
 
 	@Override
-	public MusicSheet findSpartitoByTitolo(String titolo) throws BusinessException {
+	public MusicSheet findMusicSheetByTitol(String titol) throws BusinessException {
 		// TODO Auto-generated method stub
-		return spartitoRepository.findSpartitoByTitolo(titolo);
+		return spartitoRepository.findSpartitoByTitolo(titol);
 	}
 
 //	@Override
@@ -64,35 +64,31 @@ public class SpartitoServiceImpl implements SpartitoService {
 //	}
 
 	@Override
-	public MusicSheet findSpartitoByVerificato(String titolo) throws BusinessException {
+	public MusicSheet findMusicSheetVerified(String titol) throws BusinessException {
 		// TODO Auto-generated method stub
-		MusicSheet spartito = spartitoRepository.findSpartitoByTitolo(titolo);
-		if(spartito.getVerificato()) {
-			return spartito;
+		MusicSheet musicSheet = spartitoRepository.findSpartitoByTitolo(titol);
+		if(musicSheet.getVerificato()) {
+			return musicSheet;
 		}
 		return null;
 	}
 
 	@Override
-	public void update(MusicSheet spartito) throws BusinessException {
+	public void update(MusicSheet musicSheet) throws BusinessException {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void deleteSpartitoById(Long id) throws BusinessException {
+	public void deleteMusicSheetById(Long id) throws BusinessException {
 		// TODO Auto-generated method stub
 		spartitoRepository.deleteById(id);
 		
 	}
 
 	@Override
-	public MusicSheet insert(MusicSheet spartito) throws BusinessException {
+	public MusicSheet insert(MusicSheet musicSheet) throws BusinessException {
 		// TODO Auto-generated method stub
-		return spartitoRepository.save(spartito);
-	}
-
-	public Set<MusicSheet> getSpartitiFromGenere(Genre g) throws BusinessException{
-		return null;
+		return spartitoRepository.save(musicSheet);
 	}
 
 	@Override

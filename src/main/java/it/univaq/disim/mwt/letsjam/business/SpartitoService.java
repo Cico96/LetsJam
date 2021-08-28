@@ -9,25 +9,25 @@ import java.util.Set;
 
 public interface SpartitoService {
 	
-	MusicSheet addSpartito(MusicSheet spartito) throws BusinessException;
+	MusicSheet addMusicSheet(MusicSheet musicSheet) throws BusinessException;
 	
-	MusicSheetData getSpartitoData(Long id) throws BusinessException;
+	MusicSheetData getMusicSheetData(Long id) throws BusinessException;
 
-	MusicSheet findSpartitoById(Long id) throws BusinessException;
+	MusicSheet findMusicSheetById(Long id) throws BusinessException;
 	
-	MusicSheet findSpartitoByTitolo(String titolo) throws BusinessException;
+	MusicSheet findMusicSheetByTitol(String titol) throws BusinessException;
 	
-//	Spartito findSpartitoByContenuto (String contenuto) throws BusinessException;
+//	Spartito findMusicSheetByContent (String content) throws BusinessException;
 	
-	MusicSheet findSpartitoByVerificato(String titolo) throws BusinessException;
+	MusicSheet findMusicSheetVerified(String titol) throws BusinessException;
 	
 	//void addLike(Spartito spartito, Long id_utente) throws BusinessException;
 	
-	void update(MusicSheet spartito) throws BusinessException;
+	void update(MusicSheet musicSheet) throws BusinessException;
 	
-	void deleteSpartitoById (Long id) throws BusinessException;
+	void deleteMusicSheetById (Long id) throws BusinessException;
 	
-	MusicSheet insert(MusicSheet spartito) throws BusinessException;
+	MusicSheet insert(MusicSheet musicSheet) throws BusinessException;
 	
 	List<MusicSheet> getMostPopularMusicSheets() throws BusinessException;
 
