@@ -5157,3 +5157,25 @@ blockquote span {
 .relative{
   position: relative;
 }
+
+.image-section{
+  position: relative;
+  background: #333;
+  background-image: url(../img/people-4.jpg);
+  opacity: 0.5;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: bottom;
+  text-align: center;
+  height: 600px;
+} 
+
+.single-service h3{
+  line-height: normal;
+  font-size: 24px;
+}
+
+.single-service:hover h3{
+  color: white;
+}
