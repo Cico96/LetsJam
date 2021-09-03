@@ -2,7 +2,11 @@ package it.univaq.disim.mwt.letsjam.presentation;
 
 import java.security.Principal;
 
+import com.sun.xml.bind.v2.runtime.output.SAXOutput;
+import it.univaq.disim.mwt.letsjam.business.*;
+import it.univaq.disim.mwt.letsjam.domain.Song;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
-import it.univaq.disim.mwt.letsjam.business.CommentService;
-import it.univaq.disim.mwt.letsjam.business.GenreService;
-import it.univaq.disim.mwt.letsjam.business.MusicSheetService;
-import it.univaq.disim.mwt.letsjam.business.UserService;
+
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UserRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetRepository;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
@@ -34,6 +35,10 @@ public class DummyController {
 	private MusicSheetRepository spartitoRepository;
 	@Autowired
 	private CommentService commentoService;
+	@Autowired
+    private SpotifyApiService spotifyService;
+    @Autowired
+    private Environment env;
 	
     @GetMapping("/home")
     public String home(Model model, Principal principal){
@@ -46,6 +51,12 @@ public class DummyController {
             return "home/homeLogged";
         }
         //Not Logged
+        Song song = new Song();
+        song.setAuthor("Marracash");
+        song.setTitle("Badabum cha cha");
+        spotifyService.getBrano(song);
+        //System.out.println(spotifyService.getBrano(null));
+        //System.out.println(env.getProperty("spotify.client_id"));
         model.addAttribute("mostpopular", mostpopular);
         return "home/home";
     }

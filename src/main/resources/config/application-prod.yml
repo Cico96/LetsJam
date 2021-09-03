@@ -8,7 +8,9 @@ spring:
   data:
     mongodb:
       uri: mongodb+srv://letsjam:letsjam@letsjam.p9fke.mongodb.net/letsjam?retryWrites=true&w=majority
-
+spotify:
+  client_id: 9f22edd2825c42cfb4cdf87dcc0022b0
+  client_secret: cf2f60097c5d4072a3fca62d9c2991af
 ###############################################
 ########### LETSJAM PROPERTIES ################
 ###############################################
