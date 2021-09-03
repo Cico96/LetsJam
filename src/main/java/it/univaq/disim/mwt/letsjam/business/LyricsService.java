@@ -4,9 +4,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import org.jmusixmatch.MusixMatch;
-import org.jmusixmatch.MusixMatchException;
-import org.jmusixmatch.entity.track.TrackData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
