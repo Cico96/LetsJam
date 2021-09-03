@@ -3,6 +3,7 @@ package it.univaq.disim.mwt.letsjam.business;
 import com.wrapper.spotify.SpotifyApi;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import com.wrapper.spotify.model_objects.credentials.ClientCredentials;
+import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
 import com.wrapper.spotify.model_objects.specification.Paging;
 import com.wrapper.spotify.model_objects.specification.Track;
 import com.wrapper.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
@@ -35,7 +36,7 @@ public class SpotifyApiService {
     public SpotifyApi getObjectSpotify(){
         return this.spotifyApi;
     }
-    public void getAccessToken(){
+    private void getAccessToken(){
         try {
             final ClientCredentials clientCredentials = clientCredentialsRequest.execute();
 
@@ -47,18 +48,25 @@ public class SpotifyApiService {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    public Song getBrano(Song song){
+    public void setSongInfo(Song song){
         String q = "artist:"+ song.getAuthor() + " track:" + song.getTitle();
         SearchTracksRequest request = spotifyApi.searchTracks(q)
                 .build();
         try {
             Paging<Track> tracks = request.execute();
             Track traccia = tracks.getItems()[0];
-            System.out.println(traccia.getArtists()[0].getName() + traccia.getName());
+            ArtistSimplified[] artists = traccia.getArtists();
+            String author = "";
+            for(int i=0; i<artists.length; i++){
+                author += artists[i].getName() + ", ";
+            }
+            author = author.substring(0,author.length() - 2);
+            song.setAuthor(author);
+            song.setTitle(traccia.getName());
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
         }
-        return null;
+
     }
 
 

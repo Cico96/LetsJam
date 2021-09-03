@@ -52,9 +52,10 @@ public class DummyController {
         }
         //Not Logged
         Song song = new Song();
-        song.setAuthor("Marracash");
-        song.setTitle("Badabum cha cha");
-        spotifyService.getBrano(song);
+        song.setAuthor("Fabri Fibra");
+        song.setTitle("Pamplona");
+        spotifyService.setSongInfo(song);
+        System.out.println(song.getAuthor() + " - " +song.getTitle());
         //System.out.println(spotifyService.getBrano(null));
         //System.out.println(env.getProperty("spotify.client_id"));
         model.addAttribute("mostpopular", mostpopular);
