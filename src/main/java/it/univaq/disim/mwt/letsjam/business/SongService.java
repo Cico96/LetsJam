@@ -10,4 +10,6 @@ public interface SongService {
 	Song findSongByTitol(String titol) throws BusinessException;
 	
 	Song findSongByAuthor(String author) throws BusinessException;
+
+	Song updateSong(Song song) throws BusinessException;
 }

@@ -38,6 +38,8 @@ public class DummyController {
 	@Autowired
     private SpotifyApiService spotifyService;
     @Autowired
+    private SongService songService;
+    @Autowired
     private Environment env;
 	
     @GetMapping("/home")
@@ -56,6 +58,7 @@ public class DummyController {
         song.setTitle("Pamplona");
         spotifyService.setSongInfo(song);
         System.out.println(song.getAuthor() + " - " +song.getTitle());
+        songService.updateSong(song);
         //System.out.println(spotifyService.getBrano(null));
         //System.out.println(env.getProperty("spotify.client_id"));
         model.addAttribute("mostpopular", mostpopular);

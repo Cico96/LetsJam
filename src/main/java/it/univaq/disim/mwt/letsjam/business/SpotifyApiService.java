@@ -63,6 +63,11 @@ public class SpotifyApiService {
             author = author.substring(0,author.length() - 2);
             song.setAuthor(author);
             song.setTitle(traccia.getName());
+            song.setImageUrl(traccia.getAlbum().getImages()[0].getUrl());
+            song.setAlbumType(traccia.getAlbum().getAlbumType().toString());
+            song.setAlbumName(traccia.getAlbum().getName());
+            song.setDuration(traccia.getDurationMs());
+            song.setIsExplicit(traccia.getIsExplicit());
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
         }

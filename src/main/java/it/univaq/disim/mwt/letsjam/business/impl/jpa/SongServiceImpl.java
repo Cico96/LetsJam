@@ -29,5 +29,9 @@ public class SongServiceImpl implements SongService {
 		// TODO Auto-generated method stub
 		return branoRepository.findSongByAuthor(author);
 	}
+	@Override
+	public Song updateSong(Song song) throws BusinessException{
+		return branoRepository.save(song);
+	}
 
 }
