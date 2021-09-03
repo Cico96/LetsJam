@@ -1,5 +1,6 @@
 package it.univaq.disim.mwt.letsjam.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -42,6 +43,9 @@ public class Song extends AbstractPersistableEntity{
 	private Boolean isExplicit;
 
 	private int duration;
+	
+	@Column(columnDefinition="TEXT")
+	private String lyrics;
 
 	@OneToOne
 	private Genre genre;

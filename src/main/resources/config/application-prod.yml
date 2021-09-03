@@ -12,6 +12,10 @@ spring:
 spotify:
   client_id: 9f22edd2825c42cfb4cdf87dcc0022b0
   client_secret: cf2f60097c5d4072a3fca62d9c2991af
+
+genius:
+  client_id: YJwDvxDIhEkM3L_ygNRbRXu-zF8ivoj8PXsm9Py8chLGY8sBgG_JQiubG471pxnF
+  access_token: ElbFZLf0xUtpyJ0ZQG9mITS9QcCdH3XzXeVpu3i2BZSQsNep18zxK7HljhtDuS1E
 ###############################################
 ########### LETSJAM PROPERTIES ################
 ###############################################

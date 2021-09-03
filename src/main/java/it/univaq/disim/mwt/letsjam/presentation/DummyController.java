@@ -41,6 +41,8 @@ public class DummyController {
     private SongService songService;
     @Autowired
     private Environment env;
+    @Autowired
+    private LyricsService lyricsService;
 	
     @GetMapping("/home")
     public String home(Model model, Principal principal){
@@ -54,13 +56,13 @@ public class DummyController {
         }
         //Not Logged
         Song song = new Song();
-        song.setAuthor("Fabri Fibra");
-        song.setTitle("Pamplona");
+        song.setAuthor("Vasco Rossi");
+        song.setTitle("Albachiara");
+        lyricsService.setLyrics(song);
         spotifyService.setSongInfo(song);
         System.out.println(song.getAuthor() + " - " +song.getTitle());
         songService.updateSong(song);
-        //System.out.println(spotifyService.getBrano(null));
-        //System.out.println(env.getProperty("spotify.client_id"));
+
         model.addAttribute("mostpopular", mostpopular);
         return "home/home";
     }

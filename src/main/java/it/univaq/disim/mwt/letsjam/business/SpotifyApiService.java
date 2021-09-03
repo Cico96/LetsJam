@@ -21,8 +21,8 @@ import org.apache.hc.core5.http.ParseException;
 public class SpotifyApiService {
     @Autowired
     private Environment env;
-    private static SpotifyApi spotifyApi;
-    private static  ClientCredentialsRequest clientCredentialsRequest;
+    private SpotifyApi spotifyApi;
+    private ClientCredentialsRequest clientCredentialsRequest;
 
     @PostConstruct
     public void init(){
@@ -54,25 +54,26 @@ public class SpotifyApiService {
                 .build();
         try {
             Paging<Track> tracks = request.execute();
-            Track traccia = tracks.getItems()[0];
-            ArtistSimplified[] artists = traccia.getArtists();
-            String author = "";
-            for(int i=0; i<artists.length; i++){
-                author += artists[i].getName() + ", ";
+            
+            if(tracks.getItems().length > 0){
+                Track traccia = tracks.getItems()[0];
+                ArtistSimplified[] artists = traccia.getArtists();
+                String author = "";
+                for(int i=0; i<artists.length; i++){
+                    author += artists[i].getName() + ", ";
+                }
+                author = author.substring(0,author.length() - 2);
+                song.setAuthor(author);
+                song.setTitle(traccia.getName());
+                song.setImageUrl(traccia.getAlbum().getImages()[0].getUrl());
+                song.setAlbumType(traccia.getAlbum().getAlbumType().toString());
+                song.setAlbumName(traccia.getAlbum().getName());
+                song.setDuration(traccia.getDurationMs());
+                song.setIsExplicit(traccia.getIsExplicit());
             }
-            author = author.substring(0,author.length() - 2);
-            song.setAuthor(author);
-            song.setTitle(traccia.getName());
-            song.setImageUrl(traccia.getAlbum().getImages()[0].getUrl());
-            song.setAlbumType(traccia.getAlbum().getAlbumType().toString());
-            song.setAlbumName(traccia.getAlbum().getName());
-            song.setDuration(traccia.getDurationMs());
-            song.setIsExplicit(traccia.getIsExplicit());
+
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
         }
-
     }
-
-
 }
