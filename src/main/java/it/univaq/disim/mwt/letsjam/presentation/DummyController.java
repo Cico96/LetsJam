@@ -19,6 +19,7 @@ import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UserRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetRepository;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.User;
+import it.univaq.disim.mwt.letsjam.security.CustomUserDetails;
 
 @Controller
 @RequestMapping("/")
@@ -55,13 +56,13 @@ public class DummyController {
             return "home/homeLogged";
         }
         //Not Logged
-        Song song = new Song();
-        song.setAuthor("Vasco Rossi");
-        song.setTitle("Albachiara");
+        /*Song song = new Song();
+        song.setAuthor("Salmo");
+        song.setTitle("90 min");
         lyricsService.setLyrics(song);
         spotifyService.setSongInfo(song);
         System.out.println(song.getAuthor() + " - " +song.getTitle());
-        songService.updateSong(song);
+        songService.updateSong(song);*/
 
         model.addAttribute("mostpopular", mostpopular);
         return "home/home";

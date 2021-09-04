@@ -18,30 +18,6 @@ svg {
   height: 50% !important;
 }
 
-.musicsheet-card .icon {
-  background-color: #3763eb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  width: 40px;
-  line-height: 60px;
-  text-align: center;
-  border-radius: 60px 60px 60px 0;
-  font-size: 25px;
-  position: relative;
-  transition: all 0.4s ease;
-  -webkit-transition: all 0.4s ease;
-  -moz-transition: all 0.4s ease;
-}
-
-.musicsheet-card .icon i {
-  color: #fff;
-  transition: all 0.4s ease;
-  -webkit-transition: all 0.4s ease;
-  -moz-transition: all 0.4s ease;
-}
-
 .musicsheet-card p {
   font-size: 14px;
   margin: 0;
@@ -67,20 +43,6 @@ svg {
   -moz-transition: all 0.4s cubic-bezier(0.94, 0.05, 0.23, 1.04);
   opacity: 0;
   visibility: hidden;
-}
-
-.musicsheet-card .icon ::after {
-  position: absolute;
-  left: 0;
-  bottom: -25px;
-  height: 2px;
-  width: 20px;
-  background-color: #3763eb;
-  content: "";
-  transition: all 0.4s ease;
-  -webkit-transition: all 0.4s ease;
-  -moz-transition: all 0.4s ease;
-  border-radius: 3px;
 }
 
 .musicsheet-card .avatar {
@@ -195,12 +157,6 @@ svg {
 .icon img {
   width: 70%;
   height: 70%;
-}
-
-.icon svg {
-  width: 70%;
-  height: 70%;
-  fill: white;
 }
 
 .about-us .musicsheet-card{

@@ -70,6 +70,7 @@ public class SpotifyApiService {
                 song.setAlbumName(traccia.getAlbum().getName());
                 song.setDuration(traccia.getDurationMs());
                 song.setIsExplicit(traccia.getIsExplicit());
+                song.setSpotifyId(traccia.getId());
             }
 
         } catch (IOException | SpotifyWebApiException | ParseException e) {

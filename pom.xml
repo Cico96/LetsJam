@@ -111,6 +111,11 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.github.bufferings</groupId>
+			<artifactId>thymeleaf-extras-nl2br</artifactId>
+			<version>1.0.2</version>
+		</dependency>
 		<!-- TEST -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

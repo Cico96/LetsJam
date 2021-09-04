@@ -1947,7 +1947,7 @@ ol {
   content: "";
   right: 0;
   width: 50%;
-  background-image: url("../../dist/img/hero-image.jpg");
+  background-image: url("../../img/hero-image.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -5178,4 +5178,34 @@ blockquote span {
 
 .single-service:hover h3{
   color: white;
+}
+
+.icon {
+  background-color: #3763eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  line-height: 60px;
+  text-align: center;
+  border-radius: 60px 60px 60px 0;
+  font-size: 25px;
+  position: relative;
+  transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+}
+
+.icon i {
+  color: #fff;
+  transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+}
+
+.icon svg {
+  width: 70%;
+  height: 70%;
+  fill: white;
 }

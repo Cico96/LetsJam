@@ -1,6 +1,7 @@
 package it.univaq.disim.mwt.letsjam.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -27,7 +28,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
             .antMatchers("/admin/**").hasRole("ADMIN")
             .antMatchers("/login*").permitAll()
             .antMatchers("/register*").permitAll()
-            .antMatchers("/**").permitAll()
+            .antMatchers("/home").permitAll()
+            .antMatchers("/img/**").permitAll()
+            .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
         .anyRequest().authenticated()
         .and()
             .formLogin()

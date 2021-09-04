@@ -2,7 +2,7 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
 	layout:decorate="~{layout/layout}">
 <head>
-	<link rel="stylesheet" type="text/css" th:href="@{dist/css/musicSheetCard.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{css/musicSheetCard.css}">
 </head>
 <body>
 <div layout:fragment="content" th:with="loggedUser=${#authentication.getPrincipal().getUser()}">
@@ -43,9 +43,9 @@
                     <div th:each="musicsheet : ${mostpopular}">
                         <div th:replace="fragments/musicSheetCard :: musicSheetCard(musicsheet = ${musicsheet})"></div>
                     </div>
-                    <img class="service-patern wow fadeInRight overlay-image" data-wow-delay=".5s" th:src="@{dist/img/service-patern.png}" alt="#" 
+                    <img class="service-patern wow fadeInRight overlay-image" data-wow-delay=".5s" th:src="@{img/service-patern.png}" alt="#" 
                     style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;position: absolute;top: 287px;right: -25px;">
-                    <img class="service-patern wow fadeInRight overlay-image" data-wow-delay=".5s" th:src="@{dist/img/service-patern.png}" alt="#" 
+                    <img class="service-patern wow fadeInRight overlay-image" data-wow-delay=".5s" th:src="@{img/service-patern.png}" alt="#" 
                     style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;position: absolute;bottom: -3px;left: -25px;">           
                 </div>
             </div>
@@ -66,9 +66,9 @@
                     <div th:each="musicsheet : ${lastInsert}">
                         <div th:replace="fragments/musicSheetCard :: musicSheetCard(musicsheet = ${musicsheet})"></div>
                     </div>
-					<img class="service-patern wow fadeInRight overlay-image" data-wow-delay=".5s" th:src="@{dist/img/service-patern.png}" alt="#" 
+					<img class="service-patern wow fadeInRight overlay-image" data-wow-delay=".5s" th:src="@{img/service-patern.png}" alt="#" 
                     style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;position: absolute;top: 287px;right: -25px;">
-                    <img class="service-patern wow fadeInRight overlay-image" data-wow-delay=".5s" th:src="@{dist/img/service-patern.png}" alt="#" 
+                    <img class="service-patern wow fadeInRight overlay-image" data-wow-delay=".5s" th:src="@{img/service-patern.png}" alt="#" 
                     style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;position: absolute;bottom: -3px;left: -25px;">       
                 </div>
             </div>

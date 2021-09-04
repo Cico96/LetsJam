@@ -47,6 +47,9 @@ public class Song extends AbstractPersistableEntity{
 	@Column(columnDefinition="TEXT")
 	private String lyrics;
 
+	@Size(min = 3, max = 50, groups = {OnCreate.class, OnUpdate.class, Default.class})
+	private String spotifyId;
+
 	@OneToOne
 	private Genre genre;
 }

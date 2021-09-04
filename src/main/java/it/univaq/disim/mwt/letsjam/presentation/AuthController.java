@@ -20,7 +20,7 @@ public class AuthController {
 
     @GetMapping("/register")
     public String registerForm(Model model){
-        model.addAttribute("utente", new User());
+        model.addAttribute("user", new User());
             return "auth/register";
     }
 

@@ -6,16 +6,16 @@
     </head>
     <body>
         <th:block layout:fragment="css">
-            <link rel="stylesheet" type="text/css" th:href="@{dist/css/bootstrap.min.css}" />
-            <link rel="stylesheet" type="text/css" th:href="@{dist/css/LineIcons.2.0.css}" />
-            <link rel="stylesheet" type="text/css" th:href="@{dist/css/animate.css}" />
-            <link rel="stylesheet" type="text/css" th:href="@{dist/css/tiny-slider.css}" />
-            <link rel="stylesheet" type="text/css" th:href="@{dist/css/glightbox.min.css}" />
-            <link rel="stylesheet" type="text/css" th:href="@{dist/css/main.css}" />
-            <link rel="stylesheet" type="text/css" th:href="@{dist/css/login.css}"/>
+            <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap.min.css}" />
+            <link rel="stylesheet" type="text/css" th:href="@{css/LineIcons.2.0.css}" />
+            <link rel="stylesheet" type="text/css" th:href="@{css/animate.css}" />
+            <link rel="stylesheet" type="text/css" th:href="@{css/tiny-slider.css}" />
+            <link rel="stylesheet" type="text/css" th:href="@{css/glightbox.min.css}" />
+            <link rel="stylesheet" type="text/css" th:href="@{css/main.css}" />
+            <link rel="stylesheet" type="text/css" th:href="@{css/login.css}"/>
         </th:block>
-        <script type="text/javascript" th:src="@{dist/js/login.js}" ></script>
-        <script type="text/javascript" th:src="@{dist/js/i18n.js}" ></script>
+        <script type="text/javascript" th:src="@{js/login.js}" ></script>
+        <script type="text/javascript" th:src="@{js/i18n.js}" ></script>
 
         <div th:if="${param.error}" class="error-message" th:text="#{login.error}"></div>
         <div th:if="${param.logout}" class="warning-message" th:text="#{login.loggedout}"></div>
@@ -23,7 +23,7 @@
         <div class="form-container">
             <h2 class="mb-4" th:text="#{login.welcome}"></h2>
             <div class="logo-container mb-4">
-                <img th:src="@{dist/img/logo.png}" alt="letsjam logo">
+                <img th:src="@{img/logo.png}" alt="letsjam logo">
             </div>
             <form th:action="@{/login}" method="post"  style="width: 90%;">
                 <div class="input-container mb-3">
@@ -45,8 +45,8 @@
 
             <div class="internationalization">
                 <p class="lang" style="display: none;" th:text="${#locale}"></p>
-                <img class="flag-container" th:if="${#locale.toString() == 'it'}" th:src="@{dist/img/i18n/it-flag.png}" alt="it">
-				<img class="flag-container" th:if="${#locale.toString() == 'en'}" th:src="@{dist/img/i18n/uk-flag.png}" alt="en">
+                <img class="flag-container" th:if="${#locale.toString() == 'it'}" th:src="@{img/i18n/it-flag.png}" alt="it">
+				<img class="flag-container" th:if="${#locale.toString() == 'en'}" th:src="@{img/i18n/uk-flag.png}" alt="en">
             </div>
         </div>
         

@@ -2,6 +2,8 @@ package it.univaq.disim.mwt.letsjam.config;
 
 import java.util.Locale;
 
+import com.github.bufferings.thymeleaf.extras.nl2br.dialect.Nl2brDialect;
+
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,4 +53,8 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
+    @Bean
+    public Nl2brDialect dialect() {
+        return new Nl2brDialect();
+    }
 }

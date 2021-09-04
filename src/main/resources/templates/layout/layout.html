@@ -12,17 +12,17 @@
 	<link href="https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 	<!-- ========================= CSS here ========================= -->
-		<link rel="stylesheet" type="text/css" th:href="@{dist/css/bootstrap.min.css}" />
-		<link rel="stylesheet" type="text/css" th:href="@{dist/css/LineIcons.2.0.css}" />
-		<link rel="stylesheet" type="text/css" th:href="@{dist/css/animate.css}" />
-		<link rel="stylesheet" type="text/css" th:href="@{dist/css/tiny-slider.css}" />
-		<link rel="stylesheet" type="text/css" th:href="@{dist/css/glightbox.min.css}" />
-		<link rel="stylesheet" type="text/css" th:href="@{dist/css/main.css}" />
-		<link rel="stylesheet" type="text/css" th:href="@{dist/css/header.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/LineIcons.2.0.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/tiny-slider.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/glightbox.min.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
 </head>
 
 <body>
-	<nav th:replace="~{layout/header :: header}"></nav>
+	<nav th:replace="~{layout/header :: header}" th:remove="tag"></nav>
 	<!-- <aside th:replace="~{layout/menu :: menu}"></aside> -->
 
 	<!-- Content Wrapper. Contains page content -->
@@ -43,15 +43,15 @@
 	</footer>
 
 	<!-- ========================= Scripts here ========================= -->
-	<script src="dist/js/bootstrap.min.js"></script>
-	<script src="dist/js/count-up.min.js"></script>
-	<script src="dist/js/wow.min.js"></script>
-	<script src="dist/js/tiny-slider.js"></script>
-	<script src="dist/js/glightbox.min.js"></script>
-	<script src="dist/js/imagesloaded.min.js"></script>
-	<script src="dist/js/isotope.min.js"></script>
-	<script src="dist/js/main.js"></script>
-	<script type="text/javascript" th:src="@{dist/js/i18n.js}" ></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/count-up.min.js}"></script>
+	<script th:src="@{/js/wow.min.js}"></script>
+	<script th:src="@{/js/tiny-slider.js}"></script>
+	<script th:src="@{/js/glightbox.min.js}"></script>
+	<script th:src="@{/js/imagesloaded.min.js}"></script>
+	<script th:src="@{/js/isotope.min.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/js/i18n.js}" ></script>
 </body>
 
 </html>
