@@ -12,6 +12,7 @@ import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetDataRe
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetRepository;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheetData;
+import it.univaq.disim.mwt.letsjam.domain.Song;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 import java.util.List;
@@ -96,6 +97,12 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 	@Override
 	public List<MusicSheet> getLastInsertMusicSheets() throws BusinessException {
     	Page<MusicSheet> spartiti = musicSheetRepository.getLastInsert(PageRequest.of(0,5));
+		return spartiti.toList();
+	}
+
+	@Override
+	public List<MusicSheet> getMusicSheetsBySong(Song song) throws BusinessException {
+		Page<MusicSheet> spartiti = musicSheetRepository.getMusicSheetsBySong(song, PageRequest.of(0,5));
 		return spartiti.toList();
 	}
 

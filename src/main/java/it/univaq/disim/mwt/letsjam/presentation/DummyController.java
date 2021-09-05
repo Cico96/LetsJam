@@ -57,8 +57,8 @@ public class DummyController {
         }
         //Not Logged
         /*Song song = new Song();
-        song.setAuthor("Salmo");
-        song.setTitle("90 min");
+        song.setAuthor("Vasco Rossi");
+        song.setTitle("Albachiara");
         lyricsService.setLyrics(song);
         spotifyService.setSongInfo(song);
         System.out.println(song.getAuthor() + " - " +song.getTitle());

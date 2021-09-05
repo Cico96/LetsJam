@@ -2,6 +2,7 @@ package it.univaq.disim.mwt.letsjam.business;
 
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheetData;
+import it.univaq.disim.mwt.letsjam.domain.Song;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 import java.util.List;
@@ -32,4 +33,6 @@ public interface MusicSheetService {
 	List<MusicSheet> getMostPopularMusicSheets() throws BusinessException;
 
 	List<MusicSheet> getLastInsertMusicSheets() throws BusinessException;
+
+	List<MusicSheet> getMusicSheetsBySong(Song song) throws BusinessException;
 }
