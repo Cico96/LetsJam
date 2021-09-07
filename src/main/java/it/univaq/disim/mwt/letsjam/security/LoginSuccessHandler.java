@@ -17,7 +17,7 @@ public class LoginSuccessHandler
 
         public LoginSuccessHandler() {
             super();
-            setUseReferer(true);
+            setUseReferer(false);
         }
     
         @Override
