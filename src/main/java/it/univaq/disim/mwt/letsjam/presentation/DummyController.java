@@ -7,16 +7,21 @@ import it.univaq.disim.mwt.letsjam.business.*;
 import it.univaq.disim.mwt.letsjam.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.*;
+import java.util.List;
 
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UserRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetRepository;
+import it.univaq.disim.mwt.letsjam.domain.Genre;
+import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
+import it.univaq.disim.mwt.letsjam.domain.User;
+import it.univaq.disim.mwt.letsjam.security.CustomUserDetails;
 
 @Controller
 @RequestMapping("/")
@@ -45,8 +50,8 @@ public class DummyController {
     private LyricsService lyricsService;
 	
     @GetMapping("/home")
-    public String home(Model model, Principal principal){
-        //Logged
+    public String home(Model model, Authentication authentication){
+
         List<MusicSheet> mostpopular = spartitoService.getMostPopularMusicSheets();
         List<Genre> randomGenres = genereService.getRandomGenres();
         List<List<MusicSheet>> musicSheetByGenre = new ArrayList<>();
@@ -59,7 +64,12 @@ public class DummyController {
 //        System.out.println(iterator.next().getTitle());
 //        System.out.println(iterator.next().getTitle());
 
-        if(principal != null){
+        if(authentication !=null){
+            //Logged
+            User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+            System.out.println(loggedUser.getFirstname()+" "+loggedUser.getLastname());
+
+
             List<MusicSheet> latest = spartitoService.getLastInsertMusicSheets();
             model.addAttribute("mostpopular", mostpopular);
             model.addAttribute("lastInsert", latest);
@@ -99,11 +109,7 @@ public class DummyController {
         model.addAttribute("musicSheetByGenre", musicSheetByGenre);
         return "home/home";
     }
-	
-    @GetMapping("/")
-    public RedirectView homeRedirect(Model model){
-        return new RedirectView("home");
-    }
+
 //	@GetMapping("/")
 //    public String home(@RequestParam(name="contenuto", defaultValue="Commento prova")String contenuto, Model model){
 //    	 Utente utente = new Utente();

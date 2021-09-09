@@ -38,4 +38,9 @@ public class GenreServiceImpl implements GenreService {
 		return genereRepository.getRandomGenres(PageRequest.of(0, 3)).toList();
 	}
 
+	@Override
+	public void addGenre(Genre genre) throws BusinessException{
+		genereRepository.save(genre);
+	}
+
 }

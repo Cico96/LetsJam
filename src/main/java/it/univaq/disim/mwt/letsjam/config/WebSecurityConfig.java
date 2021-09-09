@@ -10,8 +10,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import it.univaq.disim.mwt.letsjam.security.CustomUserDetailsService;
+
 
 @Configuration
 @EnableWebSecurity
@@ -23,24 +27,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-        .csrf().disable()
         .authorizeRequests()
+            .antMatchers("/").permitAll()
+            .antMatchers("/home").permitAll()
             .antMatchers("/admin/**").hasRole("ADMIN")
             .antMatchers("/login*").permitAll()
             .antMatchers("/register*").permitAll()
-            .antMatchers("/home").permitAll()
             .antMatchers("/img/**").permitAll()
+            .antMatchers("/fonts/**").permitAll()
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
         .anyRequest().authenticated()
         .and()
             .formLogin()
             .loginPage("/login")
+            .defaultSuccessUrl("/home")
             .usernameParameter("email")
-            .defaultSuccessUrl("/home", true)
             .failureUrl("/login?error=true")
             .and()
             .logout()
-            .logoutUrl("/logout")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
             .deleteCookies("JSESSIONID");
     }
     
@@ -53,5 +58,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
 }
