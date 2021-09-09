@@ -14,4 +14,13 @@ public interface SongService {
 	Song findSongByAuthor(String author) throws BusinessException;
 
 	Song updateSong(Song song) throws BusinessException;
+
+	List<Song> searchSongsByAuthor(String author) throws BusinessException;
+
+	List<Song> searchSongsByTitle(String title) throws BusinessException;
+
+	List<Song> searchSongsByAlbum(String album) throws BusinessException;
+
+	List<Song> searchSongsByGenre(String name) throws BusinessException;
+
 }
