@@ -26,4 +26,9 @@ public class GenreServiceImpl implements GenreService {
 		return genereRepository.findGenreByName(name);
 	}
 
+	@Override
+	public void addGenre(Genre genre) throws BusinessException{
+		genereRepository.save(genre);
+	}
+
 }

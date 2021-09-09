@@ -24,6 +24,7 @@ import java.util.List;
 
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UserRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetRepository;
+import it.univaq.disim.mwt.letsjam.domain.Genre;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.security.CustomUserDetails;
@@ -60,7 +61,13 @@ public class DummyController {
     public String home(Model model, Principal principal){
         //Logged
         List<MusicSheet> mostpopular = spartitoService.getMostPopularMusicSheets();
+        System.out.println(mostpopular.size());
         if(principal !=null){
+
+            //User a = ((CustomUserDetails) principal).getUser();
+            //
+            //System.out.println(a.getFirstname());
+
             List<MusicSheet> latest = spartitoService.getLastInsertMusicSheets();
             model.addAttribute("mostpopular", mostpopular);
             model.addAttribute("lastInsert", latest);
@@ -88,22 +95,28 @@ public class DummyController {
 //        Page<Song> songs = songRepository.searchSongsByAlbum(album, PageRequest.of(0,5));
 //        System.out.println(songs.toList().iterator().next().getAlbumName() + " " + songs.toList().iterator().next().getAuthor());
         //Not Logged
+
+        //Genre genere = genereService.findGenreById((long)1);
+        
+        /*Genre genere = new Genre();
+        genere.setName("Fracchicco");
+        genere.setDescription("Sfranzi");
+        genereService.addGenre(genere);
+        System.out.println(genere.getName());*/
+
         /*Song song = new Song();
-        song.setAuthor("Vasco Rossi");
-        song.setTitle("Albachiara");
+        song.setAuthor("Salmo");
+        song.setTitle("Ho paura di uscire");
         lyricsService.setLyrics(song);
         spotifyService.setSongInfo(song);
         System.out.println(song.getAuthor() + " - " +song.getTitle());
+        //song.setGenre(genere);
         songService.updateSong(song);*/
 
         model.addAttribute("mostpopular", mostpopular);
         return "home/home";
     }
 	
-    @GetMapping("/")
-    public RedirectView homeRedirect(Model model){
-        return new RedirectView("home");
-    }
 //	@GetMapping("/")
 //    public String home(@RequestParam(name="contenuto", defaultValue="Commento prova")String contenuto, Model model){
 //    	 Utente utente = new Utente();

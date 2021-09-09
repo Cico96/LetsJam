@@ -11,4 +11,5 @@ public interface GenreService {
 	Genre findGenreByName(String name) throws BusinessException;
 
 	
+	void addGenre(Genre genre) throws BusinessException;
 }

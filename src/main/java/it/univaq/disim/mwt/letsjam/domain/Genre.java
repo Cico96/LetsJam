@@ -1,5 +1,7 @@
 package it.univaq.disim.mwt.letsjam.domain;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -28,4 +30,18 @@ public class Genre extends AbstractPersistableEntity {
 	@Size(min = 3, max = 250, groups = {OnCreate.class, OnUpdate.class, Default.class})
 	private String description;
 
+
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Genre genre = (Genre) o;
+        return Objects.equals(name, genre.name) &&
+            	Objects.equals(description, genre.description);
+    }
+
+	@Override
+    public int hashCode() {
+        return Objects.hash(name, description);
+    }
 }
