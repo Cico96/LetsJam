@@ -9,5 +9,6 @@ public interface GenreService {
 	Genre findGenreById(Long id) throws BusinessException;
 	
 	Genre findGenreByName(String name) throws BusinessException;
+
 	
 }

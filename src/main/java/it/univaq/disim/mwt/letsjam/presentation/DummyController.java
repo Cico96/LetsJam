@@ -4,9 +4,15 @@ import java.security.Principal;
 
 import com.sun.xml.bind.v2.runtime.output.SAXOutput;
 import it.univaq.disim.mwt.letsjam.business.*;
+import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.GenreRepository;
+import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SongRepository;
+import it.univaq.disim.mwt.letsjam.domain.Genre;
 import it.univaq.disim.mwt.letsjam.domain.Song;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +50,10 @@ public class DummyController {
     private Environment env;
     @Autowired
     private LyricsService lyricsService;
+    @Autowired
+    private GenreRepository genreRepository;
+    @Autowired
+    private SongRepository songRepository;
 	
     @GetMapping("/home")
     public String home(Model model, Principal principal){
@@ -55,6 +65,25 @@ public class DummyController {
             model.addAttribute("lastInsert", latest);
             return "home/homeLogged";
         }
+//        Genre genere = genereService.findGenreByName("Fracchicco");
+//        Song song = new Song();
+//        song.setGenre(genere);
+//        song.setAuthor("Fabri Fibra");
+//        song.setTitle("Venerdi 17");
+//        lyricsService.setLyrics(song);
+//        spotifyService.setSongInfo(song);
+//        songService.updateSong(song);
+//        String autore = "Fabri Fibra";
+//        Page<Song> songs = songRepository.searchSongsByAuthor(autore, PageRequest.of(0,5));
+//        System.out.println(songs.getTotalElements());
+//        System.out.println(songs.toList().iterator().next().getAuthor() + " " + songs.toList().iterator().next().getTitle());
+        String genere = "Fracchicco";
+        Page<Song> songs = songRepository.searchSongsByGenre(genere, PageRequest.of(0,5));
+        System.out.println(songs.getTotalElements() + " " + songs.toList().size());
+        System.out.println(songs.toList().iterator().next().getTitle() + " ");
+//        String album = "Mr. Simpatia";
+//        Page<Song> songs = songRepository.searchSongsByAlbum(album, PageRequest.of(0,5));
+//        System.out.println(songs.toList().iterator().next().getAlbumName() + " " + songs.toList().iterator().next().getAuthor());
         //Not Logged
         /*Song song = new Song();
         song.setAuthor("Vasco Rossi");
