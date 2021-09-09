@@ -61,7 +61,6 @@ public class DummyController {
     public String home(Model model, Principal principal){
         //Logged
         List<MusicSheet> mostpopular = spartitoService.getMostPopularMusicSheets();
-        System.out.println(mostpopular.size());
         if(principal !=null){
 
             //User a = ((CustomUserDetails) principal).getUser();
@@ -85,11 +84,18 @@ public class DummyController {
 //        Page<Song> songs = songRepository.searchSongsByAuthor(autore, PageRequest.of(0,5));
 //        System.out.println(songs.getTotalElements());
 //        System.out.println(songs.toList().iterator().next().getAuthor() + " " + songs.toList().iterator().next().getTitle());
-        String genere = "Fracchicco";
-        Page<Song> songs = songRepository.searchSongsByGenre(genere, PageRequest.of(0,5));
-        Iterator<Song> it = songs.toList().iterator();
-        while(it.hasNext()){
-            System.out.println(it.next().getTitle());
+//        Boolean verified = true;
+//        Page<MusicSheet> ms = spartitoRepository.searchMusicSheetsByVerified(verified, PageRequest.of(0,5));
+//        Iterator<MusicSheet> it = ms.toList().iterator();
+//        while(it.hasNext()){
+//            System.out.println(it.next().getTitle());
+//        }
+        String username = "antonioang";
+        Page<MusicSheet> ms = spartitoRepository.searchMusicSheetsByUserUsername(username, PageRequest.of(0,5));
+        Iterator<MusicSheet> it = ms.toList().iterator();
+        while (it.hasNext()){
+            MusicSheet spartito = it.next();
+            System.out.println(spartito.getTitle() + " - " + spartito.getUser().getUsername());
         }
 //        String album = "Mr. Simpatia";
 //        Page<Song> songs = songRepository.searchSongsByAlbum(album, PageRequest.of(0,5));

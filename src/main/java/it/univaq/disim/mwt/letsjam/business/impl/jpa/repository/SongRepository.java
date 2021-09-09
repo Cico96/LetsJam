@@ -21,19 +21,14 @@ public interface SongRepository extends JpaRepository<Song, Long> {
 
 	@Query(value = "SELECT s FROM Song s  WHERE s.author = :author ORDER BY s.createDateTime DESC")
 	Page<Song> searchSongsByAuthor(@Param("author") String author, Pageable pageable);
+
 	@Query(value = "SELECT s FROM Song s WHERE s.title = :title")
 	Page<Song> searchSongsByTitle(@Param("title") String title, Pageable pageable);
+
 	@Query(value = "SELECT s FROM Song s WHERE s.albumName = :album_name")
 	Page<Song> searchSongsByAlbum(@Param("album_name")String albumName, Pageable pageable);
+
 	@Query(value = "SELECT s FROM Song s JOIN Genre g ON s.genre.id = g.id WHERE g.name = :name")
 	Page<Song> searchSongsByGenre(@Param("name") String name, Pageable pageable);
-
-	//query dentro brani
-	//se cerco il cantante mi escono le tracce presenti
-	//se cerco il titolo di una canzone mi escono le tracce
-	//cercare album e mi restituisce le canzoni
-	//cercare un genere e mi restituisce le canzoni
-
-
 
 }
