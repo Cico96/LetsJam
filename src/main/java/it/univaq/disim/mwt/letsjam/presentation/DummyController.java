@@ -7,6 +7,7 @@ import it.univaq.disim.mwt.letsjam.business.*;
 import it.univaq.disim.mwt.letsjam.domain.Song;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,15 +48,14 @@ public class DummyController {
     private LyricsService lyricsService;
 	
     @GetMapping("/home")
-    public String home(Model model, Principal principal){
-        //Logged
+    public String home(Model model, Authentication authentication){
+        
         List<MusicSheet> mostpopular = spartitoService.getMostPopularMusicSheets();
-        System.out.println(mostpopular.size());
-        if(principal !=null){
+        if(authentication !=null){
+            //Logged
+            User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+            System.out.println(loggedUser.getFirstname()+" "+loggedUser.getLastname());
 
-            //User a = ((CustomUserDetails) principal).getUser();
-            //
-            //System.out.println(a.getFirstname());
 
             List<MusicSheet> latest = spartitoService.getLastInsertMusicSheets();
             model.addAttribute("mostpopular", mostpopular);
