@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Iterator;
 import java.util.List;
 
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UserRepository;
@@ -79,8 +80,10 @@ public class DummyController {
 //        System.out.println(songs.toList().iterator().next().getAuthor() + " " + songs.toList().iterator().next().getTitle());
         String genere = "Fracchicco";
         Page<Song> songs = songRepository.searchSongsByGenre(genere, PageRequest.of(0,5));
-        System.out.println(songs.getTotalElements() + " " + songs.toList().size());
-        System.out.println(songs.toList().iterator().next().getTitle() + " ");
+        Iterator<Song> it = songs.toList().iterator();
+        while(it.hasNext()){
+            System.out.println(it.next().getTitle());
+        }
 //        String album = "Mr. Simpatia";
 //        Page<Song> songs = songRepository.searchSongsByAlbum(album, PageRequest.of(0,5));
 //        System.out.println(songs.toList().iterator().next().getAlbumName() + " " + songs.toList().iterator().next().getAuthor());
