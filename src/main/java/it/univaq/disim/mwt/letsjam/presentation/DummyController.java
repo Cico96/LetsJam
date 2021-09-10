@@ -91,8 +91,8 @@ public class DummyController {
 //            System.out.println(it.next().getTitle());
 //        }
         String username = "antonioang";
-        Page<MusicSheet> ms = spartitoRepository.searchMusicSheetsByUserUsername(username, PageRequest.of(0,5));
-        Iterator<MusicSheet> it = ms.toList().iterator();
+        List<MusicSheet> ms = spartitoService.searchMusicSheetsByUserUsername(username);
+        Iterator<MusicSheet> it = ms.iterator();
         while (it.hasNext()){
             MusicSheet spartito = it.next();
             System.out.println(spartito.getTitle() + " - " + spartito.getUser().getUsername());
