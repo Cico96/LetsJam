@@ -116,11 +116,13 @@
                     </div>
 
                 </div>
-                <div class="col pt-4 pb-4 pl-4" style="height: 120vh;padding: 20px;overflow-y: scroll;">
+                <div class="col pt-4 pb-4 pl-4 relative" style="height: 120vh;padding: 20px;overflow-y: scroll; overflow-x:hidden">
                         <h1 class="mb-3" th:text="#{songs.heading}"></h1>
                         <div th:each="song : ${songs}" th:remove="tag">
                             <div th:replace="fragments/songCard :: songCard(song = ${song})"></div>
                         </div>
+                        <img class="service-patern wow fadeInRight overlay-image" data-wow-delay=".5s" th:src="@{/img/service-patern.png}" alt="#" 
+                        style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;position: absolute;top: 65px;right: -55px;">
                 </div>
             </div>
             
