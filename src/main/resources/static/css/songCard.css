@@ -67,6 +67,10 @@
     fill: #3763eb;
 }
 
+.song-card:hover .song-image{
+    border: 3px solid white;
+}
+
 .song-card .icon{
     width: 30px;
     height: 30px;

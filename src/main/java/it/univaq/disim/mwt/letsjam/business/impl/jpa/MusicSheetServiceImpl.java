@@ -113,6 +113,11 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 	}
 
 	@Override
+	public List<MusicSheet> getAllMusicSheets() throws BusinessException {
+		return musicSheetRepository.findAll();
+	}
+	
+	@Override	
 	public List<MusicSheet> searchMusicSheetsByTitle(String title) throws BusinessException {
     	Page<MusicSheet> musicSheets = musicSheetRepository.searchMusicSheetsByTitle(title, PageRequest.of(0,5));
 		return musicSheets.toList();

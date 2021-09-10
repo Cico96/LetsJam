@@ -45,4 +45,6 @@ public interface MusicSheetService {
 	List<MusicSheet> searchMusicSheetsByUserUsername(String username) throws BusinessException;
 
 	List<MusicSheet> getMusicSheetsByGenre(Genre genre) throws BusinessException;
+
+	List<MusicSheet> getAllMusicSheets() throws BusinessException;
 }

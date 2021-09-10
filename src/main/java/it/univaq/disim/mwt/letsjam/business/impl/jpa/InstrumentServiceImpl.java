@@ -1,5 +1,7 @@
 package it.univaq.disim.mwt.letsjam.business.impl.jpa;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,11 @@ public class InstrumentServiceImpl implements InstrumentService {
 	public Instrument findInstrumentByNome(String name) throws BusinessException {
 		// TODO Auto-generated method stub
 		return strumentoRepository.findInstrumentByName(name);
+	}
+
+	@Override
+	public List<Instrument> getAllInstruments() throws BusinessException {
+		return strumentoRepository.findAll();
 	}
 
 }

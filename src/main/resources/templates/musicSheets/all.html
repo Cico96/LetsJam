@@ -5,7 +5,8 @@
     layout:decorate="~{layout/layout}">
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/sidebar.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/songCard.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/musicSheetCard.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/musicSheets.css}">
 </head>
 <body>
 <div layout:fragment="content" style="padding-top: 90px;">
@@ -24,7 +25,7 @@
                     <div class="option-container">
                         <div class="option-title-container">
                             <div class="option-icon">
-                                <svg th:replace="fragments/icons :: genres"></svg>
+                                <svg th:replace="fragments/icons :: album-type"></svg>
                             </div>
                             <h4 style="color: white;" th:text="#{common.genre}"></h4>
                         </div>
@@ -32,8 +33,24 @@
                         <div class="sub-option-container">
                             <div class="checkbox-option" th:each="genre : ${genres}">
                                 <input type="checkbox" class="form-check-input" name="genres">
-                                <p th:text="${genre.name}"></p>
+                                <p th:text="${genre.name}" style="text-transform: capitalize;"></p>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="option-container">
+                        <div class="option-title-container">
+                            <div class="option-icon">
+                                <svg th:replace="fragments/icons :: genres"></svg>
+                            </div>
+                            <h4 style="color: white;" th:text="#{common.instruments}"></h4>
+                        </div>
+    
+                        <div class="sub-option-container">
+                                <div class="checkbox-option" th:each="instrument : ${instruments}">
+                                    <input type="checkbox" class="form-check-input" name="instruments">
+                                    <p th:text="${instrument.name}" style="text-transform: capitalize;"></p>
+                                </div>
                         </div>
                     </div>
                    
@@ -47,44 +64,20 @@
     
                         <div class="sub-option-container">
                             <div class="radio-option">
-                                <input type="radio" class="form-check-input" name="album-type">
+                                <input type="radio" class="form-check-input" name="sort">
                                 <p th:text="#{common.title}"></p>
                             </div>
                             <div class="radio-option">
-                                <input type="radio" class="form-check-input" name="album-type">
-                                <p th:text="#{common.albumName}"></p>
+                                <input type="radio" class="form-check-input" name="sort">
+                                <p th:text="#{common.songName}"></p>
                             </div>
                             <div class="radio-option">
-                                <input type="radio" class="form-check-input" name="album-type">
-                                <p th:text="#{common.songDate}"></p>
+                                <input type="radio" class="form-check-input" name="sort">
+                                <p th:text="#{common.creationDate}"></p>
                             </div>
                             <div class="radio-option">
-                                <input type="radio" class="form-check-input" name="album-type">
-                                <p th:text="#{common.musicSheetsNumber}"></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="option-container">
-                        <div class="option-title-container">
-                            <div class="option-icon">
-                                <svg th:replace="fragments/icons :: album-type"></svg>
-                            </div>
-                            <h4 style="color: white;" th:text="#{song.albumType}"></h4>
-                        </div>
-    
-                        <div class="sub-option-container">
-                            <div class="radio-option">
-                                <input type="radio" class="form-check-input" name="album-type">
-                                <p>Album</p>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" class="form-check-input" name="album-type">
-                                <p>Single</p>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" class="form-check-input" name="album-type">
-                                <p>Collection</p>
+                                <input type="radio" class="form-check-input" name="sort">
+                                <p th:text="#{common.likes}"></p>
                             </div>
                         </div>
                     </div>
@@ -103,23 +96,23 @@
                                     <input type="checkbox">
                                     <span class="slider round"></span>
                                 </label>
-                                <p th:text="#{songs.isExplicit}"></p>
+                                <p th:text="#{musicsheets.verified}"></p>
                             </div>
                             <div class="radio-option">
                                 <label class="switch">
                                     <input type="checkbox">
                                     <span class="slider round"></span>
                                 </label>
-                                <p th:text="#{songs.hasLyrics}"></p>
+                                <p th:text="#{musicsheets.rearranged}"></p>
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <div class="col pt-4 pb-4 pl-4 relative" style="padding: 20px;overflow-y: scroll; overflow-x:hidden">
-                        <h1 class="mb-3" th:text="#{songs.heading}"></h1>
-                        <div th:each="song : ${songs}" th:remove="tag">
-                            <div th:replace="fragments/songCard :: songCard(song = ${song})"></div>
+                <div class="col pt-4 pb-4 pl-4 relative scores-view" style="padding: 20px;overflow-y: scroll; overflow-x:hidden">
+                        <h1 class="mb-3"> Tutti i nostri spartiti</h1>
+                        <div th:each="musicSheet : ${musicSheets}" th:remove="tag">
+                            <div th:replace="fragments/musicSheetCard :: musicSheetCard(musicsheet = ${musicSheet})"></div>
                         </div>
                         <img class="service-patern wow fadeInRight overlay-image" data-wow-delay=".5s" th:src="@{/img/service-patern.png}" alt="#" 
                         style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;position: absolute;top: 65px;right: -55px;">
