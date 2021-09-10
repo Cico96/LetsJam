@@ -2,8 +2,8 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
 <body>
     
-    <div th:fragment="songCard (song)">
-        <div class="song-card mb-4">
+    <div th:fragment="songCard (song)" th:onclick="window.location.href = '/songs/'+[[${song.id}]];">
+        <div class="song-card mb-4 fadeInRight">
                 <div th:if="${song.imageUrl}">
                     <img th:src="${song.imageUrl}" alt="song image cover" class="song-image">
                 </div>
