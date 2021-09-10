@@ -1,5 +1,7 @@
 package it.univaq.disim.mwt.letsjam.business.impl.jpa;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,11 @@ public class SongServiceImpl implements SongService {
 	@Override
 	public Song updateSong(Song song) throws BusinessException{
 		return branoRepository.save(song);
+	}
+
+	@Override
+	public List<Song> getAllSong() throws BusinessException {
+		return branoRepository.findAll();
 	}
 
 }

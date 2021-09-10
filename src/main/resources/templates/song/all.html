@@ -5,6 +5,7 @@
     layout:decorate="~{layout/layout}">
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/songCard.css}">
 </head>
 <body>
 <div layout:fragment="content" style="padding-top: 90px;">
@@ -16,7 +17,7 @@
 
                     <div class="search mb-5">
                         <svg th:replace="fragments/icons :: search"></svg>
-                        <input type="text" placeholder="Search">
+                        <input type="text" th:placeholder="#{common.search}">
                     </div>
 
 
@@ -25,7 +26,7 @@
                             <div class="option-icon">
                                 <svg th:replace="fragments/icons :: genres"></svg>
                             </div>
-                            <h4 style="color: white;">Per genere</h4>
+                            <h4 style="color: white;" th:text="#{common.genre}"></h4>
                         </div>
     
                         <div class="sub-option-container">
@@ -41,25 +42,25 @@
                             <div class="option-icon">
                                 <svg th:replace="fragments/icons :: sort"></svg>
                             </div>
-                            <h4 style="color: white;">Ordina per</h4>
+                            <h4 style="color: white;" th:text="#{common.sortby}"></h4>
                         </div>
     
                         <div class="sub-option-container">
                             <div class="radio-option">
                                 <input type="radio" class="form-check-input" name="album-type">
-                                <p>Titolo</p>
+                                <p th:text="#{common.title}"></p>
                             </div>
                             <div class="radio-option">
                                 <input type="radio" class="form-check-input" name="album-type">
-                                <p>Nome Album</p>
+                                <p th:text="#{common.albumName}"></p>
                             </div>
                             <div class="radio-option">
                                 <input type="radio" class="form-check-input" name="album-type">
-                                <p>Data brano</p>
+                                <p th:text="#{common.songDate}"></p>
                             </div>
                             <div class="radio-option">
                                 <input type="radio" class="form-check-input" name="album-type">
-                                <p>Numero di spartiti</p>
+                                <p th:text="#{common.musicSheetsNumber}"></p>
                             </div>
                         </div>
                     </div>
@@ -69,7 +70,7 @@
                             <div class="option-icon">
                                 <svg th:replace="fragments/icons :: album-type"></svg>
                             </div>
-                            <h4 style="color: white;">Tipologia Album</h4>
+                            <h4 style="color: white;" th:text="#{song.albumType}"></h4>
                         </div>
     
                         <div class="sub-option-container">
@@ -93,7 +94,7 @@
                             <div class="option-icon">
                                 <svg th:replace="fragments/icons :: filter"></svg>
                             </div>
-                            <h4 style="color: white;">Filtri</h4>
+                            <h4 style="color: white;" th:text="#{common.filters}"></h4>
                         </div>
     
                         <div class="sub-option-container">
@@ -102,23 +103,24 @@
                                     <input type="checkbox">
                                     <span class="slider round"></span>
                                 </label>
-                                <p>Contiene contenuti espliciti</p>
+                                <p th:text="#{songs.isExplicit}"></p>
                             </div>
                             <div class="radio-option">
                                 <label class="switch">
                                     <input type="checkbox">
                                     <span class="slider round"></span>
                                 </label>
-                                <p>Ha il testo</p>
+                                <p th:text="#{songs.hasLyrics}"></p>
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <div class="col">
-                    <div class="row pt-4 pb-4 pl-4" style="height: 100vh;">
-                        <h1>Brani</h1>    
-                    </div>
+                <div class="col pt-4 pb-4 pl-4" style="height: 117vh;padding: 20px;overflow-y: scroll;">
+                        <h1 class="mb-3" th:text="#{songs.heading}"></h1>
+                        <div th:each="song : ${songs}" th:remove="tag">
+                            <div th:replace="fragments/songCard :: songCard(song = ${song})"></div>
+                        </div>
                 </div>
             </div>
             

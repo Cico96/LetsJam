@@ -41,6 +41,8 @@ public class SongController {
     @GetMapping("/")
     public String all(Model model){
         List<Genre> genres = genreService.getAllGenres();
+        List<Song> songs = songService.getAllSong();
+        model.addAttribute("songs", songs);
         model.addAttribute("genres", genres);
         return "song/all";
     } 
