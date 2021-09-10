@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
@@ -132,13 +133,17 @@ public class DummyController {
 //        while(it.hasNext()){
 //            System.out.println(it.next().getTitle());
 //        }
-        String username = "antonioang";
-        List<MusicSheet> ms = spartitoService.searchMusicSheetsByUserUsername(username);
-        Iterator<MusicSheet> it = ms.iterator();
-        while (it.hasNext()){
-            MusicSheet spartito = it.next();
-            System.out.println(spartito.getTitle() + " - " + spartito.getUser().getUsername());
-        }
+//        String username = "antonioang";
+//        List<MusicSheet> ms = spartitoService.searchMusicSheetsByUserUsername(username);
+//        Iterator<MusicSheet> it = ms.iterator();
+//        while (it.hasNext()){
+//            MusicSheet spartito = it.next();
+//            System.out.println(spartito.getTitle() + " - " + spartito.getUser().getUsername());
+//        }
+
+//        String q = "nome genere " + genereName  + " ordinato per titolo " + songName + " nome album " +
+//                song.getAlbumName() + " data " + song.getCreateDateTime() + " tipo album " + song.getAlbumType() +
+//                " filtro per EC " + explicit + " filtro per lyrics " + song.getLyrics();
 //        String album = "Mr. Simpatia";
 //        Page<Song> songs = songRepository.searchSongsByAlbum(album, PageRequest.of(0,5));
 //        System.out.println(songs.toList().iterator().next().getAlbumName() + " " + songs.toList().iterator().next().getAuthor());

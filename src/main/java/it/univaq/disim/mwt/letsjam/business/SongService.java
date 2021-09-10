@@ -3,6 +3,8 @@ package it.univaq.disim.mwt.letsjam.business;
 import it.univaq.disim.mwt.letsjam.domain.Song;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public interface SongService {
@@ -23,6 +25,7 @@ public interface SongService {
 
 	List<Song> searchSongsByGenre(String name) throws BusinessException;
 
-
 	List<Song> getAllSong() throws BusinessException;
+
+	List<Song> getProxyList(List<String> genres, String albumType, String orderBy, Boolean isExplicit, Boolean lyrics) throws BusinessException;
 }
