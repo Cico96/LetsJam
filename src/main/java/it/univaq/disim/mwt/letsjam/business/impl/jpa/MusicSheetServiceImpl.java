@@ -116,6 +116,24 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 	public List<MusicSheet> getAllMusicSheets() throws BusinessException {
 		return musicSheetRepository.findAll();
 	}
+	
+	@Override	
+	public List<MusicSheet> searchMusicSheetsByTitle(String title) throws BusinessException {
+    	Page<MusicSheet> musicSheets = musicSheetRepository.searchMusicSheetsByTitle(title, PageRequest.of(0,5));
+		return musicSheets.toList();
+	}
+
+	@Override
+	public List<MusicSheet> searchMusicSheetsByVerified(Boolean verified) throws BusinessException {
+		Page<MusicSheet> musicSheets = musicSheetRepository.searchMusicSheetsByVerified(verified, PageRequest.of(0,5));
+		return musicSheets.toList();
+	}
+
+	@Override
+	public List<MusicSheet> searchMusicSheetsByUserUsername(String username) throws BusinessException {
+		Page<MusicSheet> musicSheets = musicSheetRepository.searchMusicSheetsByUserUsername(username, PageRequest.of(0,5));
+		return musicSheets.toList();
+	}
 
 
 }

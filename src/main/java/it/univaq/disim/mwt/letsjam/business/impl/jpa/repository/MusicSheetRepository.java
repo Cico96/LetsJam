@@ -35,4 +35,14 @@ public interface MusicSheetRepository extends JpaRepository<MusicSheet, Long>{
     @Query(value="SELECT ms FROM MusicSheet ms WHERE ms.song.genre = :genre")
     Page<MusicSheet> getMusicSheetsByGenre(@Param("genre") Genre genre, Pageable pageable);
 
+    @Query(value = "SELECT m FROM MusicSheet m WHERE m.title = :title")
+    Page<MusicSheet> searchMusicSheetsByTitle(@Param("title") String title, Pageable pageable);
+
+    @Query(value = "SELECT m FROM MusicSheet m WHERE m.verified = :verified")
+    Page<MusicSheet> searchMusicSheetsByVerified(@Param("verified") Boolean verified, Pageable pageable);
+
+    @Query(value = "SELECT m FROM MusicSheet m JOIN User u ON m.user.id = u.id WHERE u.username = :username")
+    Page<MusicSheet> searchMusicSheetsByUserUsername(@Param("username") String username, Pageable pageable);
+
+
 }

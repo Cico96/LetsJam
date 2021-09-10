@@ -38,6 +38,12 @@ public interface MusicSheetService {
 
 	List<MusicSheet> getMusicSheetsBySong(Song song) throws BusinessException;
 
+	List<MusicSheet> searchMusicSheetsByTitle(String title) throws BusinessException;
+
+	List<MusicSheet> searchMusicSheetsByVerified(Boolean verified) throws BusinessException;
+
+	List<MusicSheet> searchMusicSheetsByUserUsername(String username) throws BusinessException;
+
 	List<MusicSheet> getMusicSheetsByGenre(Genre genre) throws BusinessException;
 
 	List<MusicSheet> getAllMusicSheets() throws BusinessException;

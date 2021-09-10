@@ -1,14 +1,17 @@
 package it.univaq.disim.mwt.letsjam.business.impl.jpa;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import it.univaq.disim.mwt.letsjam.business.SongService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SongRepository;
 import it.univaq.disim.mwt.letsjam.domain.Song;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
+
+import java.util.List;
+
 @Service
 public class SongServiceImpl implements SongService {
 	@Autowired
@@ -34,6 +37,30 @@ public class SongServiceImpl implements SongService {
 	@Override
 	public Song updateSong(Song song) throws BusinessException{
 		return branoRepository.save(song);
+	}
+
+	@Override
+	public List<Song> searchSongsByAuthor(String author) throws BusinessException {
+		Page<Song> songs = branoRepository.searchSongsByAuthor(author, PageRequest.of(0,5));
+		return songs.toList();
+	}
+
+	@Override
+	public List<Song> searchSongsByTitle(String title) throws BusinessException {
+		Page<Song> songs = branoRepository.searchSongsByTitle(title, PageRequest.of(0,5));
+		return songs.toList();
+	}
+
+	@Override
+	public List<Song> searchSongsByAlbum(String album) throws BusinessException {
+		Page<Song> songs = branoRepository.searchSongsByAlbum(album, PageRequest.of(0,5));
+		return songs.toList();
+	}
+
+	@Override
+	public List<Song> searchSongsByGenre(String name) throws BusinessException {
+		Page<Song> songs = branoRepository.searchSongsByGenre(name, PageRequest.of(0,5));
+		return songs.toList();
 	}
 
 	@Override
