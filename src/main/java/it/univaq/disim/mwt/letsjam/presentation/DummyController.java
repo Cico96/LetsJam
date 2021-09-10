@@ -1,7 +1,7 @@
 package it.univaq.disim.mwt.letsjam.presentation;
 
 import it.univaq.disim.mwt.letsjam.business.*;
-import it.univaq.disim.mwt.letsjam.domain.Song;
+import it.univaq.disim.mwt.letsjam.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UserRepository;
@@ -29,6 +30,8 @@ public class DummyController {
 	@Autowired
 	private GenreService genereService;
 	@Autowired
+	private InstrumentService strumentoService;
+	@Autowired
 	private MusicSheetService spartitoService;
     @Autowired
 	private MusicSheetRepository spartitoRepository;
@@ -45,8 +48,19 @@ public class DummyController {
 	
     @GetMapping("/home")
     public String home(Model model, Authentication authentication){
-        
+
         List<MusicSheet> mostpopular = spartitoService.getMostPopularMusicSheets();
+        List<Genre> randomGenres = genereService.getRandomGenres();
+        List<List<MusicSheet>> musicSheetByGenre = new ArrayList<>();
+
+        for (Genre genere: randomGenres ) {
+            musicSheetByGenre.add(spartitoService.getMusicSheetsByGenre(genere));
+        }
+
+//        Iterator<MusicSheet> iterator = randomSheets.iterator();
+//        System.out.println(iterator.next().getTitle());
+//        System.out.println(iterator.next().getTitle());
+
         if(authentication !=null){
             //Logged
             User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
@@ -56,28 +70,40 @@ public class DummyController {
             List<MusicSheet> latest = spartitoService.getLastInsertMusicSheets();
             model.addAttribute("mostpopular", mostpopular);
             model.addAttribute("lastInsert", latest);
+            model.addAttribute("musicSheetByGenre", musicSheetByGenre);
+
+//            Genre genre = genereService.findGenreByName("Pop");
+
+//            Instrument strumento = strumentoService.findInstrumentByNome("chitarra");
+//            strumento.setName("flauto traverso");
+//            strumento.setInstrumentKey("Do diesis minore settima+");
+//            strumentoService.insert(strumento);
+//            Set<Instrument> strumenti = new HashSet<>();
+//            strumenti.add(strumento);
+//
+//            Song song = new Song();
+//            song.setAuthor("Nomadi");
+//            song.setTitle("Io vagabondo");
+//            song.setGenre(genre);
+//            lyricsService.setLyrics(song);
+//            spotifyService.setSongInfo(song);
+//            System.out.println(song.getAuthor() + " - " +song.getTitle());
+//            songService.updateSong(song);
+//
+//            MusicSheet spartito = new MusicSheet();
+//            spartito.setTitle("Io vagabondo");
+//            spartito.setVerified(false);
+//            spartito.setUser(UserUtility.getUtente());
+//            spartito.setSong(song);
+//            spartito.setInstruments(strumenti);
+
+//            spartitoService.insert(spartito);
+
             return "home/homeLogged";
         }
-        //Not Logged
-
-        //Genre genere = genereService.findGenreById((long)1);
-        
-        /*Genre genere = new Genre();
-        genere.setName("Fracchicco");
-        genere.setDescription("Sfranzi");
-        genereService.addGenre(genere);
-        System.out.println(genere.getName());*/
-
-        /*Song song = new Song();
-        song.setAuthor("Salmo");
-        song.setTitle("Ho paura di uscire");
-        lyricsService.setLyrics(song);
-        spotifyService.setSongInfo(song);
-        System.out.println(song.getAuthor() + " - " +song.getTitle());
-        //song.setGenre(genere);
-        songService.updateSong(song);*/
 
         model.addAttribute("mostpopular", mostpopular);
+        model.addAttribute("musicSheetByGenre", musicSheetByGenre);
         return "home/home";
     }
     

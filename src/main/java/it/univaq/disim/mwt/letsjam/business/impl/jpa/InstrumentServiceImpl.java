@@ -13,6 +13,11 @@ public class InstrumentServiceImpl implements InstrumentService {
 	private InstrumentRepository strumentoRepository;
 
 	@Override
+	public Instrument insert(Instrument instrument) throws BusinessException {
+		return strumentoRepository.save(instrument);
+	}
+
+	@Override
 	public Instrument findInsstrumentById(Long id) throws BusinessException {
 		// TODO Auto-generated method stub
 		return strumentoRepository.findInstrumentById(id);

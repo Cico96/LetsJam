@@ -1,5 +1,6 @@
 package it.univaq.disim.mwt.letsjam.business.impl.jpa.repository;
 
+import it.univaq.disim.mwt.letsjam.domain.Genre;
 import org.springframework.stereotype.Repository;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.Song;
@@ -30,5 +31,8 @@ public interface MusicSheetRepository extends JpaRepository<MusicSheet, Long>{
 
     @Query(value="SELECT ms FROM MusicSheet ms WHERE ms.song = :song")
     Page<MusicSheet> getMusicSheetsBySong(@Param("song") Song song, Pageable pageable);
+
+    @Query(value="SELECT ms FROM MusicSheet ms WHERE ms.song.genre = :genre")
+    Page<MusicSheet> getMusicSheetsByGenre(@Param("genre") Genre genre, Pageable pageable);
 
 }
