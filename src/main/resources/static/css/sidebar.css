@@ -1,5 +1,4 @@
 .sidebar{
-    height: 120vh;
     background-color: #3763eb;
     display: flex;
     flex-direction: column;
@@ -36,7 +35,8 @@
 
 .search svg{
     fill: #3763eb;
-    height: 80%;
+    height: 80% !important;
+    width: 40px !important;
 }
 
 .option-container{
@@ -69,6 +69,8 @@
 
 .option-icon svg{
     fill: #3763eb;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 .sub-option-container{
@@ -186,7 +188,7 @@
   }
   
   .slider.round {
-    border-radius: 34px;
+    border-radius: 34px !important;
   }
 
   .slider.round:before {

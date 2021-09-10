@@ -39,4 +39,6 @@ public interface MusicSheetService {
 	List<MusicSheet> getMusicSheetsBySong(Song song) throws BusinessException;
 
 	List<MusicSheet> getMusicSheetsByGenre(Genre genre) throws BusinessException;
+
+	List<MusicSheet> getAllMusicSheets() throws BusinessException;
 }

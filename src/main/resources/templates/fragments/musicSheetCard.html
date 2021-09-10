@@ -3,8 +3,7 @@
 <body>
     
     <div th:fragment="musicSheetCard (musicsheet)" th:remove="tag">
-        <div class="musicsheet-card wow fadeInUp mb-4" data-wow-delay=".2s">
-            
+        <div class="musicsheet-card fadeInUp mb-4" th:onclick="window.location.href = '/musicsheets/'+[[${musicsheet.id}]];">
             <div class="d-flex flex-row align-items-center justify-content-between mb-2">
                 <h3 th:text="${musicsheet.title}"></h3>
                 <div class="d-flex flex-row align-items-center justify-content-between interaction-container" style="gap: 10px;">

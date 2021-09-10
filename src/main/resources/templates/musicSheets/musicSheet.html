@@ -1,0 +1,25 @@
+<html 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:nl2br="https://github.com/bufferings/thymeleaf-extras-nl2br"
+    layout:decorate="~{layout/layout}">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/song.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/musicSheetCard.css}">
+</head>
+<body>
+<div layout:fragment="content" style="padding-top: 90px;">
+
+   <!-- Start Hero Area -->
+    <section class="hero-area pt-4 pb-4">
+        <div class="container mt-4">
+            <div class="row">
+                <h3 th:text="${musicSheet.title}"></h3>
+            </div>
+        </div>
+    </section>
+
+</div>
+</body>
+
+</html>

@@ -112,5 +112,10 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 		return musicSheetRepository.getMusicSheetsByGenre(genre, PageRequest.of(0,3)).toList();
 	}
 
+	@Override
+	public List<MusicSheet> getAllMusicSheets() throws BusinessException {
+		return musicSheetRepository.findAll();
+	}
+
 
 }
