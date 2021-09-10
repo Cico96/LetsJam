@@ -35,4 +35,10 @@ public interface MusicSheetService {
 	List<MusicSheet> getLastInsertMusicSheets() throws BusinessException;
 
 	List<MusicSheet> getMusicSheetsBySong(Song song) throws BusinessException;
+
+	List<MusicSheet> searchMusicSheetsByTitle(String title) throws BusinessException;
+
+	List<MusicSheet> searchMusicSheetsByVerified(Boolean verified) throws BusinessException;
+
+	List<MusicSheet> searchMusicSheetsByUserUsername(String username) throws BusinessException;
 }
