@@ -1,5 +1,7 @@
 package it.univaq.disim.mwt.letsjam.business.impl.jpa;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,11 @@ public class GenreServiceImpl implements GenreService {
 	@Override
 	public void addGenre(Genre genre) throws BusinessException{
 		genereRepository.save(genre);
+	}
+
+	@Override
+	public List<Genre> getAllGenres() throws BusinessException {
+		return genereRepository.findAll();
 	}
 
 }

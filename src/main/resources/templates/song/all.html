@@ -1,0 +1,130 @@
+<html 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:nl2br="https://github.com/bufferings/thymeleaf-extras-nl2br"
+    layout:decorate="~{layout/layout}">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/sidebar.css}">
+</head>
+<body>
+<div layout:fragment="content" style="padding-top: 90px;">
+
+   <!-- Start Hero Area -->
+    <section class="hero-area">
+            <div class="row">
+                <div class="sidebar">
+
+                    <div class="search mb-5">
+                        <svg th:replace="fragments/icons :: search"></svg>
+                        <input type="text" placeholder="Search">
+                    </div>
+
+
+                    <div class="option-container">
+                        <div class="option-title-container">
+                            <div class="option-icon">
+                                <svg th:replace="fragments/icons :: genres"></svg>
+                            </div>
+                            <h4 style="color: white;">Per genere</h4>
+                        </div>
+    
+                        <div class="sub-option-container">
+                            <div class="checkbox-option" th:each="genre : ${genres}">
+                                <input type="checkbox" class="form-check-input">
+                                <p th:text="${genre.name}"></p>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="option-container">
+                        <div class="option-title-container">
+                            <div class="option-icon">
+                                <svg th:replace="fragments/icons :: sort"></svg>
+                            </div>
+                            <h4 style="color: white;">Ordina per</h4>
+                        </div>
+    
+                        <div class="sub-option-container">
+                            <div class="radio-option">
+                                <input type="radio" class="form-check-input" name="album-type">
+                                <p>Titolo</p>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" class="form-check-input" name="album-type">
+                                <p>Nome Album</p>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" class="form-check-input" name="album-type">
+                                <p>Data brano</p>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" class="form-check-input" name="album-type">
+                                <p>Numero di spartiti</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="option-container">
+                        <div class="option-title-container">
+                            <div class="option-icon">
+                                <svg th:replace="fragments/icons :: album-type"></svg>
+                            </div>
+                            <h4 style="color: white;">Tipologia Album</h4>
+                        </div>
+    
+                        <div class="sub-option-container">
+                            <div class="radio-option">
+                                <input type="radio" class="form-check-input" name="album-type">
+                                <p>Album</p>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" class="form-check-input" name="album-type">
+                                <p>Single</p>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" class="form-check-input" name="album-type">
+                                <p>Collection</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="option-container">
+                        <div class="option-title-container">
+                            <div class="option-icon">
+                                <svg th:replace="fragments/icons :: filter"></svg>
+                            </div>
+                            <h4 style="color: white;">Filtri</h4>
+                        </div>
+    
+                        <div class="sub-option-container">
+                            <div class="radio-option">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                                <p>Contiene contenuti espliciti</p>
+                            </div>
+                            <div class="radio-option">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                                <p>Ha il testo</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col">
+                    <div class="row pt-4 pb-4 pl-4" style="height: 100vh;">
+                        <h1>Brani</h1>    
+                    </div>
+                </div>
+            </div>
+            
+    </section>
+
+</div>
+</body>
+
+</html>

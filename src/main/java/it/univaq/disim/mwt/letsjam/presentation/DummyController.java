@@ -1,8 +1,5 @@
 package it.univaq.disim.mwt.letsjam.presentation;
 
-import java.security.Principal;
-
-import com.sun.xml.bind.v2.runtime.output.SAXOutput;
 import it.univaq.disim.mwt.letsjam.business.*;
 import it.univaq.disim.mwt.letsjam.domain.Song;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -84,21 +80,6 @@ public class DummyController {
         model.addAttribute("mostpopular", mostpopular);
         return "home/home";
     }
-	
-//	@GetMapping("/")
-//    public String home(@RequestParam(name="contenuto", defaultValue="Commento prova")String contenuto, Model model){
-//    	 Utente utente = new Utente();
-//    	 utente.setUsername("Achille lu tost3");
-//    	 Genere genere = new Genere();
-//    	 genere.setNome("vaffanculo");
-//    	 genereService.save(genere);
-//    	 utenteService.update(utente, genere);
-//         model.addAttribute("name", utente.getGeneriPreferiti().iterator().next().getNome());
-		
-		//Commento commento = new Commento();
-		
-//        return "home/home";
-//    }
     
     @GetMapping("/forbidden")
     public String forbidden(Model model){
