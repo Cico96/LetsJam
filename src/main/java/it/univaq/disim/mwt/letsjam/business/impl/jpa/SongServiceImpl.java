@@ -63,4 +63,9 @@ public class SongServiceImpl implements SongService {
 		return songs.toList();
 	}
 
+	@Override
+	public List<Song> getAllSong() throws BusinessException {
+		return branoRepository.findAll();
+	}
+
 }

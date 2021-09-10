@@ -2,6 +2,7 @@ package it.univaq.disim.mwt.letsjam.business.impl.jpa;
 
 import javax.transaction.Transactional;
 
+import it.univaq.disim.mwt.letsjam.domain.Genre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -104,6 +105,11 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 	public List<MusicSheet> getMusicSheetsBySong(Song song) throws BusinessException {
 		Page<MusicSheet> spartiti = musicSheetRepository.getMusicSheetsBySong(song, PageRequest.of(0,5));
 		return spartiti.toList();
+	}
+
+	@Override
+	public List<MusicSheet> getMusicSheetsByGenre(Genre genre) throws BusinessException {
+		return musicSheetRepository.getMusicSheetsByGenre(genre, PageRequest.of(0,3)).toList();
 	}
 
 	@Override

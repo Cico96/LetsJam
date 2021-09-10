@@ -1,5 +1,6 @@
 package it.univaq.disim.mwt.letsjam.business.impl.jpa.repository;
 
+import it.univaq.disim.mwt.letsjam.domain.Genre;
 import org.springframework.stereotype.Repository;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.Song;
@@ -31,6 +32,9 @@ public interface MusicSheetRepository extends JpaRepository<MusicSheet, Long>{
     @Query(value="SELECT ms FROM MusicSheet ms WHERE ms.song = :song")
     Page<MusicSheet> getMusicSheetsBySong(@Param("song") Song song, Pageable pageable);
 
+    @Query(value="SELECT ms FROM MusicSheet ms WHERE ms.song.genre = :genre")
+    Page<MusicSheet> getMusicSheetsByGenre(@Param("genre") Genre genre, Pageable pageable);
+
     @Query(value = "SELECT m FROM MusicSheet m WHERE m.title = :title")
     Page<MusicSheet> searchMusicSheetsByTitle(@Param("title") String title, Pageable pageable);
 
@@ -39,10 +43,6 @@ public interface MusicSheetRepository extends JpaRepository<MusicSheet, Long>{
 
     @Query(value = "SELECT m FROM MusicSheet m JOIN User u ON m.user.id = u.id WHERE u.username = :username")
     Page<MusicSheet> searchMusicSheetsByUserUsername(@Param("username") String username, Pageable pageable);
-    //query dentro spartiti
-    //cercare gli spartiti tramite il titolo
-    //cercare gli spartiti tramite il verificato
-    //cercare gli spartiti tramite l'user di un utente
-    //cercare gli spartiti most liked
+
 
 }

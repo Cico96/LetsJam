@@ -23,4 +23,6 @@ public interface SongService {
 
 	List<Song> searchSongsByGenre(String name) throws BusinessException;
 
+
+	List<Song> getAllSong() throws BusinessException;
 }

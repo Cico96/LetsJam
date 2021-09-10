@@ -1,18 +1,17 @@
 package it.univaq.disim.mwt.letsjam.presentation;
 
-import java.security.Principal;
-
-import com.sun.xml.bind.v2.runtime.output.SAXOutput;
 import it.univaq.disim.mwt.letsjam.business.*;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.GenreRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SongRepository;
 import it.univaq.disim.mwt.letsjam.domain.Genre;
 import it.univaq.disim.mwt.letsjam.domain.Song;
+import it.univaq.disim.mwt.letsjam.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UserRepository;
@@ -39,6 +39,8 @@ public class DummyController {
 	@Autowired
 	private GenreService genereService;
 	@Autowired
+	private InstrumentService strumentoService;
+	@Autowired
 	private MusicSheetService spartitoService;
     @Autowired
 	private MusicSheetRepository spartitoRepository;
@@ -56,20 +58,60 @@ public class DummyController {
     private GenreRepository genreRepository;
     @Autowired
     private SongRepository songRepository;
-	
-    @GetMapping("/home")
-    public String home(Model model, Principal principal){
-        //Logged
-        List<MusicSheet> mostpopular = spartitoService.getMostPopularMusicSheets();
-        if(principal !=null){
 
-            //User a = ((CustomUserDetails) principal).getUser();
-            //
-            //System.out.println(a.getFirstname());
+    @GetMapping("/home")
+    public String home(Model model, Authentication authentication){
+
+        List<MusicSheet> mostpopular = spartitoService.getMostPopularMusicSheets();
+        List<Genre> randomGenres = genereService.getRandomGenres();
+        List<List<MusicSheet>> musicSheetByGenre = new ArrayList<>();
+
+        for (Genre genere: randomGenres ) {
+            musicSheetByGenre.add(spartitoService.getMusicSheetsByGenre(genere));
+        }
+
+//        Iterator<MusicSheet> iterator = randomSheets.iterator();
+//        System.out.println(iterator.next().getTitle());
+//        System.out.println(iterator.next().getTitle());
+
+        if(authentication !=null){
+            //Logged
+            User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+            System.out.println(loggedUser.getFirstname()+" "+loggedUser.getLastname());
+
 
             List<MusicSheet> latest = spartitoService.getLastInsertMusicSheets();
             model.addAttribute("mostpopular", mostpopular);
             model.addAttribute("lastInsert", latest);
+            model.addAttribute("musicSheetByGenre", musicSheetByGenre);
+
+//            Genre genre = genereService.findGenreByName("Pop");
+
+//            Instrument strumento = strumentoService.findInstrumentByNome("chitarra");
+//            strumento.setName("flauto traverso");
+//            strumento.setInstrumentKey("Do diesis minore settima+");
+//            strumentoService.insert(strumento);
+//            Set<Instrument> strumenti = new HashSet<>();
+//            strumenti.add(strumento);
+//
+//            Song song = new Song();
+//            song.setAuthor("Nomadi");
+//            song.setTitle("Io vagabondo");
+//            song.setGenre(genre);
+//            lyricsService.setLyrics(song);
+//            spotifyService.setSongInfo(song);
+//            System.out.println(song.getAuthor() + " - " +song.getTitle());
+//            songService.updateSong(song);
+//
+//            MusicSheet spartito = new MusicSheet();
+//            spartito.setTitle("Io vagabondo");
+//            spartito.setVerified(false);
+//            spartito.setUser(UserUtility.getUtente());
+//            spartito.setSong(song);
+//            spartito.setInstruments(strumenti);
+
+//            spartitoService.insert(spartito);
+
             return "home/homeLogged";
         }
 //        Genre genere = genereService.findGenreByName("Fracchicco");
@@ -120,6 +162,7 @@ public class DummyController {
         songService.updateSong(song);*/
 
         model.addAttribute("mostpopular", mostpopular);
+        model.addAttribute("musicSheetByGenre", musicSheetByGenre);
         return "home/home";
     }
 	

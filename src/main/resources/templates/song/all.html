@@ -1,0 +1,132 @@
+<html 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:nl2br="https://github.com/bufferings/thymeleaf-extras-nl2br"
+    layout:decorate="~{layout/layout}">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/songCard.css}">
+</head>
+<body>
+<div layout:fragment="content" style="padding-top: 90px;">
+
+   <!-- Start Hero Area -->
+    <section class="hero-area">
+            <div class="row">
+                <div class="sidebar">
+
+                    <div class="search mb-5">
+                        <svg th:replace="fragments/icons :: search"></svg>
+                        <input type="text" th:placeholder="#{common.search}">
+                    </div>
+
+
+                    <div class="option-container">
+                        <div class="option-title-container">
+                            <div class="option-icon">
+                                <svg th:replace="fragments/icons :: genres"></svg>
+                            </div>
+                            <h4 style="color: white;" th:text="#{common.genre}"></h4>
+                        </div>
+    
+                        <div class="sub-option-container">
+                            <div class="checkbox-option" th:each="genre : ${genres}">
+                                <input type="checkbox" class="form-check-input">
+                                <p th:text="${genre.name}"></p>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="option-container">
+                        <div class="option-title-container">
+                            <div class="option-icon">
+                                <svg th:replace="fragments/icons :: sort"></svg>
+                            </div>
+                            <h4 style="color: white;" th:text="#{common.sortby}"></h4>
+                        </div>
+    
+                        <div class="sub-option-container">
+                            <div class="radio-option">
+                                <input type="radio" class="form-check-input" name="album-type">
+                                <p th:text="#{common.title}"></p>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" class="form-check-input" name="album-type">
+                                <p th:text="#{common.albumName}"></p>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" class="form-check-input" name="album-type">
+                                <p th:text="#{common.songDate}"></p>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" class="form-check-input" name="album-type">
+                                <p th:text="#{common.musicSheetsNumber}"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="option-container">
+                        <div class="option-title-container">
+                            <div class="option-icon">
+                                <svg th:replace="fragments/icons :: album-type"></svg>
+                            </div>
+                            <h4 style="color: white;" th:text="#{song.albumType}"></h4>
+                        </div>
+    
+                        <div class="sub-option-container">
+                            <div class="radio-option">
+                                <input type="radio" class="form-check-input" name="album-type">
+                                <p>Album</p>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" class="form-check-input" name="album-type">
+                                <p>Single</p>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" class="form-check-input" name="album-type">
+                                <p>Collection</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="option-container">
+                        <div class="option-title-container">
+                            <div class="option-icon">
+                                <svg th:replace="fragments/icons :: filter"></svg>
+                            </div>
+                            <h4 style="color: white;" th:text="#{common.filters}"></h4>
+                        </div>
+    
+                        <div class="sub-option-container">
+                            <div class="radio-option">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                                <p th:text="#{songs.isExplicit}"></p>
+                            </div>
+                            <div class="radio-option">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                                <p th:text="#{songs.hasLyrics}"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col pt-4 pb-4 pl-4" style="height: 120vh;padding: 20px;overflow-y: scroll;">
+                        <h1 class="mb-3" th:text="#{songs.heading}"></h1>
+                        <div th:each="song : ${songs}" th:remove="tag">
+                            <div th:replace="fragments/songCard :: songCard(song = ${song})"></div>
+                        </div>
+                </div>
+            </div>
+            
+    </section>
+
+</div>
+</body>
+
+</html>

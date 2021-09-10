@@ -1,9 +1,11 @@
 package it.univaq.disim.mwt.letsjam.business;
 
+import it.univaq.disim.mwt.letsjam.domain.Genre;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheetData;
 import it.univaq.disim.mwt.letsjam.domain.Song;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Set;
@@ -41,4 +43,6 @@ public interface MusicSheetService {
 	List<MusicSheet> searchMusicSheetsByVerified(Boolean verified) throws BusinessException;
 
 	List<MusicSheet> searchMusicSheetsByUserUsername(String username) throws BusinessException;
+
+	List<MusicSheet> getMusicSheetsByGenre(Genre genre) throws BusinessException;
 }

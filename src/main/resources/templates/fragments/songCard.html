@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<body>
+    
+    <div th:fragment="songCard (song)" th:onclick="window.location.href = '/songs/'+[[${song.id}]];">
+        <div class="song-card mb-4 fadeInRight">
+                <div th:if="${song.imageUrl}">
+                    <img th:src="${song.imageUrl}" alt="song image cover" class="song-image">
+                </div>
+                <div class="song-info-container">
+                    <h3 th:if="${song.title}" th:text="${song.title}"></h3>
+                    <div th:if="${song.albumName}" class="d-flex align-items-center mt-1 song-info">
+                        <div class="icon mr-2">
+                            <svg th:replace="fragments/icons :: album"></svg>
+                            <i></i>
+                        </div>
+                        <span class="label mr-2">Album: </span>
+                        <p th:text="${song.albumName}"></p>
+                    </div>
+                    <div th:if="${song.author}" class="d-flex align-items-center mt-1 song-info">
+                        <div class="icon mr-2">
+                            <svg th:replace="fragments/icons :: album-type"></svg>
+                            <i></i>
+                        </div>
+                        <span class="label mr-2" th:text="#{common.author}+':'"></span>
+                        <p th:text="${song.author}"></p>
+                    </div>
+                    <div th:if="${song.duration}" class="d-flex align-items-center mt-1 song-info">
+                        <div class="icon mr-2">
+                            <svg th:replace="fragments/icons :: duration"></svg>
+                            <i></i>
+                        </div>
+                        <span class="label mr-2" th:text="#{song.duration}+':'"></span>
+                        <p th:inline="text">[[${(song.duration/1000)/60}]] [[#{common.minutes}]] [[${(song.duration/1000)%60}]] [[#{common.seconds}]]</p>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+</body>
+</html>

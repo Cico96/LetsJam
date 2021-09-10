@@ -30,7 +30,7 @@
                             <svg th:replace="fragments/icons :: album-type"></svg>
                             <i></i>
                         </div>
-                        <span class="label mr-2" th:text="#{song.albumType}"></span>
+                        <span class="label mr-2" th:text="#{song.albumType}+':'"></span>
                         <p th:text="${song.albumType.toLowerCase()}" style="text-transform:capitalize"></p>
                     </div>
                     <div class="d-flex align-items-center mt-4 song-info">
@@ -38,7 +38,7 @@
                             <svg th:replace="fragments/icons :: duration"></svg>
                             <i></i>
                         </div>
-                        <span class="label mr-2" th:text="#{song.duration}"></span>
+                        <span class="label mr-2" th:text="#{song.duration}+':'"></span>
                         <p th:inline="text">[[${(song.duration/1000)/60}]] [[#{common.minutes}]] [[${(song.duration/1000)%60}]] [[#{common.seconds}]]</p>
                     </div>
                     <iframe 
