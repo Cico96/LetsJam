@@ -39,6 +39,9 @@ public class MusicSheet extends AbstractPersistableEntity{
 	@NotNull
 	private Boolean verified;
 
+	@NotNull
+	private Boolean rearranged = false;
+
 	@JsonInclude()
 	@Transient
 	private MusicSheetData data;
