@@ -86,11 +86,11 @@ public class SongServiceImpl implements SongService {
 		}
 		
 		if(! genres.isEmpty() && !whereClause){
-			q += "WHERE s.genre.name in :generes ";
+			q += "WHERE s.genre.name in :genres ";
 			whereClause = true;
 		}
 		else if(! genres.isEmpty() && whereClause){
-			q += "AND s.genre.name in :generes ";
+			q += "AND s.genre.name in :genres ";
 		}
 
 		if(albumType != null && !whereClause){
