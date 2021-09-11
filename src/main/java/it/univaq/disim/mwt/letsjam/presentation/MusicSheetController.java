@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import it.univaq.disim.mwt.letsjam.business.GenreService;
@@ -15,7 +16,7 @@ import it.univaq.disim.mwt.letsjam.business.MusicSheetService;
 import it.univaq.disim.mwt.letsjam.domain.Genre;
 import it.univaq.disim.mwt.letsjam.domain.Instrument;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
-import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
+import it.univaq.disim.mwt.letsjam.presentation.viewModels.MusicSheetSearchViewModel;
 
 @Controller
 @RequestMapping("/musicsheets")
@@ -33,7 +34,23 @@ public class MusicSheetController {
 		List<Genre> genres = genreService.getAllGenres();
 		List<MusicSheet> musicSheets = spartitoService.getAllMusicSheets();
 		List<Instrument> instruments = instrumentService.getAllInstruments();
-		System.out.println(instruments.size());
+		model.addAttribute("formData", new MusicSheetSearchViewModel());
+		model.addAttribute("instruments", instruments);
+		model.addAttribute("musicSheets", musicSheets);
+		model.addAttribute("genres", genres);
+		return "musicSheets/all";
+	}
+
+	@PostMapping("/")
+	public String search(MusicSheetSearchViewModel formData, Model model){
+		List<Genre> genres = genreService.getAllGenres();
+		List<MusicSheet> musicSheets = spartitoService.searchMusicSheets(
+			formData.getSearch(), formData.getSortBy(), 
+			formData.getSortDirection(), formData.getGenres(), 
+			formData.getInstruments(), formData.getVerified(), 
+			formData.getRearranged());
+		List<Instrument> instruments = instrumentService.getAllInstruments();
+		model.addAttribute("formData", formData);
 		model.addAttribute("instruments", instruments);
 		model.addAttribute("musicSheets", musicSheets);
 		model.addAttribute("genres", genres);

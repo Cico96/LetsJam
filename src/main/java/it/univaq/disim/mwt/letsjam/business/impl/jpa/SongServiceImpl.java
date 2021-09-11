@@ -79,12 +79,13 @@ public class SongServiceImpl implements SongService {
 	public List<Song> getSearchedSongs(String search, List<String> genres, String albumType, String orderBy, Boolean isExplicit, Boolean hasLyrics, String sortDirection) throws BusinessException {
 		String q = "SELECT s FROM Song s ";
 		boolean whereClause = false;
-
+		
+		//SEARCH STRING
 		if(search != null && search.length() > 0){
 			q+="WHERE (s.title LIKE CONCAT('%',:search,'%') OR s.author LIKE CONCAT('%',:search,'%') OR s.albumName LIKE CONCAT('%',:search,'%')) ";
 			whereClause = true;
 		}
-		
+		//GENERES
 		if(! genres.isEmpty() && !whereClause){
 			q += "WHERE s.genre.name in :genres ";
 			whereClause = true;
@@ -92,42 +93,40 @@ public class SongServiceImpl implements SongService {
 		else if(! genres.isEmpty() && whereClause){
 			q += "AND s.genre.name in :genres ";
 		}
-
+		//ALBUM TYPE
 		if(albumType != null && !whereClause){
 			q += "WHERE s.albumType = :albumType ";
 			whereClause = true;
 		}else if (albumType != null && whereClause){
 			q += "AND s.albumType = :albumType ";
 		}
-
+		//EXPLICIT
 		if(isExplicit != null && isExplicit && !whereClause){
 			q += "WHERE s.isExplicit = :explicit ";
 			whereClause = true;
 		}else if(isExplicit != null && isExplicit && whereClause){
 			q += "AND s.isExplicit = :explicit ";
 		}
-
+		//LYRICS
 		if(hasLyrics != null && hasLyrics && !whereClause){
 			q += "WHERE s.lyrics IS NOT NULL ";
 			whereClause = true;
 		}else if(hasLyrics != null && hasLyrics && whereClause){
 			q += "AND s.lyrics IS NOT NULL ";
 		}
-
+		//ORDER BY
 		if (orderBy != null){
 			q += "ORDER BY s."+orderBy+" "+sortDirection;
 		}
-		System.out.println(q);
+		//System.out.println(q);
 
 		Query query =  em.createQuery(q);
 		if(search != null && search.length() > 0) query.setParameter("search", search);
 		if(!genres.isEmpty()) query.setParameter("genres", genres);
 		if(albumType != null) query.setParameter("albumType", albumType);
 		if(isExplicit != null && isExplicit) query.setParameter("explicit", isExplicit);
-		List<Song> songs = query.getResultList();
-
-		System.out.println(songs.size());
-		return songs;
+		
+		return query.getResultList();
 	}
 
 }

@@ -20,8 +20,6 @@ public interface MusicSheetService {
 	
 	MusicSheet findMusicSheetByTitle(String title) throws BusinessException;
 	
-//	Spartito findMusicSheetByContent (String content) throws BusinessException;
-	
 	MusicSheet findMusicSheetVerified(String title) throws BusinessException;
 	
 	//void addLike(Spartito spartito, Long id_utente) throws BusinessException;
@@ -47,4 +45,6 @@ public interface MusicSheetService {
 	List<MusicSheet> getMusicSheetsByGenre(Genre genre) throws BusinessException;
 
 	List<MusicSheet> getAllMusicSheets() throws BusinessException;
+
+	List<MusicSheet> searchMusicSheets(String search, String sortBy, String sortDirection, List<String> genres, List<String> instruments, Boolean verified, Boolean rearranged) throws BusinessException;
 }
