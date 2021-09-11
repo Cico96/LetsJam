@@ -65,6 +65,9 @@
     background-color: white;
     padding: 5px;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .option-icon svg{
@@ -134,71 +137,21 @@
     box-shadow: 0 10px 40px #3763eb69, 0 0 0 5px #ffffff14;
 }
 
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 40px;
-    height: 20px;
-    max-width: 40px;
-    min-width: 40px;
-  }
-  
-  .switch input { 
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
-.slider {
-    position: absolute;
+.sort-direction{
     cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #cccccc5c;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    left: 2px;
-    bottom: 2px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #263d82;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #263d82;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(19px);
-    -ms-transform: translateX(19px);
-    transform: translateX(19px);
-  }
-  
-  .slider.round {
-    border-radius: 34px !important;
-  }
-
-  .slider.round:before {
     border-radius: 50%;
-  }
+}
 
-  .radio-option p{
-      flex: 8;
-  }
+.sort-direction svg{
+    width: 80% !important;
+    height: 80% !important;
+}
 
-  .radio-option .switch{
-      flex: 4;
-  }
+.sort-direction:hover{
+    box-shadow: 0px 1px 20px 0px rgb(50 50 50 / 40%);
+    background-color: #3763eb;
+}
+
+.sort-direction:hover svg{
+    fill: white;
+}

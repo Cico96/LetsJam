@@ -27,5 +27,5 @@ public interface SongService {
 
 	List<Song> getAllSong() throws BusinessException;
 
-	List<Song> getProxyList(List<String> genres, String albumType, String orderBy, Boolean isExplicit, Boolean lyrics) throws BusinessException;
+	List<Song> getSearchedSongs(String search, List<String> genres, String albumType, String orderBy, Boolean isExplicit, Boolean hasLyrics, String sortDirection) throws BusinessException;
 }

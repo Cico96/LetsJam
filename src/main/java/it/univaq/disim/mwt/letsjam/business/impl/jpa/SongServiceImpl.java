@@ -12,6 +12,8 @@ import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,38 +76,58 @@ public class SongServiceImpl implements SongService {
 	}
 
 	@Override
-	public List<Song> getProxyList(List<String> genres, String albumType, String orderBy, Boolean isExplicit, Boolean lyrics) throws BusinessException {
-		String q = "SELECT s FROM Song s  ";
-		if(! genres.isEmpty()){
+	public List<Song> getSearchedSongs(String search, List<String> genres, String albumType, String orderBy, Boolean isExplicit, Boolean hasLyrics, String sortDirection) throws BusinessException {
+		String q = "SELECT s FROM Song s ";
+		boolean whereClause = false;
+
+		if(search != null && search.length() > 0){
+			q+="WHERE (s.title LIKE CONCAT('%',:search,'%') OR s.author LIKE CONCAT('%',:search,'%') OR s.albumName LIKE CONCAT('%',:search,'%')) ";
+			whereClause = true;
+		}
+		
+		if(! genres.isEmpty() && !whereClause){
 			q += "WHERE s.genre.name in :generes ";
+			whereClause = true;
+		}
+		else if(! genres.isEmpty() && whereClause){
+			q += "AND s.genre.name in :generes ";
 		}
 
-		if(albumType != null && ! genres.isEmpty()){
-			q += " AND s.albumType = :albumType ";
-		}else if (albumType != null && genres.isEmpty()){
+		if(albumType != null && !whereClause){
 			q += "WHERE s.albumType = :albumType ";
+			whereClause = true;
+		}else if (albumType != null && whereClause){
+			q += "AND s.albumType = :albumType ";
 		}
 
-		if(isExplicit != null && (albumType != null || ! genres.isEmpty())){
-			q += " AND s.isExplicit = :explicit ";
-		}else if(isExplicit != null && (albumType != null || genres.isEmpty())){
+		if(isExplicit != null && isExplicit && !whereClause){
 			q += "WHERE s.isExplicit = :explicit ";
+			whereClause = true;
+		}else if(isExplicit != null && isExplicit && whereClause){
+			q += "AND s.isExplicit = :explicit ";
+		}
+
+		if(hasLyrics != null && hasLyrics && !whereClause){
+			q += "WHERE s.lyrics IS NOT NULL ";
+			whereClause = true;
+		}else if(hasLyrics != null && hasLyrics && whereClause){
+			q += "AND s.lyrics IS NOT NULL ";
 		}
 
 		if (orderBy != null){
-			q += " ORDER BY s." + orderBy;
+			q += "ORDER BY s."+orderBy+" "+sortDirection;
 		}
 		System.out.println(q);
 
-		List<Song> songs = em.createQuery(q)
-				.setParameter("generes", genres)
-				.setParameter("albumType", albumType)
-				.setParameter("explicit", isExplicit)
-				.getResultList();
+		Query query =  em.createQuery(q);
+		if(search != null && search.length() > 0) query.setParameter("search", search);
+		if(!genres.isEmpty()) query.setParameter("genres", genres);
+		if(albumType != null) query.setParameter("albumType", albumType);
+		if(isExplicit != null && isExplicit) query.setParameter("explicit", isExplicit);
+		List<Song> songs = query.getResultList();
 
 		System.out.println(songs.size());
 		return songs;
-
 	}
 
 }
