@@ -1,8 +1,11 @@
 package it.univaq.disim.mwt.letsjam.business.impl.jpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import it.univaq.disim.mwt.letsjam.business.SongService;
@@ -13,6 +16,9 @@ import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,12 +77,12 @@ public class SongServiceImpl implements SongService {
 	}
 
 	@Override
-	public List<Song> getAllSong() throws BusinessException {
-		return branoRepository.findAll();
+	public Page<Song> getAllSong(Pageable pageable) throws BusinessException {
+		return branoRepository.findAll(pageable);
 	}
 
 	@Override
-	public List<Song> getSearchedSongs(String search, List<String> genres, String albumType, String orderBy, Boolean isExplicit, Boolean hasLyrics, String sortDirection) throws BusinessException {
+	public Page<Song> getSearchedSongs(String search, List<String> genres, String albumType, String orderBy, Boolean isExplicit, Boolean hasLyrics, String sortDirection, int pageNumber, int pageSize) throws BusinessException {
 		String q = "SELECT s FROM Song s ";
 		boolean whereClause = false;
 		
@@ -125,8 +131,10 @@ public class SongServiceImpl implements SongService {
 		if(!genres.isEmpty()) query.setParameter("genres", genres);
 		if(albumType != null) query.setParameter("albumType", albumType);
 		if(isExplicit != null && isExplicit) query.setParameter("explicit", isExplicit);
-		
-		return query.getResultList();
+		List<Song> songs = query.getResultList();
+
+		int toIndex = (((pageNumber*pageSize)+pageSize) <= songs.size()) ? (pageNumber*pageSize)+pageSize : songs.size();
+		return new PageImpl<Song>(songs.subList(pageNumber*pageSize, toIndex), PageRequest.of(pageNumber, pageSize), songs.size());
 	}
 
 }

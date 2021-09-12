@@ -155,3 +155,7 @@
 .sort-direction:hover svg{
     fill: white;
 }
+
+.page-item:not(.active,.disabled){
+    cursor: pointer;
+}

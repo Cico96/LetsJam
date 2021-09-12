@@ -24,4 +24,8 @@ public class SongSearchViewModel{
 
     private Boolean lyrics;
 
+    private int totalPages;
+
+    private int pageNumber;
+
 }
