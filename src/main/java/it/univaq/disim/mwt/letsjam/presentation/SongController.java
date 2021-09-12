@@ -69,7 +69,7 @@ public class SongController {
         formData.setTotalPages(songs.getTotalPages());            
 
         model.addAttribute("formData", formData);
-        model.addAttribute("songs", songs.getContent());
+        model.addAttribute("songs", songs);
         model.addAttribute("genres", genres);
         return "song/all";
     }

@@ -25,4 +25,8 @@ public class MusicSheetSearchViewModel {
 
     private Boolean rearranged;
 
+    private int totalPages;
+
+    private int pageNumber;
+
 }

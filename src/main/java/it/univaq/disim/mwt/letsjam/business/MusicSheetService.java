@@ -6,6 +6,7 @@ import it.univaq.disim.mwt.letsjam.domain.MusicSheetData;
 import it.univaq.disim.mwt.letsjam.domain.Song;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Set;
@@ -44,7 +45,7 @@ public interface MusicSheetService {
 
 	List<MusicSheet> getMusicSheetsByGenre(Genre genre) throws BusinessException;
 
-	List<MusicSheet> getAllMusicSheets() throws BusinessException;
+	Page<MusicSheet> getAllMusicSheets(Pageable pageable) throws BusinessException;
 
-	List<MusicSheet> searchMusicSheets(String search, String sortBy, String sortDirection, List<String> genres, List<String> instruments, Boolean verified, Boolean rearranged) throws BusinessException;
+	Page<MusicSheet> searchMusicSheets(String search, String sortBy, String sortDirection, List<String> genres, List<String> instruments, Boolean verified, Boolean rearranged, int pageNumber, int pageSize) throws BusinessException;
 }

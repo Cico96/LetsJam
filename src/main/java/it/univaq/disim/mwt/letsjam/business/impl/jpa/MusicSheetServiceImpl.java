@@ -8,7 +8,9 @@ import javax.transaction.Transactional;
 import it.univaq.disim.mwt.letsjam.domain.Genre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import it.univaq.disim.mwt.letsjam.business.MusicSheetService;
@@ -120,8 +122,8 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 	}
 
 	@Override
-	public List<MusicSheet> getAllMusicSheets() throws BusinessException {
-		return musicSheetRepository.findAll();
+	public Page<MusicSheet> getAllMusicSheets(Pageable pageable) throws BusinessException {
+		return musicSheetRepository.findAll(pageable);
 	}
 
 	@Override
@@ -143,8 +145,8 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 		return musicSheets.toList();
 	}
 
-	public List<MusicSheet> searchMusicSheets(String search, String sortBy, String sortDirection, List<String> genres, List<String> instruments, Boolean verified, Boolean rearranged) throws BusinessException{
-
+	@Override
+	public Page<MusicSheet> searchMusicSheets(String search, String sortBy, String sortDirection, List<String> genres, List<String> instruments, Boolean verified, Boolean rearranged, int pageNumber, int pageSize) throws BusinessException{
 		String q = "SELECT ms FROM MusicSheet ms ";
 		if(!instruments.isEmpty()) q+="JOIN ms.instruments i ";
 		boolean whereClause = false;
@@ -187,7 +189,6 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 		if (sortBy != null){
 			q += "ORDER BY ms."+sortBy+" "+sortDirection;
 		}
-		
 		//System.out.println(q);
 		
 		Query query =  em.createQuery(q);
@@ -196,8 +197,10 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 		if(!instruments.isEmpty()) query.setParameter("instruments", instruments);
 		if(verified != null && verified) query.setParameter("verified", verified);
 		if(rearranged != null && rearranged) query.setParameter("rearranged", rearranged);
-		
-		return query.getResultList();
+		List<MusicSheet> musicSheets = query.getResultList();
+
+		int toIndex = (((pageNumber*pageSize)+pageSize) <= musicSheets.size()) ? (pageNumber*pageSize)+pageSize : musicSheets.size();
+		return new PageImpl<MusicSheet>(musicSheets.subList(pageNumber*pageSize, toIndex), PageRequest.of(pageNumber, pageSize), musicSheets.size());
 	}
 
 }

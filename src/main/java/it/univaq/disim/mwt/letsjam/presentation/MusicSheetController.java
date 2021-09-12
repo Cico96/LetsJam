@@ -3,6 +3,8 @@ package it.univaq.disim.mwt.letsjam.presentation;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,12 +31,18 @@ public class MusicSheetController {
 	@Autowired
 	private InstrumentService instrumentService; 
 	
+	private static final int PAGE_SIZE = 5;
+
 	@GetMapping("/")
 	public String all(Model model){
 		List<Genre> genres = genreService.getAllGenres();
-		List<MusicSheet> musicSheets = spartitoService.getAllMusicSheets();
+		Page<MusicSheet> musicSheets = spartitoService.getAllMusicSheets(PageRequest.of(0, PAGE_SIZE));
 		List<Instrument> instruments = instrumentService.getAllInstruments();
-		model.addAttribute("formData", new MusicSheetSearchViewModel());
+		MusicSheetSearchViewModel formData = new MusicSheetSearchViewModel();
+		formData.setTotalPages(musicSheets.getTotalPages());
+        formData.setPageNumber(0);
+		
+		model.addAttribute("formData", formData);
 		model.addAttribute("instruments", instruments);
 		model.addAttribute("musicSheets", musicSheets);
 		model.addAttribute("genres", genres);
@@ -44,12 +52,14 @@ public class MusicSheetController {
 	@PostMapping("/")
 	public String search(MusicSheetSearchViewModel formData, Model model){
 		List<Genre> genres = genreService.getAllGenres();
-		List<MusicSheet> musicSheets = spartitoService.searchMusicSheets(
+		List<Instrument> instruments = instrumentService.getAllInstruments();
+		Page<MusicSheet> musicSheets = spartitoService.searchMusicSheets(
 			formData.getSearch(), formData.getSortBy(), 
 			formData.getSortDirection(), formData.getGenres(), 
 			formData.getInstruments(), formData.getVerified(), 
-			formData.getRearranged());
-		List<Instrument> instruments = instrumentService.getAllInstruments();
+			formData.getRearranged(), formData.getPageNumber(), PAGE_SIZE);
+		formData.setTotalPages(musicSheets.getTotalPages());
+		
 		model.addAttribute("formData", formData);
 		model.addAttribute("instruments", instruments);
 		model.addAttribute("musicSheets", musicSheets);
