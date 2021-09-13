@@ -53,6 +53,7 @@
 	                                <a sec:authorize="!isAuthenticated()" href="/login" class="btn">Login</a>
 									<a sec:authorize="isAuthenticated()" href="/logout" class="btn">Logout</a>
 								</div>
+								<a style="padding-left: 20px" sec:authorize="isAuthenticated()" href="/profilo"><img style="height: 30px" src="assets/images/profile.png" th:src="@{/dist/img/profile.png}" alt="profile" /></a>
 	                        </nav>
 	                        <!-- navbar -->
 	

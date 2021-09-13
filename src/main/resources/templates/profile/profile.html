@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout/layout}">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/song.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/profile.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/musicSheetCard.css}">
+</head>
+<body>
+<div layout:fragment="content" style="padding-top: 90px;">
+    <section class="hero-area pt-4 pb-4">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-3 pt-5 text-center">
+                    <img th:if="${profilo.avatar}" th:src="${profilo.avatar}" alt="profile avatar" class="profile-avatar">
+                    <img th:unless="${profilo.avatar}" th:src="'https://avatars.dicebear.com/api/male/'+${profilo.firstname}+'.svg'" alt="profile avatar" class="profile-avatar">
+                </div>
+                <div class="col-3 pt-4 profile-generics">
+                    <div class="mt-4">
+                        <h3 th:text="${profilo.firstname}" class="profile-name"></h3>
+                        <h3 th:text="${profilo.lastname}" class="profile-name mt-4"></h3>
+                    </div>
+                    <div>
+                        <h6 class="profile-descr">username:</h6>
+                        <h5 th:text="${profilo.username}" class=""></h5>
+                        <h6 class="profile-descr mt-2">email:</h6>
+                        <h5 th:text="${profilo.email}" class=""></h5>
+                    </div>
+                </div>
+                <div class="col-6 pt-4 profile-preferred">
+                    <div>
+                        <div class="d-flex align-items-center">
+                            <div class="icon mr-2">
+                                <svg th:replace="fragments/icons :: genres"></svg>
+                                <i></i>
+                            </div>
+                            <h3 th:text="#{profile.preferredGenres}+':'" class=""></h3>
+                        </div>
+                        <span class="pref-genre" th:each="genre : ${profilo.preferredGenres}" th:text="${genre.name}"></span>
+                    </div>
+                    <div>
+                        <div class="d-flex align-items-center">
+                            <div class="icon mr-2">
+                                <svg th:replace="fragments/icons :: violin"></svg>
+                                <i></i>
+                            </div>
+                            <h3 th:text="#{profile.preferredInstruments}+':'" class=""></h3>
+                        </div>
+<!--                        <span class="pref-genre" th:each="instrument : ${profilo.preferredInstruments}" th:text="${instrument.name}"></span>-->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mt-4 pt-4 pb-4">
+                    <h3 class="mt-4 mb-4">I tuoi spartiti</h3>
+                </div>
+
+                <!-- Start mine Section -->
+                <section class="services about-us">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 relative">
+                                <div th:each="musicsheet : ${myMusicSheets}">
+                                    <div th:replace="fragments/musicSheetCard :: musicSheetCard(musicsheet = ${musicsheet})"></div>
+                                </div>
+                                <img class="service-patern wow fadeInRight overlay-image" data-wow-delay=".5s" th:src="@{img/service-patern.png}" alt="#"
+                                     style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;position: absolute;top: 287px;right: -25px;">
+                                <img class="service-patern wow fadeInRight overlay-image" data-wow-delay=".5s" th:src="@{img/service-patern.png}" alt="#"
+                                     style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;position: absolute;bottom: -3px;left: -25px;">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- /End mine Section -->
+            </div>
+            <div class="row">
+                <div class="col-12 mt-4 pt-4 pb-4">
+                    <h3 class="mt-4 mb-4">Centro messaggi</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+
+</html>
