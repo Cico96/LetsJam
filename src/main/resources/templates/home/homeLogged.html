@@ -64,9 +64,11 @@
                     </div>
 
                     <div th:each="musicsheetGenreList : ${musicSheetByGenre}">
-                        <h6 class="wow fadeInUp genreTitle" data-wow-delay=".4s" th:text="${musicsheetGenreList[0].song.getGenre().getName()}"></h6>
-                        <div th:each="musicsheet : ${musicsheetGenreList}">
-                            <div th:replace="fragments/musicSheetCard :: musicSheetCard(musicsheet = ${musicsheet})"></div>
+                        <div th:if="${musicsheetGenreList.size() > 0}" th:remove="tag">
+                            <h6 class="wow fadeInUp genreTitle" data-wow-delay=".4s" th:text="${musicsheetGenreList[0].song.getGenre().getName()}"></h6>
+                            <div th:each="musicsheet : ${musicsheetGenreList}">
+                                <div th:replace="fragments/musicSheetCard :: musicSheetCard(musicsheet = ${musicsheet})"></div>
+                            </div>
                         </div>
                     </div>
                     <img class="service-patern wow fadeInRight overlay-image" data-wow-delay=".5s" th:src="@{img/service-patern.png}" alt="#"
