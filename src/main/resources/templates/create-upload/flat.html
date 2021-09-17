@@ -8,18 +8,21 @@
         <script type="text/javascript" th:src="@{/js/flat.js}"></script>
     </head>
         <body>
-
             <div layout:fragment="content" style="padding-top:90px">
 <!-- The container for our embed-->
                 <div id="embed-example"></div>
 <!-- Buttons displayed under our embed demo -->
-                    <div class="embed-example-ctas">
-                        <button id="export-xml" class="btn-cta-site">Export to MusicXML</button>
-                        <button id="export-pdf" class="btn-cta-site">Export to PDF</button>
-                        <button id="export-png" class="btn-cta-site">Togli Tablatura</button>
-                    </div>
-                    <input type="file" id="file-input">
-                    <pre id="file-content"></pre>
+                <div class="embed-example-ctas">
+                    <button id="export-xml" class="btn-cta-site">Export to MusicXML</button>
+                    <button id="export-pdf" class="btn-cta-site">Export to PDF</button>
+                    <button id="export-png" class="btn-cta-site">Togli Tablatura</button>
                 </div>
+                <form method="post" action="/musicsheets/create" enctype="multipart/form-data">
+                    <input type="file" id="file-input" name="file">
+                    <pre id="file-content"></pre>
+                    <button type="submit">Submit</button>
+                </form>
+
+            </div>
         </body>
 </html>
