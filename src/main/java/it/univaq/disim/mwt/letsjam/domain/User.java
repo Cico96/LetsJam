@@ -58,7 +58,7 @@ public class User extends AbstractPersistableEntity{
     @Lob
     @JsonIgnore
     @Basic(fetch = FetchType.LAZY)
-	private Byte[] avatar;
+	private String avatar;
 	
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
     @JoinTable(
