@@ -82,7 +82,7 @@ public class SongServiceImpl implements SongService {
 	}
 
 	@Override
-	public Page<Song> getSearchedSongs(String search, List<String> genres, String albumType, String orderBy, Boolean isExplicit, Boolean hasLyrics, String sortDirection, int pageNumber, int pageSize) throws BusinessException {
+	public Page<Song> getSearchedSongs(String search, List<String> genres, String albumType, String orderBy, Boolean isExplicit, Boolean hasLyrics, String sortDirection, int pageNumber, int pageSize) throws BusinessException {		
 		String q = "SELECT s FROM Song s ";
 		boolean whereClause = false;
 		
