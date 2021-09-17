@@ -1,0 +1,25 @@
+<html
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:nl2br="https://github.com/bufferings/thymeleaf-extras-nl2br"
+    layout:decorate="~{layout/layout}">
+    <head>
+        <script src="https://prod.flat-cdn.com/embed-js/v1.1.0/embed.min.js"></script>
+        <script type="text/javascript" th:src="@{/js/flat.js}"></script>
+    </head>
+        <body>
+
+            <div layout:fragment="content" style="padding-top:90px">
+<!-- The container for our embed-->
+                <div id="embed-example"></div>
+<!-- Buttons displayed under our embed demo -->
+                    <div class="embed-example-ctas">
+                        <button id="export-xml" class="btn-cta-site">Export to MusicXML</button>
+                        <button id="export-pdf" class="btn-cta-site">Export to PDF</button>
+                        <button id="export-png" class="btn-cta-site">Togli Tablatura</button>
+                    </div>
+                    <input type="file" id="file-input">
+                    <pre id="file-content"></pre>
+                </div>
+        </body>
+</html>
