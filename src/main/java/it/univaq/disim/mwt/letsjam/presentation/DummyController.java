@@ -4,28 +4,22 @@ import it.univaq.disim.mwt.letsjam.business.*;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.GenreRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SongRepository;
 import it.univaq.disim.mwt.letsjam.domain.Genre;
-import it.univaq.disim.mwt.letsjam.domain.Song;
-import it.univaq.disim.mwt.letsjam.domain.*;
+
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.view.RedirectView;
 
-import java.time.LocalDateTime;
-import java.util.Iterator;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UserRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetRepository;
-import it.univaq.disim.mwt.letsjam.domain.Genre;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.security.CustomUserDetails;
@@ -60,135 +54,47 @@ public class DummyController {
     @Autowired
     private SongRepository songRepository;
 
+    @Autowired
+    private ScoreAnalyzerService scoreAnalyzerService;
+
     @GetMapping("/home")
     public String home(Model model, Authentication authentication){
-
         List<MusicSheet> mostpopular = spartitoService.getMostPopularMusicSheets();
         List<Genre> randomGenres = genereService.getRandomGenres();
         List<List<MusicSheet>> musicSheetByGenre = new ArrayList<>();
-
         for (Genre genere: randomGenres ) {
             musicSheetByGenre.add(spartitoService.getMusicSheetsByGenre(genere));
         }
-
-//        Iterator<MusicSheet> iterator = randomSheets.iterator();
-//        System.out.println(iterator.next().getTitle());
-//        System.out.println(iterator.next().getTitle());
 
         if(authentication !=null){
             //Logged
             User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
             System.out.println(loggedUser.getFirstname()+" "+loggedUser.getLastname());
 
-
             List<MusicSheet> latest = spartitoService.getLastInsertMusicSheets();
             model.addAttribute("mostpopular", mostpopular);
             model.addAttribute("lastInsert", latest);
             model.addAttribute("musicSheetByGenre", musicSheetByGenre);
 
-//            Genre genre = genereService.findGenreByName("Pop");
-
-//            Instrument strumento = strumentoService.findInstrumentByNome("chitarra");
-//            strumento.setName("flauto traverso");
-//            strumento.setInstrumentKey("Do diesis minore settima+");
-//            strumentoService.insert(strumento);
-//            Set<Instrument> strumenti = new HashSet<>();
-//            strumenti.add(strumento);
-//
-//            Song song = new Song();
-//            song.setAuthor("Nomadi");
-//            song.setTitle("Io vagabondo");
-//            song.setGenre(genre);
-//            lyricsService.setLyrics(song);
-//            spotifyService.setSongInfo(song);
-//            System.out.println(song.getAuthor() + " - " +song.getTitle());
-//            songService.updateSong(song);
-//
-//            MusicSheet spartito = new MusicSheet();
-//            spartito.setTitle("Io vagabondo");
-//            spartito.setVerified(false);
-//            spartito.setUser(UserUtility.getUtente());
-//            spartito.setSong(song);
-//            spartito.setInstruments(strumenti);
-
-//            spartitoService.insert(spartito);
-
             return "home/homeLogged";
         }
-//        Genre genere = genereService.findGenreByName("Fracchicco");
-//        Song song = new Song();
-//        song.setGenre(genere);
-//        song.setAuthor("Fabri Fibra");
-//        song.setTitle("Venerdi 17");
-//        lyricsService.setLyrics(song);
-//        spotifyService.setSongInfo(song);
-//        songService.updateSong(song);
-//        String autore = "Fabri Fibra";
-//        Page<Song> songs = songRepository.searchSongsByAuthor(autore, PageRequest.of(0,5));
-//        System.out.println(songs.getTotalElements());
-//        System.out.println(songs.toList().iterator().next().getAuthor() + " " + songs.toList().iterator().next().getTitle());
-//        Boolean verified = true;
-//        Page<MusicSheet> ms = spartitoRepository.searchMusicSheetsByVerified(verified, PageRequest.of(0,5));
-//        Iterator<MusicSheet> it = ms.toList().iterator();
-//        while(it.hasNext()){
-//            System.out.println(it.next().getTitle());
-//        }
-//        String username = "antonioang";
-//        List<MusicSheet> ms = spartitoService.searchMusicSheetsByUserUsername(username);
-//        Iterator<MusicSheet> it = ms.iterator();
-//        while (it.hasNext()){
-//            MusicSheet spartito = it.next();
-//            System.out.println(spartito.getTitle() + " - " + spartito.getUser().getUsername());
-//        }
 
-//        String q = "nome genere " + genereName  + " ordinato per titolo " + songName + " nome album " +
-//                song.getAlbumName() + " data " + song.getCreateDateTime() + " tipo album " + song.getAlbumType() +
-//                " filtro per EC " + explicit + " filtro per lyrics " + song.getLyrics();
-//        String album = "Mr. Simpatia";
-//        Page<Song> songs = songRepository.searchSongsByAlbum(album, PageRequest.of(0,5));
-//        System.out.println(songs.toList().iterator().next().getAlbumName() + " " + songs.toList().iterator().next().getAuthor());
-        //Not Logged
-
-        //Genre genere = genereService.findGenreById((long)1);
+        /*
+        //ScoreAnalyzer test
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("testData/test2.musicxml").getFile());
+        JSONObject json = scoreAnalyzerService.readScore(file);
+        */
         
-        /*Genre genere = new Genre();
-        genere.setName("Fracchicco");
-        genere.setDescription("Sfranzi");
-        genereService.addGenre(genere);
-        System.out.println(genere.getName());*/
-
-        /*Song song = new Song();
-        song.setAuthor("Salmo");
-        song.setTitle("Ho paura di uscire");
-        lyricsService.setLyrics(song);
-        spotifyService.setSongInfo(song);
-        System.out.println(song.getAuthor() + " - " +song.getTitle());
-        //song.setGenre(genere);
-        songService.updateSong(song);*/
 
         model.addAttribute("mostpopular", mostpopular);
         model.addAttribute("musicSheetByGenre", musicSheetByGenre);
         return "home/home";
     }
 	
-//	@GetMapping("/")
-//    public String home(@RequestParam(name="contenuto", defaultValue="Commento prova")String contenuto, Model model){
-//    	 Utente utente = new Utente();
-//    	 utente.setUsername("Achille lu tost3");
-//    	 Genere genere = new Genere();
-//    	 genere.setNome("vaffanculo");
-//    	 genereService.save(genere);
-//    	 utenteService.update(utente, genere);
-//         model.addAttribute("name", utente.getGeneriPreferiti().iterator().next().getNome());
-		
-		//Commento commento = new Commento();
-		
-//        return "home/home";
-//    }
     
     @GetMapping("/forbidden")
     public String forbidden(Model model){
         return "common/forbidden";
     }
-    //prova 
 }

@@ -111,11 +111,30 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
+		<!-- NEWLINE TO BR -->
 		<dependency>
 			<groupId>com.github.bufferings</groupId>
 			<artifactId>thymeleaf-extras-nl2br</artifactId>
 			<version>1.0.2</version>
 		</dependency>
+		<!-- JSON AND XML UTILITY-->
+		<dependency>  
+			<groupId>org.json</groupId>  
+			<artifactId>json</artifactId>  
+			<version>20180130</version>  
+		</dependency>
+		<!-- APACHE COMMONS IO-->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.8.0</version>
+		</dependency>
+		<!-- JAVA TUPLES-->
+		<dependency>
+			<groupId>org.javatuples</groupId>
+			<artifactId>javatuples</artifactId>
+			<version>1.2</version>
+		</dependency>  
 		<!-- TEST -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
