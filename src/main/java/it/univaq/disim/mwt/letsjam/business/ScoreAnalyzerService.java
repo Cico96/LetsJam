@@ -150,29 +150,7 @@ public class ScoreAnalyzerService {
     }
 
     public Boolean hasTablature(JSONObject json){
-        JSONArray parts = new JSONArray();
-        JSONArray measures = new JSONArray();
-        if(json.query("/score-partwise/part") instanceof JSONObject) parts.put(json.query("/score-partwise/part"));
-        else parts = (JSONArray) json.query("/score-partwise/part");
-        
-        for (Object part : parts) {
-            if(((JSONObject)part).query("/measure") instanceof JSONObject) measures.put(((JSONObject)part).query("/measure"));
-            else measures = (JSONArray)((JSONObject)part).query("/measure");
-        }
-
-        for (Object measure : measures) {
-            JSONObject attribute = (JSONObject)((JSONObject) measure).query("/attributes");
-            if(attribute != null){
-                Object staffDetails = attribute.opt("staff-details");
-                if(staffDetails != null){
-                    Object staffTuning = attribute.query("/staff-details/staff-tuning");
-                    if(staffTuning != null) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+        return json.toString().indexOf("fret") >= 0;
     }
 
 }

@@ -97,15 +97,18 @@ public class MusicSheetController {
 	@PostMapping("/create")
 	public String upload(@RequestParam("file") MultipartFile file){
 		System.out.println(file.getOriginalFilename());
-		File convFile = new File(System.getProperty("java.io.tmpdir")+"/"+file.getOriginalFilename());
-		try {
-			file.transferTo(convFile);
-		} catch (IOException e) {
-			e.printStackTrace();
+		String extension = file.getOriginalFilename().split("\\.")[1];
+		System.out.println(extension);
+		if(extension.equals("musicxml")){
+			File convFile = new File(System.getProperty("java.io.tmpdir")+"/"+file.getOriginalFilename());
+			try {
+				file.transferTo(convFile);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			JSONObject json = as.readScore(convFile);
+			System.out.println(as.hasTablature(json));
 		}
-		JSONObject json = as.readScore(convFile);
-		System.out.println(as.hasTablature(json));
-		System.out.println(json.toString());
 		return "create-upload/flat";
 	}
 	
