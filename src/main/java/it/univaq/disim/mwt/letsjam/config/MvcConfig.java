@@ -2,13 +2,17 @@ package it.univaq.disim.mwt.letsjam.config;
 
 import java.util.Locale;
 
+import javax.servlet.MultipartConfigElement;
+
 import com.github.bufferings.thymeleaf.extras.nl2br.dialect.Nl2brDialect;
 
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.Ordered;
+import org.springframework.util.unit.DataSize;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -57,5 +61,13 @@ public class MvcConfig implements WebMvcConfigurer {
     @Bean
     public Nl2brDialect dialect() {
         return new Nl2brDialect();
+    }
+
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        factory.setMaxFileSize(DataSize.ofMegabytes(10));
+        factory.setMaxRequestSize(DataSize.ofMegabytes(10));
+        return factory.createMultipartConfig();
     }
 }

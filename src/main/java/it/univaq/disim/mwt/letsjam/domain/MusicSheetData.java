@@ -1,5 +1,7 @@
 package it.univaq.disim.mwt.letsjam.domain;
 
+import java.util.HashMap;
+
 import javax.persistence.Id;
 
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -22,4 +24,6 @@ public class MusicSheetData {
     private String id;
     
     private String content;
+
+    private HashMap<String, String> instrumentMapping;
 }

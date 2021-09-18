@@ -42,6 +42,9 @@ public class MusicSheet extends AbstractPersistableEntity{
 	@NotNull
 	private Boolean rearranged = false;
 
+	@NotNull
+	private Boolean hasTablature = false;
+
 	@JsonInclude()
 	@Transient
 	private MusicSheetData data;
@@ -56,7 +59,7 @@ public class MusicSheet extends AbstractPersistableEntity{
 	@Basic(fetch = FetchType.LAZY)
 	private Set<User> likes = new HashSet<>();
 	
-	@OneToMany()
+	@ManyToMany()
 	private Set<Instrument> instruments;
 }
 

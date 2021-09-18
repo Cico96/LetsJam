@@ -14,4 +14,6 @@ public interface InstrumentService {
 	Instrument findInstrumentByNome(String name) throws BusinessException;
 
 	List<Instrument> getAllInstruments() throws BusinessException;
+	
+	Instrument addInstrument( Instrument instrument) throws BusinessException;
 }

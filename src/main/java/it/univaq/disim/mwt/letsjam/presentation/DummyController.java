@@ -4,6 +4,7 @@ import it.univaq.disim.mwt.letsjam.business.*;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.GenreRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.SongRepository;
 import it.univaq.disim.mwt.letsjam.domain.Genre;
+import it.univaq.disim.mwt.letsjam.domain.Instrument;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +86,7 @@ public class DummyController {
         File file = new File(classLoader.getResource("testData/test2.musicxml").getFile());
         JSONObject json = scoreAnalyzerService.readScore(file);
         */
-        
+
 
         model.addAttribute("mostpopular", mostpopular);
         model.addAttribute("musicSheetByGenre", musicSheetByGenre);

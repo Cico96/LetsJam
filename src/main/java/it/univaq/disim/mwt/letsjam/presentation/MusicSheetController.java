@@ -2,24 +2,34 @@ package it.univaq.disim.mwt.letsjam.presentation;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import com.google.gson.JsonObject;
 import it.univaq.disim.mwt.letsjam.business.ScoreAnalyzerService;
+import it.univaq.disim.mwt.letsjam.business.SongService;
+import it.univaq.disim.mwt.letsjam.business.SpotifyApiService;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import it.univaq.disim.mwt.letsjam.security.CustomUserDetails;
 import it.univaq.disim.mwt.letsjam.business.GenreService;
 import it.univaq.disim.mwt.letsjam.business.InstrumentService;
+import it.univaq.disim.mwt.letsjam.business.LyricsService;
 import it.univaq.disim.mwt.letsjam.business.MusicSheetService;
 import it.univaq.disim.mwt.letsjam.domain.Genre;
 import it.univaq.disim.mwt.letsjam.domain.Instrument;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
+import it.univaq.disim.mwt.letsjam.domain.MusicSheetData;
+import it.univaq.disim.mwt.letsjam.domain.Song;
+import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.presentation.viewModels.MusicSheetSearchViewModel;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,6 +45,12 @@ public class MusicSheetController {
 	private InstrumentService instrumentService;
 	@Autowired
 	private ScoreAnalyzerService as;
+	@Autowired
+    private SpotifyApiService spotifyService;
+	@Autowired
+    private LyricsService lyricsService;
+	@Autowired
+	private SongService songService;
 	
 	private static final int PAGE_SIZE = 5;
 
@@ -93,11 +109,11 @@ public class MusicSheetController {
 	public String view(){
 		return "create-upload/flat";
 	}
-
+	
 	@PostMapping("/create")
-	public String upload(@RequestParam("file") MultipartFile file){
-		System.out.println(file.getOriginalFilename());
-		String extension = file.getOriginalFilename().split("\\.")[1];
+	public String upload(@RequestParam("file") MultipartFile file,  Authentication authentication){
+		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+		String extension = (file.getOriginalFilename() != null) ? file.getOriginalFilename().split("\\.")[1] : "";
 		System.out.println(extension);
 		if(extension.equals("musicxml")){
 			File convFile = new File(System.getProperty("java.io.tmpdir")+"/"+file.getOriginalFilename());
@@ -106,8 +122,34 @@ public class MusicSheetController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
 			JSONObject json = as.readScore(convFile);
-			System.out.println(as.hasTablature(json));
+			HashMap<String, String> mappings = as.getInstruments(json);
+			Set<Instrument> strumenti = as.toInstrumentSet(mappings);
+			strumenti.forEach(i -> System.out.println(i.getName()));
+			
+			MusicSheetData data = new MusicSheetData();
+			data.setContent(json.toString());
+			data.setInstrumentMapping(mappings);
+
+			MusicSheet spartito = new MusicSheet();
+			spartito.setData(data);
+			spartito.setTitle(as.getScoreTitle(json)+" - "+as.getScoreAuthor(json));
+			spartito.setUser(loggedUser);
+			spartito.setInstruments(strumenti);
+			spartito.setRearranged(false);
+			spartito.setVerified(false);
+			spartito.setHasTablature(as.hasTablature(json));
+
+			/*Song song = new Song();
+			song.setAuthor("Federico Berti");
+			song.setTitle("Polka del Dirigibile");
+			spotifyService.setSongInfo(song);
+			songService.updateSong(song);
+			
+			spartito.setSong(song);*/
+
+			spartitoService.addMusicSheet(spartito);
 		}
 		return "create-upload/flat";
 	}

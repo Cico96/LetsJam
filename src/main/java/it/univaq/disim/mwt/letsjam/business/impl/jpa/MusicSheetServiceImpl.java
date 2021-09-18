@@ -6,6 +6,8 @@ import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import it.univaq.disim.mwt.letsjam.domain.Genre;
+import it.univaq.disim.mwt.letsjam.domain.Instrument;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import it.univaq.disim.mwt.letsjam.business.InstrumentService;
 import it.univaq.disim.mwt.letsjam.business.MusicSheetService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetDataRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetRepository;
@@ -21,7 +24,9 @@ import it.univaq.disim.mwt.letsjam.domain.MusicSheetData;
 import it.univaq.disim.mwt.letsjam.domain.Song;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -32,6 +37,9 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 
 	@Autowired
 	private MusicSheetDataRepository musicSheetDataRepository;
+
+	@Autowired
+	private InstrumentService instrumentService;
 
 	@PersistenceContext
 	private EntityManager em;
@@ -50,11 +58,19 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 
 	@Override
 	public MusicSheet addMusicSheet(MusicSheet musicSheet) throws BusinessException {
+		Set<Instrument> strumenti = new HashSet<Instrument>();
+		for (Instrument instrument : musicSheet.getInstruments()) {
+			if(instrumentService.findInstrumentByNome(instrument.getName()) == null) strumenti.add(instrumentService.addInstrument(instrument));
+			else strumenti.add(instrumentService.findInstrumentByNome(instrument.getName()));
+		}
+		
+		strumenti.forEach(i -> System.out.println(i.getName()+" - "+i.getId()));
+		musicSheet.setInstruments(strumenti);
 		MusicSheet ms = musicSheetRepository.save(musicSheet);
 		MusicSheetData data = musicSheet.getData();
-		data.setId(musicSheet.getId().toString());
+		data.setId(ms.getId().toString());
 		musicSheetDataRepository.save(data);
-		return musicSheet;
+		return ms;
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.apache.commons.io.FileUtils;
 import org.javatuples.Pair;
@@ -64,12 +65,11 @@ public class ScoreAnalyzerService {
         return null;
     }
 
-    public Pair<List<Instrument>, HashMap<String,String>> getInstruments(JSONObject json){
+    public HashMap<String,String> getInstruments(JSONObject json){
         JSONArray parts = new JSONArray();
         JSONArray scoreInstruments = new JSONArray();
-        Set<String> instrumentsNames = new HashSet<String>();
-        List<Instrument> instruments = new ArrayList<Instrument>();
         HashMap<String,String> instrumentPartMappings = new HashMap<String,String>();
+
         parts.put(json.query("/score-partwise/part-list/score-part"));
         parts.forEach(item ->{
             JSONArray part = new JSONArray();
@@ -91,7 +91,6 @@ public class ScoreAnalyzerService {
                         String partId = ((JSONObject) el).getString("id");
                         for(int i = 0; i < availableInstruments.length; i++){
                             if(name.equals(availableInstruments[i]) || name.contains(availableInstruments[i])){
-                                instrumentsNames.add(availableInstruments[i]);
                                 instrumentPartMappings.put(availableInstruments[i], partId.split("-")[0]);
                             }
                         }
@@ -100,13 +99,18 @@ public class ScoreAnalyzerService {
             }
         });
 
-        instrumentsNames.forEach(name ->{
+        return instrumentPartMappings;
+    }
+
+    public Set<Instrument> toInstrumentSet(Map<String, String> mappings){
+        Set<Instrument> instruments = new HashSet<Instrument>();
+        Set<String> instrumentNames = mappings.keySet();
+        instrumentNames.forEach(name -> {
             Instrument i = new Instrument();
             i.setName(name);
             instruments.add(i);
         });
-
-        return Pair.with(instruments, instrumentPartMappings);
+        return instruments;
     }
 
     public String getScoreTitle(JSONObject json){

@@ -36,4 +36,9 @@ public class InstrumentServiceImpl implements InstrumentService {
 		return strumentoRepository.findAll();
 	}
 
+	@Override
+	public Instrument addInstrument( Instrument instrument) throws BusinessException{
+		return strumentoRepository.save(instrument);
+	}
+
 }
