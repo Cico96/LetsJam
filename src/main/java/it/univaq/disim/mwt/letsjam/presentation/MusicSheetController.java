@@ -15,6 +15,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -122,7 +124,7 @@ public class MusicSheetController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+
 			JSONObject json = as.readScore(convFile);
 			HashMap<String, String> mappings = as.getInstruments(json);
 			Set<Instrument> strumenti = as.toInstrumentSet(mappings);
@@ -154,5 +156,30 @@ public class MusicSheetController {
 		return "create-upload/flat";
 	}
 	
+
+	@PostMapping("/analyze")
+	public ResponseEntity analyze(@RequestParam("file") MultipartFile file){
+		String extension = (file.getOriginalFilename() != null) ? file.getOriginalFilename().split("\\.")[1] : "";
+		System.out.println(extension);
+		if(extension.equals("musicxml")){
+			File convFile = new File(System.getProperty("java.io.tmpdir")+"/"+file.getOriginalFilename());
+			try {
+				file.transferTo(convFile);
+				
+				JSONObject json = as.readScore(convFile);
+				String title = as.getScoreTitle(json);
+				String author = as.getScoreAuthor(json);
+				JSONObject result = new JSONObject();
+				result.append("title", title);
+				result.append("author", author);
+				result.append("content", json);
+
+				return ResponseEntity.ok(result.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+	}
 
 }
