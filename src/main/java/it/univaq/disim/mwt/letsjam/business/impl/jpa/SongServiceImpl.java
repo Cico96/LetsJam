@@ -53,15 +53,9 @@ public class SongServiceImpl implements SongService {
 	}
 
 	@Override
-	public List<Song> searchSongsByAuthor(String author) throws BusinessException {
-		Page<Song> songs = branoRepository.searchSongsByAuthor(author, PageRequest.of(0,5));
-		return songs.toList();
-	}
-
-	@Override
-	public List<Song> searchSongsByTitle(String title) throws BusinessException {
-		Page<Song> songs = branoRepository.searchSongsByTitle(title, PageRequest.of(0,5));
-		return songs.toList();
+	public List<Song> searchSongsByTitleAndAuthor(String title, String author) throws BusinessException {
+		List<Song> songs = branoRepository.searchSongsByTitleAndAuthor(title, author);
+		return songs;
 	}
 
 	@Override

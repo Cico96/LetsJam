@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.hc.core5.http.ParseException;
 
 @Service
@@ -33,9 +36,7 @@ public class SpotifyApiService {
         this.clientCredentialsRequest = spotifyApi.clientCredentials().build();
         getAccessToken();
     }
-    public SpotifyApi getObjectSpotify(){
-        return this.spotifyApi;
-    }
+    
     private void getAccessToken(){
         try {
             final ClientCredentials clientCredentials = clientCredentialsRequest.execute();
@@ -48,10 +49,11 @@ public class SpotifyApiService {
             System.out.println("Error: " + e.getMessage());
         }
     }
+
     public void setSongInfo(Song song){
         String q = "artist:"+ song.getAuthor() + " track:" + song.getTitle();
         SearchTracksRequest request = spotifyApi.searchTracks(q)
-                .build();
+                .build();        
         try {
             Paging<Track> tracks = request.execute();
             
@@ -76,5 +78,25 @@ public class SpotifyApiService {
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
         }
+    }
+
+
+    public List<Track> searchSong(String title, String author){
+        String q = "artist:"+ author + " track:" + title;
+        SearchTracksRequest request = spotifyApi.searchTracks(q).build();
+        try {
+            Paging<Track> tracks = request.execute();
+            
+            List<Track> result = List.of(tracks.getItems());
+            return result;
+        } catch (IOException | SpotifyWebApiException | ParseException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return new ArrayList<Track>();
+    }
+
+    public Song getSongFromSpotifyId(String spotifyId){
+
+        return null;
     }
 }

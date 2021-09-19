@@ -19,11 +19,8 @@ public interface SongRepository extends JpaRepository<Song, Long> {
 	
 	Song findSongByAuthor(String autore);
 
-	@Query(value = "SELECT s FROM Song s  WHERE s.author = :author ORDER BY s.createDateTime DESC")
-	Page<Song> searchSongsByAuthor(@Param("author") String author, Pageable pageable);
-
-	@Query(value = "SELECT s FROM Song s WHERE s.title = :title")
-	Page<Song> searchSongsByTitle(@Param("title") String title, Pageable pageable);
+	@Query(value = "SELECT s FROM Song s WHERE s.title LIKE CONCAT('%',:title,'%') AND s.author LIKE CONCAT('%',:author,'%')")
+	List<Song> searchSongsByTitleAndAuthor(@Param("title") String title, @Param("author") String author);
 
 	@Query(value = "SELECT s FROM Song s WHERE s.albumName = :album_name")
 	Page<Song> searchSongsByAlbum(@Param("album_name")String albumName, Pageable pageable);

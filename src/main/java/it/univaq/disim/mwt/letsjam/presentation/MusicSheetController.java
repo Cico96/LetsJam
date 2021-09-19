@@ -3,6 +3,7 @@ package it.univaq.disim.mwt.letsjam.presentation;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collector;
@@ -37,6 +38,7 @@ import it.univaq.disim.mwt.letsjam.domain.Song;
 import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.presentation.viewModels.MusicSheetSearchViewModel;
 import org.springframework.web.multipart.MultipartFile;
+import com.wrapper.spotify.model_objects.specification.Track;
 
 @Controller
 @RequestMapping("/musicsheets")
@@ -186,4 +188,30 @@ public class MusicSheetController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 
+
+	@GetMapping("/brani")
+	public String searchSong(){
+		JSONArray result = new JSONArray();
+		String title = "Albachiara";
+		String author = "Vasco Rossi";
+		List<Song> dbSongs = songService.searchSongsByTitleAndAuthor(title, author);
+		List<Track> spotifySongs = spotifyService.searchSong(title, author);
+
+		dbSongs.forEach(s ->{
+			spotifySongs.forEach(t ->{
+				//Da finire
+				if(s.getSpotifyId() != null && s.getSpotifyId().equals(t.getId())){
+					JSONObject brano = new JSONObject();
+					brano.put("title", s.getTitle());
+					brano.put("author", s.getAuthor());
+					brano.put("spotifyId", s.getSpotifyId());
+					brano.put("id", s.getId());
+					result.put(brano);
+				}
+
+			});
+		});
+		
+		return "create-upload/flat";
+	}
 }

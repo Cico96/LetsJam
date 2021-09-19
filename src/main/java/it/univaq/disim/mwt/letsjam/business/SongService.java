@@ -3,9 +3,6 @@ package it.univaq.disim.mwt.letsjam.business;
 import it.univaq.disim.mwt.letsjam.domain.Song;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -21,9 +18,7 @@ public interface SongService {
 
 	Song updateSong(Song song) throws BusinessException;
 
-	List<Song> searchSongsByAuthor(String author) throws BusinessException;
-
-	List<Song> searchSongsByTitle(String title) throws BusinessException;
+	List<Song> searchSongsByTitleAndAuthor(String title, String author) throws BusinessException;
 
 	List<Song> searchSongsByAlbum(String album) throws BusinessException;
 
