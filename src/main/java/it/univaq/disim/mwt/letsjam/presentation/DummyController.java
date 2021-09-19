@@ -80,17 +80,6 @@ public class DummyController {
             return "home/homeLogged";
         }
 
-        /*
-        //ScoreAnalyzer test
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("testData/test2.musicxml").getFile());
-        JSONObject json = scoreAnalyzerService.readScore(file);
-        */
-
-        List<String> strumenti = List.of("Violin","Clarinet");
-        JSONObject res = scoreAnalyzerService.makeEmptyScore(strumenti);
-        System.out.println(res.toString());
-
         model.addAttribute("mostpopular", mostpopular);
         model.addAttribute("musicSheetByGenre", musicSheetByGenre);
         return "home/home";
