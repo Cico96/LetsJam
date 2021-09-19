@@ -125,8 +125,9 @@ public class MusicSheetController {
 				e.printStackTrace();
 			}
 
-			JSONObject json = as.readScore(convFile);
-			HashMap<String, String> mappings = as.getInstruments(json);
+			String json = as.readScore(convFile);
+			System.out.println(json);
+			/*HashMap<String, String> mappings = as.getInstruments(json);
 			Set<Instrument> strumenti = as.toInstrumentSet(mappings);
 			strumenti.forEach(i -> System.out.println(i.getName()));
 			
@@ -141,7 +142,7 @@ public class MusicSheetController {
 			spartito.setInstruments(strumenti);
 			spartito.setRearranged(false);
 			spartito.setVerified(false);
-			spartito.setHasTablature(as.hasTablature(json));
+			spartito.setHasTablature(as.hasTablature(json));*/
 
 			/*Song song = new Song();
 			song.setAuthor("Federico Berti");
@@ -151,33 +152,23 @@ public class MusicSheetController {
 			
 			spartito.setSong(song);*/
 
-			spartitoService.addMusicSheet(spartito);
+			//spartitoService.addMusicSheet(spartito);
 		}
 		return "create-upload/flat";
 	}
 	
 
 	@PostMapping("/analyze")
-	public ResponseEntity analyze(@RequestParam("file") MultipartFile file){
-		String extension = (file.getOriginalFilename() != null) ? file.getOriginalFilename().split("\\.")[1] : "";
-		System.out.println(extension);
-		if(extension.equals("musicxml")){
-			File convFile = new File(System.getProperty("java.io.tmpdir")+"/"+file.getOriginalFilename());
-			try {
-				file.transferTo(convFile);
-				
-				JSONObject json = as.readScore(convFile);
-				String title = as.getScoreTitle(json);
-				String author = as.getScoreAuthor(json);
+	public ResponseEntity<String> analyze(@RequestParam("score") String score){
+		if(score != null && score.length() > 0){
+				String title = as.getScoreTitle(new JSONObject(score));
+				String author = as.getScoreAuthor(new JSONObject(score));
 				JSONObject result = new JSONObject();
-				result.append("title", title);
-				result.append("author", author);
-				result.append("content", json);
+				result.put("title", title);
+				result.put("author", author);
+				result.put("content", score);
 
-				return ResponseEntity.ok(result.toString());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+				return new ResponseEntity<String>(result.toString(), HttpStatus.OK);
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
