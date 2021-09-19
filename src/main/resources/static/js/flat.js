@@ -55,12 +55,14 @@ function chooseIfCreateOrUpload() {
     ConfirmButton.innerHTML= 'conferma'
     ConfirmButton.addEventListener('click', () => {
         alert.style.display = 'none'
+        let create = document.getElementById('create')
+        let upload = document.getElementById('upload')
         if (selectedOption === 'carica') {
-            let nodeToDisplay = document.getElementById('create')
-            nodeToDisplay.style.visibility = 'visible'
+            create.style.visibility = 'visible'
+            upload.style.display= 'none'
         } else if (selectedOption === 'crea') {
-            let nodeToDisplay = document.getElementById('upload')
-            nodeToDisplay.style.display= 'flex'
+            create.style.display = 'none'
+            upload.style.display= 'flex'
         }
     })
 
