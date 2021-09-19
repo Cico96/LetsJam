@@ -9,6 +9,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.google.gson.JsonObject;
+
 import org.apache.commons.io.FileUtils;
 import org.javatuples.Pair;
 import org.json.JSONArray;
@@ -42,10 +47,12 @@ public class ScoreAnalyzerService {
         "Drum"
     };
 
-    public JSONObject readScore(File file){
+    public String readScore(File file){
         try {
             String fileContent = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
-            JSONObject json = XML.toJSONObject(fileContent);
+            //JSONObject json = XML.toJSONObject(fileContent);
+            XmlMapper xmlMapper = new XmlMapper();
+            JsonNode json = xmlMapper.readTree(file);
             
             /*JSONObject newSpartito = extractInstrumentPart(json, "P1");
             Pair<List<Instrument>, HashMap<String, String>> result= getInstruments(json);
@@ -58,7 +65,7 @@ public class ScoreAnalyzerService {
             System.out.println(getScoreAuthor(json));
             System.out.println(hasTablature(json));
             System.out.println(newSpartito.query("/score-partwise/part/0/id").toString());*/
-            return json;
+            return json.toString();
         } catch (IOException e) { 
             e.printStackTrace();
         }
@@ -155,6 +162,62 @@ public class ScoreAnalyzerService {
 
     public Boolean hasTablature(JSONObject json){
         return json.toString().indexOf("fret") >= 0;
+    }
+
+    public JSONObject makeEmptyScore(List<String> instrumentNames){
+        JSONObject result = new JSONObject();
+        JSONObject scorePartWise = new JSONObject();
+        scorePartWise.put("version", "4.0");
+        JSONObject partList = new JSONObject();
+        JSONArray scoreParts = new JSONArray();
+        JSONArray parts = new JSONArray();
+        for (int i = 0; i < instrumentNames.size(); i++) {
+            JSONObject scorePart = new JSONObject();
+            scorePart.put("$id", "P"+(i+1));
+            scorePart.put("part-name", instrumentNames.get(i));
+            scoreParts.put(scorePart);
+
+            JSONObject part = new JSONObject();
+            part.put("$id", "P"+(i+1));
+            JSONObject measure = new JSONObject();
+            measure.put("number", "1");
+            JSONObject attributes = new JSONObject();
+            attributes.put("divisions", "1");
+            JSONObject key = new JSONObject();
+            key.put("fifths", "0");
+            attributes.put("key", key);
+            
+            JSONObject time = new JSONObject();
+            time.put("beats", "4");
+            time.put("beat-type", "4");
+
+            JSONObject clef = new JSONObject();
+            clef.put("sign","G");
+            clef.put("line", "2");
+
+            JSONObject note = new JSONObject();
+            JSONObject pitch = new JSONObject();
+            pitch.put("step", "C");
+            pitch.put("octave", "4");
+            note.put("pitch", pitch);
+            note.put("duration", "4");
+            note.put("type", "whole");
+
+            measure.put("attributes", attributes);
+            measure.put("time", time);
+            measure.put("clef", clef);
+            measure.append("note", note);
+
+            part.put("measure", new JSONArray().put(measure));
+            parts.put(part);
+        }
+
+        partList.put("score-part", scoreParts);
+        scorePartWise.put("part", parts);
+        scorePartWise.put("part-list", partList);
+        result.put("score-partwise", scorePartWise);
+        
+        return result;
     }
 
 }

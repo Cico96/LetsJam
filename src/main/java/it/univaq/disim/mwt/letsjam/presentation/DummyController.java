@@ -87,6 +87,9 @@ public class DummyController {
         JSONObject json = scoreAnalyzerService.readScore(file);
         */
 
+        List<String> strumenti = List.of("Violin","Clarinet");
+        JSONObject res = scoreAnalyzerService.makeEmptyScore(strumenti);
+        System.out.println(res.toString());
 
         model.addAttribute("mostpopular", mostpopular);
         model.addAttribute("musicSheetByGenre", musicSheetByGenre);
