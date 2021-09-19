@@ -100,8 +100,6 @@ public class MusicSheetController {
 		return "musicSheets/musicsheet";
 	}
 	
-	//@PostMapping("/spartito/crea")
-	
 	@GetMapping("/spartito/{id}/delete")
 	public String deleteSpartito(@PathVariable("id") long id) {
 		spartitoService.deleteMusicSheetById(id);
@@ -128,8 +126,6 @@ public class MusicSheetController {
 				e.printStackTrace();
 			}
 
-			String json = as.readScore(convFile);
-			System.out.println(json);
 			/*HashMap<String, String> mappings = as.getInstruments(json);
 			Set<Instrument> strumenti = as.toInstrumentSet(mappings);
 			strumenti.forEach(i -> System.out.println(i.getName()));

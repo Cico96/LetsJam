@@ -1,24 +1,13 @@
 package it.univaq.disim.mwt.letsjam.business;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.google.gson.JsonObject;
-
-import org.apache.commons.io.FileUtils;
-import org.javatuples.Pair;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.XML;
 import org.springframework.stereotype.Service;
 
 import it.univaq.disim.mwt.letsjam.domain.Instrument;
@@ -47,32 +36,7 @@ public class ScoreAnalyzerService {
         "Drum"
     };
 
-    public String readScore(File file){
-        try {
-            String fileContent = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
-            //JSONObject json = XML.toJSONObject(fileContent);
-            XmlMapper xmlMapper = new XmlMapper();
-            JsonNode json = xmlMapper.readTree(file);
-            
-            /*JSONObject newSpartito = extractInstrumentPart(json, "P1");
-            Pair<List<Instrument>, HashMap<String, String>> result= getInstruments(json);
-            List<Instrument> instruments = result.getValue0();
-            HashMap<String, String> instrumentPartMappings = result.getValue1();
-
-            instruments.forEach(instrument -> System.out.println(instrument.getName()));
-            instrumentPartMappings.forEach((key, value) -> System.out.println(key+" - "+value));
-            System.out.println(getScoreTitle(json));
-            System.out.println(getScoreAuthor(json));
-            System.out.println(hasTablature(json));
-            System.out.println(newSpartito.query("/score-partwise/part/0/id").toString());*/
-            return json.toString();
-        } catch (IOException e) { 
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public HashMap<String,String> getInstruments(JSONObject json){
+    public Map<String,String> getInstruments(JSONObject json){
         JSONArray parts = new JSONArray();
         JSONArray scoreInstruments = new JSONArray();
         HashMap<String,String> instrumentPartMappings = new HashMap<String,String>();
