@@ -36,6 +36,8 @@ public class MusicSheet extends AbstractPersistableEntity{
 	@Size(min = 3, max = 25, groups = {OnCreate.class, OnUpdate.class, Default.class})
 	private String title;
 
+	private String author;
+
 	@NotNull
 	private Boolean verified;
 

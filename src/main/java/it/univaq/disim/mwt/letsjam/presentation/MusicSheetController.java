@@ -5,12 +5,15 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.google.gson.JsonObject;
 import it.univaq.disim.mwt.letsjam.business.ScoreAnalyzerService;
 import it.univaq.disim.mwt.letsjam.business.SongService;
 import it.univaq.disim.mwt.letsjam.business.SpotifyApiService;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -168,6 +171,20 @@ public class MusicSheetController {
 				result.put("author", author);
 				result.put("content", score);
 
+				return new ResponseEntity<String>(result.toString(), HttpStatus.OK);
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+	}
+
+	@PostMapping("/getEmptyScore")
+	public ResponseEntity<String> getEmptyScore(@RequestParam("score") String instrumentList){
+		if(instrumentList != null && instrumentList.length() > 0){
+				List<String> strumenti = (new JSONArray(instrumentList))
+											.toList()
+											.stream()
+											.map(Object::toString)
+											.collect(Collectors.toList());
+				JSONObject result = as.makeEmptyScore(strumenti);
 				return new ResponseEntity<String>(result.toString(), HttpStatus.OK);
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
