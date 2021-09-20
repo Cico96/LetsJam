@@ -39,15 +39,15 @@
                                 <div class="sheet-info">
                                     <label name="title">
                                         Titolo
-                                        <input name="title" type="text" />
+                                        <input id="sheet-title" name="title" type="text" />
                                     </label>
                                     <label name="author">
                                         Autore
-                                        <input name="title" type="text" />
+                                        <input id="sheet-author" name="title" type="text" />
                                     </label>
                                     <label name="song">
                                         Brano
-                                        <input name="song" type="text" />
+                                        <input id="sheet-song" name="song" type="text" />
                                     </label>
                                 </div>
                                 <button class="create-btn" type="submit">Carica</button>
@@ -58,12 +58,12 @@
                             <div class="choose-alert">
                                 <div>
                                     <select id="select" class="slct">
-                                        <option value="crea" class="opt">crea</option>
-                                        <option class="opt" value="carica">carica</option>
+                                        <option value="crea" class="opt">Crea</option>
+                                        <option class="opt" value="carica">Carica</option>
                                     </select>
                                 </div>
                                 <div id="instrumentForSheet" class="instruments-for-sheet wrapper">
-                                    <h6 class="align-center">Scegli gli strumenti con cui iniziare</h6>
+                                    <h6 style="margin-bottom: 20px" class="align-center">Scegli gli strumenti con cui iniziare</h6>
                                     <div class="inner-wrp">
                                         <div th:each="instrument : ${instruments}" class="check">
                                             <input type="checkbox"
@@ -75,16 +75,15 @@
                                 <div id="fileForSheet" class="instruments-for-sheet">
                                     <input type="file" id="file-input" name="file">
                                 </div>
-                                <button id="confirmFirst" class="create-btn">conferma</button>
+                                <button id="confirmFirst" class="create-btn">Conferma</button>
                             </div>
                         </div>
                         <div class="flat-part-right">
                             <div id="embed-example"></div>
-                            <form method="post" action="/musicsheets/create" enctype="multipart/form-data">
-
-                                <pre id="file-content"></pre>
-                                <button class="create-btn" type="submit">Submit</button>
-                            </form>
+<!--                            <form method="post" action="/musicsheets/create" enctype="multipart/form-data">-->
+<!--                                <pre id="file-content"></pre>-->
+<!--                                <button class="create-btn" type="submit">Submit</button>-->
+<!--                            </form>-->
                         </div>
                     </div>
                 </section>

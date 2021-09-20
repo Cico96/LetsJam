@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
         // https://flat.io/developers/docs/embed/javascript.html#loadmusicxmlscore-mixed-promisevoid-error
         score: "",
         // The embed configuration parameters
-        height: "500px",
+        height: "800px",
         embedParams: {
             mode: "edit",
             appId: "59e7684b476cba39490801c2",
@@ -44,16 +44,19 @@ function chooseIfCreateOrUpload(embed) {
                 instrumentForSheet.style.display = 'flex'
                 fileForSheet.style.display = 'none'
             } else {
-                instrumentForSheet.style.display = 'none'
+                createSheet(embed)
             }
         } else if (selectedOption === 'carica') {
             let fileStyle = window.getComputedStyle(fileForSheet);
             if (fileStyle.display === 'none') {
                 instrumentForSheet.style.display = 'none'
                 fileForSheet.style.display = 'block'
-                fileForSheet.addEventListener('change', (e) => {
-                        uploadFile(e,embed)
-                    }, false);
+            } else {
+                let file = fileForSheet.children[0].files[0];
+                if (!file) {
+                    return;
+                }
+                    uploadFile(embed, file)
             }
         }
     })
@@ -61,12 +64,7 @@ function chooseIfCreateOrUpload(embed) {
 
 }
 
-function uploadFile(e, embed) {
-
-    let file = e.target.files[0];
-    if (!file) {
-        return;
-    }
+function uploadFile(embed, file) {
 
     let reader = new FileReader();
     reader.onload = function(e) {
@@ -74,7 +72,7 @@ function uploadFile(e, embed) {
 
         embed.loadMusicXML(contents);
         // embed.loadJSON(contents);
-        console.log(contents);
+        // console.log(contents);
 
         embed.on('scoreLoaded', () => {
             embed.getJSON().then(async (score) => {
@@ -87,12 +85,38 @@ function uploadFile(e, embed) {
                 }).then((response) => {
                     return response.json()
                 }).then((data) => {
-                    console.log(data)
+                    // console.log(data)
                     document.getElementById('upload').style.display= 'flex'
                     document.getElementById('choose').style.display='none'
+                    document.getElementById('sheet-author').value = data.author
+                    document.getElementById('sheet-title').value=data.title
                 });
             })
         })
     };
     reader.readAsText(file);
+}
+
+function createSheet(embed) {
+    let checkbox = document.querySelectorAll('input[type=checkbox]')
+    let selectedIntruments=[]
+    checkbox.forEach((check) => {
+        if (check.checked) {
+            selectedIntruments.push(check.id)
+        }
+    })
+    let formData = new FormData();
+    formData.append("instruments", JSON.stringify(selectedIntruments));
+    return fetch('/musicsheets/getEmptyScore', {
+        method: "POST",
+        ContentType: "application/json",
+        body: formData
+    }).then((response) => {
+        return response.json()
+    }).then((data) => {
+        console.log(data)
+        embed.loadJSON(data);
+    });
+
+
 }
