@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', ()=> {
+document.addEventListener('DOMContentLoaded', () => {
 
     // Create embed in the `embed-example` div. By default the embed will fit its container
     let container = document.getElementById("embed-example");
@@ -36,9 +36,7 @@ function chooseIfCreateOrUpload(embed) {
     let ConfirmButton = document.getElementById('confirmFirst')
     ConfirmButton.addEventListener('click', () => {
 
-        // choose.style.display = 'none'
         if (selectedOption === 'crea') {
-            // create.style.display= 'flex'
             let instrumentForSheetStyle = window.getComputedStyle(instrumentForSheet);
             if (instrumentForSheetStyle.display === 'none') {
                 instrumentForSheet.style.display = 'flex'
@@ -56,7 +54,7 @@ function chooseIfCreateOrUpload(embed) {
                 if (!file) {
                     return;
                 }
-                    uploadFile(embed, file)
+                uploadFile(embed, file)
             }
         }
     })
@@ -67,7 +65,7 @@ function chooseIfCreateOrUpload(embed) {
 function uploadFile(embed, file) {
 
     let reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = function (e) {
         let contents = e.target.result;
 
         embed.loadMusicXML(contents);
@@ -86,10 +84,10 @@ function uploadFile(embed, file) {
                     return response.json()
                 }).then((data) => {
                     // console.log(data)
-                    document.getElementById('upload').style.display= 'flex'
-                    document.getElementById('choose').style.display='none'
+                    document.getElementById('upload').style.display = 'flex'
+                    document.getElementById('choose').style.display = 'none'
                     document.getElementById('sheet-author').value = data.author
-                    document.getElementById('sheet-title').value=data.title
+                    document.getElementById('sheet-title').value = data.title
                 });
             })
         })
@@ -99,7 +97,7 @@ function uploadFile(embed, file) {
 
 function createSheet(embed) {
     let checkbox = document.querySelectorAll('input[type=checkbox]')
-    let selectedIntruments=[]
+    let selectedIntruments = []
     checkbox.forEach((check) => {
         if (check.checked) {
             selectedIntruments.push(check.id)
@@ -114,7 +112,8 @@ function createSheet(embed) {
     }).then((response) => {
         return response.json()
     }).then((data) => {
-        console.log(data)
+        document.getElementById('create').style.display = 'flex'
+        document.getElementById('choose').style.display = 'none'
         embed.loadJSON(data);
     });
 
