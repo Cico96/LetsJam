@@ -111,7 +111,9 @@ public class MusicSheetController {
 	}
 
 	@GetMapping("/create")
-	public String view(){
+	public String view(Model model){
+		List<Instrument> instrumentList = instrumentService.getAllInstruments();
+		model.addAttribute("instruments", instrumentList);
 		return "create-upload/flat";
 	}
 	
@@ -175,7 +177,7 @@ public class MusicSheetController {
 	}
 
 	@PostMapping("/getEmptyScore")
-	public ResponseEntity<String> getEmptyScore(@RequestParam("score") String instrumentList){
+	public ResponseEntity<String> getEmptyScore(@RequestParam("instruments") String instrumentList){
 		if(instrumentList != null && instrumentList.length() > 0){
 				List<String> strumenti = (new JSONArray(instrumentList))
 											.toList()

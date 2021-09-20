@@ -2,6 +2,7 @@
     min-height:500px;
     padding: 50px 100px;
     display: flex;
+    background: #f6f9fc;
 }
 .flat-inner-wrap {
     flex: 1;
@@ -10,7 +11,8 @@
     align-items: center;
     padding-right: 40px;
     padding-left: 40px;
-    border: 3px solid #0d6efd;
+    box-shadow: 0px 1px 20px 0px rgb(50 50 50 / 10%);
+    background: #ffffff;
     border-radius: 25px;
 }
 .sheet-info {
@@ -46,20 +48,14 @@ h2{
     border: 3px solid #0d6efd;
     padding: 5px 10px;
     align-self: center;
+    margin-top: 50px;
 }
 
 .choose-alert {
-    /*display: none;*/
-    position: fixed;
-    width: 80vw;
-    height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 999;
-    background: #ffffff;
-    border-radius: 25px;
 }
 
 .opt {
@@ -69,15 +65,32 @@ h2{
 
 .slct {
     text-align: center;
-    margin-top: 40px;
+    background: transparent;
+    border: 3px solid #0d6efd;
+    border-radius: 25px;
     padding-top: 5px;
     padding-bottom: 5px;
+}
+
+.instruments-for-sheet {
+    display: none;
+    padding-top: 30px;
 }
 
 .first-hidden {
     display: none;
 }
 
-.visibility {
-    visibility: hidden;
+.check {
+    width: 25%;
+}
+
+.inner-wrp {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.wrapper {
+    flex-direction: column;
+    padding-top: 30px;
 }
