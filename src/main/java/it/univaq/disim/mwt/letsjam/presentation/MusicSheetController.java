@@ -192,12 +192,13 @@ public class MusicSheetController {
 
 
 	@GetMapping("/brani")
-	public String searchSong(){
+	public String searchSong(@RequestParam("songSubString") String songToSearch, @RequestParam("author") String author){
 		JSONArray result = new JSONArray();
-		String title = "Albachiara";
-		String author = "Vasco Rossi";
-		List<Song> dbSongs = songService.searchSongsByTitleAndAuthor(title, author);
-		List<Track> spotifySongs = spotifyService.searchSong(title, author);
+//		String title = "Albachiara";
+//		String author = "Vasco Rossi";
+//		List<Song> dbSongs = songService.searchSongsByTitleAndAuthor(title, author);
+		List<Song> dbSongs = songService.searchSongsByTitleAndAuthor(songToSearch,author);
+		List<Track> spotifySongs = spotifyService.searchSong(songToSearch, author);
 
 		dbSongs.forEach(s ->{
 			spotifySongs.forEach(t ->{

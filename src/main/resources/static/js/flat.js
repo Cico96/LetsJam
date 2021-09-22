@@ -115,7 +115,22 @@ function createSheet(embed) {
         document.getElementById('create').style.display = 'flex'
         document.getElementById('choose').style.display = 'none'
         embed.loadJSON(data);
+        document.getElementById('chooseSong').addEventListener('change', (e) => {
+            searchForSongs(e)
+        })
     });
+}
 
-
+function searchForSongs(e) {
+    let songSubString = e.target.value
+    let author = document.getElementById('author').value
+    return fetch('/musicsheets/brani?' + new URLSearchParams({
+        songSubString: songSubString,
+        author: author,
+    }), {
+        method: "GET",
+        ContentType: "application/json",
+    }).then((response) => {
+        console.log(response.json())
+    })
 }
