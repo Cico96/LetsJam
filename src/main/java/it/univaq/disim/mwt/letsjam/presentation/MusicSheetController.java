@@ -2,10 +2,7 @@ package it.univaq.disim.mwt.letsjam.presentation;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -14,6 +11,7 @@ import it.univaq.disim.mwt.letsjam.business.ScoreAnalyzerService;
 import it.univaq.disim.mwt.letsjam.business.SongService;
 import it.univaq.disim.mwt.letsjam.business.SpotifyApiService;
 
+import it.univaq.disim.mwt.letsjam.presentation.viewModels.CreateUpdateSheetViewModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,6 +112,7 @@ public class MusicSheetController {
 	public String view(Model model){
 		List<Instrument> instrumentList = instrumentService.getAllInstruments();
 		model.addAttribute("instruments", instrumentList);
+		model.addAttribute("pageData", new CreateUpdateSheetViewModel());
 		return "create-upload/flat";
 	}
 	
@@ -192,29 +191,53 @@ public class MusicSheetController {
 
 
 	@GetMapping("/brani")
-	public String searchSong(@RequestParam("songSubString") String songToSearch, @RequestParam("author") String author){
+	public ResponseEntity<String> searchSong(@RequestParam("songSubString") String songToSearch, @RequestParam("author") String author, Model model){
 		JSONArray result = new JSONArray();
+//		List<Song> result = new ArrayList<>();
+		CreateUpdateSheetViewModel pageData = new CreateUpdateSheetViewModel();
 //		String title = "Albachiara";
 //		String author = "Vasco Rossi";
 //		List<Song> dbSongs = songService.searchSongsByTitleAndAuthor(title, author);
 		List<Song> dbSongs = songService.searchSongsByTitleAndAuthor(songToSearch,author);
 		List<Track> spotifySongs = spotifyService.searchSong(songToSearch, author);
 
-		dbSongs.forEach(s ->{
-			spotifySongs.forEach(t ->{
-				//Da finire
-				if(s.getSpotifyId() != null && s.getSpotifyId().equals(t.getId())){
-					JSONObject brano = new JSONObject();
-					brano.put("title", s.getTitle());
-					brano.put("author", s.getAuthor());
-					brano.put("spotifyId", s.getSpotifyId());
-					brano.put("id", s.getId());
-					result.put(brano);
-				}
-
+		if(!dbSongs.isEmpty()) {
+			dbSongs.forEach(s ->{
+				spotifySongs.forEach(t ->{
+					//Da finire
+					if(s.getSpotifyId() != null && s.getSpotifyId().equals(t.getId())){
+						JSONObject branodb = new JSONObject();
+						branodb.put("title", s.getTitle());
+						branodb.put("author",s.getAuthor());
+						branodb.put("spotifyId",s.getSpotifyId());
+						branodb.put("id",s.getId());
+						result.put(branodb);
+					} else {
+						JSONObject branoSpoty = new JSONObject();
+						branoSpoty.put("title",t.getName());
+						branoSpoty.put("author",t.getArtists().toString());
+						branoSpoty.put("spotifyId",t.getId());
+						result.put(branoSpoty);
+//						System.out.println("si db");
+					}
+//					pageData.setSongs(result);
+				});
 			});
-		});
-		
-		return "create-upload/flat";
+		} else {
+			spotifySongs.forEach(t ->{
+				JSONObject branoSpoty = new JSONObject();
+				branoSpoty.put("title",t.getName());
+				branoSpoty.put("author",t.getArtists().toString());
+				branoSpoty.put("spotifyId",t.getId());
+				result.put(branoSpoty);
+			});
+//			System.out.println("no db");
+//			pageData.setSongs(result);
+		}
+
+//		model.addAttribute("pageData", pageData);
+//		System.out.println(pageData.getSongs());
+		return new ResponseEntity<String>(result.toString(), HttpStatus.OK);
+//		return "create-upload/flat";
 	}
 }

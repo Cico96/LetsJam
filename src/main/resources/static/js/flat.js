@@ -131,6 +131,19 @@ function searchForSongs(e) {
         method: "GET",
         ContentType: "application/json",
     }).then((response) => {
-        console.log(response.json())
+        // console.log(response.json())
+        return response.json()
+    }).then(data => {
+        let list = document.getElementById('selectSong');
+        let optionToAppend = list.children[0];
+        data.forEach((song,index) => {
+            if (index == 1) {
+                optionToAppend.value = song.title;
+            } else {
+                let newOpt = optionToAppend.cloneNode();
+                newOpt.value = song.title;
+                list.appendChild(newOpt);
+            }
+        })
     })
 }
