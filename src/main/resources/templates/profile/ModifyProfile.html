@@ -3,6 +3,7 @@
       layout:decorate="~{layout/layout}">
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/profile.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/modifyProfile.css}">
 </head>
 <body>
 <div layout:fragment="content" style="padding-top: 90px;">
@@ -13,22 +14,42 @@
                     <h3 class="mt-4 mb-4">Modifica profilo</h3>
                 </div>
                 <form th:action="@{/modifica-profilo/}" method="post">
-                    <label name="firstname">
-                        Nome
-                        <input name="firstname" type="text" />
-                    </label>
-                    <label name="lastname">
-                        Cognome
-                        <input name="lastname" type="text" required/>
-                    </label>
-                    <label name="username">
-                        Username
-                        <input name="username" type="text" />
-                    </label>
-                    <label name="email">
-                        Email
-                        <input name="email" type="text" required/>
-                    </label>
+                    <div class="main-wrap">
+                        <div class="left-column">
+                            <input type="image">
+                        </div>
+                        <div class="right-column">
+                            <label name="firstname">
+                                Nome
+                                <input name="firstname" type="text" />
+                            </label>
+                            <label name="lastname">
+                                Cognome
+                                <input name="lastname" type="text" required/>
+                            </label>
+                            <label name="username">
+                                Username
+                                <input name="username" type="text" />
+                            </label>
+                            <label name="email">
+                                Email
+                                <input name="email" type="text" required/>
+                            </label>
+                            <label name="preferredGenres">
+                                Generi preferiti
+                                <input name="preferredGenres" type="text" required/>
+                            </label>
+<!--                            <div th:each="instrument : ${profilo.preferredGenres}" class="check">-->
+<!--                                <input type="checkbox"-->
+<!--                                       th:name="${instrument.name}" th:id="${instrument.name}"/>-->
+<!--                                <label th:for="${instrument.name}" th:text="${instrument.name}"></label>-->
+<!--                            </div>-->
+                            <label name="preferredInstruments">
+                                Strumenti preferiti
+                                <input placeholder="Placeholder per gli strumenti preferiti che al momento non ci sono" name="preferredInstruments" type="text" required/>
+                            </label>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

@@ -45,7 +45,6 @@ public class ProfileController {
 	public String getModificaProfilo(Model model, Authentication authentication) throws BusinessException {
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
 		List<MusicSheet> myMusicSheets = spartitoService.searchMusicSheetsByUserUsername(loggedUser.getUsername());
-		System.out.println(loggedUser.getAvatar());
 		model.addAttribute("profilo", loggedUser);
 
 		return "profile/ModifyProfile";
@@ -53,6 +52,7 @@ public class ProfileController {
 	@PostMapping("/modifica-profilo")
 	public String ModificaProfilo(Model model, Authentication authentication) throws BusinessException {
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+
 
 		return "profile/profile";
 	}
