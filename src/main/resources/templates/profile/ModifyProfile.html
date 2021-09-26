@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout/layout}">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/profile.css}">
+</head>
+<body>
+<div layout:fragment="content" style="padding-top: 90px;">
+    <section class="hero-area pt-4 pb-4">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-12 mt-4 pt-4 pb-4">
+                    <h3 class="mt-4 mb-4">Modifica profilo</h3>
+                </div>
+                <form th:action="@{/modifica-profilo/}" method="post">
+                    <label name="firstname">
+                        Nome
+                        <input name="firstname" type="text" />
+                    </label>
+                    <label name="lastname">
+                        Cognome
+                        <input name="lastname" type="text" required/>
+                    </label>
+                    <label name="username">
+                        Username
+                        <input name="username" type="text" />
+                    </label>
+                    <label name="email">
+                        Email
+                        <input name="email" type="text" required/>
+                    </label>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+
+</html>

@@ -15,7 +15,7 @@
                     <div class="flat-inner-wrap">
                         <div id="create" class="flat-part-left first-hidden">
                             <h2>Crea nuovo spartito</h2>
-                            <form method="post" action="" th:object="${pageData}" enctype="multipart/form-data">
+                            <form th:action="@{/create/}" method="post" action="" th:object="${pageData}" enctype="multipart/form-data">
                                 <div class="sheet-info">
                                     <label name="title">
                                         Titolo
@@ -52,7 +52,12 @@
                                     </label>
                                     <label name="song">
                                         Brano
-                                        <input id="sheet-song" name="song" type="text" />
+                                        <input id="chooseSongForUpdate" list="selectSongForUpdate" name="song" type="text" />
+                                        <datalist id="selectSongForUpdate">
+<!--                                        <div th:each="song : ${pageData.songs}">-->
+                                            <option>
+<!--                                        </div>-->
+                                        </datalist>
                                     </label>
                                 </div>
                                 <button class="create-btn" type="submit">Carica</button>

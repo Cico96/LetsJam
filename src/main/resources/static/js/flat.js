@@ -88,6 +88,9 @@ function uploadFile(embed, file) {
                     document.getElementById('choose').style.display = 'none'
                     document.getElementById('sheet-author').value = data.author
                     document.getElementById('sheet-title').value = data.title
+                    document.getElementById('chooseSongForUpdate').addEventListener('change', (e) => {
+                        searchForSongs(e)
+                    })
                 });
             })
         })
@@ -123,7 +126,12 @@ function createSheet(embed) {
 
 function searchForSongs(e) {
     let songSubString = e.target.value
-    let author = document.getElementById('author').value
+    let author;
+    if(e.target.id == 'chooseSong') {
+        author = document.getElementById('author').value
+    } else if(e.target.id == 'chooseSongForUpdate') {
+        author = document.getElementById('sheet-author').value
+    }
     return fetch('/musicsheets/brani?' + new URLSearchParams({
         songSubString: songSubString,
         author: author,
@@ -134,7 +142,12 @@ function searchForSongs(e) {
         // console.log(response.json())
         return response.json()
     }).then(data => {
-        let list = document.getElementById('selectSong');
+        let list
+        if(e.target.id == 'chooseSong') {
+             list = document.getElementById('selectSong');
+        } else if(e.target.id == 'chooseSongForUpdate') {
+            list = document.getElementById('selectSongForUpdate');
+        }
         let optionToAppend = list.children[0];
         data.forEach((song,index) => {
             if (index == 1) {

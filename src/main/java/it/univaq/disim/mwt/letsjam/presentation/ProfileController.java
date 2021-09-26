@@ -15,6 +15,7 @@ import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 import it.univaq.disim.mwt.letsjam.security.CustomUserDetails;
 
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -38,6 +39,21 @@ public class ProfileController {
 		model.addAttribute("myMusicSheets", myMusicSheets);
 		model.addAttribute("profilo", loggedUser);
 		
+		return "profile/profile";
+	}
+	@GetMapping("/modifica-profilo")
+	public String getModificaProfilo(Model model, Authentication authentication) throws BusinessException {
+		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+		List<MusicSheet> myMusicSheets = spartitoService.searchMusicSheetsByUserUsername(loggedUser.getUsername());
+		System.out.println(loggedUser.getAvatar());
+		model.addAttribute("profilo", loggedUser);
+
+		return "profile/ModifyProfile";
+	}
+	@PostMapping("/modifica-profilo")
+	public String ModificaProfilo(Model model, Authentication authentication) throws BusinessException {
+		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+
 		return "profile/profile";
 	}
 

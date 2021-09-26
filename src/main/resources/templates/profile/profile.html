@@ -3,8 +3,8 @@
       layout:decorate="~{layout/layout}">
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/song.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/profile.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/musicSheetCard.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/profile.css}">
 </head>
 <body>
 <div layout:fragment="content" style="padding-top: 90px;">
@@ -14,6 +14,9 @@
                 <div class="col-3 pt-5 text-center">
                     <img th:if="${profilo.avatar}" th:src="${profilo.avatar}" alt="profile avatar" class="profile-avatar">
                     <img th:unless="${profilo.avatar}" th:src="'https://avatars.dicebear.com/api/male/'+${profilo.firstname}+'.svg'" alt="profile avatar" class="profile-avatar">
+                    <a class="navbar-brand" th:href="@{/modifica-profilo}">
+                        <svg th:replace="fragments/icons :: modifyProfile"></svg>
+                    </a>
                 </div>
                 <div class="col-3 pt-4 profile-generics">
                     <div class="mt-4">
