@@ -1,5 +1,6 @@
 package it.univaq.disim.mwt.letsjam.presentation;
 
+import it.univaq.disim.mwt.letsjam.business.GenreService;
 import it.univaq.disim.mwt.letsjam.business.MusicSheetService;
 import it.univaq.disim.mwt.letsjam.domain.Genre;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
@@ -28,6 +29,9 @@ public class ProfileController {
     @Autowired
     UserService utenteService;
 
+    @Autowired
+	GenreService genreService;
+
 	@Autowired
 	private MusicSheetService spartitoService;
     
@@ -45,8 +49,9 @@ public class ProfileController {
 	public String getModificaProfilo(Model model, Authentication authentication) throws BusinessException {
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
 		List<MusicSheet> myMusicSheets = spartitoService.searchMusicSheetsByUserUsername(loggedUser.getUsername());
-		model.addAttribute("profilo", loggedUser);
 
+		model.addAttribute("generi", genreService.getAllGenres());
+		model.addAttribute("profilo", loggedUser);
 		return "profile/ModifyProfile";
 	}
 	@PostMapping("/modifica-profilo")

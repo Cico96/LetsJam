@@ -16,34 +16,37 @@
                 <form th:action="@{/modifica-profilo/}" method="post">
                     <div class="main-wrap">
                         <div class="left-column">
-                            <input type="image">
+                            <img class="new-avatar" id="frame" src="#">
+                            <img th:if="${profilo.avatar}" th:src="${profilo.avatar}" alt="profile avatar" class="profile-avatar">
+                            <img th:unless="${profilo.avatar}" th:src="'https://avatars.dicebear.com/api/male/'+${profilo.firstname}+'.svg'" alt="profile avatar" class="profile-avatar">
+                            <label name="imgINput">
+                                <input name="imgINput" id="avatar" type="file" accept="image/*">
+                            </label>
                         </div>
                         <div class="right-column">
                             <label name="firstname">
                                 Nome
-                                <input name="firstname" type="text" />
+                                <input th:value="${profilo.firstname}" name="firstname" type="text" required/>
                             </label>
                             <label name="lastname">
                                 Cognome
-                                <input name="lastname" type="text" required/>
+                                <input th:value="${profilo.lastname}" name="lastname" type="text" required/>
                             </label>
                             <label name="username">
                                 Username
-                                <input name="username" type="text" />
+                                <input th:value="${profilo.username}" name="username" type="text" required/>
                             </label>
                             <label name="email">
                                 Email
-                                <input name="email" type="text" required/>
+                                <input th:value="${profilo.email}" name="email" type="text" required/>
                             </label>
-                            <label name="preferredGenres">
-                                Generi preferiti
-                                <input name="preferredGenres" type="text" required/>
-                            </label>
-<!--                            <div th:each="instrument : ${profilo.preferredGenres}" class="check">-->
-<!--                                <input type="checkbox"-->
-<!--                                       th:name="${instrument.name}" th:id="${instrument.name}"/>-->
-<!--                                <label th:for="${instrument.name}" th:text="${instrument.name}"></label>-->
-<!--                            </div>-->
+                            <div class="preferred-genres" name="preferredGenres">
+                                <span style="align-self: flex-start;"> Generi preferiti </span>
+                                <label th:each="genre : ${generi}" th:name="${genre.name}">
+                                    <input th:checked="${profilo.preferredGenres.contains(genre)}" th:name="${genre.name}" th:id="${genre.name}" type="checkbox"/>
+                                    <span th:text="${genre.name}"/>
+                                </label>
+                            </div>
                             <label name="preferredInstruments">
                                 Strumenti preferiti
                                 <input placeholder="Placeholder per gli strumenti preferiti che al momento non ci sono" name="preferredInstruments" type="text" required/>
@@ -54,6 +57,19 @@
             </div>
         </div>
     </section>
+<script>
+        document.getElementById('avatar').addEventListener('change', (e) => {
+            let images = document.querySelector('.left-column').querySelectorAll('img')
+            images.forEach((el,i) => {
+                if(i === 0) {
+                    el.style.display = 'block'
+                    el.src = URL.createObjectURL(e.target.files[0]);
+                } else {
+                    el.style.display = 'none'
+                }
+            })
+        })
+</script>
 </div>
 </body>
 
