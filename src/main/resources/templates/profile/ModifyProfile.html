@@ -13,44 +13,47 @@
                 <div class="col-12 mt-4 pt-4 pb-4">
                     <h3 class="mt-4 mb-4">Modifica profilo</h3>
                 </div>
-                <form th:action="@{/modifica-profilo/}" method="post">
+                <form th:action="@{/modifica-profilo}" th:object="${profilo}" method="post">
+                    <input th:type="hidden" th:field="*{id}" />
                     <div class="main-wrap">
                         <div class="left-column">
                             <img class="new-avatar" id="frame" src="#">
                             <img th:if="${profilo.avatar}" th:src="${profilo.avatar}" alt="profile avatar" class="profile-avatar">
                             <img th:unless="${profilo.avatar}" th:src="'https://avatars.dicebear.com/api/male/'+${profilo.firstname}+'.svg'" alt="profile avatar" class="profile-avatar">
                             <label name="imgINput">
-                                <input name="imgINput" id="avatar" type="file" accept="image/*">
+                                <input th:field="*{avatar}" name="imgINput" id="avatar" type="file" accept="image/*">
                             </label>
                         </div>
                         <div class="right-column">
                             <label name="firstname">
                                 Nome
-                                <input th:value="${profilo.firstname}" name="firstname" type="text" required/>
+                                <input th:field="*{firstname}" th:value="${profilo.firstname}" name="firstname" type="text" required/>
                             </label>
                             <label name="lastname">
                                 Cognome
-                                <input th:value="${profilo.lastname}" name="lastname" type="text" required/>
+                                <input th:field="*{lastname}" th:value="${profilo.lastname}" name="lastname" type="text" required/>
                             </label>
                             <label name="username">
                                 Username
-                                <input th:value="${profilo.username}" name="username" type="text" required/>
+                                <input th:field="*{username}" th:value="${profilo.username}" name="username" type="text" required/>
                             </label>
                             <label name="email">
                                 Email
-                                <input th:value="${profilo.email}" name="email" type="text" required/>
+                                <input th:field="*{email}" th:value="${profilo.email}" name="email" type="email" required/>
                             </label>
                             <div class="preferred-genres" name="preferredGenres">
                                 <span style="align-self: flex-start;"> Generi preferiti </span>
-                                <label th:each="genre : ${generi}" th:name="${genre.name}">
-                                    <input th:checked="${profilo.preferredGenres.contains(genre)}" th:name="${genre.name}" th:id="${genre.name}" type="checkbox"/>
+                                <div th:each="genre : ${generi}">
+<!--                                    <input th:checked="${profilo.preferredGenres.contains(genre)}" th:name="${genre.name}" th:id="${genre.name}" type="checkbox"/>-->
+                                    <input th:field="*{preferredGenres}" th:value="${genre.id}" type="checkbox"/>
                                     <span th:text="${genre.name}"/>
-                                </label>
+                                </div>
                             </div>
                             <label name="preferredInstruments">
                                 Strumenti preferiti
-                                <input placeholder="Placeholder per gli strumenti preferiti che al momento non ci sono" name="preferredInstruments" type="text" required/>
+                                <input placeholder="Placeholder per gli strumenti preferiti che al momento non ci sono" name="preferredInstruments" type="text"/>
                             </label>
+                            <button th:type="submit" > invia </button>
                         </div>
                     </div>
                 </form>

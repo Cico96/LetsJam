@@ -1,6 +1,7 @@
 package it.univaq.disim.mwt.letsjam.domain;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.Id;
 
@@ -25,5 +26,5 @@ public class MusicSheetData {
     
     private String content;
 
-    private HashMap<String, String> instrumentMapping;
+    private Map<String, String> instrumentMapping;
 }

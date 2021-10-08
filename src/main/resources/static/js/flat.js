@@ -43,6 +43,13 @@ function chooseIfCreateOrUpload(embed) {
                 fileForSheet.style.display = 'none'
             } else {
                 createSheet(embed)
+                let create = document.querySelector('#submit-create')
+                create.addEventListener('submit',() => {
+                    document.getElementById('content-create').value = embed.getJSON()
+                })
+                create.addEventListener('click',() => {
+                    create.submit();
+                })
             }
         } else if (selectedOption === 'carica') {
             let fileStyle = window.getComputedStyle(fileForSheet);
@@ -55,6 +62,13 @@ function chooseIfCreateOrUpload(embed) {
                     return;
                 }
                 uploadFile(embed, file)
+                let upload = document.querySelector('#submit-upload')
+                upload.addEventListener('submit',() => {
+                    document.getElementById('content-upload').value = embed.getJSON()
+                })
+                upload.addEventListener('click',() => {
+                    upload.submit();
+                })
             }
         }
     })

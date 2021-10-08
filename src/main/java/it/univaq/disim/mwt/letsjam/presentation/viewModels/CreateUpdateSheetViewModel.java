@@ -12,13 +12,11 @@ import java.util.List;
 @NoArgsConstructor
 public class CreateUpdateSheetViewModel {
 
+    String title;
+
     String author;
 
     String brano;
 
-    String title;
-
-    List<Song> songs;
-
-    //content
+    String content;
 }

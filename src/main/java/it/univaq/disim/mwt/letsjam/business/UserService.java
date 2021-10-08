@@ -5,6 +5,9 @@ import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
+import java.util.List;
+import java.util.Set;
+
 public interface UserService {
 	
 	User findUserById(Long id) throws BusinessException;
@@ -23,7 +26,7 @@ public interface UserService {
 	
 	boolean UserIsAdmin(Long id) throws BusinessException;
 	
-	void update(User user, Genre genere) throws BusinessException;
+	void update(User user) throws BusinessException;
 	
 	void like (User user, MusicSheet musicSheet) throws BusinessException;
 	

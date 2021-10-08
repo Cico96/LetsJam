@@ -15,52 +15,54 @@
                     <div class="flat-inner-wrap">
                         <div id="create" class="flat-part-left first-hidden">
                             <h2>Crea nuovo spartito</h2>
-                            <form th:action="@{/create/}" method="post" action="" th:object="${pageData}" enctype="multipart/form-data">
+                            <form th:action="@{/musicsheets/create}" method="post" action="" th:object="${pageData}" enctype="multipart/form-data">
                                 <div class="sheet-info">
                                     <label name="title">
                                         Titolo
-                                        <input name="title" type="text" />
+                                        <input th:field="${pageData.title}" name="title" type="text" />
                                     </label>
                                     <label name="author">
                                         Autore
-                                        <input id="author" name="title" type="text" required/>
+                                        <input th:field="${pageData.author}" id="author" name="title" type="text" required/>
                                     </label>
                                     <label name="song">
                                         Brano
-                                        <input id="chooseSong" list="selectSong" name="song" type="text" />
+                                        <input th:field="${pageData.brano}" id="chooseSong" list="selectSong" name="song" type="text" />
                                         <datalist id="selectSong">
 <!--                                        <div th:each="song : ${pageData.songs}">-->
                                             <option>
 <!--                                        </div>-->
                                         </datalist>
                                     </label>
+                                    <input id="content-create" th:field="${pageData.content}" />
                                 </div>
-                                <button class="create-btn" type="submit">Crea</button>
+                                <button class="create-btn" id="submit-create">Crea</button>
                             </form>
                         </div>
                         <div id="upload" class="flat-part-left first-hidden">
                             <h2>Carica spartito</h2>
-                            <form method="post" action="" enctype="multipart/form-data">
+                            <form th:action="@{/musicsheets/create}" method="post" action="" th:object="${pageData}" enctype="multipart/form-data">
                                 <div class="sheet-info">
                                     <label name="title">
                                         Titolo
-                                        <input id="sheet-title" name="title" type="text" />
+                                        <input id="sheet-title" th:field="${pageData.title}" name="title" type="text" />
                                     </label>
                                     <label name="author">
                                         Autore
-                                        <input id="sheet-author" name="title" type="text" />
+                                        <input id="sheet-author" th:field="${pageData.author}" name="title" type="text" />
                                     </label>
                                     <label name="song">
                                         Brano
-                                        <input id="chooseSongForUpdate" list="selectSongForUpdate" name="song" type="text" />
+                                        <input id="chooseSongForUpdate" th:field="${pageData.brano}" list="selectSongForUpdate" name="song" type="text" />
                                         <datalist id="selectSongForUpdate">
 <!--                                        <div th:each="song : ${pageData.songs}">-->
                                             <option>
 <!--                                        </div>-->
                                         </datalist>
                                     </label>
+                                    <input id="content-upload" th:field="${pageData.content}" />
                                 </div>
-                                <button class="create-btn" type="submit">Carica</button>
+                                <button class="create-btn" id="submit-upload">Carica</button>
                             </form>
                         </div>
                         <div id="choose" class="flat-part-left">

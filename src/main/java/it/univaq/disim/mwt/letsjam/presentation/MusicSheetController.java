@@ -117,45 +117,39 @@ public class MusicSheetController {
 	}
 	
 	@PostMapping("/create")
-	public String upload(@RequestParam("file") MultipartFile file,  Authentication authentication){
+	public String upload(@RequestParam("pageData") CreateUpdateSheetViewModel pageData,  Authentication authentication,Model model){
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
-		String extension = (file.getOriginalFilename() != null) ? file.getOriginalFilename().split("\\.")[1] : "";
-		System.out.println(extension);
-		if(extension.equals("musicxml")){
-			File convFile = new File(System.getProperty("java.io.tmpdir")+"/"+file.getOriginalFilename());
-			try {
-				file.transferTo(convFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 
-			/*HashMap<String, String> mappings = as.getInstruments(json);
+			Map<String, String> mappings = as.getInstruments(new JSONObject(pageData.getContent()));
 			Set<Instrument> strumenti = as.toInstrumentSet(mappings);
 			strumenti.forEach(i -> System.out.println(i.getName()));
 			
 			MusicSheetData data = new MusicSheetData();
-			data.setContent(json.toString());
+			data.setContent(pageData.getContent());
 			data.setInstrumentMapping(mappings);
 
 			MusicSheet spartito = new MusicSheet();
 			spartito.setData(data);
-			spartito.setTitle(as.getScoreTitle(json)+" - "+as.getScoreAuthor(json));
+			spartito.setTitle(pageData.getTitle()+" - "+pageData.getAuthor());
 			spartito.setUser(loggedUser);
 			spartito.setInstruments(strumenti);
 			spartito.setRearranged(false);
 			spartito.setVerified(false);
-			spartito.setHasTablature(as.hasTablature(json));*/
+			spartito.setHasTablature(as.hasTablature(new JSONObject(pageData.getContent())));
 
-			/*Song song = new Song();
-			song.setAuthor("Federico Berti");
-			song.setTitle("Polka del Dirigibile");
+			Song song = new Song();
+			song.setAuthor(pageData.getAuthor());
+			song.setTitle(pageData.getBrano());
 			spotifyService.setSongInfo(song);
 			songService.updateSong(song);
-			
-			spartito.setSong(song);*/
 
-			//spartitoService.addMusicSheet(spartito);
-		}
+			spartito.setSong(song);
+
+			spartitoService.addMusicSheet(spartito);
+
+		List<Instrument> instrumentList = instrumentService.getAllInstruments();
+		model.addAttribute("instruments", instrumentList);
+		model.addAttribute("pageData", new CreateUpdateSheetViewModel());
 		return "create-upload/flat";
 	}
 	

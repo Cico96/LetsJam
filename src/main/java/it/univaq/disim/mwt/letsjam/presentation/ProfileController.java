@@ -6,6 +6,7 @@ import it.univaq.disim.mwt.letsjam.domain.Genre;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.User;
 
+import it.univaq.disim.mwt.letsjam.presentation.viewModels.SongSearchViewModel;
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,8 +17,11 @@ import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 import it.univaq.disim.mwt.letsjam.security.CustomUserDetails;
 
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -55,10 +59,13 @@ public class ProfileController {
 		return "profile/ModifyProfile";
 	}
 	@PostMapping("/modifica-profilo")
-	public String ModificaProfilo(Model model, Authentication authentication) throws BusinessException {
+	public String ModificaProfilo(@ModelAttribute User profilo, Model model, Authentication authentication) throws BusinessException {
+		System.out.println(profilo.getId());
+		utenteService.update(profilo);
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
-
-
+		List<MusicSheet> myMusicSheets = spartitoService.searchMusicSheetsByUserUsername(loggedUser.getUsername());
+		model.addAttribute("generi", genreService.getAllGenres());
+		model.addAttribute("profilo", loggedUser);
 		return "profile/profile";
 	}
 

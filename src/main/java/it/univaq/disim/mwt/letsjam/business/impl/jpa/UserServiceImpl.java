@@ -1,5 +1,6 @@
 package it.univaq.disim.mwt.letsjam.business.impl.jpa;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -68,9 +69,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void update(User user, Genre genere) throws BusinessException {
-		user.getPreferredGenres().add(genere);
+	public void update(User user) throws BusinessException {
 		utenteRepository.save(user);
+		for (Genre genre: user.getPreferredGenres()) {
+			user.getPreferredGenres().add(genre);
+		}
 	}
 
 	@Override
