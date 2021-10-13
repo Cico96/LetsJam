@@ -1,7 +1,7 @@
 
 spring:
   datasource:
-    url: jdbc:mysql://database.ccml.it:9002/letsjam?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://ccml.it:3306/letsjam?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password: letsjam
     driver-class-name: com.mysql.cj.jdbc.Driver
