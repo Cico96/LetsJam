@@ -36,6 +36,8 @@ import it.univaq.disim.mwt.letsjam.domain.Song;
 import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.presentation.viewModels.MusicSheetSearchViewModel;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
 import com.wrapper.spotify.model_objects.specification.Track;
 
 @Controller
@@ -187,47 +189,49 @@ public class MusicSheetController {
 	@GetMapping("/brani")
 	public ResponseEntity<String> searchSong(@RequestParam("songSubString") String songToSearch, @RequestParam("author") String author, Model model){
 		JSONArray result = new JSONArray();
-//		List<Song> result = new ArrayList<>();
 		CreateUpdateSheetViewModel pageData = new CreateUpdateSheetViewModel();
-//		String title = "Albachiara";
-//		String author = "Vasco Rossi";
-//		List<Song> dbSongs = songService.searchSongsByTitleAndAuthor(title, author);
 		List<Song> dbSongs = songService.searchSongsByTitleAndAuthor(songToSearch,author);
-		List<Track> spotifySongs = spotifyService.searchSong(songToSearch, author);
+		ArrayList<Track> spotifySongs = new ArrayList<Track>(spotifyService.searchSong(songToSearch, author));  
+		List<Integer> toRemove = new ArrayList<Integer>();
+		System.out.println(spotifySongs.size());
+		
 
 		if(!dbSongs.isEmpty()) {
-			dbSongs.forEach(s ->{
-				spotifySongs.forEach(t ->{
-					//Da finire
+			for(Song s : dbSongs){
+				for(Track t : spotifySongs){
 					if(s.getSpotifyId() != null && s.getSpotifyId().equals(t.getId())){
-						JSONObject branodb = new JSONObject();
-						branodb.put("title", s.getTitle());
-						branodb.put("author",s.getAuthor());
-						branodb.put("spotifyId",s.getSpotifyId());
-						branodb.put("id",s.getId());
-						result.put(branodb);
-					} else {
-						JSONObject branoSpoty = new JSONObject();
-						branoSpoty.put("title",t.getName());
-						branoSpoty.put("author",t.getArtists().toString());
-						branoSpoty.put("spotifyId",t.getId());
-						result.put(branoSpoty);
-//						System.out.println("si db");
+						toRemove.add(spotifySongs.indexOf(t));
 					}
-//					pageData.setSongs(result);
-				});
+				}
+			}
+
+			dbSongs.forEach(s -> {
+				JSONObject branodb = new JSONObject();
+							branodb.put("title", s.getTitle());
+							branodb.put("author",s.getAuthor());
+							branodb.put("spotifyId",s.getSpotifyId());
+							branodb.put("id",s.getId());
+							result.put(branodb);
 			});
-		} else {
-			spotifySongs.forEach(t ->{
-				JSONObject branoSpoty = new JSONObject();
+		}
+
+		System.out.println(toRemove.size());
+
+		toRemove.forEach(r -> spotifySongs.remove(r.intValue()));
+
+		spotifySongs.forEach(t -> {
+			JSONObject branoSpoty = new JSONObject();
 				branoSpoty.put("title",t.getName());
-				branoSpoty.put("author",t.getArtists().toString());
+				String authors = "";
+				for(ArtistSimplified a : List.of(t.getArtists())){
+					authors+=a.getName()+" ";
+				}
+				branoSpoty.put("author",authors);
 				branoSpoty.put("spotifyId",t.getId());
 				result.put(branoSpoty);
-			});
-//			System.out.println("no db");
-//			pageData.setSongs(result);
-		}
+		});
+			
+		System.out.println(spotifySongs.size());
 
 //		model.addAttribute("pageData", pageData);
 //		System.out.println(pageData.getSongs());
