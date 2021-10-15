@@ -59,7 +59,7 @@ public class ScoreAnalyzerService {
                 if(scoreInstrumentJson.length() > 0){
                     scoreInstrumentJson.forEach(el ->{
                         String name = ((JSONObject) el).getString("instrument-name");
-                        String partId = ((JSONObject) el).getString("id");
+                        String partId = ((JSONObject) el).getString("$id");
                         for(int i = 0; i < availableInstruments.length; i++){
                             if(name.equals(availableInstruments[i]) || name.contains(availableInstruments[i])){
                                 instrumentPartMappings.put(availableInstruments[i], partId.split("-")[0]);

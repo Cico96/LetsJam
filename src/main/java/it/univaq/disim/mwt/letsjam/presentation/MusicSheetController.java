@@ -105,9 +105,7 @@ public class MusicSheetController {
 	@GetMapping("/spartito/{id}/delete")
 	public String deleteSpartito(@PathVariable("id") long id) {
 		spartitoService.deleteMusicSheetById(id);
-		
 		return "home/home";
-		
 	}
 
 	@GetMapping("/create")
@@ -115,44 +113,50 @@ public class MusicSheetController {
 		List<Instrument> instrumentList = instrumentService.getAllInstruments();
 		model.addAttribute("instruments", instrumentList);
 		model.addAttribute("pageData", new CreateUpdateSheetViewModel());
-		return "create-upload/flat";
+		return "musicSheets/create-upload";
 	}
 	
 	@PostMapping("/create")
-	public String upload(@RequestParam("pageData") CreateUpdateSheetViewModel pageData,  Authentication authentication,Model model){
+	public String upload(CreateUpdateSheetViewModel pageData, Authentication authentication,Model model){
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
 
-			Map<String, String> mappings = as.getInstruments(new JSONObject(pageData.getContent()));
-			Set<Instrument> strumenti = as.toInstrumentSet(mappings);
-			strumenti.forEach(i -> System.out.println(i.getName()));
-			
-			MusicSheetData data = new MusicSheetData();
-			data.setContent(pageData.getContent());
-			data.setInstrumentMapping(mappings);
+		JSONObject brano = new JSONObject(pageData.getBrano()); 
+		Long songId = brano.optLong("songId");
+		String spotifyId = brano.getString("spotifyId");
 
-			MusicSheet spartito = new MusicSheet();
-			spartito.setData(data);
-			spartito.setTitle(pageData.getTitle()+" - "+pageData.getAuthor());
-			spartito.setUser(loggedUser);
-			spartito.setInstruments(strumenti);
-			spartito.setRearranged(false);
-			spartito.setVerified(false);
-			spartito.setHasTablature(as.hasTablature(new JSONObject(pageData.getContent())));
+		
+		Map<String, String> mappings = as.getInstruments(new JSONObject(pageData.getContent()));
+		Set<Instrument> strumenti = as.toInstrumentSet(mappings);
 
-			Song song = new Song();
-			song.setAuthor(pageData.getAuthor());
-			song.setTitle(pageData.getBrano());
-			spotifyService.setSongInfo(song);
-			songService.updateSong(song);
+		MusicSheetData data = new MusicSheetData();
+		data.setContent(pageData.getContent());
+		data.setInstrumentMapping(mappings);
 
-			spartito.setSong(song);
+		MusicSheet spartito = new MusicSheet();
+		spartito.setData(data);
+		spartito.setTitle(pageData.getTitle());
+		spartito.setAuthor(pageData.getAuthor());
+		spartito.setUser(loggedUser);
+		spartito.setInstruments(strumenti);
+		spartito.setRearranged(false);
+		spartito.setVerified(false);
+		spartito.setHasTablature(as.hasTablature(new JSONObject(pageData.getContent())));
 
-			spartitoService.addMusicSheet(spartito);
-
+		Song song;
+		if(songId != 0){
+				song = songService.findSongById(songId);
+		}
+		else{
+			song = spotifyService.getSongFromSpotifyId(spotifyId);
+			lyricsService.setLyrics(song);
+		}
+		spartito.setSong(song);
+		spartitoService.addMusicSheet(spartito);
+		
 		List<Instrument> instrumentList = instrumentService.getAllInstruments();
 		model.addAttribute("instruments", instrumentList);
 		model.addAttribute("pageData", new CreateUpdateSheetViewModel());
-		return "create-upload/flat";
+		return "musicSheets/create-upload";
 	}
 	
 
@@ -187,14 +191,12 @@ public class MusicSheetController {
 
 
 	@GetMapping("/brani")
-	public ResponseEntity<String> searchSong(@RequestParam("songSubString") String songToSearch, @RequestParam("author") String author, Model model){
+	public ResponseEntity<String> searchSong(@RequestParam("songSearchString") String searchString, Model model){
 		JSONArray result = new JSONArray();
 		CreateUpdateSheetViewModel pageData = new CreateUpdateSheetViewModel();
-		List<Song> dbSongs = songService.searchSongsByTitleAndAuthor(songToSearch,author);
-		ArrayList<Track> spotifySongs = new ArrayList<Track>(spotifyService.searchSong(songToSearch, author));  
+		List<Song> dbSongs = songService.searchSongsByTitleAndAuthor(searchString);
+		ArrayList<Track> spotifySongs = new ArrayList<Track>(spotifyService.searchSong(searchString));  
 		List<Integer> toRemove = new ArrayList<Integer>();
-		System.out.println(spotifySongs.size());
-		
 
 		if(!dbSongs.isEmpty()) {
 			for(Song s : dbSongs){
@@ -204,7 +206,6 @@ public class MusicSheetController {
 					}
 				}
 			}
-
 			dbSongs.forEach(s -> {
 				JSONObject branodb = new JSONObject();
 							branodb.put("title", s.getTitle());
@@ -215,9 +216,7 @@ public class MusicSheetController {
 			});
 		}
 
-		System.out.println(toRemove.size());
-
-		toRemove.forEach(r -> spotifySongs.remove(r.intValue()));
+		if(toRemove.size() > 0) toRemove.forEach(r -> spotifySongs.remove(r.intValue()));
 
 		spotifySongs.forEach(t -> {
 			JSONObject branoSpoty = new JSONObject();
@@ -228,14 +227,12 @@ public class MusicSheetController {
 				}
 				branoSpoty.put("author",authors);
 				branoSpoty.put("spotifyId",t.getId());
+				branoSpoty.put("id", JSONObject.NULL);
 				result.put(branoSpoty);
 		});
 			
-		System.out.println(spotifySongs.size());
-
 //		model.addAttribute("pageData", pageData);
 //		System.out.println(pageData.getSongs());
 		return new ResponseEntity<String>(result.toString(), HttpStatus.OK);
-//		return "create-upload/flat";
 	}
 }

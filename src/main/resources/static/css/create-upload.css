@@ -21,6 +21,7 @@
 label {
     margin-bottom: 15px;
     margin-top: 14px;
+    font-size: 16px;
 }
 
 h2{
@@ -31,10 +32,12 @@ h2{
     flex: 2;
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
+    z-index: 2;
 }
+
 .flat-part-right {
     flex: 3;
     height: 100%;
@@ -81,7 +84,14 @@ h2{
 }
 
 .check {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     width: 25%;
+}
+.check input{
+    width: 20px;
+    height: 20px;
 }
 
 .inner-wrp {
@@ -92,4 +102,45 @@ h2{
 .wrapper {
     flex-direction: column;
     padding-top: 30px;
+}
+
+input[type="text"]{
+    width: 100%;
+    background: #f0f0f045;
+    height: 50px;
+    border: none;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.603);
+    padding-left: 10px;
+}
+
+input[type="text"]:focus-visible{
+    outline: none;
+}
+
+input[type="text"]:focus{
+    border-color: #0d6efd;
+}
+
+#songList{
+    background: #f0f0f045;
+    box-shadow: 0px 1px 20px 0px rgb(50 50 50 / 10%);
+    max-height: 210px;
+    overflow-y: scroll;
+    display: none;
+}
+
+#songList li{
+    padding: 10px 10px;
+    border-bottom: 1px solid lightgray;
+    cursor: pointer;
+}
+
+#songList li:hover{
+    background: #f0f0f0;
+}
+
+#embed-example{
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0px 1px 20px 0px rgb(50 50 50 / 10%);
 }

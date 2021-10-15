@@ -8,6 +8,8 @@ import com.wrapper.spotify.model_objects.specification.Paging;
 import com.wrapper.spotify.model_objects.specification.Track;
 import com.wrapper.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
 import com.wrapper.spotify.requests.data.search.simplified.SearchTracksRequest;
+import com.wrapper.spotify.requests.data.tracks.GetTrackRequest;
+
 import it.univaq.disim.mwt.letsjam.domain.Song;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -40,10 +42,8 @@ public class SpotifyApiService {
     private void getAccessToken(){
         try {
             final ClientCredentials clientCredentials = clientCredentialsRequest.execute();
-
             // Set access token for further "spotifyApi" object usage
             spotifyApi.setAccessToken(clientCredentials.getAccessToken());
-
             System.out.println("Expires in: " + clientCredentials.getExpiresIn());
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
@@ -77,26 +77,56 @@ public class SpotifyApiService {
 
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
+            if(e.getMessage().equals("The access token expired")){
+                getAccessToken();
+            }
         }
     }
 
 
-    public List<Track> searchSong(String title, String author){
-        String q = "artist:"+ author + " track:" + title;
-        SearchTracksRequest request = spotifyApi.searchTracks(q).build();
+    public List<Track> searchSong(String searchString){
+        //String q = "artist:"+ author + " track:" + title;
+        SearchTracksRequest request = spotifyApi.searchTracks(searchString).build();
         try {
             Paging<Track> tracks = request.execute();
-            
             List<Track> result = List.of(tracks.getItems());
             return result;
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
+            if(e.getMessage().equals("The access token expired")){
+                getAccessToken();
+            }
         }
         return new ArrayList<Track>();
     }
 
     public Song getSongFromSpotifyId(String spotifyId){
+        GetTrackRequest request = spotifyApi.getTrack(spotifyId).build();
+        try{
+            Track traccia = request.execute();
+            ArtistSimplified[] artists = traccia.getArtists();
+            String author = "";
+            for(int i=0; i<artists.length; i++){
+                author += artists[i].getName() + ", ";
+            }
+            author = author.substring(0,author.length() - 2);
+            Song song = new Song();
+            song.setAuthor(author);
+            song.setTitle(traccia.getName());
+            song.setImageUrl(traccia.getAlbum().getImages()[0].getUrl());
+            song.setAlbumType(traccia.getAlbum().getAlbumType().toString());
+            song.setAlbumName(traccia.getAlbum().getName());
+            song.setDuration(traccia.getDurationMs());
+            song.setIsExplicit(traccia.getIsExplicit());
+            song.setSpotifyId(traccia.getId());
 
+            return song;
+        }catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+            if(e.getMessage().equals("The access token expired")){
+                getAccessToken();
+            }
+        }
         return null;
     }
 }
