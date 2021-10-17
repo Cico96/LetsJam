@@ -15,44 +15,46 @@
                     <div class="flat-inner-wrap">
                         
                         <div id="create" class="flat-part-left first-hidden mr-4">
-                            <h2>Crea nuovo spartito</h2>
-                            <form id="createForm" th:action="@{/musicsheets/create}" method="post" action="" th:object="${pageData}" enctype="multipart/form-data" style="width:100%">
+                            <h2 th:text="#{createupload.title}"></h2>
+                            <form id="createForm" th:action="@{/musicsheets/create}" method="post" th:object="${pageData}" enctype="multipart/form-data" style="width:100%">
                                 <div class="sheet-info">
-                                    <label name="title">
-                                        Titolo dello spartito
+                                    <label name="title" th:inline="text">
+                                        [[#{createupload.musicsheet.title}]]
                                         <input th:field="${pageData.title}" id="sheet-title" type="text" />
                                     </label>
-                                    <label name="author">
-                                        Autore dello spartito
+                                    <label name="author" th:inline="text">
+                                        [[#{createupload.musicsheet.author}]]
                                         <input th:field="${pageData.author}" id="sheet-author" name="title" type="text" required/>
                                     </label>
 
                                     <div class="d-flex flex-column align-items-start mt-3">
-                                        <label name="song" class="mb-0">Brano</label>
+                                        <label name="song" class="mb-0" th:text="#{createupload.song}"></label>
                                         <div class="btn-group btn-group-toggle songToggle" data-toggle="buttons">
-                                            <label class="btn btn-primary active">
-                                                <input type="radio" name="songType" id="option1" value="0" autocomplete="off" checked> Esistente
+                                            <label class="btn btn-primary active" th:inline="text">
+                                                [[#{createupload.song.existing}]]
+                                                <input type="radio" name="songType" id="option1" value="0" autocomplete="off" checked>
                                             </label>
-                                            <label class="btn btn-primary">
-                                                <input type="radio" name="songType" id="option2" autocomplete="off" value="1"> Inedito
+                                            <label class="btn btn-primary"th:inline="text">
+                                                [[#{createupload.song.new}]]
+                                                <input type="radio" name="songType" id="option2" autocomplete="off" value="1">
                                             </label>
                                         </div>
                                     </div>
                                     
                                     <!-- New Song -->
                                     <div class="flex-column align-items-start" id="newSongContainer" style="display: none;">
-                                        <label name="song" class="mb-0" style="width: 100%;">
-                                            Titolo Brano
+                                        <label name="song" class="mb-0" style="width: 100%;" th:inline="text">
+                                            [[#{createupload.song.title}]]
                                             <input name="songTitle" type="text" th:field="*{songTitle}" />
                                         </label>
 
-                                        <label name="song" class="mb-0" style="width: 100%;">
-                                            Autore Brano
+                                        <label name="song" class="mb-0" style="width: 100%;" th:inline="text">
+                                            [[#{createupload.song.author}]]
                                             <input name="songTitle" type="text" th:field="*{songAuthor}" />
                                         </label>
 
-                                        <div class="d-flex flex-column align-items-start w-100">
-                                            <label name="song" class="mb-0" style="width: 100%;">Genere Brano</label>
+                                        <div class="d-flex flex-column align-items-start w-100 mt-2">
+                                            <label name="song" class="mb-0" style="width: 100%;" th:text="#{createupload.song.genre}"></label>
                                             <select class="form-select w-100" name="genre" th:field="${pageData.songGenre}">
                                                 <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}"></option>
                                             </select>
@@ -60,7 +62,7 @@
                                         
                                     </div>
                                     <!-- Existing song -->
-                                    <input id="chooseSong" name="song" type="text" placeholder="Scrivi il titolo o l'autore del brano"/>
+                                    <input id="chooseSong" name="song" type="text" th:placeholder="#{createupload.song.placeholder}" />
                                     <ul id="songList">
                                         <!-- songs result from search -->
                                     </ul>
@@ -73,20 +75,22 @@
                                     <!-- -->
 
                                     <div class="d-flex flex-column align-items-start mt-3">
-                                        <label name="visibility" class="mb-0">Visibilità</label>
+                                        <label name="visibility" class="mb-0" th:text="#{createupload.musicsheet.visibility}"></label>
                                         <div class="btn-group btn-group-toggle visibilityToggle" data-toggle="buttons">
-                                            <label class="btn btn-primary active">
-                                                <input type="radio" name="musicSheetVisibility" th:field="${pageData.visibility}" id="option1" value="0" autocomplete="off" checked> Privato
+                                            <label class="btn btn-primary active" th:inline="text">
+                                                [[#{createupload.musicsheet.visibility.private}]]
+                                                <input type="radio" name="musicSheetVisibility" th:field="${pageData.visibility}" id="option1" value="0" autocomplete="off" checked>
                                             </label>
-                                            <label class="btn btn-primary">
-                                                <input type="radio" name="musicSheetVisibility" id="option2" autocomplete="off" th:field="${pageData.visibility}" value="1"> Pubblico
+                                            <label class="btn btn-primary" th:inline="text">
+                                                [[#{createupload.musicsheet.visibility.public}]]
+                                                <input type="radio" name="musicSheetVisibility" id="option2" autocomplete="off" th:field="${pageData.visibility}" value="1">
                                             </label>
                                         </div>
                                     </div>
 
                                     <div class="button wow fadeInUp submit mt-4" data-wow-delay=".7s" 
                                         style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp; width: fit-content;">
-                                        <a class="btn"> Crea</a>
+                                        <a class="btn" th:text="#{createupload.create}"></a>
                                     </div>
 
                                 </div>
@@ -94,28 +98,29 @@
                         </div>
                        
                         <div id="choose" class="flat-part-left">
-                            <h2>Scegli cosa fare</h2>
+                            <h2 th:text="#{createupload.whattodo}"></h2>
                             <div class="choose-alert">
                                 <div>
                                     <select id="select" class="slct">
-                                        <option value="crea" class="opt">Crea</option>
-                                        <option class="opt" value="carica">Carica</option>
+                                        <option value="crea" class="opt" th:text="#{createupload.create}"></option>
+                                        <option class="opt" value="carica" th:text="#{createupload.upload}"></option>
                                     </select>
                                 </div>
                                 <div id="instrumentForSheet" class="instruments-for-sheet wrapper">
-                                    <h6 style="margin-bottom: 20px" class="align-center">Scegli gli strumenti con cui iniziare</h6>
+                                    <h6 style="margin-bottom: 20px" class="align-center" th:text="#{createupload.selectInstruments}"></h6>
                                     <div class="inner-wrp">
                                         <div th:each="instrument : ${instruments}" class="check">
                                             <input type="checkbox" th:name="${instrument.name}"/>
                                             <label th:for="${instrument.name}" th:text="${instrument.name}"></label>
                                         </div>
                                     </div>
-                                    <div class="error-message mt-2 ml-5 mb-0" id="noInstrumentSelected" style="display: none;">Devi selezionare almeno uno strumento</div>
+                                    <div class="error-message mt-2 ml-5 mb-0" id="noInstrumentSelected" style="display: none;" 
+                                        th:text="#{createupload.instruments.error}"></div>
                                 </div>
                                 <div id="fileForSheet" class="instruments-for-sheet">
                                     <input type="file" class="custom-file-input"  id="file-input" name="file">
                                 </div>
-                                <button id="confirmFirst" class="create-btn">Conferma</button>
+                                <button id="confirmFirst" class="create-btn" th:text="#{common.confirm}"></button>
                             </div>
                         </div>
                         <div class="flat-part-right">
