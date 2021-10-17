@@ -54,7 +54,11 @@
 	                                <a sec:authorize="!isAuthenticated()" href="/login" class="btn">Login</a>
 									<a sec:authorize="isAuthenticated()" href="/logout" class="btn">Logout</a>
 								</div>
-								<a style="padding-left: 20px" sec:authorize="isAuthenticated()" href="/profilo"><img style="height: 30px" src="assets/images/profile.png" th:src="@{/dist/img/profile.png}" alt="profile" /></a>
+								<a style="padding-left: 20px" th:with="loggedUser=${#authentication.getPrincipal().getUser()}" sec:authorize="isAuthenticated()" href="/profilo">
+<!--									<img style="height: 30px" src="assets/images/profile.png" th:src="@{/dist/img/profile.png}" alt="profile" />-->
+									<img th:if="${loggedUser.avatar}" th:src="${loggedUser.avatar}" alt="profile avatar" class="profile">
+									<img th:unless="${loggedUser.avatar}" th:src="'https://avatars.dicebear.com/api/male/'+${loggedUser.firstname}+'.svg'" alt="profile avatar" class="profile">
+								</a>
 	                        </nav>
 	                        <!-- navbar -->
 	

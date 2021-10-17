@@ -2,7 +2,9 @@ package it.univaq.disim.mwt.letsjam.security;
 
 import java.util.Collection;
 
+import it.univaq.disim.mwt.letsjam.business.UserService;
 import it.univaq.disim.mwt.letsjam.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

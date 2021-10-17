@@ -27,6 +27,15 @@
     margin-top: 10px;
 }
 
+.right-column input[type="email"] {
+    width: 100%;
+    height: 30px;
+    border-radius: 25px;
+    border: 2px solid #0d6efd;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
 .preferred-genres {
     display: flex;
     align-items: center;

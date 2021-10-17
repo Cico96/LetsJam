@@ -3,9 +3,12 @@ package it.univaq.disim.mwt.letsjam.business.impl.jpa;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import it.univaq.disim.mwt.letsjam.domain.User;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserRepository utenteRepository;
+
+	@PersistenceContext
+	private EntityManager em;
 	
 	@Override
 	public User findUserById(Long id) throws BusinessException {
@@ -70,10 +76,20 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void update(User user) throws BusinessException {
-		utenteRepository.save(user);
-		for (Genre genre: user.getPreferredGenres()) {
-			user.getPreferredGenres().add(genre);
+		User user_old = em.find(User.class, user.getId());
+		user_old.setUsername(user.getUsername());
+		user_old.setFirstname(user.getFirstname());
+		user_old.setLastname(user.getLastname());
+		user_old.setEmail(user.getEmail());
+		user_old.setPreferredGenres(user.getPreferredGenres());
+		System.out.println(user.getAvatar());
+		if (user.getAvatar() != "") {
+			user_old.setAvatar(user.getAvatar());
+		} else {
+			user_old.setAvatar(null);
 		}
+		em.detach(user_old);
+		em.merge(user_old);
 	}
 
 	@Override

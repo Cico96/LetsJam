@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import it.univaq.disim.mwt.letsjam.domain.User;
 
+import javax.persistence.EntityManager;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 	
@@ -19,5 +21,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	boolean existsUserByEmail(String email);
 	
 	void deleteUserById(Long id);
+
+//	void updateUser(User userr){
+//		EntityManager em = emf.createEntityManager();
+//		System.out.println("OPENING entityTransaction");
+//		em.getTransaction().begin();
+//		User user = em.find(User.class, userr.getId());
+//		em.detach(user);
+//// necessario un merge per scrivere le modifiche, dopo il detach
+//		em.merge(userr);
+//		em.getTransaction().commit();
+//		em.close();
+//	}
 
 }
