@@ -16,7 +16,7 @@
                         
                         <div id="create" class="flat-part-left first-hidden mr-4">
                             <h2>Crea nuovo spartito</h2>
-                            <form th:action="@{/musicsheets/create}" method="post" action="" th:object="${pageData}" enctype="multipart/form-data" style="width:100%">
+                            <form id="createForm" th:action="@{/musicsheets/create}" method="post" action="" th:object="${pageData}" enctype="multipart/form-data" style="width:100%">
                                 <div class="sheet-info">
                                     <label name="title">
                                         Titolo dello spartito
@@ -26,18 +26,69 @@
                                         Autore dello spartito
                                         <input th:field="${pageData.author}" id="sheet-author" name="title" type="text" required/>
                                     </label>
-                                    <label name="song" class="mb-0">
-                                        Brano
-                                        <input id="chooseSong" name="song" type="text" />
-                                    </label>
+
+                                    <div class="d-flex flex-column align-items-start mt-3">
+                                        <label name="song" class="mb-0">Brano</label>
+                                        <div class="btn-group btn-group-toggle songToggle" data-toggle="buttons">
+                                            <label class="btn btn-primary active">
+                                                <input type="radio" name="songType" id="option1" value="0" autocomplete="off" checked> Esistente
+                                            </label>
+                                            <label class="btn btn-primary">
+                                                <input type="radio" name="songType" id="option2" autocomplete="off" value="1"> Inedito
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- New Song -->
+                                    <div class="flex-column align-items-start" id="newSongContainer" style="display: none;">
+                                        <label name="song" class="mb-0" style="width: 100%;">
+                                            Titolo Brano
+                                            <input name="songTitle" type="text" th:field="*{songTitle}" />
+                                        </label>
+
+                                        <label name="song" class="mb-0" style="width: 100%;">
+                                            Autore Brano
+                                            <input name="songTitle" type="text" th:field="*{songAuthor}" />
+                                        </label>
+
+                                        <div class="d-flex flex-column align-items-start w-100">
+                                            <label name="song" class="mb-0" style="width: 100%;">Genere Brano</label>
+                                            <select class="form-select w-100" name="genre" th:field="${pageData.songGenre}">
+                                                <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}"></option>
+                                            </select>
+                                        </div>
+                                        
+                                    </div>
+                                    <!-- Existing song -->
+                                    <input id="chooseSong" name="song" type="text" placeholder="Scrivi il titolo o l'autore del brano"/>
                                     <ul id="songList">
                                         <!-- songs result from search -->
                                     </ul>
+                                    <!--  -->
+                                    
+                                    <!-- hidden fields-->
                                     <input id="selectedSong" th:field="${pageData.brano}" type="hidden"/>
-                                    <input id="musicSheetContent" th:field="${pageData.content}"type="hidden"/>
-                                </div>
-                                <div class="button wow fadeInUp submit mt-4" data-wow-delay=".7s" style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp;">
-                                    <a class="btn"> Crea</a>
+                                    <input id="musicSheetContent" th:field="${pageData.content}" type="hidden"/>
+                                    <input id="songType" th:field="${pageData.songType}" type="hidden" />
+                                    <!-- -->
+
+                                    <div class="d-flex flex-column align-items-start mt-3">
+                                        <label name="visibility" class="mb-0">Visibilità</label>
+                                        <div class="btn-group btn-group-toggle visibilityToggle" data-toggle="buttons">
+                                            <label class="btn btn-primary active">
+                                                <input type="radio" name="musicSheetVisibility" th:field="${pageData.visibility}" id="option1" value="0" autocomplete="off" checked> Privato
+                                            </label>
+                                            <label class="btn btn-primary">
+                                                <input type="radio" name="musicSheetVisibility" id="option2" autocomplete="off" th:field="${pageData.visibility}" value="1"> Pubblico
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="button wow fadeInUp submit mt-4" data-wow-delay=".7s" 
+                                        style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp; width: fit-content;">
+                                        <a class="btn"> Crea</a>
+                                    </div>
+
                                 </div>
                             </form>
                         </div>
@@ -59,9 +110,10 @@
                                             <label th:for="${instrument.name}" th:text="${instrument.name}"></label>
                                         </div>
                                     </div>
+                                    <div class="error-message mt-2 ml-5 mb-0" id="noInstrumentSelected" style="display: none;">Devi selezionare almeno uno strumento</div>
                                 </div>
                                 <div id="fileForSheet" class="instruments-for-sheet">
-                                    <input type="file" id="file-input" name="file">
+                                    <input type="file" class="custom-file-input"  id="file-input" name="file">
                                 </div>
                                 <button id="confirmFirst" class="create-btn">Conferma</button>
                             </div>

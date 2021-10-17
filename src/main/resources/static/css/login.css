@@ -55,24 +55,11 @@ input:focus-visible{
 }
 
 input:focus{
-    border-color: #4d8cffa8;
+    border-color: #3763eb;
 }
 
 .warning-message{
     background: #e89907a1;
-    padding: 1em;
-    width: 500px;
-    margin-top: -30px;
-    margin-bottom: 30px;
-    border-radius: 0.3em;
-    font-size: 16px;
-    font-weight: 500;
-    box-shadow: 0px 1px 20px 0px rgb(50 50 50 / 10%);
-    color: white;
-}
-
-.error-message{
-    background: #ff000070;
     padding: 1em;
     width: 500px;
     margin-top: -30px;

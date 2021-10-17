@@ -1,6 +1,11 @@
 package it.univaq.disim.mwt.letsjam.domain;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -28,5 +33,8 @@ public class Instrument extends AbstractPersistableEntity {
 	@NotEmpty(groups ={OnCreate.class, Default.class})
 	@Size(min = 3, max = 50, groups = {OnCreate.class, OnUpdate.class, Default.class})
 	private String instrumentKey;
+
+	@ManyToMany(mappedBy="instruments", fetch = FetchType.LAZY)
+	private Set<MusicSheet> musicSheets;
 
 }

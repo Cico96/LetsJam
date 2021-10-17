@@ -23,17 +23,18 @@
                             <i></i>
                         </div>
                         <span class="label mr-2">Album: </span>
-                        <p th:text="${song.albumName}"></p>
+                        <p th:if="${song.albumName != null}" th:text="${song.albumName}"></p>
+                        <p th:unless="${song.albumName != null}">Not specified</p>
                     </div>
-                    <div class="d-flex align-items-center mt-4 song-info">
+                    <div class="d-flex align-items-center mt-4 song-info" th:if="${song.albumType != null}">
                         <div class="icon mr-2">
                             <svg th:replace="fragments/icons :: album-type"></svg>
                             <i></i>
                         </div>
                         <span class="label mr-2" th:text="#{song.albumType}+':'"></span>
-                        <p th:text="${song.albumType.toLowerCase()}" style="text-transform:capitalize"></p>
+                        <p th:if="${song.albumType != null}" th:text="${song.albumType.toLowerCase()}" style="text-transform:capitalize"></p>
                     </div>
-                    <div class="d-flex align-items-center mt-4 song-info">
+                    <div class="d-flex align-items-center mt-4 song-info" th:if="${song.duration != null}">
                         <div class="icon mr-2">
                             <svg th:replace="fragments/icons :: duration"></svg>
                             <i></i>
@@ -41,21 +42,23 @@
                         <span class="label mr-2" th:text="#{song.duration}+':'"></span>
                         <p th:inline="text">[[${(song.duration/1000)/60}]] [[#{common.minutes}]] [[${(song.duration/1000)%60}]] [[#{common.seconds}]]</p>
                     </div>
-                    <iframe 
+                    <iframe th:if="${song.spotifyId != null}"
                         title="spotify-player" 
                         th:src="${'https://open.spotify.com/embed/track/'+song.spotifyId}" 
                         height="80" allow="encrypted-media" class="spotify-player mt-4">
                     </iframe>
                 </div>
                 <div class="col-5 pt-5 text-center">
-                    <img th:src="${song.imageUrl}" alt="song image cover" class="song-image">
+                    <img th:if="${song.imageUrl != null}" th:src="${song.imageUrl}" alt="song image cover" class="song-image">
+                    <img th:unless="${song.imageUrl != null}" th:src="@{/img/nocover.jpg}" alt="song image cover" class="song-image">
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 mt-4 pt-4 pb-4">
                     <h3 class="mt-4 mb-4">Testo</h3>
                     <div class="lyrics-container p-4">
-                        <p nl2br:text="${song.lyrics}" class="text-center"></p>
+                        <p th:if="${song.lyrics != null}" nl2br:text="${song.lyrics}" class="text-center"></p>
+                        <p th:unless="${song.lyrics != null}">Testo non disponibile</p>
                     </div>
                 </div>
             </div>    

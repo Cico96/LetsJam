@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     let container = document.getElementById("embed-example");
-    console.log(container);
     let embed = new Flat.Embed(container, {
         score: "",
         height: "800px",
@@ -13,17 +12,43 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     chooseIfCreateOrUpload(embed);
-
     document.getElementById('chooseSong').addEventListener('change', (e) => {
         searchForSongs(e)
     });
-
-    document.querySelector('.submit').addEventListener('click', e=> {
+    document.querySelector('div.submit').addEventListener('click', e=> {
         embed.getJSON().then(json => {
             document.querySelector('#musicSheetContent').value = JSON.stringify(json);
-            e.target.parentElement.parentElement.submit();
+            document.querySelector('#createForm').submit();
         });
     });
+    document.querySelectorAll('.visibilityToggle input').forEach(i=>{
+        i.addEventListener('change', e=>{
+            if(e.target.checked){
+                e.target.parentElement.classList.add("active");
+            }
+            document.querySelector('.visibilityToggle input:not(:checked)')
+                .parentElement.classList.remove("active");
+        })
+    });
+
+    document.querySelectorAll('.songToggle input').forEach(i=>{
+        i.addEventListener('change', e=>{
+            if(e.target.value == 0 && e.target.checked == true){
+                document.querySelector('#chooseSong').style.display='block';
+                document.querySelector('#newSongContainer').style.display='none';
+            }
+            else if(e.target.value == 1 && e.target.checked == true){
+                document.querySelector('#chooseSong').style.display='none';
+                document.querySelector('#newSongContainer').style.display='flex';
+            }
+            e.target.parentElement.classList.add("active");
+            document.querySelector('.songToggle input:not(:checked)')
+                .parentElement.classList.remove("active");
+
+            document.querySelector('#songType').value = e.target.value;
+        });
+    });
+
 });
 
 function chooseIfCreateOrUpload(embed) {
@@ -96,12 +121,18 @@ function uploadFile(embed, file) {
 }
 
 function createSheet(embed) {
-    let checkbox = document.querySelectorAll('input[type=checkbox]')
+    let checkbox = document.querySelectorAll('input[type=checkbox]:checked');
+    if(checkbox.length == 0){
+        console.log('devi selezionare almeno uno strumento coglione');
+        document.querySelector('#noInstrumentSelected').style.display="block";
+        return;
+    }
+    else{
+        document.querySelector('#noInstrumentSelected').style.display="none";
+    }
     let selectedIntruments = []
     checkbox.forEach((check) => {
-        if (check.checked) {
-            selectedIntruments.push(check.name)
-        }
+        selectedIntruments.push(check.name);
     })
     let formData = new FormData();
     formData.append("instruments", JSON.stringify(selectedIntruments));

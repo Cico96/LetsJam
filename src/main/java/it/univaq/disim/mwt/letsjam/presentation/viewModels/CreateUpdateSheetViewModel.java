@@ -19,4 +19,14 @@ public class CreateUpdateSheetViewModel {
     String brano;
 
     String content;
+
+    String songTitle;
+
+    String songAuthor;
+
+    Long songGenre;
+
+    Boolean songType;
+
+    Boolean visibility;
 }

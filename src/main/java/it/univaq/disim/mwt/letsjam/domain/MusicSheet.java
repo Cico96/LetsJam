@@ -4,8 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -42,6 +45,9 @@ public class MusicSheet extends AbstractPersistableEntity{
 	private Boolean verified;
 
 	@NotNull
+	private Boolean visibility;
+
+	@NotNull
 	private Boolean rearranged = false;
 
 	@NotNull
@@ -51,7 +57,7 @@ public class MusicSheet extends AbstractPersistableEntity{
 	@Transient
 	private MusicSheetData data;
 	
-	@OneToOne
+	@OneToOne()
 	private Song song;
 	
 	@OneToOne
@@ -61,7 +67,11 @@ public class MusicSheet extends AbstractPersistableEntity{
 	@Basic(fetch = FetchType.LAZY)
 	private Set<User> likes = new HashSet<>();
 	
-	@ManyToMany()
+	@ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
+    @JoinTable(
+    name = "spartiti_strumenti", 
+    joinColumns = @JoinColumn(name = "music_sheet_id"), 
+    inverseJoinColumns = @JoinColumn(name = "instrument_id"))
 	private Set<Instrument> instruments;
 }
 

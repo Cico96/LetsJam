@@ -144,3 +144,39 @@ input[type="text"]:focus{
     overflow: hidden;
     box-shadow: 0px 1px 20px 0px rgb(50 50 50 / 10%);
 }
+
+.btn-group-toggle input{
+    display: none;
+}
+
+.btn-group-toggle label:first-child{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.btn-group-toggle label:last-child{
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.btn-group-toggle label.active{
+    background-color: #3763eb;
+}
+
+.btn-group-toggle label{
+    background-color: #839ff1;
+    border-color: transparent;
+}
+
+.btn-group-toggle label:hover{
+    background-color: #3763eb;
+}
+
+#newSongContainer{
+    display: flex;
+}
+
+select:focus{
+    border-color: #3763eb !important;
+    box-shadow: 0 0 0 0.25rem rgb(55 99 235 / 40%) !important;
+}
