@@ -5228,3 +5228,9 @@ blockquote span {
   box-shadow: 0px 1px 20px 0px rgb(50 50 50 / 10%);
   color: white;
 }
+
+.profile {
+  width: 40px;
+  border: 1px solid #3763EB;
+  border-radius: 50%;
+}

@@ -2,13 +2,17 @@ package it.univaq.disim.mwt.letsjam.presentation;
 
 import it.univaq.disim.mwt.letsjam.business.GenreService;
 import it.univaq.disim.mwt.letsjam.business.MusicSheetService;
+import it.univaq.disim.mwt.letsjam.config.WebSecurityConfig;
 import it.univaq.disim.mwt.letsjam.domain.Genre;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.User;
 
 import it.univaq.disim.mwt.letsjam.presentation.viewModels.SongSearchViewModel;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -29,7 +33,7 @@ import java.util.Set;
 
 @Controller
 public class ProfileController {
-	
+
     @Autowired
     UserService utenteService;
 
@@ -49,6 +53,7 @@ public class ProfileController {
 		
 		return "profile/profile";
 	}
+
 	@GetMapping("/modifica-profilo")
 	public String getModificaProfilo(Model model, Authentication authentication) throws BusinessException {
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
@@ -58,13 +63,24 @@ public class ProfileController {
 		model.addAttribute("profilo", loggedUser);
 		return "profile/ModifyProfile";
 	}
+
 	@PostMapping("/modifica-profilo")
 	public String ModificaProfilo(@ModelAttribute User profilo, Model model, Authentication authentication) throws BusinessException {
-		System.out.println(profilo.getId());
 		utenteService.update(profilo);
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+		loggedUser.setUsername(profilo.getUsername());
+		loggedUser.setFirstname(profilo.getFirstname());
+		loggedUser.setLastname(profilo.getLastname());
+		loggedUser.setEmail(profilo.getEmail());
+		loggedUser.setPreferredGenres(profilo.getPreferredGenres());
+		System.out.println(profilo.getAvatar());
+		if (profilo.getAvatar() != "") {
+			loggedUser.setAvatar(profilo.getAvatar());
+		} else {
+			loggedUser.setAvatar(null);
+		}
 		List<MusicSheet> myMusicSheets = spartitoService.searchMusicSheetsByUserUsername(loggedUser.getUsername());
-		model.addAttribute("generi", genreService.getAllGenres());
+		model.addAttribute("myMusicSheets", myMusicSheets);
 		model.addAttribute("profilo", loggedUser);
 		return "profile/profile";
 	}

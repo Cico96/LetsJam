@@ -15,6 +15,7 @@
                 </div>
                 <form th:action="@{/modifica-profilo}" th:object="${profilo}" method="post">
                     <input th:type="hidden" th:field="*{id}" />
+                    <input th:type="hidden" th:field="*{version}" />
                     <div class="main-wrap">
                         <div class="left-column">
                             <img class="new-avatar" id="frame" src="#">
@@ -53,7 +54,9 @@
                                 Strumenti preferiti
                                 <input placeholder="Placeholder per gli strumenti preferiti che al momento non ci sono" name="preferredInstruments" type="text"/>
                             </label>
-                            <button th:type="submit" > invia </button>
+                            <div class="button btn">
+                                <button class="button btn" th:type="submit" > invia </button>
+                            </div>
                         </div>
                     </div>
                 </form>
