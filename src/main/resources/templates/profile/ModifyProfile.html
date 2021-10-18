@@ -11,7 +11,7 @@
         <div class="container mt-4">
             <div class="row">
                 <div class="col-12 mt-4 pt-4 pb-4">
-                    <h3 class="mt-4 mb-4">Modifica profilo</h3>
+                    <h3 class="mt-4 mb-4" th:text="#{modifyProfile.modifyProfilo}"></h3>
                 </div>
                 <form th:action="@{/modifica-profilo}" th:object="${profilo}" method="post">
                     <input th:type="hidden" th:field="*{id}" />
@@ -26,12 +26,12 @@
                             </label>
                         </div>
                         <div class="right-column">
-                            <label name="firstname">
-                                Nome
+                            <label name="firstname" th:inline="text">
+                                [[#{modifyProfile.name}]]
                                 <input th:field="*{firstname}" th:value="${profilo.firstname}" name="firstname" type="text" required/>
                             </label>
-                            <label name="lastname">
-                                Cognome
+                            <label name="lastname" th:inline="text">
+                                [[#{modifyProfile.surname}]]
                                 <input th:field="*{lastname}" th:value="${profilo.lastname}" name="lastname" type="text" required/>
                             </label>
                             <label name="username">
@@ -43,19 +43,19 @@
                                 <input th:field="*{email}" th:value="${profilo.email}" name="email" type="email" required/>
                             </label>
                             <div class="preferred-genres" name="preferredGenres">
-                                <span style="align-self: flex-start;"> Generi preferiti </span>
+                                <span style="align-self: flex-start;" th:text="#{modifyProfile.preferredGenres}"></span>
                                 <div th:each="genre : ${generi}">
 <!--                                    <input th:checked="${profilo.preferredGenres.contains(genre)}" th:name="${genre.name}" th:id="${genre.name}" type="checkbox"/>-->
                                     <input th:field="*{preferredGenres}" th:value="${genre.id}" type="checkbox"/>
                                     <span th:text="${genre.name}"/>
                                 </div>
                             </div>
-                            <label name="preferredInstruments">
-                                Strumenti preferiti
+                            <label name="preferredInstruments" th:inline="text">
+                                [[#{modifyProfile.preferredInstruments}]]
                                 <input placeholder="Placeholder per gli strumenti preferiti che al momento non ci sono" name="preferredInstruments" type="text"/>
                             </label>
                             <div class="button btn">
-                                <button class="button btn" th:type="submit" > invia </button>
+                                <button class="button btn" th:type="submit" th:text="#{modifyProfile.send}"></button>
                             </div>
                         </div>
                     </div>
