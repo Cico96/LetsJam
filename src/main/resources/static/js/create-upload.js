@@ -98,7 +98,6 @@ function uploadFile(embed, file) {
 
         embed.on('scoreLoaded', () => {
             embed.getJSON().then(async (score) => {
-                console.log(score);
                 let formData = new FormData();
                 formData.append("score", JSON.stringify(score));
                 return await fetch('/musicsheets/analyze', {
@@ -123,7 +122,6 @@ function uploadFile(embed, file) {
 function createSheet(embed) {
     let checkbox = document.querySelectorAll('input[type=checkbox]:checked');
     if(checkbox.length == 0){
-        console.log('devi selezionare almeno uno strumento coglione');
         document.querySelector('#noInstrumentSelected').style.display="block";
         return;
     }
