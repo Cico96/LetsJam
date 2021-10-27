@@ -84,6 +84,18 @@ public class DummyController {
         model.addAttribute("musicSheetByGenre", musicSheetByGenre);
         return "home/home";
     }
+    @GetMapping("/admin/home")
+    public String adminHome(Model model, Authentication authentication){
+
+
+        if(authentication !=null){
+            //Logged
+            User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+
+            return "home/adminPanel";
+        }
+        return "common/forbidden";
+    }
 	
     
     @GetMapping("/forbidden")

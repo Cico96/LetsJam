@@ -1,5 +1,6 @@
 package it.univaq.disim.mwt.letsjam.config;
 
+import it.univaq.disim.mwt.letsjam.security.CustomAuthSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -31,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         .authorizeRequests()
             .antMatchers("/").permitAll()
             .antMatchers("/home").permitAll()
-            .antMatchers("/admin/**").hasRole("ADMIN")
+            .antMatchers("/admin/**").hasRole("AMMINISTRATORE")
             .antMatchers("/login*").permitAll()
             .antMatchers("/register*").permitAll()
             .antMatchers("/img/**").permitAll()
@@ -41,7 +42,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         .and()
             .formLogin()
             .loginPage("/login")
-            .defaultSuccessUrl("/home")
+//            .defaultSuccessUrl("/home")
+            .successHandler(myAuthenticationSuccessHandler())
             .usernameParameter("email")
             .failureUrl("/login?error=true")
             .and()
@@ -58,6 +60,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new CustomAuthSuccessHandler();
     }
 
 
