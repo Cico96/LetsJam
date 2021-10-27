@@ -36,14 +36,12 @@
 	                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
 									<p class="lang" style="display: none;" th:text="${#locale}"></p>
 	                                <ul id="nav" class="navbar-nav ml-auto">
-	                                    <li class="nav-item">
-	                                        <a class="active" href="/home">Home</a></li>
-	                                    <li class="nav-item">
-	                                        <a href="/musicsheets/">Spartiti</a>
-	                                    </li>
-	                                    <li class="nav-item"><a href="/songs/">Brani</a></li>
-										<li class="nav-item"><a href="/musicsheets/create">Crea-Carica</a></li>
-	                                    <li class="nav-item"><a href="contact.html">Contact</a></li>
+	                                    <li class="nav-item"><a class="active" href="/home">Home</a></li>
+										<li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="/musicsheets/">Spartiti</a></li>
+	                                    <li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="/songs/">Brani</a></li>
+										<li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="/musicsheets/create">Crea-Carica</a></li>
+	                                    <li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="contact.html">Contact</a></li>
+	                                    <li sec:authorize="isAuthenticated() && hasRole('AMMINISTRATORE')" class="nav-item"><a href="contact.html">Verifica Spartiti</a></li>
 										<li class="nav-item" sec:authorize="isAuthenticated()"><a sec:authentication="name"></a></li>
 										<li class="nav-item flag-container" th:if="${#locale.toString() == 'it'}"><img th:src="@{/img/i18n/it-flag.png}" alt="it"></li>
 										<li class="nav-item flag-container" th:if="${#locale.toString() == 'en'}"><img th:src="@{/img/i18n/uk-flag.png}" alt="en"></li>
