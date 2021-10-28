@@ -1,16 +1,29 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
     
     <div th:fragment="musicSheetCard (musicsheet)" th:remove="tag">
         <div class="musicsheet-card fadeInUp mb-4" th:onclick="window.location.href = '/musicsheets/'+[[${musicsheet.id}]];">
             <div class="d-flex flex-row align-items-center justify-content-between mb-2">
                 <h3 th:text="${musicsheet.title}"></h3>
-                <div class="d-flex flex-row align-items-center justify-content-between interaction-container" style="gap: 10px;">
-                    <div class="action-container">
-                        <svg th:replace="fragments/icons :: like"></svg>
-                        <span th:text="${musicsheet.likes.size}"></span>
-                        <i></i>
+                <div style="display: flex">
+                    <div sec:authorize="hasRole('AMMINISTRATORE')">
+                        <div th:if="${musicsheet.verified}" class="verify-badge" style="width: 100px">
+                            <svg th:replace="fragments/icons :: verifyBadge"></svg>
+                        </div>
+                        <div th:unless="${musicsheet.verified}" class="verify-badge" style="width: 100px">
+                            <svg th:replace="fragments/icons :: verifyBadgeDisabled" style="background-color: #5a6268"></svg>
+                        </div>
+                        <span class="verified" th:if="${musicsheet.verified}">Verificato</span>
+                        <span class="verified" th:unless="${musicsheet.verified}">Non verificato</span>
+                    </div>
+                    <div class="d-flex flex-row align-items-center justify-content-between interaction-container" style="gap: 10px;">
+                        <div class="action-container">
+                            <svg th:replace="fragments/icons :: like"></svg>
+                            <span th:text="${musicsheet.likes.size}"></span>
+                            <i></i>
+                        </div>
                     </div>
                 </div>
             </div>
