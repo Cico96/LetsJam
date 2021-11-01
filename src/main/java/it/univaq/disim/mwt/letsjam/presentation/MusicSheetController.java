@@ -93,8 +93,10 @@ public class MusicSheetController {
 	@GetMapping("/{id}")
 	public String getSpartitoSingolo(@PathVariable("id") long id, Model model){
 		MusicSheet musicSheet = spartitoService.findMusicSheetById(id);
+		MusicSheetData data = spartitoService.getMusicSheetData(id);
 		model.addAttribute("musicSheet", musicSheet);
-		return "musicSheets/musicsheet";
+		model.addAttribute("musicSheetData", data);
+		return "musicSheets/musicSheet";
 	}
 	
 	@GetMapping("/spartito/{id}/delete")
