@@ -96,6 +96,7 @@ public class MusicSheetController {
 		MusicSheetData data = spartitoService.getMusicSheetData(id);
 		model.addAttribute("musicSheet", musicSheet);
 		model.addAttribute("musicSheetData", data);
+		model.addAttribute("message", "gang");
 		return "musicSheets/musicSheet";
 	}
 	
@@ -251,5 +252,20 @@ public class MusicSheetController {
 		}
 			
 		return new ResponseEntity<String>(result.toString(), HttpStatus.OK);
+	}
+
+	@PostMapping("/getScoreWithOnlyParts")
+	public ResponseEntity<String> getScoreWithOnlyParts(@RequestParam("partList") String partList, @RequestParam("musicSheetId") long id){
+		if(partList != null && partList.length() > 0){
+				MusicSheetData data = spartitoService.getMusicSheetData(id);
+				List<String> strumenti = (new JSONArray(partList))
+											.toList()
+											.stream()
+											.map(Object::toString)
+											.collect(Collectors.toList());
+				JSONObject result = as.extractInstrumentPart(new JSONObject(data.getContent()), strumenti);
+				return new ResponseEntity<String>(result.toString(), HttpStatus.OK);
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 }

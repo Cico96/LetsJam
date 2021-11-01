@@ -102,7 +102,7 @@ public class ScoreAnalyzerService {
         }
     }
 
-    public JSONObject extractInstrumentPart(JSONObject json, String id){
+    public JSONObject extractInstrumentPart(JSONObject json, List<String> partIdList){
         JSONObject result = new JSONObject(json.toString());
         JSONArray parts = new JSONArray();
         if(result.query("/score-partwise/part") instanceof JSONObject){
@@ -113,14 +113,34 @@ public class ScoreAnalyzerService {
         }
         JSONArray partToExtract = new JSONArray();
         for(int i = 0; i < parts.length(); i++){
-            String partId = parts.getJSONObject(i).query("/id").toString();
-            if(partId.equals(id)) {
+            String partId = parts.getJSONObject(i).query("/$id").toString();
+            if( partIdList.contains(partId)) {
                 partToExtract.put(parts.getJSONObject(i));  
             }
         }
         JSONObject scorePartwise = (JSONObject) result.query("/score-partwise");
         scorePartwise.remove("part");
         scorePartwise.put("part", partToExtract);
+
+        JSONArray partList = new JSONArray();
+        if(result.query("/score-partwise/part-list/score-part") instanceof JSONObject){
+            partList.put(result.query("/score-partwise/part-list/score-part"));
+        }
+        else{
+            partList = (JSONArray) result.query("/score-partwise/part-list/score-part");
+        }
+        JSONArray scorePartToExtract = new JSONArray();
+        for(int i = 0; i < partList.length(); i++){
+            String partId = partList.getJSONObject(i).query("/$id").toString();
+            if( partIdList.contains(partId)) {
+                scorePartToExtract.put(partList.getJSONObject(i));  
+            }
+        }
+
+        JSONObject scoreParts = (JSONObject) result.query("/score-partwise/part-list");
+        scoreParts.remove("score-part");
+        scoreParts.put("score-part", scorePartToExtract);
+
         return result;
     }
 
