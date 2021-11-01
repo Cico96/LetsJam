@@ -51,5 +51,38 @@ document.addEventListener('DOMContentLoaded', ()=>{
             });
         });
     });
+
+
+    document.getElementById("downloadXml").addEventListener("click", function() {
+        editor.getMusicXML({ compressed: true }).then(function(buffer) {
+            exportFile(buffer, "application/vnd.recordare.musicxml+xml", "mxl");
+        });
+    });
+
+    document.getElementById("downloadPng").addEventListener("click", function() {
+        editor.getPNG().then(function(buffer) {
+            exportFile(buffer, "image/png", "png");
+        });
+    });
+
+    document.getElementById("downloadPdf").addEventListener("click", function() {
+        editor.print();
+    });
+
+
 });
 
+var exportFile = function(buffer, mimeType, ext) {
+    var blobUrl = window.URL.createObjectURL(
+        new Blob([buffer], {
+        type: mimeType
+        })
+    );
+    var a = document.createElement("a");
+    a.href = blobUrl;
+    a.download = "exported-score." + ext;
+    a.style = "display: none";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+};
