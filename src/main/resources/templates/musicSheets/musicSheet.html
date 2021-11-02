@@ -10,7 +10,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/song.css}">
     <script th:inline="javascript">
         /*<![CDATA[*/
-            var musicSheetData = /*[[${musicSheetData}]]*/ '';        
+            var musicSheetData = /*[[${musicSheetData}]]*/ '';
+            var musicSheetTitle = /*[[${musicSheet.title}]]*/'';        
         /*]]>*/
     </script>
 </head>
@@ -22,7 +23,7 @@
             <div class="d-flex pt-4 justify-content-between align-items-center">
                 <div class="left-container d-flex flex-column align-items-start">
                     <h2 class="song-title" th:text="${musicSheet.title}"></h2>
-                    <h4 class="song-author mt-4" th:text="${musicSheet.author}">Fracchicco</h4>
+                    <h4 class="song-author mt-4" th:text="${musicSheet.author}"></h4>
                     <div class="d-flex align-items-center mt-4 song-info">
                         <div class="icon mr-2">
                             <svg th:replace="fragments/icons :: user"></svg>
@@ -81,7 +82,7 @@
 
                             <div class="button wow fadeInUp submit mt-4" data-wow-delay=".7s" id="downloadPdf" 
                                         style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp; width: fit-content;">
-                                <a class="btn">Scarica in PDF</a>
+                                <a class="btn">Stampa</a>
                             </div>
 
                             <div class="button wow fadeInUp mt-4" id="downloadPng" data-wow-delay=".7s" 

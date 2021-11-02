@@ -54,14 +54,24 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
     document.getElementById("downloadXml").addEventListener("click", function() {
-        editor.getMusicXML({ compressed: true }).then(function(buffer) {
-            exportFile(buffer, "application/vnd.recordare.musicxml+xml", "mxl");
+        editor.getMusicXML().then(function(buffer) {
+            exportFile(buffer, "application/xml", "musicxml");
         });
     });
 
     document.getElementById("downloadPng").addEventListener("click", function() {
-        editor.getPNG().then(function(buffer) {
-            exportFile(buffer, "image/png", "png");
+        editor.getPNG({
+            result: 'dataURL',
+            layout: 'page',
+            dpi:300    
+        }).then(function(buffer) {
+            var a = document.createElement("a");
+            a.href = buffer;
+            a.download = musicSheetTitle+".png";
+            a.style = "display: none";
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
         });
     });
 
@@ -80,7 +90,7 @@ var exportFile = function(buffer, mimeType, ext) {
     );
     var a = document.createElement("a");
     a.href = blobUrl;
-    a.download = "exported-score." + ext;
+    a.download = musicSheetTitle+"." + ext;
     a.style = "display: none";
     document.body.appendChild(a);
     a.click();
