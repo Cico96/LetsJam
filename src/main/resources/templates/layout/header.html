@@ -42,6 +42,7 @@
 										<li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="/musicsheets/create">Crea-Carica</a></li>
 	                                    <li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="contact.html">Contact</a></li>
 	                                    <li sec:authorize="isAuthenticated() && hasRole('AMMINISTRATORE')" class="nav-item"><a href="/admin/verifyMusicsheet">Verifica Spartiti</a></li>
+	                                    <li sec:authorize="isAuthenticated() && hasRole('AMMINISTRATORE')" class="nav-item"><a href="/admin/manageUsers">Gestisci Utenti</a></li>
 										<li class="ml-4 d-flex align-items-center justify-content-end">
 											<a class="p-0" th:with="loggedUser=${#authentication.getPrincipal().getUser()}" sec:authorize="isAuthenticated()" href="/profilo">
 			<!--									<img style="height: 30px" src="assets/images/profile.png" th:src="@{/dist/img/profile.png}" alt="profile" />-->

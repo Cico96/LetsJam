@@ -11,6 +11,8 @@ import java.util.Set;
 public interface UserService {
 	
 	User findUserById(Long id) throws BusinessException;
+
+	List<User> getAllUsers() throws BusinessException;
 	
 	User findUserByUsername(String username) throws BusinessException;
 	

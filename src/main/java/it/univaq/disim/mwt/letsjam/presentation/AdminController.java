@@ -3,9 +3,11 @@ package it.univaq.disim.mwt.letsjam.presentation;
 import it.univaq.disim.mwt.letsjam.business.GenreService;
 import it.univaq.disim.mwt.letsjam.business.InstrumentService;
 import it.univaq.disim.mwt.letsjam.business.MusicSheetService;
+import it.univaq.disim.mwt.letsjam.business.UserService;
 import it.univaq.disim.mwt.letsjam.domain.Genre;
 import it.univaq.disim.mwt.letsjam.domain.Instrument;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
+import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.presentation.viewModels.MusicSheetSearchViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +30,8 @@ public class AdminController {
     private GenreService genreService;
     @Autowired
     private InstrumentService instrumentService;
+    @Autowired
+    private UserService userService;
 
     private static final int PAGE_SIZE = 5;
 
@@ -44,8 +48,9 @@ public class AdminController {
         model.addAttribute("instruments", instruments);
         model.addAttribute("musicSheets", musicSheets);
         model.addAttribute("genres", genres);
-        return "musicSheets/adminVerifySheets";
+        return "admin/adminVerifySheets";
     }
+
 
     @PostMapping("/verifyMusicsheet")
     public String search(MusicSheetSearchViewModel formData, Model model){
@@ -62,6 +67,14 @@ public class AdminController {
         model.addAttribute("instruments", instruments);
         model.addAttribute("musicSheets", musicSheets);
         model.addAttribute("genres", genres);
-        return "musicSheets/adminVerifySheets";
+        return "admin/adminVerifySheets";
+    }
+
+    @GetMapping("/manageUsers")
+    public String allUsers(Model model){
+        List<User> users = userService.getAllUsers();
+
+        model.addAttribute("users", users);
+        return "admin/manageUsers";
     }
 }

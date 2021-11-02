@@ -1,0 +1,47 @@
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:nl2br="https://github.com/bufferings/thymeleaf-extras-nl2br"
+        layout:decorate="~{layout/layout}">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/musicSheetCard.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/musicSheets.css}">
+    <script type="text/javascript" th:src="@{/js/sidebar-submit-users.js}" ></script>
+</head>
+<body>
+<div layout:fragment="content" style="padding-top: 90px;">
+
+    <!-- Start Hero Area -->
+    <section class="hero-area">
+        <div class="row">
+            <div class="sidebar">
+                <form th:action="@{/admin/manageUser/}" method="post" id="sidebar-form">
+                    <div id="newAdmins" class="option-container">
+                        <div class="option-title-container">
+                            <div class="option-icon">
+                                <svg th:replace="fragments/icons :: user"></svg>
+                            </div>
+                            <h4 style="color: white;" >Promuovi utenti</h4>
+                        </div>
+                    </div>
+                    <button type="submit"> Promuovi</button>
+                </form>
+            </div>
+            <div class="col pt-4 pb-4 pl-4 relative scores-view" style="padding: 20px;overflow-y: scroll; overflow-x:hidden">
+                <h1 class="mb-3">Gestisci gli utenti <span style="font-size: 20px">(clicca su un utente per aggiungerlo)</span></h1>
+                <div th:each="user : ${users}">
+                    <div th:replace="fragments/userCard :: userCard(user = ${user})"></div>
+                </div>
+                <img class="service-patern wow fadeInRight overlay-image" data-wow-delay=".5s" th:src="@{/img/service-patern.png}" alt="#"
+                     style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;position: absolute;top: 65px;right: -55px;">
+
+            </div>
+        </div>
+
+    </section>
+
+</div>
+</body>
+
+</html>
