@@ -121,3 +121,67 @@
 .disabled svg{
     fill: black;
 }
+
+.comments-container{
+    background-color: #8080800a;
+    border-radius: 5px;
+    box-shadow: inset 0px 0px 16px 0px rgb(50 50 50 / 5%);
+    gap: 30px;
+}
+
+.comment{
+    gap:10px;
+}
+
+.user-image{
+    background-color: #3763eb;
+    width: 70px;
+    border-radius: 50%;
+    height: 70px;
+}
+
+.user-name{
+    margin-bottom: 10px;
+    color: #3763eb;
+}
+
+.respond-button{
+    font-weight: 500;
+}
+
+.response{
+    margin-left: 7%;
+}
+
+.showResponses-button{
+    font-weight: 500;
+    color: gray;
+}
+
+.showResponses-button:hover{
+    color: dimgray;
+}
+
+.write-comment{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+}
+
+input[type="text"]{
+    width: 100%;
+    background: #f0f0f045;
+    height: 50px;
+    border: none;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.603);
+    padding-left: 10px;
+}
+
+input[type="text"]:focus-visible{
+    outline: none;
+}
+
+input[type="text"]:focus{
+    border-color: #0d6efd;
+}

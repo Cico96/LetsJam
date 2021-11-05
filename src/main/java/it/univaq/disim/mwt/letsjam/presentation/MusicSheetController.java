@@ -96,7 +96,7 @@ public class MusicSheetController {
 		MusicSheetData data = spartitoService.getMusicSheetData(id);
 		model.addAttribute("musicSheet", musicSheet);
 		model.addAttribute("musicSheetData", data);
-		model.addAttribute("message", "gang");
+
 		return "musicSheets/musicSheet";
 	}
 	
