@@ -8,6 +8,7 @@ import it.univaq.disim.mwt.letsjam.business.SongService;
 import it.univaq.disim.mwt.letsjam.business.SpotifyApiService;
 
 import it.univaq.disim.mwt.letsjam.presentation.viewModels.CreateUpdateSheetViewModel;
+import it.univaq.disim.mwt.letsjam.presentation.viewModels.RearrangeMusicSheetViewModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -201,6 +202,24 @@ public class MusicSheetController {
 				return new ResponseEntity<String>(result.toString(), HttpStatus.OK);
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+	}
+
+	@GetMapping("/rearrange/{id}")
+	public String showRearrangeMusicSheets(@PathVariable("id") long id, Model model){
+		MusicSheet musicSheet = spartitoService.findMusicSheetById(id);
+		MusicSheetData musicSheetData = spartitoService.getMusicSheetData(id);
+		RearrangeMusicSheetViewModel pageData = new RearrangeMusicSheetViewModel();
+		model.addAttribute("pageData", pageData);
+		model.addAttribute("musicSheetData", musicSheetData);
+		model.addAttribute("musicSheet", musicSheet);
+		return "musicSheets/rearrangeMusicSheet";
+	}
+
+	@PostMapping("/rearrange")
+	public String rearrangeMusicSheets(RearrangeMusicSheetViewModel pageData, Model model){
+		System.out.println("ciao ciao");
+		model.addAttribute("pageData", pageData);
+		return "musicSheets/rearrangeMusicSheet";
 	}
 
 
