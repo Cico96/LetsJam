@@ -86,9 +86,14 @@ public class AdminController {
     }
 
     @PostMapping("/manageUsers")
-    public String promoteUsers(Model model){
+    public String promoteUsers(@RequestParam("userIds") ArrayList<String> userIds, Model model, Authentication authentication){
+        userIds.forEach(uid -> {
+            if (userService.findUserById(Long.parseLong(uid)).getRoles().equals(UserRoles.valueOf("UTENTE"))) {
+                userService.promoteToAdmin(Long.parseLong(uid));
+            }
+        });
         List<User> users = userService.getAllUsers();
-
+        users.remove(((CustomUserDetails) authentication.getPrincipal()).getUser());
         model.addAttribute("users", users);
         return "admin/manageUsers";
     }
@@ -102,8 +107,6 @@ public class AdminController {
         });
         List<User> users = userService.getAllUsers();
         users.remove(((CustomUserDetails) authentication.getPrincipal()).getUser());
-        System.out.println(userIds);
-
         model.addAttribute("users", users);
         return "admin/manageUsers";
     }
