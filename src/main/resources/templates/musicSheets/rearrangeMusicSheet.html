@@ -33,8 +33,21 @@
                                     </label>
                                     <div class="button wow fadeInUp submit mt-4" data-wow-delay=".7s"
                                          style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp; width: fit-content;">
-                                        <a class="btn" th:text="#{rearrange.musicsheet.instrument}"></a>
+                                        <a id="instrument-btn" class="btn" th:text="#{rearrange.musicsheet.instrument}"></a>
                                     </div>
+
+                                    <div id="instrumentForSheet" class="instruments-for-sheet wrapper">
+                                        <h6 style="margin-bottom: 20px" class="align-center" th:text="#{createupload.selectInstruments}"></h6>
+                                        <div class="inner-wrp">
+                                            <div th:each="instrument : ${instruments}" class="check">
+                                                <input type="checkbox" th:name="${instrument.name}"/>
+                                                <label th:for="${instrument.name}" th:text="${instrument.name}"></label>
+                                            </div>
+                                        </div>
+                                        <div class="error-message mt-2 ml-5 mb-0" id="noInstrumentSelected" style="display: none;"
+                                             th:text="#{createupload.instruments.error}"></div>
+                                    </div>
+
                                     <div class="d-flex flex-column align-items-start mt-3">
                                         <label name="visibility" class="mb-0" th:text="#{rearrange.musicsheet.visibility}"></label>
                                         <div class="btn-group btn-group-toggle visibilityToggle" data-toggle="buttons">

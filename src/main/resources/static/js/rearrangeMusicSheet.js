@@ -12,5 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         embed.loadJSON(musicSheetData.content);
         console.log(musicSheet, musicSheetData);
-});
 
+        document.querySelector('#instrument-btn').addEventListener('click', () => {
+            document.querySelector('.instruments-for-sheet').style.display = 'block';
+            document.querySelector('#instrument-list').style.display = 'block';
+        })
+});

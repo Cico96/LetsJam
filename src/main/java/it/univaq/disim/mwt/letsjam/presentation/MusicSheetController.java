@@ -206,12 +206,14 @@ public class MusicSheetController {
 
 	@GetMapping("/rearrange/{id}")
 	public String showRearrangeMusicSheets(@PathVariable("id") long id, Model model){
+		List<Instrument> instrumentList = instrumentService.getAllInstruments();
 		MusicSheet musicSheet = spartitoService.findMusicSheetById(id);
 		MusicSheetData musicSheetData = spartitoService.getMusicSheetData(id);
 		RearrangeMusicSheetViewModel pageData = new RearrangeMusicSheetViewModel();
 		model.addAttribute("pageData", pageData);
 		model.addAttribute("musicSheetData", musicSheetData);
 		model.addAttribute("musicSheet", musicSheet);
+		model.addAttribute("instruments", instrumentList);
 		return "musicSheets/rearrangeMusicSheet";
 	}
 
