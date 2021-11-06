@@ -119,6 +119,12 @@ public class UserServiceImpl implements UserService {
 		utenteRepository.save(user);
 	}
 
+
+	@Override
+	public List<User> getAllUsers() throws BusinessException {
+		return utenteRepository.findAll();
+	}
+
 	@Override
 	public User addUser(User user) throws BusinessException {
 		utenteRepository.save(user);
