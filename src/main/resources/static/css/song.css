@@ -153,6 +153,10 @@
     margin-left: 7%;
 }
 
+.response .comment-actions{
+    display: none !important;
+}
+
 .showResponses-button{
     font-weight: 500;
     color: gray;
