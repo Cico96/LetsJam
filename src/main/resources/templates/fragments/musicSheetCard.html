@@ -8,15 +8,11 @@
             <div class="d-flex flex-row align-items-center justify-content-between mb-2">
                 <h3 th:text="${musicsheet.title}"></h3>
                 <div style="display: flex">
-                    <div sec:authorize="hasRole('AMMINISTRATORE')">
-                        <div th:if="${musicsheet.verified}" class="verify-badge" style="width: 100px">
+                    <div class="d-flex align-items-center" sec:authorize="hasRole('AMMINISTRATORE')">
+                        <div class="verified-badge d-flex align-items-center" th:classappend="${!musicsheet.verified ? 'not-verified-badge' : ''}">
                             <svg th:replace="fragments/icons :: verifyBadge"></svg>
+                            Verificato
                         </div>
-                        <div th:unless="${musicsheet.verified}" class="verify-badge" style="width: 100px">
-                            <svg th:replace="fragments/icons :: verifyBadgeDisabled" style="background-color: #5a6268"></svg>
-                        </div>
-                        <span class="verified" th:if="${musicsheet.verified}">Verificato</span>
-                        <span class="verified" th:unless="${musicsheet.verified}">Non verificato</span>
                     </div>
                     <div class="d-flex flex-row align-items-center justify-content-between interaction-container" style="gap: 10px;">
                         <div class="action-container">
