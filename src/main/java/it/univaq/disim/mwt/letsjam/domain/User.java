@@ -43,6 +43,8 @@ public class User extends AbstractPersistableEntity{
     @Column(unique = true)
 	private String username;
 
+    //temporaneo per far funzionare l'update del ruolo
+	private String role;
 
 	@EmailUnique(groups = {OnCreate.class})
     @NotEmpty(groups = {OnCreate.class, Default.class})

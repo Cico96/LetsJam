@@ -9,6 +9,9 @@ import it.univaq.disim.mwt.letsjam.domain.Instrument;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.presentation.viewModels.MusicSheetSearchViewModel;
+import it.univaq.disim.mwt.letsjam.security.UserRoles;
+import org.springframework.security.core.Authentication;
+import it.univaq.disim.mwt.letsjam.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,7 +20,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -71,9 +77,36 @@ public class AdminController {
     }
 
     @GetMapping("/manageUsers")
-    public String allUsers(Model model){
+    public String allUsers(Model model, Authentication authentication){
         List<User> users = userService.getAllUsers();
+        users.remove(((CustomUserDetails) authentication.getPrincipal()).getUser());
 
+        model.addAttribute("users", users);
+        return "admin/manageUsers";
+    }
+
+    @PostMapping("/manageUsers")
+    public String promoteUsers(@RequestParam("userIds") ArrayList<String> userIds, Model model, Authentication authentication){
+        userIds.forEach(uid -> {
+            if (userService.findUserById(Long.parseLong(uid)).getRoles().equals(UserRoles.valueOf("UTENTE"))) {
+                userService.promoteToAdmin(Long.parseLong(uid));
+            }
+        });
+        List<User> users = userService.getAllUsers();
+        users.remove(((CustomUserDetails) authentication.getPrincipal()).getUser());
+        model.addAttribute("users", users);
+        return "admin/manageUsers";
+    }
+
+    @PostMapping("/deleteUser")
+    public String deleteUsers(@RequestParam("userIds") ArrayList<String> userIds, Model model,Authentication authentication){
+        userIds.forEach(uid -> {
+            if (userService.findUserById(Long.parseLong(uid)).getRoles().equals(UserRoles.valueOf("UTENTE"))) {
+                userService.deleteUserById(Long.parseLong(uid));
+            }
+        });
+        List<User> users = userService.getAllUsers();
+        users.remove(((CustomUserDetails) authentication.getPrincipal()).getUser());
         model.addAttribute("users", users);
         return "admin/manageUsers";
     }

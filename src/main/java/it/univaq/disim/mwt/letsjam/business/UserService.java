@@ -27,6 +27,8 @@ public interface UserService {
 	void deleteUserById(Long id) throws BusinessException;
 	
 	boolean UserIsAdmin(Long id) throws BusinessException;
+
+	void promoteToAdmin(Long id) throws BusinessException;
 	
 	void update(User user) throws BusinessException;
 	
