@@ -55,9 +55,6 @@ public class User extends AbstractPersistableEntity{
     @NotEmpty(groups = {OnCreate.class, Default.class})
     private String password;
 	
-    @Lob
-    @JsonIgnore
-    @Basic(fetch = FetchType.LAZY)
 	private String avatar;
 	
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)

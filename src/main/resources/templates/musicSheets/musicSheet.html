@@ -11,7 +11,8 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
             var musicSheetData = /*[[${musicSheetData}]]*/ '';
-            var musicSheetTitle = /*[[${musicSheet.title}]]*/'';        
+            var musicSheetTitle = /*[[${musicSheet.title}]]*/'';  
+            var loggedUser = /*[[${loggedUser}]]*/'';      
         /*]]>*/
     </script>
 </head>
@@ -93,38 +94,29 @@
 
                         <h3 class="mt-5 mb-2">Commenti</h3>
                         <div class="comments-container d-flex flex-column mt-4 mb-3 w-100 p-5">
-                            <div class="comment d-flex align-items-center justify-content-start">
-                                <div class="user-image">
-                                    &nbsp;
-                                </div>
-                                <div class="d-flex flex-column align-items-start justify-content-start" style="flex:17;">
-                                    <h6 class="user-name">Giuseppe Verdi</h6>
-                                    <p class="comment-content">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum facilis quae dolores vitae, magnam exercitationem vel ipsum hic nostrum animi error ullam architecto aut debitis officia a recusandae nam quas?
-                                    </p>
-                                    <div class="d-flex align-items-center justify-content-start comment-actions" style="gap:10px">
-                                        <a href="" class="respond-button">Rispondi</a>
-                                        <a href="" class="showResponses-button">Mostra risposte(1)</a>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="comment response d-flex align-items-center justify-content-start">
-                                <div class="user-image">
+                            <div th:each="comment : ${comments}" th:commentId="${comment.id}" class="comment d-flex align-items-center justify-content-start">
+                                <div class="user-image" th:if="${loggedUser.avatar}" th:style="'background:url('+${loggedUser.avatar}+');'">
+                                    &nbsp;
+                                </div>
+                                <div class="user-image" th:unless="${loggedUser.avatar}" th:style="'background:url(https://avatars.dicebear.com/api/male/'+${loggedUser.firstname}+'.svg);'">
                                     &nbsp;
                                 </div>
                                 <div class="d-flex flex-column align-items-start justify-content-start" style="flex:17;">
-                                    <h6 class="user-name">Mario Rossi</h6>
-                                    <p class="comment-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ipsum, amet qui in repellendus exercitationem est iste? Laborum nihil libero voluptates nesciunt, ex aut in vel, quisquam eveniet incidunt quia?</p>
+                                    <h6 class="user-name" th:text="${comment.user.firstname+' '+comment.user.lastname}">Mario Rossi</h6>
+                                    <p class="comment-content" th:text="${comment.content}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ipsum, amet qui in repellendus exercitationem est iste? Laborum nihil libero voluptates nesciunt, ex aut in vel, quisquam eveniet incidunt quia?</p>
                                     <div class="d-flex align-items-center justify-content-start comment-actions" style="gap:10px">
                                         <a href="" class="respond-button">Rispondi</a>
-                                        <a href="" class="showResponses-button">Mostra risposte(1)</a>
+                                        <a href="" class="showResponses-button" th:if="${comment.replies > 0}" th:inline="text">Mostra risposte([[${comment.replies}]])</a>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="write-comment">
-                                <div class="user-image">
+                                <div class="user-image" th:if="${loggedUser.avatar}" th:style="'background:url('+${loggedUser.avatar}+');'">
+                                    &nbsp;
+                                </div>
+                                <div class="user-image" th:unless="${loggedUser.avatar}" th:style="'background:url(https://avatars.dicebear.com/api/male/'+${loggedUser.firstname}+'.svg);'">
                                     &nbsp;
                                 </div>
                                 <input type="text" placeholder="Scrivi il tuo commento" style="flex:17;">

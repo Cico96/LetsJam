@@ -53,7 +53,6 @@ public class MusicSheet extends AbstractPersistableEntity{
 	@NotNull
 	private Boolean hasTablature = false;
 
-	@JsonInclude()
 	@Transient
 	private MusicSheetData data;
 	

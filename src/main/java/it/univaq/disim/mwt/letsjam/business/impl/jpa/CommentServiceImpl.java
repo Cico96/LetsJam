@@ -1,5 +1,7 @@
 package it.univaq.disim.mwt.letsjam.business.impl.jpa;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +58,16 @@ public class CommentServiceImpl implements CommentService {
 		risposta.setUser(user);
 		risposta.setParentComment(comment);
 		commentRepository.save(risposta);
+	}
+
+	@Override
+	public List<Comment> getMusicSheetComments(Long musicSheetId) throws BusinessException {
+		return commentRepository.getMusicSheetComments(musicSheetId);
+	}
+
+	@Override
+	public List<Comment> getReplies(Long parentId) throws BusinessException {
+		return commentRepository.getReplies(parentId);
 	}
 
 }
