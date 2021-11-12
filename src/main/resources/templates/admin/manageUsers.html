@@ -17,7 +17,7 @@
     <section class="hero-area">
         <div class="row">
             <div class="sidebar">
-                <form th:action="@{/admin/manageUser/}" method="post" id="sidebar-form">
+                <form th:action="@{/admin/manageUsers/}" th:method="POST" id="sidebar-form">
                     <div id="newAdmins" class="option-container">
                         <div class="option-title-container">
                             <div class="option-icon userGreen">
@@ -26,9 +26,9 @@
                             <h4 style="color: white;" >Promuovi utenti</h4>
                         </div>
                     </div>
-                    <button class="upUs btn btn-hover btn-block btn-dark btn-outline-light btn-close-white" type="submit">Promuovi</button>
+                    <button class="upUs btn btn-hover btn-block btn-dark btn-outline-light btn-close-white" th:type="submit">Promuovi</button>
                 </form>
-                <form class="mt-5" th:action="@{/admin/deleteUser/}" method="post" id="sidebar-form1">
+                <form class="mt-5" th:action="@{/admin/deleteUser/}" method="POST" id="sidebar-form1">
                     <div id="deleteAdmins" class="option-container">
                         <div class="option-title-container">
                             <div class="option-icon userRed">
@@ -37,7 +37,7 @@
                             <h4 style="color: white;" >Elimina utenti</h4>
                         </div>
                     </div>
-                    <button class="upUs btn btn-hover btn-block btn-dark btn-outline-light btn-close-white" type="submit">Elimina</button>
+                    <button class="upUs btn btn-hover btn-block btn-dark btn-outline-light btn-close-white" th:type="submit">Elimina</button>
                 </form>
             </div>
             <div class="col pt-4 pb-4 pl-4 relative scores-view" style="padding: 20px;overflow-y: scroll; overflow-x:hidden">

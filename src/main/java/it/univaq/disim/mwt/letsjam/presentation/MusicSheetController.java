@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import it.univaq.disim.mwt.letsjam.security.CustomUserDetails;
+import it.univaq.disim.mwt.letsjam.business.CommentService;
 import it.univaq.disim.mwt.letsjam.business.GenreService;
 import it.univaq.disim.mwt.letsjam.business.InstrumentService;
 import it.univaq.disim.mwt.letsjam.business.LyricsService;
@@ -31,7 +32,9 @@ import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheetData;
 import it.univaq.disim.mwt.letsjam.domain.Song;
 import it.univaq.disim.mwt.letsjam.domain.User;
+import it.univaq.disim.mwt.letsjam.domain.Comment;
 import it.univaq.disim.mwt.letsjam.presentation.viewModels.MusicSheetSearchViewModel;
+import it.univaq.disim.mwt.letsjam.presentation.viewModels.ReplyViewModel;
 
 import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
 import com.wrapper.spotify.model_objects.specification.Track;
@@ -54,6 +57,8 @@ public class MusicSheetController {
     private LyricsService lyricsService;
 	@Autowired
 	private SongService songService;
+	@Autowired
+	private CommentService commentService;
 	
 	private static final int PAGE_SIZE = 5;
 
@@ -74,7 +79,7 @@ public class MusicSheetController {
 	}
 
 	@PostMapping("/")
-	public String search(MusicSheetSearchViewModel formData, Model model){
+	public String search(@ModelAttribute MusicSheetSearchViewModel formData, Model model){
 		List<Genre> genres = genreService.getAllGenres();
 		List<Instrument> instruments = instrumentService.getAllInstruments();
 		Page<MusicSheet> musicSheets = spartitoService.searchMusicSheets(
@@ -92,12 +97,15 @@ public class MusicSheetController {
 	}
 	
 	@GetMapping("/{id}")
-	public String getSpartitoSingolo(@PathVariable("id") long id, Model model){
+	public String getSpartitoSingolo(@PathVariable("id") long id, Model model, Authentication authentication){
 		MusicSheet musicSheet = spartitoService.findMusicSheetById(id);
 		MusicSheetData data = spartitoService.getMusicSheetData(id);
+		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+		List<Comment> comments = commentService.getMusicSheetComments(musicSheet.getId());
+		model.addAttribute("comments", comments);
 		model.addAttribute("musicSheet", musicSheet);
 		model.addAttribute("musicSheetData", data);
-		model.addAttribute("message", "gang");
+		model.addAttribute("loggedUser", loggedUser);
 		return "musicSheets/musicSheet";
 	}
 	
@@ -118,7 +126,7 @@ public class MusicSheetController {
 	}
 	
 	@PostMapping("/create")
-	public String upload(CreateUpdateSheetViewModel pageData, Authentication authentication,Model model){
+	public String upload(@ModelAttribute CreateUpdateSheetViewModel pageData, Authentication authentication,Model model){
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
 
 		Map<String, String> mappings = as.getInstruments(new JSONObject(pageData.getContent()));
@@ -293,5 +301,56 @@ public class MusicSheetController {
 				return new ResponseEntity<String>(result.toString(), HttpStatus.OK);
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+	}
+
+	@PostMapping("/addComment")
+	public ResponseEntity<String> addComment(
+		@RequestParam("parentId") String parentId, 
+		@RequestParam("musicSheetId") long musicSheetId, 
+		@RequestParam("content") String content,
+		Authentication authentication){
+			User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+			System.out.println(parentId+" "+musicSheetId+" "+content);
+			try {
+				Long parent = Long.parseLong(parentId);
+				commentService.addAnsewer(commentService.findCommentById(parent), loggedUser.getId(), content);	
+			} catch (Exception e) {
+				commentService.addComment(musicSheetId, loggedUser.getId(), content);
+			}
+			return new ResponseEntity<String>("Ok", HttpStatus.OK);
+	}
+
+	@PostMapping("/getReplies")
+	public ResponseEntity<String> getReplies(@RequestParam("parentId") String parentId,Authentication authentication){
+		List<Comment> replies = commentService.getReplies(Long.parseLong(parentId));
+		List<ReplyViewModel> result = new ArrayList<ReplyViewModel>();
+		replies.forEach(r -> {
+			ReplyViewModel reply = new ReplyViewModel();
+			reply.setId(r.getId());
+			reply.setContent(r.getContent());
+			reply.setFirstName(r.getUser().getFirstname());
+			reply.setLastName(r.getUser().getLastname());
+			reply.setUserAvatar(r.getUser().getAvatar());
+			result.add(reply);
+		});
+		return new ResponseEntity<String>((new JSONArray(result)).toString(), HttpStatus.OK);
+	}
+
+	@PostMapping("/like")
+	public ResponseEntity<String> like(@RequestParam("musicSheetId") long musicSheetId, Authentication authentication){
+		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+		MusicSheet spartito = spartitoService.findMusicSheetById(musicSheetId);
+		spartitoService.addLike(spartito, loggedUser);
+		System.out.println("liked");
+		return new ResponseEntity<String>("Liked", HttpStatus.OK);
+	}
+
+	@PostMapping("/dislike")
+	public ResponseEntity<String> dislike(@RequestParam("musicSheetId") long musicSheetId, Authentication authentication){
+		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+		MusicSheet spartito = spartitoService.findMusicSheetById(musicSheetId);
+		spartitoService.removeLike(spartito, loggedUser);
+		System.out.println("disliked");
+		return new ResponseEntity<String>("Liked", HttpStatus.OK);
 	}
 }

@@ -4,12 +4,12 @@ import it.univaq.disim.mwt.letsjam.domain.Genre;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheetData;
 import it.univaq.disim.mwt.letsjam.domain.Song;
+import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Set;
 
 public interface MusicSheetService {
 	
@@ -23,7 +23,9 @@ public interface MusicSheetService {
 	
 	MusicSheet findMusicSheetVerified(String title) throws BusinessException;
 	
-	//void addLike(Spartito spartito, Long id_utente) throws BusinessException;
+	void addLike(MusicSheet musicSheet, User user) throws BusinessException;
+
+	void removeLike(MusicSheet musicSheet, User user) throws BusinessException;
 	
 	void update(MusicSheet musicSheet) throws BusinessException;
 	

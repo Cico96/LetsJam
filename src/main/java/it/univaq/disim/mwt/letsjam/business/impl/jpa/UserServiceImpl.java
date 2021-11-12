@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import it.univaq.disim.mwt.letsjam.domain.User;
@@ -65,7 +66,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteUserById(Long id) throws BusinessException {
 		utenteRepository.deleteById(id);
-		
+
 	}
 
 	@Override
@@ -117,6 +118,15 @@ public class UserServiceImpl implements UserService {
 		preferredGenres.add(genere);
 		user.setPreferredGenres(preferredGenres);
 		utenteRepository.save(user);
+	}
+
+	@Override
+	public void promoteToAdmin(Long id) {
+		String q = "UPDATE User ut SET ut.role = :amministratore WHERE ut.id = :id";
+		Query query =  em.createQuery(q);
+		query.setParameter("amministratore", "amministratore");
+		query.setParameter("id", id);
+		query.executeUpdate();
 	}
 
 

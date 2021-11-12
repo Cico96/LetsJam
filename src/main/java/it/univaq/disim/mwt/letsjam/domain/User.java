@@ -43,6 +43,8 @@ public class User extends AbstractPersistableEntity{
     @Column(unique = true)
 	private String username;
 
+    //temporaneo per far funzionare l'update del ruolo
+	private String role;
 
 	@EmailUnique(groups = {OnCreate.class})
     @NotEmpty(groups = {OnCreate.class, Default.class})
@@ -55,16 +57,10 @@ public class User extends AbstractPersistableEntity{
     @NotEmpty(groups = {OnCreate.class, Default.class})
     private String password;
 	
-    @Lob
-    @JsonIgnore
-    @Basic(fetch = FetchType.LAZY)
 	private String avatar;
 	
-    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
-    @JoinTable(
-    name = "spartiti_likes", 
-    joinColumns = @JoinColumn(name = "user_id"), 
-    inverseJoinColumns = @JoinColumn(name = "music_sheet_id"))
+    @ManyToMany(mappedBy = "likes", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
+    @JsonIgnore
     private Set<MusicSheet> likedMusicSheets;
 	
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
