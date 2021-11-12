@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import it.univaq.disim.mwt.letsjam.business.ScoreAnalyzerService;
 import it.univaq.disim.mwt.letsjam.business.SongService;
 import it.univaq.disim.mwt.letsjam.business.SpotifyApiService;
-
 import it.univaq.disim.mwt.letsjam.presentation.viewModels.CreateUpdateSheetViewModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -326,5 +325,15 @@ public class MusicSheetController {
 		spartitoService.removeLike(spartito, loggedUser);
 		System.out.println("disliked");
 		return new ResponseEntity<String>("Liked", HttpStatus.OK);
+	}
+
+	@PostMapping("/update")
+	ResponseEntity<String> update(@RequestParam("musicSheetId") Long musicSheetId, @RequestParam("musicSheetContent") String content ){
+		MusicSheet musicSheet = spartitoService.findMusicSheetById(musicSheetId);
+		MusicSheetData data = musicSheet.getData();
+		data.setContent(content);
+		musicSheet.setData(data);
+		spartitoService.update(musicSheet);
+		return new ResponseEntity<String>("Updated", HttpStatus.OK);
 	}
 }

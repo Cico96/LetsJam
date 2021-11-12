@@ -12,7 +12,8 @@
         /*<![CDATA[*/
             var musicSheetData = /*[[${musicSheetData}]]*/ '';
             var musicSheetTitle = /*[[${musicSheet.title}]]*/'';  
-            var loggedUser = /*[[${loggedUser}]]*/'';      
+            var loggedUser = /*[[${loggedUser}]]*/'';
+            var isAuthor = /*[[${musicSheet.user == loggedUser}]]*/'';      
         /*]]>*/
     </script>
 </head>
@@ -137,7 +138,9 @@
   
         </div>
     </section>
-    <a href="#" class="rearrangeButton btn-hover">a</a>
+    <a href="" class="rearrangeButton btn-hover">
+        <svg th:replace="fragments/icons :: modify"></svg>
+    </a>
 
 </div>
 </body>

@@ -49,6 +49,7 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 	@Override
 	public MusicSheet findMusicSheetById(Long id) throws BusinessException {
 		MusicSheet musicSheet = musicSheetRepository.findById(id).get();
+		musicSheet.setData(musicSheetDataRepository.findById(id.toString()).get());
 		return musicSheet;
 	}
 
@@ -93,20 +94,14 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 
 	@Override
 	public void update(MusicSheet musicSheet) throws BusinessException {
-		// TODO Auto-generated method stub
+		musicSheetDataRepository.save(musicSheet.getData());
+		musicSheetRepository.save(musicSheet);
 	}
 
 	@Override
 	public void deleteMusicSheetById(Long id) throws BusinessException {
 		// TODO Auto-generated method stub
 		musicSheetRepository.deleteById(id);
-
-	}
-
-	@Override
-	public MusicSheet insert(MusicSheet musicSheet) throws BusinessException {
-		// TODO Auto-generated method stub
-		return musicSheetRepository.save(musicSheet);
 	}
 
 	@Override

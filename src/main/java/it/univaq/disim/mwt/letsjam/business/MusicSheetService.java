@@ -31,8 +31,6 @@ public interface MusicSheetService {
 	
 	void deleteMusicSheetById (Long id) throws BusinessException;
 	
-	MusicSheet insert(MusicSheet musicSheet) throws BusinessException;
-	
 	List<MusicSheet> getMostPopularMusicSheets() throws BusinessException;
 
 	List<MusicSheet> getLastInsertMusicSheets() throws BusinessException;
