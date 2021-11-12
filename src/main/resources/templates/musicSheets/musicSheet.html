@@ -51,6 +51,14 @@
                         <span class="label mr-2">Data caricamento:</span>
                         <p th:text="${#temporals.format(musicSheet.createDateTime, 'dd/MM/yyyy')}"></p>
                     </div>
+                    <div th:class="'mt-4 d-flex align-items-center like '+${musicSheet.likes.contains(loggedUser) ? 'liked' : ''}" th:inline="text" style="gap: 5px;">
+                        <div class="icon round mr-2">
+                            <svg th:replace="fragments/icons :: like"></svg>
+                            <i></i>
+                        </div>
+                        <span> [[${musicSheet.likes.size}]] </span>
+                        Mi piace
+                    </div>
                     <div class="verified-badge mt-4 d-flex align-items-center" th:if="${musicSheet.verified}">
                         <svg th:replace="fragments/icons :: verifyBadge"></svg>
                         Verificato
@@ -92,7 +100,7 @@
                             </div>
                         </div>
 
-                        <h3 class="mt-5 mb-2">Commenti</h3>
+                        <h3 class="mt-5 mb-2">Commenti</h3> 
                         <div class="comments-container d-flex flex-column mt-4 mb-3 w-100 p-5">
 
                             <div th:each="comment : ${comments}" th:commentId="${comment.id}" class="comment d-flex align-items-center justify-content-start">
@@ -128,8 +136,8 @@
             </div>
   
         </div>
-
     </section>
+    <a href="#" class="rearrangeButton btn-hover">a</a>
 
 </div>
 </body>

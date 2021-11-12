@@ -78,7 +78,7 @@ public class MusicSheetController {
 	}
 
 	@PostMapping("/")
-	public String search(MusicSheetSearchViewModel formData, Model model){
+	public String search(@ModelAttribute MusicSheetSearchViewModel formData, Model model){
 		List<Genre> genres = genreService.getAllGenres();
 		List<Instrument> instruments = instrumentService.getAllInstruments();
 		Page<MusicSheet> musicSheets = spartitoService.searchMusicSheets(
@@ -101,7 +101,6 @@ public class MusicSheetController {
 		MusicSheetData data = spartitoService.getMusicSheetData(id);
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
 		List<Comment> comments = commentService.getMusicSheetComments(musicSheet.getId());
-		comments.forEach(c->System.out.println(c.getContent()+" "+c.getReplies()));
 		model.addAttribute("comments", comments);
 		model.addAttribute("musicSheet", musicSheet);
 		model.addAttribute("musicSheetData", data);
@@ -126,7 +125,7 @@ public class MusicSheetController {
 	}
 	
 	@PostMapping("/create")
-	public String upload(CreateUpdateSheetViewModel pageData, Authentication authentication,Model model){
+	public String upload(@ModelAttribute CreateUpdateSheetViewModel pageData, Authentication authentication,Model model){
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
 
 		Map<String, String> mappings = as.getInstruments(new JSONObject(pageData.getContent()));
@@ -309,5 +308,23 @@ public class MusicSheetController {
 			result.add(reply);
 		});
 		return new ResponseEntity<String>((new JSONArray(result)).toString(), HttpStatus.OK);
+	}
+
+	@PostMapping("/like")
+	public ResponseEntity<String> like(@RequestParam("musicSheetId") long musicSheetId, Authentication authentication){
+		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+		MusicSheet spartito = spartitoService.findMusicSheetById(musicSheetId);
+		spartitoService.addLike(spartito, loggedUser);
+		System.out.println("liked");
+		return new ResponseEntity<String>("Liked", HttpStatus.OK);
+	}
+
+	@PostMapping("/dislike")
+	public ResponseEntity<String> dislike(@RequestParam("musicSheetId") long musicSheetId, Authentication authentication){
+		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+		MusicSheet spartito = spartitoService.findMusicSheetById(musicSheetId);
+		spartitoService.removeLike(spartito, loggedUser);
+		System.out.println("disliked");
+		return new ResponseEntity<String>("Liked", HttpStatus.OK);
 	}
 }

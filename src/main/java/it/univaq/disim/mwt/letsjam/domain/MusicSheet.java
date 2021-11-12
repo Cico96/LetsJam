@@ -18,6 +18,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UserRepository;
 import it.univaq.disim.mwt.letsjam.presentation.validation.OnCreate;
 import it.univaq.disim.mwt.letsjam.presentation.validation.OnUpdate;
 
@@ -62,8 +63,11 @@ public class MusicSheet extends AbstractPersistableEntity{
 	@OneToOne
 	private User user;
 	
-	@ManyToMany(mappedBy = "likedMusicSheets", fetch = FetchType.EAGER)
-	@Basic(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
+	@JoinTable(
+		name = "spartiti_likes", 
+		joinColumns = @JoinColumn(name = "music_sheet_id"), 
+		inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private Set<User> likes = new HashSet<>();
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)

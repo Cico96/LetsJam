@@ -110,9 +110,13 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll('.showResponses-button').forEach(el =>{
     el.addEventListener('click', e=>{
       e.preventDefault();
-      showReplies(el.parentElement.parentElement.parentElement.getAttribute('commentid'));
+      showReplies(el.parentElement.parentElement.parentElement.getAttribute('commentid')).then(()=>{
+        el.style.display='none';
+      });
     });
   });
+
+  document.querySelector('.like').addEventListener('click', like);
 });
 
 var exportFile = function (buffer, mimeType, ext) {
@@ -232,7 +236,6 @@ async function persistComment(content, parentId) {
 }
 
 async function showReplies(commentId){
-  console.log(commentId);
   let parent = document.querySelector(`[commentid="${commentId}"]`);
 
   let formData = new FormData();
@@ -248,7 +251,6 @@ async function showReplies(commentId){
   })
   .then((replies) => {
     replies.forEach(r=>{
-      console.log(r);
       let comment = document.createElement("div");
       comment.classList = "comment response d-flex align-items-center justify-content-start";
       let userImage = document.createElement("div");
@@ -274,5 +276,31 @@ async function showReplies(commentId){
       comment.appendChild(textContainer);
       parent.parentNode.insertBefore(comment, parent.nextSibling);
     });
+  });
+}
+
+async function like(){
+  let element = document.querySelector('.like');
+  let endpoint = element.classList.contains('liked') ? '/musicsheets/dislike' : '/musicsheets/like';
+  let likes = parseInt(document.querySelector('.like').lastElementChild.innerText);
+
+  if(element.classList.contains('liked')) {
+    element.classList.remove('liked');
+    likes -=1;
+  }
+  else {
+    element.classList.add('liked');
+    likes=+1;
+  }
+
+  document.querySelector('.like').lastElementChild.innerText = likes;
+
+  let formData = new FormData();
+  formData.append("musicSheetId", musicSheetData.id);
+  return await fetch(endpoint, {
+    method: "POST",
+    ContentType: "multipart/form-data",
+    processData: false,
+    body: formData,
   });
 }

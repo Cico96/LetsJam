@@ -19,9 +19,11 @@ import it.univaq.disim.mwt.letsjam.business.InstrumentService;
 import it.univaq.disim.mwt.letsjam.business.MusicSheetService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetDataRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetRepository;
+import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UserRepository;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheetData;
 import it.univaq.disim.mwt.letsjam.domain.Song;
+import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 import java.util.HashSet;
@@ -78,13 +80,6 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 		// TODO Auto-generated method stub
 		return musicSheetRepository.findMusicSheetByTitle(title);
 	}
-
-	// @Override
-	// public Spartito findSpartitoByContenuto(String contenuto) throws
-	// BusinessException {
-	// // tablature o spartiti
-	// return null;
-	// }
 
 	@Override
 	public MusicSheet findMusicSheetVerified(String title) throws BusinessException {
@@ -217,6 +212,22 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 
 		int toIndex = (((pageNumber*pageSize)+pageSize) <= musicSheets.size()) ? (pageNumber*pageSize)+pageSize : musicSheets.size();
 		return new PageImpl<MusicSheet>(musicSheets.subList(pageNumber*pageSize, toIndex), PageRequest.of(pageNumber, pageSize), musicSheets.size());
+	}
+
+	@Override
+	public void addLike(MusicSheet musicSheet, User user) throws BusinessException {
+		Set<User> likes = musicSheet.getLikes();
+		likes.add(user);
+		musicSheet.setLikes(likes);
+		musicSheetRepository.save(musicSheet);
+	}
+
+	@Override
+	public void removeLike(MusicSheet musicSheet, User user) throws BusinessException {
+		Set<User> likes = musicSheet.getLikes();
+		likes.remove(user);
+		musicSheet.setLikes(likes);
+		musicSheetRepository.save(musicSheet);
 	}
 
 }

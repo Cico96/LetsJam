@@ -59,11 +59,8 @@ public class User extends AbstractPersistableEntity{
 	
 	private String avatar;
 	
-    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
-    @JoinTable(
-    name = "spartiti_likes", 
-    joinColumns = @JoinColumn(name = "user_id"), 
-    inverseJoinColumns = @JoinColumn(name = "music_sheet_id"))
+    @ManyToMany(mappedBy = "likes", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
+    @JsonIgnore
     private Set<MusicSheet> likedMusicSheets;
 	
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
