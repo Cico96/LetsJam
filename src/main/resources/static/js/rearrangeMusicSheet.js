@@ -15,6 +15,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.querySelector('#instrument-btn').addEventListener('click', () => {
             document.querySelector('.instruments-for-sheet').style.display = 'block';
-            document.querySelector('#instrument-list').style.display = 'block';
-        })
+            let divBtn = document.querySelector('div.button.wow.fadeInUp');
+            if(divBtn.style.display === 'none'){
+                divBtn.style.display = 'block';
+            }else{
+                divBtn.style.display = 'none';
+            }
+            document.querySelector('div.button.submit').style.display = 'block';
+        });
+
+        document.querySelector('div.button.submit').addEventListener('click', () => {
+            createEmbed(embed);
+        });
 });
+
+function createEmbed(embed){
+    let checkbox = document.querySelectorAll('input[type=checkbox]:checked');
+    checkbox.map(instrument => instrument.getAttribute('name'));
+    console.log(checkbox);
+}

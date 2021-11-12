@@ -217,6 +217,11 @@ public class MusicSheetController {
 		return "musicSheets/rearrangeMusicSheet";
 	}
 
+	@PostMapping("/addInstrumentsToScore")
+	public String addInstrumentsToScore(@RequestParam("instruments") String instrumentList){
+		return "";
+	}
+
 	@PostMapping("/rearrange")
 	public String rearrangeMusicSheets(RearrangeMusicSheetViewModel pageData, Model model){
 		System.out.println("ciao ciao");
