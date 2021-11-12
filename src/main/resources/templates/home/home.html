@@ -142,7 +142,7 @@
 
                     <div th:each="musicsheetGenreList : ${musicSheetByGenre}">
                         <div th:if="${musicsheetGenreList.size > 0}" th:remove="tag">
-                            <h6 class="wow fadeInUp genreTitle" data-wow-delay=".4s" th:text="${musicsheetGenreList[0].song.genre.name}"></h6>
+                            <h3 class="wow fadeInUp genreTitle mt-5 mb-3" data-wow-delay=".4s" th:text="${musicsheetGenreList[0].song.getGenre().getName()}"></h3>
                             <div th:each="musicsheet : ${musicsheetGenreList}">
                                 <div th:replace="fragments/musicSheetCard :: musicSheetCard(musicsheet = ${musicsheet})"></div>
                             </div>
@@ -181,7 +181,7 @@
                         <div class="image">
                             <img class="thumb" th:src="@{img/people-1.jpg}" alt="#">
                             <div class="meta-details">
-                                <span>AMATORE</span>
+                                <span th:text="#{home.peoplesection.amateur}" style="text-transform: uppercase;"></span>
                             </div>
                         </div>
                         <div class="content-body">
@@ -197,7 +197,7 @@
                         <div class="image">
                             <img class="thumb" th:src="@{img/people-2.jpg}"  alt="#">
                             <div class="meta-details">
-                                <span>COMPOSITORE</span>
+                                <span th:text="#{home.peoplesection.composer}" style="text-transform: uppercase;"></span>
                             </div>
                         </div>
                         <div class="content-body">
@@ -213,7 +213,7 @@
                         <div class="image">
                             <img class="thumb" th:src="@{img/people-3.jpg}"  alt="#">
                             <div class="meta-details">
-                                <span>PROFESSIONISTA</span>
+                                <span th:text="#{home.peoplesection.prefessionist}" style="text-transform: uppercase;"></span>
                             </div>
                         </div>
                         <div class="content-body">

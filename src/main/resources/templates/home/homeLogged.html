@@ -65,7 +65,7 @@
 
                     <div th:each="musicsheetGenreList : ${musicSheetByGenre}">
                         <div th:if="${musicsheetGenreList.size() > 0}" th:remove="tag">
-                            <h6 class="wow fadeInUp genreTitle" data-wow-delay=".4s" th:text="${musicsheetGenreList[0].song.getGenre().getName()}"></h6>
+                            <h3 class="wow fadeInUp genreTitle mt-5 mb-3" data-wow-delay=".4s" th:text="${musicsheetGenreList[0].song.getGenre().getName()}"></h3>
                             <div th:each="musicsheet : ${musicsheetGenreList}">
                                 <div th:replace="fragments/musicSheetCard :: musicSheetCard(musicsheet = ${musicsheet})"></div>
                             </div>

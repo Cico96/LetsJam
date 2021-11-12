@@ -90,7 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".respond-button").forEach((b) => {
     b.addEventListener("click", (e) => {
       e.preventDefault();
-      console.log(e.target.parentElement.parentElement.parentElement);
       addRespondtextBox(e.target.parentElement.parentElement.parentElement);
     });
   });
@@ -206,7 +205,6 @@ function addComment(input, parent, isResponse) {
   respond.href = "";
   respond.addEventListener("click", (e) => {
     e.preventDefault();
-    console.log(e.target.parentElement.parentElement.parentElement);
     addRespondtextBox(e.target.parentElement.parentElement.parentElement);
   });
 
@@ -330,7 +328,6 @@ function rearrange(){
     editor.loadJSON(musicSheetData.content);
 
     container.nextElementSibling.style.display = 'none';
-    console.log(container.nextElementSibling.nextElementSibling);
     container.nextElementSibling.nextElementSibling.classList.remove('d-flex');
     container.nextElementSibling.nextElementSibling.style.display = 'none';
     

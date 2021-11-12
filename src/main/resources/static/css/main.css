@@ -1325,10 +1325,8 @@ ol {
 }
 
 /* Homepages */
-h6.genreTitle {
+.genreTitle {
     margin-left: 20px;
-    margin-bottom: 20px;
-    text-decoration: underline;
     color: #3763eb;
 }
 .universal-demo .section-title {
