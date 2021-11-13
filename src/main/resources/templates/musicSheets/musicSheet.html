@@ -1,7 +1,6 @@
 <html 
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
     xmlns:th="http://www.thymeleaf.org" 
-    xmlns:nl2br="https://github.com/bufferings/thymeleaf-extras-nl2br"
     layout:decorate="~{layout/layout}">
 <head>
     <script src="https://prod.flat-cdn.com/embed-js/v1.1.0/embed.min.js"></script>
@@ -13,7 +12,8 @@
             var musicSheetData = /*[[${musicSheetData}]]*/ '';
             var musicSheetTitle = /*[[${musicSheet.title}]]*/'';  
             var loggedUser = /*[[${loggedUser}]]*/'';
-            var isAuthor = /*[[${musicSheet.user == loggedUser}]]*/'';      
+            var isAuthor = /*[[${musicSheet.user == loggedUser}]]*/'';      ù
+            var lang = /*[[${#locale.toString()}]]*/'';
         /*]]>*/
     </script>
 </head>
@@ -31,7 +31,7 @@
                             <svg th:replace="fragments/icons :: user"></svg>
                             <i></i>
                         </div>
-                        <span class="label mr-2">Caricato da:</span>
+                        <span class="label mr-2" th:text="#{musicsheet.uploadedBy}"></span>
                         <p th:text="${musicSheet.user.firstname+' '+musicSheet.user.lastname}"></p>
                     </div>
                     <div class="d-flex align-items-center mt-4 song-info">
@@ -39,7 +39,7 @@
                             <svg th:replace="fragments/icons :: album"></svg>
                             <i></i>
                         </div>
-                        <span class="label mr-2">Brano:</span>
+                        <span class="label mr-2" th:inline="text">[[#{createupload.song}]]:</span>
                         <a th:href="${'/songs/'+musicSheet.song.id}">
                             <p th:text="${musicSheet.song.title+' - '+musicSheet.song.author}"></p>
                         </a>
@@ -49,7 +49,7 @@
                             <svg th:replace="fragments/icons :: upload"></svg>
                             <i></i>
                         </div>
-                        <span class="label mr-2">Data caricamento:</span>
+                        <span class="label mr-2" th:text="#{musicsheet.uploadedDate}"></span>
                         <p th:text="${#temporals.format(musicSheet.createDateTime, 'dd/MM/yyyy')}"></p>
                     </div>
                     <div th:class="'mt-4 d-flex align-items-center like '+${musicSheet.likes.contains(loggedUser) ? 'liked' : ''}" th:inline="text" style="gap: 5px;">
@@ -58,11 +58,11 @@
                             <i></i>
                         </div>
                         <span> [[${musicSheet.likes.size}]] </span>
-                        Mi piace
+                        [[#{common.likes}]]
                     </div>
-                    <div class="verified-badge mt-4 d-flex align-items-center" th:if="${musicSheet.verified}">
+                    <div class="verified-badge mt-4 d-flex align-items-center" th:if="${musicSheet.verified}" th:inline="text">
                         <svg th:replace="fragments/icons :: verifyBadge"></svg>
-                        Verificato
+                        [[#{musicsheets.verified}]]
                     </div>
                 </div>
 
@@ -76,32 +76,32 @@
             <div class="row">
                 <div class="col-12 mt-4 pt-4 pb-4">
                     <div class="editor-container p-4">
-                        <h3 class="mt-4 mb-3">Strumenti</h3>
+                        <h3 class="mt-4 mb-3" th:text="#{common.instruments}"></h3>
                         <div class="instruments-container mb-4">
                             <div class="instrument" th:each="key : ${musicSheetData.instrumentMapping.keySet()}" th:partId="${musicSheetData.instrumentMapping.get(key)}">
                                 <svg th:replace="fragments/icons :: __${key.toLowerCase()}__"></svg>
                             </div>
                         </div>
                         <div id="embed" class="w-100"></div>
-                        <h3 class="mt-4 mb-3">Scarica lo Spartito</h3>
+                        <h3 class="mt-4 mb-3" th:text="#{musicsheet.download}"></h3>
                         <div class="d-flex flex-row align-items-center justify-content-between mb-4 pl-5 pr-5" style="gap:10px">
                             <div class="button wow fadeInUp submit mt-4" data-wow-delay=".7s" id="downloadXml"
                                         style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp; width: fit-content;">
-                                <a class="btn">Scarica in MusicXML</a>
+                                <a class="btn" th:text="#{musicsheet.download.musicxml}"></a>
                             </div>
 
                             <div class="button wow fadeInUp submit mt-4" data-wow-delay=".7s" id="downloadPdf" 
                                         style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp; width: fit-content;">
-                                <a class="btn">Stampa</a>
+                                <a class="btn" th:text="#{musicsheet.print}"></a>
                             </div>
 
                             <div class="button wow fadeInUp mt-4" id="downloadPng" data-wow-delay=".7s" 
                                         style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp; width: fit-content;">
-                                <a class="btn">Scarica in PNG</a>
+                                <a class="btn" th:text="#{musicsheet.download.png}"></a>
                             </div>
                         </div>
 
-                        <h3 class="mt-5 mb-2">Commenti</h3> 
+                        <h3 class="mt-5 mb-2" th:text="#{common.comments}"></h3> 
                         <div class="comments-container d-flex flex-column mt-4 mb-3 w-100 p-5">
 
                             <div th:each="comment : ${comments}" th:commentId="${comment.id}" class="comment d-flex align-items-center justify-content-start">
@@ -112,11 +112,11 @@
                                     &nbsp;
                                 </div>
                                 <div class="d-flex flex-column align-items-start justify-content-start" style="flex:17;">
-                                    <h6 class="user-name" th:text="${comment.user.firstname+' '+comment.user.lastname}">Mario Rossi</h6>
-                                    <p class="comment-content" th:text="${comment.content}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ipsum, amet qui in repellendus exercitationem est iste? Laborum nihil libero voluptates nesciunt, ex aut in vel, quisquam eveniet incidunt quia?</p>
+                                    <h6 class="user-name" th:text="${comment.user.firstname+' '+comment.user.lastname}"></h6>
+                                    <p class="comment-content" th:text="${comment.content}"></p>
                                     <div class="d-flex align-items-center justify-content-start comment-actions" style="gap:10px">
-                                        <a href="" class="respond-button">Rispondi</a>
-                                        <a href="" class="showResponses-button" th:if="${comment.replies > 0}" th:inline="text">Mostra risposte([[${comment.replies}]])</a>
+                                        <a href="" class="respond-button" th:text="#{common.reply}"></a>
+                                        <a href="" class="showResponses-button" th:if="${comment.replies > 0}" th:inline="text">[[#{common.showReplies}]]([[${comment.replies}]])</a>
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
                                 <div class="user-image" th:unless="${loggedUser.avatar}" th:style="'background:url(https://avatars.dicebear.com/api/male/'+${loggedUser.firstname}+'.svg);'">
                                     &nbsp;
                                 </div>
-                                <input type="text" placeholder="Scrivi il tuo commento" style="flex:17;">
+                                <input type="text" th:placeholder="#{common.writeComment}" style="flex:17;">
                             </div>
                         </div>
 

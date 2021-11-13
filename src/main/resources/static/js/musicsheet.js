@@ -150,9 +150,14 @@ function addRespondtextBox(el) {
   let userImage = document.createElement("div");
   userImage.classList.add("user-image");
   userImage.append("\u00A0");
+  userImage.style.background = loggedUser.avatar
+  ? loggedUser.avatar
+  : "url(https://avatars.dicebear.com/api/male/" +
+    loggedUser.firstname +
+    ".svg)";
   let input = document.createElement("input");
   input.setAttribute("type", "text");
-  input.setAttribute("placeholder", "Scrivi il tuo commento qui");
+  input.setAttribute("placeholder", (lang == 'it') ? "Scrivi il tuo commento" : "Write your comment");
   input.style.flex = "17";
   input.addEventListener("keyup", (e) => {
     if (e.keyCode === 13) {
@@ -201,7 +206,7 @@ function addComment(input, parent, isResponse) {
 
   let respond = document.createElement("a");
   respond.classList = "respond-button";
-  respond.innerText = "Rispondi";
+  respond.innerText = (lang == 'it') ? "Rispondi" : 'Reply';
   respond.href = "";
   respond.addEventListener("click", (e) => {
     e.preventDefault();
@@ -335,7 +340,7 @@ function rearrange(){
     saveButton.classList='button wow fadeInUp mt-4 mb-4';
     saveButton.setAttribute('style', 'visibility: visible; width: fit-content;');
     let a = document.createElement('a');
-    a.innerText='Salva';
+    a.innerText=(lang ==  'it') ? 'Salva' : 'Save';
     a.href = '#';
     a.classList='btn';
     saveButton.append(a);
