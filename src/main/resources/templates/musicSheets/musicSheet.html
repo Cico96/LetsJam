@@ -105,10 +105,10 @@
                         <div class="comments-container d-flex flex-column mt-4 mb-3 w-100 p-5">
 
                             <div th:each="comment : ${comments}" th:commentId="${comment.id}" class="comment d-flex align-items-center justify-content-start">
-                                <div class="user-image" th:if="${loggedUser.avatar}" th:style="'background:url('+${loggedUser.avatar}+');'">
+                                <div class="user-image" th:if="${comment.user.avatar}" th:style="'background:url('+${comment.user.avatar}+');'">
                                     &nbsp;
                                 </div>
-                                <div class="user-image" th:unless="${loggedUser.avatar}" th:style="'background:url(https://avatars.dicebear.com/api/male/'+${loggedUser.firstname}+'.svg);'">
+                                <div class="user-image" th:unless="${comment.user.avatar}" th:style="'background:url(https://avatars.dicebear.com/api/male/'+${comment.user.firstname}+'.svg);'">
                                     &nbsp;
                                 </div>
                                 <div class="d-flex flex-column align-items-start justify-content-start" style="flex:17;">
