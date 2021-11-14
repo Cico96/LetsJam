@@ -7,6 +7,8 @@ import it.univaq.disim.mwt.letsjam.business.ScoreAnalyzerService;
 import it.univaq.disim.mwt.letsjam.business.SongService;
 import it.univaq.disim.mwt.letsjam.business.SpotifyApiService;
 import it.univaq.disim.mwt.letsjam.presentation.viewModels.CreateUpdateSheetViewModel;
+
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import it.univaq.disim.mwt.letsjam.security.CustomUserDetails;
 import it.univaq.disim.mwt.letsjam.business.CommentService;
 import it.univaq.disim.mwt.letsjam.business.GenreService;
@@ -282,15 +285,20 @@ public class MusicSheetController {
 		@RequestParam("musicSheetId") long musicSheetId, 
 		@RequestParam("content") String content,
 		Authentication authentication){
-			User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
-			System.out.println(parentId+" "+musicSheetId+" "+content);
-			try {
-				Long parent = Long.parseLong(parentId);
-				commentService.addAnsewer(commentService.findCommentById(parent), loggedUser.getId(), content);	
-			} catch (Exception e) {
-				commentService.addComment(musicSheetId, loggedUser.getId(), content);
-			}
-			return new ResponseEntity<String>("Ok", HttpStatus.OK);
+		
+		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+		MusicSheet musicSheet = spartitoService.findMusicSheetById(musicSheetId);
+		Comment c = new Comment();
+		c.setUser(loggedUser);
+		c.setContent(content);
+		c.setMusicSheet(musicSheet);
+
+		if(StringUtils.isNotEmpty(parentId)){
+			Long parent = Long.parseLong(parentId);
+			c.setParentComment(commentService.findCommentById(parent));			
+		}
+		
+		return new ResponseEntity<String>("Ok", HttpStatus.OK);
 	}
 
 	@PostMapping("/getReplies")
