@@ -142,12 +142,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void promoteToAdmin(Long id) {
-		String q = "UPDATE User ut SET ut.role = :amministratore WHERE ut.id = :id";
-		Query query =  em.createQuery(q);
-		query.setParameter("amministratore", "amministratore");
-		query.setParameter("id", id);
 		try {
-			query.executeUpdate();
+			utenteRepository.promoteToAdmin(id,"amministratore");
 		} catch (Exception e) {
 			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
 		}

@@ -1,6 +1,9 @@
 package it.univaq.disim.mwt.letsjam.business.impl.jpa.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import it.univaq.disim.mwt.letsjam.domain.User;
@@ -21,6 +24,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	boolean existsUserByEmail(String email);
 	
 	void deleteUserById(Long id);
+
+	@Modifying
+	@Query(value = "UPDATE User ut SET ut.role = :amministratore WHERE ut.id = :id")
+	void promoteToAdmin(@Param("id") Long id, @Param("amministratore") String amministratore);
 
 //	void updateUser(User userr){
 //		EntityManager em = emf.createEntityManager();

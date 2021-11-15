@@ -26,8 +26,8 @@ public interface MusicSheetService {
 	void addLike(MusicSheet musicSheet, User user) throws BusinessException;
 
 	void removeLike(MusicSheet musicSheet, User user) throws BusinessException;
-	
-	void update(MusicSheet musicSheet) throws BusinessException;
+
+	MusicSheet update(MusicSheet musicSheet) throws BusinessException;
 
 	MusicSheet verifyMusicSheet(Long id) throws BusinessException;
 
