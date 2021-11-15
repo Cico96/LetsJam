@@ -36,7 +36,8 @@
 	                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
 									<p class="lang" style="display: none;" th:text="${#locale}"></p>
 	                                <ul id="nav" class="navbar-nav ml-auto">
-	                                    <li class="nav-item"><a class="active" href="/home">Home</a></li>
+										<li sec:authorize="(!hasRole('AMMINISTRATORE')) && (isAnonymous() || (isAuthenticated() && hasRole('UTENTE')))" class="nav-item"><a class="active" href="/home">Home</a></li>
+										<li sec:authorize="isAuthenticated() && hasRole('AMMINISTRATORE')" class="nav-item"><a class="active" href="/admin/home">Home</a></li>
 										<li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="/musicsheets/">Spartiti</a></li>
 	                                    <li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="/songs/">Brani</a></li>
 										<li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="/musicsheets/create">Crea-Carica</a></li>

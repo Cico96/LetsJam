@@ -83,6 +83,20 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 	}
 
 	@Override
+	public MusicSheet verifyMusicSheet(Long id) throws BusinessException {
+		MusicSheet target = musicSheetRepository.findMusicSheetById(id);
+		target.setVerified(true);
+		return musicSheetRepository.save(target);
+	}
+
+	// @Override
+	// public Spartito findSpartitoByContenuto(String contenuto) throws
+	// BusinessException {
+	// // tablature o spartiti
+	// return null;
+	// }
+
+	@Override
 	public MusicSheet findMusicSheetVerified(String title) throws BusinessException {
 		// TODO Auto-generated method stub
 		MusicSheet musicSheet = musicSheetRepository.findMusicSheetByTitle(title);

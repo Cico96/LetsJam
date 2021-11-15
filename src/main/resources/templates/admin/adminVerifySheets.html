@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/musicSheetCard.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/musicSheets.css}">
     <script type="text/javascript" th:src="@{/js/sidebar-submit.js}" ></script>
+    <script type="text/javascript" th:src="@{/js/manage-verifySheets.js}" ></script>
 </head>
 <body>
 <div layout:fragment="content" style="padding-top: 90px;">
@@ -161,7 +162,13 @@
         </div>
 
     </section>
-
+    <div id="confirm-verify-modal" class="modal-wrap">
+        <span>Confermi di voler verificare lo spartito?</span>
+        <form  id="verify"  th:action="@{verifyMusicsheet/}" th:method="post">
+        <button class="upUs btn btn-hover btn-block btn-dark btn-outline-light btn-close-white" type="submit">Conferma</button>
+            <input hidden type="text">
+        </form>
+    </div>
 </div>
 </body>
 

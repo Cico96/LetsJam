@@ -70,7 +70,7 @@ public class DummyController {
         if(authentication !=null){
             //Logged
             User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
-            System.out.println(loggedUser.getFirstname()+" "+loggedUser.getLastname());
+            System.out.println(loggedUser.getFirstname()+" "+loggedUser.getLastname() + " "+loggedUser.getRoles());
 
             List<MusicSheet> latest = spartitoService.getLastInsertMusicSheets();
             model.addAttribute("mostpopular", mostpopular);

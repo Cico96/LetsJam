@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,8 +26,8 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@DiscriminatorColumn(name = "role")
-@DiscriminatorValue("utente")
+//@DiscriminatorColumn(name = "role")
+//@DiscriminatorValue("utente")
 public class User extends AbstractPersistableEntity{
 	
 	@NotEmpty(groups ={OnCreate.class, Default.class})
@@ -43,8 +44,8 @@ public class User extends AbstractPersistableEntity{
     @Column(unique = true)
 	private String username;
 
-    //temporaneo per far funzionare l'update del ruolo
-	private String role;
+//  temporaneo per far funzionare l'update del ruolo
+	private String role = "utente";
 
 	@EmailUnique(groups = {OnCreate.class})
     @NotEmpty(groups = {OnCreate.class, Default.class})
@@ -78,6 +79,7 @@ public class User extends AbstractPersistableEntity{
         User user = (User) o;
         return Objects.equals(firstname, user.firstname) &&
                 Objects.equals(lastname, user.lastname) &&
+                Objects.equals(role, user.role) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(username, user.username) &&
                 Objects.equals(password, user.password);
@@ -85,12 +87,12 @@ public class User extends AbstractPersistableEntity{
 
 	@Override
     public int hashCode() {
-        return Objects.hash(firstname, lastname, email, username, password);
+        return Objects.hash(firstname, lastname, email, username, password, role);
     }
 
     @Transient
     public UserRoles getRoles(){
-        return UserRoles.valueOf(this.getClass().getAnnotation(DiscriminatorValue.class).value().toUpperCase());
+        return UserRoles.valueOf(this.getRole().toUpperCase());
     }
 }
 

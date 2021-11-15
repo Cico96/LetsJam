@@ -28,6 +28,8 @@ public interface MusicSheetService {
 	void removeLike(MusicSheet musicSheet, User user) throws BusinessException;
 	
 	void update(MusicSheet musicSheet) throws BusinessException;
+
+	MusicSheet verifyMusicSheet(Long id) throws BusinessException;
 	
 	void deleteMusicSheetById (Long id) throws BusinessException;
 	

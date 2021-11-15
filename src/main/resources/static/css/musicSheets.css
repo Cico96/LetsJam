@@ -14,3 +14,33 @@
 .verified {
     margin-top: 12px;
 }
+
+.modal-wrap{
+    position: fixed;
+    height: 30vh;
+    width: 30vw;
+    top: 35vh;
+    left: 35vw;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 99999;
+    background-color: #0d6efd;
+    border-radius: 25px;
+}
+.modal-wrap span{
+    color: #ffffff;
+}
+
+.verify-btn {
+    position: relative;
+}
+.verify-btn .action-container {
+    position: absolute;
+    z-index: 9999999;
+    bottom: 55px;
+    right: 50px;
+    cursor: pointer;
+    width: 200px;
+}
