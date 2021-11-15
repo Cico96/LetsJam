@@ -21,12 +21,8 @@ public interface UserService {
 	boolean existsUserByUsername(String username) throws BusinessException;
 	
 	boolean existsUserByEmail(String email) throws BusinessException;
-	
-	User insert(User user) throws BusinessException;
-	
+		
 	void deleteUserById(Long id) throws BusinessException;
-	
-	boolean UserIsAdmin(Long id) throws BusinessException;
 
 	void promoteToAdmin(Long id) throws BusinessException;
 	
@@ -38,7 +34,7 @@ public interface UserService {
 	
 	//void addGenerePreferito(Utente utente, Genere genere) throws BusinessException;
 	
-	void remove(User user, Genre genere) throws BusinessException;
+	void removePreferredGenre(User user, Genre genere) throws BusinessException;
 	
 	User addUser(User user) throws BusinessException;
 }

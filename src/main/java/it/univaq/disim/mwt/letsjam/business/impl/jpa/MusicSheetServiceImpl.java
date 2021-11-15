@@ -19,7 +19,6 @@ import it.univaq.disim.mwt.letsjam.business.InstrumentService;
 import it.univaq.disim.mwt.letsjam.business.MusicSheetService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetDataRepository;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetRepository;
-import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UserRepository;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheetData;
 import it.univaq.disim.mwt.letsjam.domain.Song;
@@ -48,38 +47,50 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 
 	@Override
 	public MusicSheet findMusicSheetById(Long id) throws BusinessException {
-		MusicSheet musicSheet = musicSheetRepository.findById(id).get();
-		musicSheet.setData(musicSheetDataRepository.findById(id.toString()).get());
-		return musicSheet;
+		try {
+			MusicSheet musicSheet = musicSheetRepository.findById(id).get();
+			musicSheet.setData(musicSheetDataRepository.findById(id.toString()).get());
+			return musicSheet;
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public MusicSheetData getMusicSheetData(Long id) throws BusinessException {
-		MusicSheetData data = musicSheetDataRepository.findById(id.toString()).get();
-		return data;
+		try {
+			return musicSheetDataRepository.findById(id.toString()).get();
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public MusicSheet addMusicSheet(MusicSheet musicSheet) throws BusinessException {
 		Set<Instrument> strumenti = new HashSet<Instrument>();
 		for (Instrument instrument : musicSheet.getInstruments()) {
-			if(instrumentService.findInstrumentByNome(instrument.getName()) == null) strumenti.add(instrumentService.addInstrument(instrument));
-			else strumenti.add(instrumentService.findInstrumentByNome(instrument.getName()));
+			if(instrumentService.findInstrumentByName(instrument.getName()) == null) strumenti.add(instrumentService.addInstrument(instrument));
+			else strumenti.add(instrumentService.findInstrumentByName(instrument.getName()));
 		}
-		
-		strumenti.forEach(i -> System.out.println(i.getName()+" - "+i.getId()));
 		musicSheet.setInstruments(strumenti);
-		MusicSheet ms = musicSheetRepository.save(musicSheet);
-		MusicSheetData data = musicSheet.getData();
-		data.setId(ms.getId().toString());
-		musicSheetDataRepository.save(data);
-		return ms;
+		try {
+			MusicSheet ms = musicSheetRepository.save(musicSheet);
+			MusicSheetData data = musicSheet.getData();
+			data.setId(ms.getId().toString());
+			musicSheetDataRepository.save(data);
+			return ms;
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public MusicSheet findMusicSheetByTitle(String title) throws BusinessException {
-		// TODO Auto-generated method stub
-		return musicSheetRepository.findMusicSheetByTitle(title);
+		try {
+			return musicSheetRepository.findMusicSheetByTitle(title);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
@@ -98,71 +109,106 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 
 	@Override
 	public MusicSheet findMusicSheetVerified(String title) throws BusinessException {
-		// TODO Auto-generated method stub
-		MusicSheet musicSheet = musicSheetRepository.findMusicSheetByTitle(title);
-		if (musicSheet.getVerified()) {
-			return musicSheet;
+		try {
+			MusicSheet musicSheet = musicSheetRepository.findMusicSheetByTitle(title);
+			if (musicSheet.getVerified()) {
+				return musicSheet;
+			}
+			return null;
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
 		}
-		return null;
 	}
 
 	@Override
-	public void update(MusicSheet musicSheet) throws BusinessException {
-		musicSheetDataRepository.save(musicSheet.getData());
-		musicSheetRepository.save(musicSheet);
+	public MusicSheet update(MusicSheet musicSheet) throws BusinessException {
+		try {
+			musicSheetDataRepository.save(musicSheet.getData());
+			return musicSheetRepository.save(musicSheet);
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}
 	}
 
 	@Override
 	public void deleteMusicSheetById(Long id) throws BusinessException {
-		// TODO Auto-generated method stub
-		musicSheetRepository.deleteById(id);
+		try {
+			musicSheetRepository.deleteById(id);
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}
 	}
 
 	@Override
 	public List<MusicSheet> getMostPopularMusicSheets() throws BusinessException {
-		Page<MusicSheet> spartiti = musicSheetRepository.getMostPopularMusicSheets(PageRequest.of(0, 5));
-		return spartiti.toList();
+		try {
+			return musicSheetRepository.getMostPopularMusicSheets(PageRequest.of(0, 5)).toList();
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public List<MusicSheet> getLastInsertMusicSheets() throws BusinessException {
-		Page<MusicSheet> spartiti = musicSheetRepository.getLastInsert(PageRequest.of(0, 5));
-		return spartiti.toList();
+		try {
+			return musicSheetRepository.getLastInsert(PageRequest.of(0, 5)).toList();
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public List<MusicSheet> getMusicSheetsBySong(Song song) throws BusinessException {
-		Page<MusicSheet> spartiti = musicSheetRepository.getMusicSheetsBySong(song, PageRequest.of(0, 5));
-		return spartiti.toList();
+		try {
+			return musicSheetRepository.getMusicSheetsBySong(song, PageRequest.of(0, 5)).toList();
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public List<MusicSheet> getMusicSheetsByGenre(Genre genre) throws BusinessException {
-		return musicSheetRepository.getMusicSheetsByGenre(genre, PageRequest.of(0, 3)).toList();
+		try {
+			return musicSheetRepository.getMusicSheetsByGenre(genre, PageRequest.of(0, 3)).toList();
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());			
+		}
 	}
 
 	@Override
 	public Page<MusicSheet> getAllMusicSheets(Pageable pageable) throws BusinessException {
-		return musicSheetRepository.findAll(pageable);
+		try {
+			return musicSheetRepository.findAll(pageable);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public List<MusicSheet> searchMusicSheetsByTitle(String title) throws BusinessException {
-		Page<MusicSheet> musicSheets = musicSheetRepository.searchMusicSheetsByTitle(title, PageRequest.of(0, 5));
-		return musicSheets.toList();
+		try {
+			return musicSheetRepository.searchMusicSheetsByTitle(title, PageRequest.of(0, 5)).toList();
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public List<MusicSheet> searchMusicSheetsByVerified(Boolean verified) throws BusinessException {
-		Page<MusicSheet> musicSheets = musicSheetRepository.searchMusicSheetsByVerified(verified, PageRequest.of(0, 5));
-		return musicSheets.toList();
+		try {
+			return musicSheetRepository.searchMusicSheetsByVerified(verified, PageRequest.of(0, 5)).toList();
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public List<MusicSheet> searchMusicSheetsByUserUsername(String username) throws BusinessException {
-		Page<MusicSheet> musicSheets = musicSheetRepository.searchMusicSheetsByUserUsername(username,
-				PageRequest.of(0, 5));
-		return musicSheets.toList();
+		try {
+			return musicSheetRepository.searchMusicSheetsByUserUsername(username,PageRequest.of(0, 5)).toList();
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
@@ -217,10 +263,14 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 		if(!instruments.isEmpty()) query.setParameter("instruments", instruments);
 		if(verified != null && verified) query.setParameter("verified", verified);
 		if(rearranged != null && rearranged) query.setParameter("rearranged", rearranged);
-		List<MusicSheet> musicSheets = query.getResultList();
-
-		int toIndex = (((pageNumber*pageSize)+pageSize) <= musicSheets.size()) ? (pageNumber*pageSize)+pageSize : musicSheets.size();
-		return new PageImpl<MusicSheet>(musicSheets.subList(pageNumber*pageSize, toIndex), PageRequest.of(pageNumber, pageSize), musicSheets.size());
+		
+		try {
+			List<MusicSheet> musicSheets = query.getResultList();
+			int toIndex = (((pageNumber*pageSize)+pageSize) <= musicSheets.size()) ? (pageNumber*pageSize)+pageSize : musicSheets.size();
+			return new PageImpl<MusicSheet>(musicSheets.subList(pageNumber*pageSize, toIndex), PageRequest.of(pageNumber, pageSize), musicSheets.size());
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
@@ -228,7 +278,11 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 		Set<User> likes = musicSheet.getLikes();
 		likes.add(user);
 		musicSheet.setLikes(likes);
-		musicSheetRepository.save(musicSheet);
+		try {
+			musicSheetRepository.save(musicSheet);
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}
 	}
 
 	@Override
@@ -236,7 +290,11 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 		Set<User> likes = musicSheet.getLikes();
 		likes.remove(user);
 		musicSheet.setLikes(likes);
-		musicSheetRepository.save(musicSheet);
+		try {
+			musicSheetRepository.save(musicSheet);
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}
 	}
 
 }

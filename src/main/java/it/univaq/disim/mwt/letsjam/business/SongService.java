@@ -12,7 +12,7 @@ public interface SongService {
 	
 	Song findSongById(Long id) throws BusinessException;
 	
-	Song findSongByTitol(String titol) throws BusinessException;
+	Song findSongByTitle(String title) throws BusinessException;
 	
 	Song findSongByAuthor(String author) throws BusinessException;
 
@@ -26,5 +26,9 @@ public interface SongService {
 
 	Page<Song> getAllSong(Pageable pageable) throws BusinessException;
 
-	Page<Song> getSearchedSongs(String search, List<String> genres, String albumType, String orderBy, Boolean isExplicit, Boolean hasLyrics, String sortDirection, int pageNumber, int pageSize) throws BusinessException;
+	Page<Song> getSearchedSongs(
+		String search, List<String> genres, 
+		String albumType, String orderBy, 
+		Boolean isExplicit, Boolean hasLyrics, 
+		String sortDirection, int pageNumber, int pageSize) throws BusinessException;
 }

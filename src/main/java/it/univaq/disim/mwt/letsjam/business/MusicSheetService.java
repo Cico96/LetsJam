@@ -30,7 +30,7 @@ public interface MusicSheetService {
 	void update(MusicSheet musicSheet) throws BusinessException;
 
 	MusicSheet verifyMusicSheet(Long id) throws BusinessException;
-	
+
 	void deleteMusicSheetById (Long id) throws BusinessException;
 	
 	List<MusicSheet> getMostPopularMusicSheets() throws BusinessException;

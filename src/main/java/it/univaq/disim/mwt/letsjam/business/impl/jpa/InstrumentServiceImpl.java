@@ -9,6 +9,7 @@ import it.univaq.disim.mwt.letsjam.business.InstrumentService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.InstrumentRepository;
 import it.univaq.disim.mwt.letsjam.domain.Instrument;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
+
 @Service
 public class InstrumentServiceImpl implements InstrumentService {
 	@Autowired
@@ -16,29 +17,47 @@ public class InstrumentServiceImpl implements InstrumentService {
 
 	@Override
 	public Instrument insert(Instrument instrument) throws BusinessException {
-		return strumentoRepository.save(instrument);
+		try {
+			return strumentoRepository.save(instrument);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public Instrument findInsstrumentById(Long id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return strumentoRepository.findInstrumentById(id);
+		try {
+			return strumentoRepository.findInstrumentById(id);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
-	public Instrument findInstrumentByNome(String name) throws BusinessException {
-		// TODO Auto-generated method stub
-		return strumentoRepository.findInstrumentByName(name);
+	public Instrument findInstrumentByName(String name) throws BusinessException {
+		try {
+			return strumentoRepository.findInstrumentByName(name);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public List<Instrument> getAllInstruments() throws BusinessException {
-		return strumentoRepository.findAll();
+		try {
+			return strumentoRepository.findAll();
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public Instrument addInstrument( Instrument instrument) throws BusinessException{
-		return strumentoRepository.save(instrument);
+		try {
+			return strumentoRepository.save(instrument);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 }

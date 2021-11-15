@@ -21,33 +21,55 @@ public class GenreServiceImpl implements GenreService {
 
 	@Override
 	public Genre insert(Genre genre) throws BusinessException {
-		return genereRepository.save(genre);
+		try {
+			return genereRepository.save(genre);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public Genre findGenreById(Long id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return genereRepository.findGenreById(id);
+		try {
+			return genereRepository.findGenreById(id);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public Genre findGenreByName(String name) throws BusinessException {
-		// TODO Auto-generated method stub
-		return genereRepository.findGenreByName(name);
+		try {
+			return genereRepository.findGenreByName(name);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 	@Override
 	public List<Genre> getRandomGenres() throws BusinessException {
-		return genereRepository.getRandomGenres(PageRequest.of(0, 3)).toList();
+		try {
+			return genereRepository.getRandomGenres(PageRequest.of(0, 3)).toList();
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
-	public void addGenre(Genre genre) throws BusinessException{
-		genereRepository.save(genre);
+	public Genre addGenre(Genre genre) throws BusinessException{
+		try {
+			return genereRepository.save(genre);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public List<Genre> getAllGenres() throws BusinessException {
-		return genereRepository.findAll();
+		try {
+			return genereRepository.findAll();
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 }

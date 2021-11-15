@@ -18,7 +18,7 @@ public interface GenreService {
 
 	List<Genre> getRandomGenres() throws BusinessException;
 
-	void addGenre(Genre genre) throws BusinessException;
+	Genre addGenre(Genre genre) throws BusinessException;
 
 	List<Genre> getAllGenres() throws BusinessException;
 }
