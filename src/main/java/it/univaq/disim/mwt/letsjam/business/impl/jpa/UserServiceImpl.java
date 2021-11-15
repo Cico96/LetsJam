@@ -91,6 +91,7 @@ public class UserServiceImpl implements UserService {
 			user_old.setLastname(user.getLastname());
 			user_old.setEmail(user.getEmail());
 			user_old.setPreferredGenres(user.getPreferredGenres());
+			user_old.setPreferredInstruments(user.getPreferredInstruments());
 			System.out.println(user.getAvatar());
 			if (user.getAvatar() != "") {
 				user_old.setAvatar(user.getAvatar());

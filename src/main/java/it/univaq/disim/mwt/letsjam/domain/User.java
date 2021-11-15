@@ -71,6 +71,13 @@ public class User extends AbstractPersistableEntity{
     inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private Set<Genre> preferredGenres = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
+    @JoinTable(
+    name = "strumenti_preferiti",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "instrument_id"))
+    private Set<Instrument> preferredInstruments = new HashSet<>();
+
     
 	@Override
     public boolean equals(Object o) {
