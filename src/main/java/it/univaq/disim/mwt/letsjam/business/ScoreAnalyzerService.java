@@ -204,4 +204,72 @@ public class ScoreAnalyzerService {
         return result;
     }
 
+    public JSONObject addInstrumentsToScore(List<String> instrumentNames, String json){
+        JSONObject result = new JSONObject(json.toString());
+        JSONArray parts = new JSONArray();
+        if(result.query("/score-partwise/part") instanceof JSONObject){
+            parts.put(result.query("/score-partwise/part"));
+        }
+        else{
+            parts = (JSONArray) result.query("/score-partwise/part");
+        }
+
+        JSONArray scoreParts = new JSONArray();
+        if(result.query("/score-partwise/part-list/score-part") instanceof JSONObject){
+            scoreParts.put(result.query("/score-partwise/part-list/score-part"));
+        }
+        else{
+            scoreParts = (JSONArray) result.query("/score-partwise/part-list/score-part");
+        }
+        
+        for(int i = 0; i < instrumentNames.size(); i++){
+            JSONObject scorePart = new JSONObject();
+            scorePart.put("$id", "P"+(i+1));
+            scorePart.put("part-name", instrumentNames.get(i));
+            scoreParts.put(scorePart);
+
+            JSONObject part = new JSONObject();
+            part.put("$id", "P"+(i+1));
+            JSONObject measure = new JSONObject();
+            measure.put("number", "1");
+            JSONObject attributes = new JSONObject();
+            attributes.put("divisions", "1");
+            JSONObject key = new JSONObject();
+            key.put("fifths", "0");
+            attributes.put("key", key);
+            
+            JSONObject time = new JSONObject();
+            time.put("beats", "4");
+            time.put("beat-type", "4");
+
+            JSONObject clef = new JSONObject();
+            clef.put("sign","G");
+            clef.put("line", "2");
+
+            JSONObject note = new JSONObject();
+            JSONObject pitch = new JSONObject();
+            pitch.put("step", "C");
+            pitch.put("octave", "4");
+            note.put("pitch", pitch);
+            note.put("duration", "4");
+            note.put("type", "whole");
+
+            measure.put("attributes", attributes);
+            measure.put("time", time);
+            measure.put("clef", clef);
+            measure.append("note", note);
+
+            part.put("measure", new JSONArray().put(measure));
+            parts.put(part);
+        }
+
+        ((JSONObject) result.query("/score-partwise")).remove("part");
+        ((JSONObject) result.query("/score-partwise")).put("part", parts);
+
+        ((JSONObject) result.query("/score-partwise/part-list")).remove("score-part");
+        ((JSONObject) result.query("/score-partwise/part-list")).put("score-part", scoreParts);
+
+        return result;
+    }
+
 }

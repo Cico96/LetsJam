@@ -23,7 +23,7 @@ public class GeneralController {
 	@Autowired
 	private GenreService genereService;
 
-    @GetMapping("/home")
+    @GetMapping("home")
     public String home(Model model, Authentication authentication){
         List<MusicSheet> mostpopular = spartitoService.getMostPopularMusicSheets();
         List<Genre> randomGenres = genereService.getRandomGenres();
@@ -50,7 +50,7 @@ public class GeneralController {
         return "home/home";
     }
 
-    @GetMapping("/admin/home")
+    @GetMapping("admin/home")
     public String adminHome(Model model, Authentication authentication){
         if(authentication !=null){
             //Logged
@@ -68,7 +68,6 @@ public class GeneralController {
 
     @GetMapping("about-us")
     public String aboutUs(Model model){
-        System.out.println("About Us");
         return "aboutUs/aboutUs";
     }
 
