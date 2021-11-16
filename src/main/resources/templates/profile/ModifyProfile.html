@@ -42,18 +42,20 @@
                                 Email
                                 <input th:field="*{email}" th:value="${profilo.email}" name="email" type="email" required/>
                             </label>
-                            <div class="preferred-genres" name="preferredGenres">
+                            <div class="preferred-genres">
                                 <span style="align-self: flex-start;" th:text="#{modifyProfile.preferredGenres}"></span>
                                 <div th:each="genre : ${generi}">
-<!--                                    <input th:checked="${profilo.preferredGenres.contains(genre)}" th:name="${genre.name}" th:id="${genre.name}" type="checkbox"/>-->
                                     <input th:field="*{preferredGenres}" th:value="${genre.id}" type="checkbox"/>
                                     <span th:text="${genre.name}"/>
                                 </div>
                             </div>
-                            <label name="preferredInstruments" th:inline="text">
-                                [[#{modifyProfile.preferredInstruments}]]
-                                <input placeholder="Placeholder per gli strumenti preferiti che al momento non ci sono" name="preferredInstruments" type="text"/>
-                            </label>
+                            <div class="preferred-genres">
+                                <span style="align-self: flex-start;" th:text="#{modifyProfile.preferredInstruments}"></span>
+                                <div th:each="instrument : ${strumenti}">
+                                    <input th:field="*{preferredInstruments}" th:value="${instrument.id}" type="checkbox"/>
+                                    <span th:text="${instrument.name}"/>
+                                </div>
+                            </div>
                             <div class="button btn">
                                 <button class="button btn" th:type="submit" th:text="#{modifyProfile.send}"></button>
                             </div>

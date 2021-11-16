@@ -91,6 +91,7 @@ public class UserServiceImpl implements UserService {
 			user_old.setLastname(user.getLastname());
 			user_old.setEmail(user.getEmail());
 			user_old.setPreferredGenres(user.getPreferredGenres());
+			user_old.setPreferredInstruments(user.getPreferredInstruments());
 			System.out.println(user.getAvatar());
 			if (user.getAvatar() != "") {
 				user_old.setAvatar(user.getAvatar());
@@ -142,12 +143,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void promoteToAdmin(Long id) {
-		String q = "UPDATE User ut SET ut.role = :amministratore WHERE ut.id = :id";
-		Query query =  em.createQuery(q);
-		query.setParameter("amministratore", "amministratore");
-		query.setParameter("id", id);
 		try {
-			query.executeUpdate();
+			utenteRepository.promoteToAdmin(id,"amministratore");
 		} catch (Exception e) {
 			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
 		}

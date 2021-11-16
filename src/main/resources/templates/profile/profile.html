@@ -8,7 +8,7 @@
 </head>
 <body>
 <div layout:fragment="content" style="padding-top: 90px;">
-    <section class="hero-area pt-4 pb-4">
+    <section style="min-height: calc(100vh - 600px);" class="hero-area pt-4 pb-4">
         <div class="container mt-4">
             <div class="row">
                 <div class="col-3 pt-5 text-center">
@@ -49,11 +49,11 @@
                             </div>
                             <h3 th:text="#{profile.preferredInstruments}+':'" class=""></h3>
                         </div>
-<!--                        <span class="pref-genre" th:each="instrument : ${profilo.preferredInstruments}" th:text="${instrument.name}"></span>-->
+                        <span class="pref-genre" th:each="instrument : ${profilo.preferredInstruments}" th:text="${instrument.name}"></span>
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div th:if="${profilo.getRole().equals('utente')}" class="row">
                 <div class="col-12 mt-4 pt-4 pb-4">
                     <h3 class="mt-4 mb-4" th:text="#{profile.yourSheets}"></h3>
                 </div>
@@ -76,7 +76,7 @@
                 </section>
                 <!-- /End mine Section -->
             </div>
-            <div class="row">
+            <div th:if="${profilo.getRole().equals('utente')}" class="row">
                 <div class="col-12 mt-4 pt-4 pb-4">
                     <h3 class="mt-4 mb-4" th:text="#{profile.messagesCentre}"></h3>
                 </div>
