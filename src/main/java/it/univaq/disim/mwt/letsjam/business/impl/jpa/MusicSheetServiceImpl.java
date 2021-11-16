@@ -52,7 +52,7 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 			musicSheet.setData(musicSheetDataRepository.findById(id.toString()).get());
 			return musicSheet;
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("Impossibile trovare lo spartito \n"+e.getMessage());
 		}
 	}
 
@@ -61,7 +61,7 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 		try {
 			return musicSheetDataRepository.findById(id.toString()).get();
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("Impossibile ottenere i dati dello spartito \n"+e.getMessage());
 		}
 	}
 
@@ -80,7 +80,7 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 			musicSheetDataRepository.save(data);
 			return ms;
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
 		}
 	}
 
@@ -102,7 +102,7 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 			}
 			return null;
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("Impossibile trovare lo spartito \n"+e.getMessage());
 		}
 	}
 
@@ -130,7 +130,7 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 		try {
 			return musicSheetRepository.getMostPopularMusicSheets(PageRequest.of(0, 5)).toList();
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
 		}
 	}
 
@@ -139,7 +139,7 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 		try {
 			return musicSheetRepository.getLastInsert(PageRequest.of(0, 5)).toList();
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
 		}
 	}
 
@@ -148,7 +148,7 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 		try {
 			return musicSheetRepository.getMusicSheetsBySong(song, PageRequest.of(0, 5)).toList();
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
 		}
 	}
 
@@ -157,7 +157,7 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 		try {
 			return musicSheetRepository.getMusicSheetsByGenre(genre, PageRequest.of(0, 3)).toList();
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());			
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());			
 		}
 	}
 
@@ -166,7 +166,7 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 		try {
 			return musicSheetRepository.findAll(pageable);
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
 		}
 	}
 
@@ -175,7 +175,7 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 		try {
 			return musicSheetRepository.searchMusicSheetsByTitle(title, PageRequest.of(0, 5)).toList();
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
 		}
 	}
 
@@ -184,7 +184,7 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 		try {
 			return musicSheetRepository.searchMusicSheetsByVerified(verified, PageRequest.of(0, 5)).toList();
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
 		}
 	}
 
@@ -193,7 +193,7 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 		try {
 			return musicSheetRepository.searchMusicSheetsByUserUsername(username,PageRequest.of(0, 5)).toList();
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
 		}
 	}
 
@@ -255,7 +255,7 @@ public class MusicSheetServiceImpl implements MusicSheetService {
 			int toIndex = (((pageNumber*pageSize)+pageSize) <= musicSheets.size()) ? (pageNumber*pageSize)+pageSize : musicSheets.size();
 			return new PageImpl<MusicSheet>(musicSheets.subList(pageNumber*pageSize, toIndex), PageRequest.of(pageNumber, pageSize), musicSheets.size());
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
 		}
 	}
 

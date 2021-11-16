@@ -20,7 +20,7 @@ public class InstrumentServiceImpl implements InstrumentService {
 		try {
 			return strumentoRepository.save(instrument);
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
 		}
 	}
 
@@ -29,7 +29,7 @@ public class InstrumentServiceImpl implements InstrumentService {
 		try {
 			return strumentoRepository.findInstrumentById(id);
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("Impossibile trovare lo strumento specificato \n"+e.getMessage());
 		}
 	}
 
@@ -38,7 +38,7 @@ public class InstrumentServiceImpl implements InstrumentService {
 		try {
 			return strumentoRepository.findInstrumentByName(name);
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("Impossibile trovare lo strumento specificato \n"+e.getMessage());
 		}
 	}
 
@@ -47,7 +47,7 @@ public class InstrumentServiceImpl implements InstrumentService {
 		try {
 			return strumentoRepository.findAll();
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
 		}
 	}
 
@@ -56,7 +56,7 @@ public class InstrumentServiceImpl implements InstrumentService {
 		try {
 			return strumentoRepository.save(instrument);
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
 		}
 	}
 

@@ -31,7 +31,7 @@ public class CommentServiceImpl implements CommentService {
 			return commentRepository.save(comment);
 			
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
 		}	
 	}
 
@@ -40,7 +40,7 @@ public class CommentServiceImpl implements CommentService {
 		try {
 			return commentRepository.save(comment);
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
 		}
 	}
 
@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
 		try {
 			return commentRepository.getMusicSheetComments(musicSheetId);
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("Impossibile trovare i commenti per lo spartito \n"+e.getMessage());
 		}
 	}
 
@@ -58,7 +58,7 @@ public class CommentServiceImpl implements CommentService {
 		try {
 			return commentRepository.getReplies(parentId);
 		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("Impossibile trovare le risposte al commento \n"+e.getMessage());
 		}
 	}
 
