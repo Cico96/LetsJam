@@ -61,5 +61,4 @@ public class CommentServiceImpl implements CommentService {
 			throw new BusinessException("Impossibile trovare le risposte al commento \n"+e.getMessage());
 		}
 	}
-
 }
