@@ -164,10 +164,9 @@
     </section>
     <div id="confirm-verify-modal" class="modal-wrap">
         <span>Confermi di voler verificare lo spartito?</span>
-        <form  id="verify"  th:action="@{verifyMusicsheet/}" th:method="post">
-        <button class="upUs btn btn-hover btn-block btn-dark btn-outline-light btn-close-white" type="submit">Conferma</button>
-            <input hidden type="text">
-        </form>
+        <div  id="verify">
+            <button class="upUs btn btn-hover btn-block btn-dark btn-outline-light btn-close-white" type="submit">Conferma</button>
+        </div>
     </div>
 </div>
 </body>

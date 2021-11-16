@@ -9,7 +9,7 @@
                 <h3 th:text="${musicsheet.title}"></h3>
                 <div style="display: flex">
                     <div class="d-flex align-items-center" sec:authorize="hasRole('AMMINISTRATORE')">
-                        <div class="verified-badge d-flex align-items-center" th:classappend="${!musicsheet.verified ? 'not-verified-badge' : ''}">
+                        <div th:id="${musicsheet.id}" class="verified-badge d-flex align-items-center" th:classappend="${!musicsheet.verified ? 'not-verified-badge' : ''}">
                             <svg th:replace="fragments/icons :: verifyBadge"></svg>
                             Verificato
                         </div>

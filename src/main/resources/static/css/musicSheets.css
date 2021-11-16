@@ -36,11 +36,23 @@
 .verify-btn {
     position: relative;
 }
+.verify-btn-detail-pg {
+    position: static;
+}
 .verify-btn .action-container {
     position: absolute;
     z-index: 9999999;
     bottom: 55px;
     right: 50px;
     cursor: pointer;
+    width: 200px;
+}
+.verify-btn-detail-pg .action-container {
+    position: relative ;
+    z-index: unset;
+    bottom: unset;
+    right: unset;
+    cursor: pointer;
+    margin-top: 35px;
     width: 200px;
 }

@@ -60,22 +60,8 @@ public class AdminController {
 
     @PostMapping("/verifyMusicsheet")
     public String search(@RequestParam("musicSeetId") Long musicSeetId, MusicSheetSearchViewModel formData, Model model){
-        System.out.println(musicSeetId);
-        List<Genre> genres = genreService.getAllGenres();
-        List<Instrument> instruments = instrumentService.getAllInstruments();
-//        Page<MusicSheet> musicSheets = spartitoService.searchMusicSheets(
-//                formData.getSearch(), formData.getSortBy(),
-//                formData.getSortDirection(), formData.getGenres(),
-//                formData.getInstruments(), formData.getVerified(),
-//                formData.getRearranged(), formData.getPageNumber(), PAGE_SIZE);
-//        formData.setTotalPages(musicSheets.getTotalPages());
-
         spartitoService.verifyMusicSheet(musicSeetId);
 
-        model.addAttribute("formData", formData);
-        model.addAttribute("instruments", instruments);
-//        model.addAttribute("musicSheets", musicSheets);
-        model.addAttribute("genres", genres);
         return "admin/adminVerifySheets";
     }
 

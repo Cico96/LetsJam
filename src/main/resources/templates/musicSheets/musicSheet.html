@@ -1,12 +1,15 @@
 <html 
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
     layout:decorate="~{layout/layout}">
 <head>
     <script src="https://prod.flat-cdn.com/embed-js/v1.1.0/embed.min.js"></script>
     <script type="text/javascript" th:src="@{/js/musicsheet.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/musicSheetCard.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/musicSheets.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/song.css}">
+    <script type="text/javascript" th:src="@{/js/manage-verifySheets.js}" ></script>
     <script th:inline="javascript">
         /*<![CDATA[*/
             var musicSheetData = /*[[${musicSheetData}]]*/ '';
@@ -63,6 +66,11 @@
                     <div class="verified-badge mt-4 d-flex align-items-center" th:if="${musicSheet.verified}" th:inline="text">
                         <svg th:replace="fragments/icons :: verifyBadge"></svg>
                         [[#{musicsheets.verified}]]
+                    </div>
+                    <div class="verify-btn verify-btn-detail-pg" sec:authorize="hasRole('AMMINISTRATORE')">
+                        <div th:data-verify="${musicSheet.id}" th:if="${!musicSheet.verified}" class="action-container">
+                            <span class="d-flex flex-row align-items-center justify-content-end" style="gap:20px">Verifica spartito</span>
+                        </div>
                     </div>
                 </div>
 
@@ -141,6 +149,13 @@
     <a href="" class="rearrangeButton btn-hover">
         <svg th:replace="fragments/icons :: modify"></svg>
     </a>
+
+    <div sec:authorize="hasRole('AMMINISTRATORE')" id="confirm-verify-modal" class="modal-wrap">
+        <span>Confermi di voler verificare lo spartito?</span>
+        <div id="verify">
+            <button class="upUs btn btn-hover btn-block btn-dark btn-outline-light btn-close-white" type="submit">Conferma</button>
+        </div>
+    </div>
 
 </div>
 </body>
