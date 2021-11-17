@@ -42,14 +42,14 @@
                                 Email
                                 <input th:field="*{email}" th:value="${profilo.email}" name="email" type="email" required/>
                             </label>
-                            <div th:if="${profilo.role.equals('UTENTE')}" class="preferred-genres">
+                            <div th:if="${profilo.role.equals('utente')}" class="preferred-genres">
                                 <span style="align-self: flex-start;" th:text="#{modifyProfile.preferredGenres}"></span>
                                 <div th:each="genre : ${generi}">
                                     <input th:field="*{preferredGenres}" th:value="${genre.id}" type="checkbox"/>
                                     <span th:text="${genre.name}"/>
                                 </div>
                             </div>
-                            <div th:if="${profilo.role.equals('UTENTE')}" class="preferred-genres">
+                            <div th:if="${profilo.role.equals('utente')}" class="preferred-genres">
                                 <span style="align-self: flex-start;" th:text="#{modifyProfile.preferredInstruments}"></span>
                                 <div th:each="instrument : ${strumenti}">
                                     <input th:field="*{preferredInstruments}" th:value="${instrument.id}" type="checkbox"/>
