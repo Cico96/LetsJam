@@ -22,7 +22,7 @@
             </div>
             <div class="d-flex align-items-center justify-content-between mt-2" style="gap:10px;">
                 <p  class="mt-1" style="margin:0;">ruolo attuale</p>
-                <p th:text="${user.getRoles()}" class="mt-1"style="margin:0; text-transform: capitalize;"></p>
+                <p th:text="${user.getRole()}" class="mt-1"style="margin:0; text-transform: capitalize;"></p>
             </div>
             <div class="d-flex flex-row align-items-center justify-content-end" style="gap:20px">
                 <div id="promoteUser" th:data-user="${user.id}" th:data-username="${user.firstname} + ' ' + ${user.lastname}" class="icon">

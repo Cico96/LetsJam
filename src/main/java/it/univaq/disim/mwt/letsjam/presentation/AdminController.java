@@ -77,7 +77,7 @@ public class AdminController {
     @PostMapping("/manageUsers")
     public String promoteUsers(@RequestParam("userIds") ArrayList<String> userIds, Model model, Authentication authentication){
         userIds.forEach(uid -> {
-            if (userService.findUserById(Long.parseLong(uid)).getRoles().equals(UserRoles.valueOf("UTENTE"))) {
+            if (userService.findUserById(Long.parseLong(uid)).getRole().equals(UserRoles.UTENTE)) {
                 userService.promoteToAdmin(Long.parseLong(uid));
             }
         });
@@ -90,7 +90,7 @@ public class AdminController {
     @PostMapping("/deleteUser")
     public String deleteUsers(@RequestParam("userIds") ArrayList<String> userIds, Model model,Authentication authentication){
         userIds.forEach(uid -> {
-            if (userService.findUserById(Long.parseLong(uid)).getRoles().equals(UserRoles.valueOf("UTENTE"))) {
+            if (userService.findUserById(Long.parseLong(uid)).getRole().equals(UserRoles.UTENTE)) {
                 userService.deleteUserById(Long.parseLong(uid));
             }
         });

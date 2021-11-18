@@ -54,15 +54,12 @@ public class ProfileController {
 		System.out.println(loggedUser.getAvatar());
 		model.addAttribute("myMusicSheets", myMusicSheets);
 		model.addAttribute("profilo", loggedUser);
-		
 		return "profile/profile";
 	}
 
 	@GetMapping("/modifica-profilo")
 	public String getModificaProfilo(Model model, Authentication authentication) throws BusinessException {
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
-		List<MusicSheet> myMusicSheets = spartitoService.searchMusicSheetsByUserUsername(loggedUser.getUsername());
-
 		model.addAttribute("strumenti", instrumentService.getAllInstruments());
 		model.addAttribute("generi", genreService.getAllGenres());
 		model.addAttribute("profilo", loggedUser);

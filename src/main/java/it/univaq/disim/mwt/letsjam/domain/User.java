@@ -44,8 +44,8 @@ public class User extends AbstractPersistableEntity{
     @Column(unique = true)
 	private String username;
 
-//  temporaneo per far funzionare l'update del ruolo
-	private String role = "utente";
+    @Enumerated(EnumType.STRING)
+	private UserRoles role = UserRoles.UTENTE;
 
 	@EmailUnique(groups = {OnCreate.class})
     @NotEmpty(groups = {OnCreate.class, Default.class})
@@ -97,10 +97,10 @@ public class User extends AbstractPersistableEntity{
         return Objects.hash(firstname, lastname, email, username, password, role);
     }
 
-    @Transient
+    /*@Transient
     public UserRoles getRoles(){
-        return UserRoles.valueOf(this.getRole().toUpperCase());
-    }
+        return UserRoles.valueOf(this.getRole());
+    }*/
 }
 
 
