@@ -1,12 +1,14 @@
 server:
   servlet:
     context-path: /
-
+  tomcat:
+    max-http-form-post-size: 10MB
+        
 spring:
   application:
     name: LetsJam
   profiles:
-    active: dev
+    active: prod
   jackson:
     default-property-inclusion: NON_NULL
   messages:
@@ -17,7 +19,7 @@ spring:
   jpa:
    properties:
       hibernate:
-        dialect: ${HIBERNATE_DIALECT}
+        dialect: org.hibernate.dialect.MySQL5Dialect
         hbm2ddl.auto: update
         #format_sql: true
         #show_sql: true
