@@ -227,3 +227,7 @@ input[type="text"]:focus{
     box-shadow: 0 1rem 3rem rgba(35, 38, 45, 0.15) !important;
     transform: translate3d(0, -5px, 0);
 }
+
+.rearrangeButton svg{
+    fill: white;
+}

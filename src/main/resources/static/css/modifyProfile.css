@@ -39,7 +39,8 @@
 .preferred-genres {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: start;
+    gap: 15px;
     flex-wrap: wrap;
 }
 

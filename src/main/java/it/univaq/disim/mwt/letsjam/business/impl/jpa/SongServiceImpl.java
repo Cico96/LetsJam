@@ -1,7 +1,6 @@
 package it.univaq.disim.mwt.letsjam.business.impl.jpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -16,11 +15,6 @@ import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,47 +26,74 @@ public class SongServiceImpl implements SongService {
 
 	@Override
 	public Song findSongById(Long id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return branoRepository.findSongById(id);
+		try {
+			return branoRepository.findSongById(id);
+		} catch (Exception e) {
+			throw new BusinessException("Impossibile trovare il brano specificato \n"+e.getMessage());
+		}
 	}
 
 	@Override
-	public Song findSongByTitol(String titol) throws BusinessException {
-		// TODO Auto-generated method stub
-		return branoRepository.findSongByTitle(titol);
+	public Song findSongByTitle(String title) throws BusinessException {
+		try {
+			return branoRepository.findSongByTitle(title);
+		} catch (Exception e) {
+			throw new BusinessException("Impossibile trovare il brano specificato \n"+e.getMessage());
+		}
 	}
 
 	@Override
 	public Song findSongByAuthor(String author) throws BusinessException {
-		// TODO Auto-generated method stub
-		return branoRepository.findSongByAuthor(author);
+		try {
+			return branoRepository.findSongByAuthor(author);
+		} catch (Exception e) {
+			throw new BusinessException("Impossibile trovare il brano specificato \n"+e.getMessage());
+		}
 	}
+
 	@Override
 	public Song updateSong(Song song) throws BusinessException{
-		return branoRepository.save(song);
+		try {
+			return branoRepository.save(song);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public List<Song> searchSongsByTitleAndAuthor(String search) throws BusinessException {
-		List<Song> songs = branoRepository.searchSongsByTitleAndAuthor(search);
-		return songs;
+		try {
+			return branoRepository.searchSongsByTitleAndAuthor(search);
+		} catch (Exception e) {
+			throw new BusinessException("Impossibile trovare il brano specificato \n"+e.getMessage());
+		}
 	}
 
 	@Override
 	public List<Song> searchSongsByAlbum(String album) throws BusinessException {
-		Page<Song> songs = branoRepository.searchSongsByAlbum(album, PageRequest.of(0,5));
-		return songs.toList();
+		try {
+			return branoRepository.searchSongsByAlbum(album, PageRequest.of(0,5)).toList();
+		} catch (Exception e) {
+			throw new BusinessException("Impossibile trovare il brano specificato \n"+e.getMessage());
+		}
 	}
 
 	@Override
 	public List<Song> searchSongsByGenre(String name) throws BusinessException {
-		Page<Song> songs = branoRepository.searchSongsByGenre(name, PageRequest.of(0,5));
-		return songs.toList();
+		try {
+			return branoRepository.searchSongsByGenre(name, PageRequest.of(0,5)).toList();
+		} catch (Exception e) {
+			throw new BusinessException("Impossibile trovare il brano specificato \n"+e.getMessage());
+		}
 	}
 
 	@Override
 	public Page<Song> getAllSong(Pageable pageable) throws BusinessException {
-		return branoRepository.findAll(pageable);
+		try {
+			return branoRepository.findAll(pageable);
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}
 	}
 
 	@Override
@@ -118,17 +139,19 @@ public class SongServiceImpl implements SongService {
 		if (orderBy != null){
 			q += "ORDER BY s."+orderBy+" "+sortDirection;
 		}
-		//System.out.println(q);
 
 		Query query =  em.createQuery(q);
 		if(search != null && search.length() > 0) query.setParameter("search", search);
 		if(!genres.isEmpty()) query.setParameter("genres", genres);
 		if(albumType != null) query.setParameter("albumType", albumType);
 		if(isExplicit != null && isExplicit) query.setParameter("explicit", isExplicit);
-		List<Song> songs = query.getResultList();
-
-		int toIndex = (((pageNumber*pageSize)+pageSize) <= songs.size()) ? (pageNumber*pageSize)+pageSize : songs.size();
-		return new PageImpl<Song>(songs.subList(pageNumber*pageSize, toIndex), PageRequest.of(pageNumber, pageSize), songs.size());
+		
+		try {
+			List<Song> songs = query.getResultList();
+			int toIndex = (((pageNumber*pageSize)+pageSize) <= songs.size()) ? (pageNumber*pageSize)+pageSize : songs.size();
+			return new PageImpl<Song>(songs.subList(pageNumber*pageSize, toIndex), PageRequest.of(pageNumber, pageSize), songs.size());
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}
 	}
-
 }

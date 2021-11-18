@@ -36,7 +36,7 @@ public class AuthController {
         user.setPassword(encoder.encode(user.getPassword()));
         //Salvo l'utente appena creato
         utenteService.addUser(user);
-        System.out.println(user.getRoles()+" "+ user.getFirstname()+" "+ user.getLastname()+": registrato con successo");
+        System.out.println(user.getRole().toString()+" "+ user.getFirstname()+" "+ user.getLastname()+": registrato con successo");
             return "auth/login";
     }
     

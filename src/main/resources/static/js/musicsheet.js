@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   let container = document.getElementById("embed");
-  let editor = new Flat.Embed(container, {
+  var editor = new Flat.Embed(container, {
     score: "",
     height: "1000px",
     embedParams: {
@@ -90,7 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".respond-button").forEach((b) => {
     b.addEventListener("click", (e) => {
       e.preventDefault();
-      console.log(e.target.parentElement.parentElement.parentElement);
       addRespondtextBox(e.target.parentElement.parentElement.parentElement);
     });
   });
@@ -117,9 +116,16 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.querySelector('.like').addEventListener('click', like);
+
+  document.querySelector('.rearrangeButton').addEventListener('click', e =>{
+    e.preventDefault();
+    rearrange();
+  });
 });
 
-var exportFile = function (buffer, mimeType, ext) {
+
+
+function exportFile (buffer, mimeType, ext) {
   var blobUrl = window.URL.createObjectURL(
     new Blob([buffer], {
       type: mimeType,
@@ -144,9 +150,14 @@ function addRespondtextBox(el) {
   let userImage = document.createElement("div");
   userImage.classList.add("user-image");
   userImage.append("\u00A0");
+  userImage.style.background = loggedUser.avatar
+  ? loggedUser.avatar
+  : "url(https://avatars.dicebear.com/api/male/" +
+    loggedUser.firstname +
+    ".svg)";
   let input = document.createElement("input");
   input.setAttribute("type", "text");
-  input.setAttribute("placeholder", "Scrivi il tuo commento qui");
+  input.setAttribute("placeholder", (lang == 'it') ? "Scrivi il tuo commento" : "Write your comment");
   input.style.flex = "17";
   input.addEventListener("keyup", (e) => {
     if (e.keyCode === 13) {
@@ -195,11 +206,10 @@ function addComment(input, parent, isResponse) {
 
   let respond = document.createElement("a");
   respond.classList = "respond-button";
-  respond.innerText = "Rispondi";
+  respond.innerText = (lang == 'it') ? "Rispondi" : 'Reply';
   respond.href = "";
   respond.addEventListener("click", (e) => {
     e.preventDefault();
-    console.log(e.target.parentElement.parentElement.parentElement);
     addRespondtextBox(e.target.parentElement.parentElement.parentElement);
   });
 
@@ -302,5 +312,83 @@ async function like(){
     ContentType: "multipart/form-data",
     processData: false,
     body: formData,
+  });
+}
+
+function rearrange(){
+  if(isAuthor){
+    let container = document.getElementById("embed");
+    container.innerHTML = "";
+    editor = new Flat.Embed(container, {
+      score: "",
+      height: "1000px",
+      embedParams: {
+        mode: "edit",
+        appId: "59e7684b476cba39490801c2",
+        branding: false,
+        controlsPosition: "top",
+        layout: "page",
+      },
+    });
+    editor.loadJSON(musicSheetData.content);
+
+    container.nextElementSibling.style.display = 'none';
+    container.nextElementSibling.nextElementSibling.classList.remove('d-flex');
+    container.nextElementSibling.nextElementSibling.style.display = 'none';
+    
+    let saveButton = document.createElement('div');
+    saveButton.classList='button wow fadeInUp mt-4 mb-4';
+    saveButton.setAttribute('style', 'visibility: visible; width: fit-content;');
+    let a = document.createElement('a');
+    a.innerText=(lang ==  'it') ? 'Salva' : 'Save';
+    a.href = '#';
+    a.classList='btn';
+    saveButton.append(a);
+    saveButton.addEventListener('click', e => {
+      e.preventDefault();
+      updateMusicSheet();
+    });
+
+    container.parentNode.insertBefore(saveButton, container.nextSibling);
+    return;
+  }
+  window.location.href= `http://${window.location.host}/musicsheets/rearrange/${musicSheetData.id}`;
+}
+
+function updateMusicSheet(){
+  let container = document.getElementById("embed");
+  container.nextElementSibling.remove();
+  container.nextElementSibling.style.display='initial';
+  container.nextElementSibling.nextElementSibling.classList.add('d-flex');
+
+  editor.getJSON().then(async (json) => {
+    musicSheetData.content = JSON.stringify(json);
+    container.innerHTML = "";
+    editor = new Flat.Embed(container, {
+      score: "",
+      height: "1000px",
+      embedParams: {
+        mode: "view",
+        appId: "59e7684b476cba39490801c2",
+        branding: false,
+        controlsDisplay: true,
+        controlsPanel: false,
+        controlsPosition: "top",
+        hideFlatPlayback: false,
+        layout: "page",
+      },
+    });
+    editor.loadJSON(musicSheetData.content);
+
+    //ajax call
+    let formData = new FormData();
+    formData.append("musicSheetId", musicSheetData.id);
+    formData.append("musicSheetContent", musicSheetData.content);
+    return await fetch("/musicsheets/update", {
+      method: "POST",
+      ContentType: "multipart/form-data",
+      processData: false,
+      body: formData
+    });
   });
 }

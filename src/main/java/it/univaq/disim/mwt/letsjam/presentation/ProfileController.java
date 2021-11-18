@@ -1,6 +1,7 @@
 package it.univaq.disim.mwt.letsjam.presentation;
 
 import it.univaq.disim.mwt.letsjam.business.GenreService;
+import it.univaq.disim.mwt.letsjam.business.InstrumentService;
 import it.univaq.disim.mwt.letsjam.business.MusicSheetService;
 import it.univaq.disim.mwt.letsjam.config.WebSecurityConfig;
 import it.univaq.disim.mwt.letsjam.domain.Genre;
@@ -40,6 +41,9 @@ public class ProfileController {
     @Autowired
 	GenreService genreService;
 
+    @Autowired
+	InstrumentService instrumentService;
+
 	@Autowired
 	private MusicSheetService spartitoService;
     
@@ -50,15 +54,13 @@ public class ProfileController {
 		System.out.println(loggedUser.getAvatar());
 		model.addAttribute("myMusicSheets", myMusicSheets);
 		model.addAttribute("profilo", loggedUser);
-		
 		return "profile/profile";
 	}
 
 	@GetMapping("/modifica-profilo")
 	public String getModificaProfilo(Model model, Authentication authentication) throws BusinessException {
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
-		List<MusicSheet> myMusicSheets = spartitoService.searchMusicSheetsByUserUsername(loggedUser.getUsername());
-
+		model.addAttribute("strumenti", instrumentService.getAllInstruments());
 		model.addAttribute("generi", genreService.getAllGenres());
 		model.addAttribute("profilo", loggedUser);
 		return "profile/ModifyProfile";
@@ -73,6 +75,7 @@ public class ProfileController {
 		loggedUser.setLastname(profilo.getLastname());
 		loggedUser.setEmail(profilo.getEmail());
 		loggedUser.setPreferredGenres(profilo.getPreferredGenres());
+		loggedUser.setPreferredInstruments(profilo.getPreferredInstruments());
 		System.out.println(profilo.getAvatar());
 		if (profilo.getAvatar() != "") {
 			loggedUser.setAvatar(profilo.getAvatar());

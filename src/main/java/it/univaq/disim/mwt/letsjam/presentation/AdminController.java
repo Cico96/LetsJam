@@ -59,20 +59,9 @@ public class AdminController {
 
 
     @PostMapping("/verifyMusicsheet")
-    public String search(MusicSheetSearchViewModel formData, Model model){
-        List<Genre> genres = genreService.getAllGenres();
-        List<Instrument> instruments = instrumentService.getAllInstruments();
-        Page<MusicSheet> musicSheets = spartitoService.searchMusicSheets(
-                formData.getSearch(), formData.getSortBy(),
-                formData.getSortDirection(), formData.getGenres(),
-                formData.getInstruments(), formData.getVerified(),
-                formData.getRearranged(), formData.getPageNumber(), PAGE_SIZE);
-        formData.setTotalPages(musicSheets.getTotalPages());
+    public String search(@RequestParam("musicSeetId") Long musicSeetId, MusicSheetSearchViewModel formData, Model model){
+        spartitoService.verifyMusicSheet(musicSeetId);
 
-        model.addAttribute("formData", formData);
-        model.addAttribute("instruments", instruments);
-        model.addAttribute("musicSheets", musicSheets);
-        model.addAttribute("genres", genres);
         return "admin/adminVerifySheets";
     }
 
@@ -88,7 +77,7 @@ public class AdminController {
     @PostMapping("/manageUsers")
     public String promoteUsers(@RequestParam("userIds") ArrayList<String> userIds, Model model, Authentication authentication){
         userIds.forEach(uid -> {
-            if (userService.findUserById(Long.parseLong(uid)).getRoles().equals(UserRoles.valueOf("UTENTE"))) {
+            if (userService.findUserById(Long.parseLong(uid)).getRole().equals(UserRoles.UTENTE)) {
                 userService.promoteToAdmin(Long.parseLong(uid));
             }
         });
@@ -101,7 +90,7 @@ public class AdminController {
     @PostMapping("/deleteUser")
     public String deleteUsers(@RequestParam("userIds") ArrayList<String> userIds, Model model,Authentication authentication){
         userIds.forEach(uid -> {
-            if (userService.findUserById(Long.parseLong(uid)).getRoles().equals(UserRoles.valueOf("UTENTE"))) {
+            if (userService.findUserById(Long.parseLong(uid)).getRole().equals(UserRoles.UTENTE)) {
                 userService.deleteUserById(Long.parseLong(uid));
             }
         });

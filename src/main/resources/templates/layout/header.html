@@ -37,15 +37,14 @@
 									<p class="lang" style="display: none;" th:text="${#locale}"></p>
 	                                <ul id="nav" class="navbar-nav ml-auto">
 	                                    <li class="nav-item"><a class="active" href="/home">Home</a></li>
-										<li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="/musicsheets/">Spartiti</a></li>
-	                                    <li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="/songs/">Brani</a></li>
-										<li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="/musicsheets/create">Crea-Carica</a></li>
-	                                    <li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="contact.html">Contact</a></li>
-	                                    <li sec:authorize="isAuthenticated() && hasRole('AMMINISTRATORE')" class="nav-item"><a href="/admin/verifyMusicsheet">Verifica Spartiti</a></li>
-	                                    <li sec:authorize="isAuthenticated() && hasRole('AMMINISTRATORE')" class="nav-item"><a href="/admin/manageUsers">Gestisci Utenti</a></li>
+										<li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="/musicsheets/" th:text="#{common.musicsheets}"></a></li>
+	                                    <li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="/songs/" th:text="#{common.songs}"></a></li>
+										<li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="/musicsheets/create" th:text="#{common.createupload}"></a></li>
+	                                    <li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="/about-us" th:text="#{common.aboutus}"></a></li>
+	                                    <li sec:authorize="isAuthenticated() && hasRole('AMMINISTRATORE')" class="nav-item"><a href="/admin/verifyMusicsheet" th:text="#{common.verifyMusicsheets}"></a></li>
+	                                    <li sec:authorize="isAuthenticated() && hasRole('AMMINISTRATORE')" class="nav-item"><a href="/admin/manageUsers" th:text="#{common.manageUsers}"></a></li>
 										<li class="ml-4 d-flex align-items-center justify-content-end">
 											<a class="p-0" th:with="loggedUser=${#authentication.getPrincipal().getUser()}" sec:authorize="isAuthenticated()" href="/profilo">
-			<!--									<img style="height: 30px" src="assets/images/profile.png" th:src="@{/dist/img/profile.png}" alt="profile" />-->
 												<img th:if="${loggedUser.avatar}" th:src="${loggedUser.avatar}" alt="profile avatar" class="profile">
 												<img th:unless="${loggedUser.avatar}" th:src="'https://avatars.dicebear.com/api/male/'+${loggedUser.firstname}+'.svg'" alt="profile avatar" class="profile">
 											</a>
@@ -59,8 +58,8 @@
 	                            </div>
 	                            <!-- navbar collapse -->
 	                            <div class="button">
-	                                <a sec:authorize="!isAuthenticated()" href="/login" class="btn">Login</a>
-									<a sec:authorize="isAuthenticated()" href="/logout" class="btn">Logout</a>
+	                                <a sec:authorize="!isAuthenticated()" href="/login" class="btn" th:text="#{login.login}"></a>
+									<a sec:authorize="isAuthenticated()" href="/logout" class="btn" th:text="#{common.logout}"></a>
 								</div>
 	                        </nav>
 	                        <!-- navbar -->

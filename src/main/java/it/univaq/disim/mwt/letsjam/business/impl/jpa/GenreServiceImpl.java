@@ -12,8 +12,6 @@ import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.GenreRepository;
 import it.univaq.disim.mwt.letsjam.domain.Genre;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
-import java.util.List;
-
 @Service
 public class GenreServiceImpl implements GenreService {
 	@Autowired 
@@ -21,33 +19,55 @@ public class GenreServiceImpl implements GenreService {
 
 	@Override
 	public Genre insert(Genre genre) throws BusinessException {
-		return genereRepository.save(genre);
+		try {
+			return genereRepository.save(genre);
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}
 	}
 
 	@Override
 	public Genre findGenreById(Long id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return genereRepository.findGenreById(id);
+		try {
+			return genereRepository.findGenreById(id);
+		} catch (Exception e) {
+			throw new BusinessException("Impossibile trovare il genere specificato \n"+e.getMessage());
+		}
 	}
 
 	@Override
 	public Genre findGenreByName(String name) throws BusinessException {
-		// TODO Auto-generated method stub
-		return genereRepository.findGenreByName(name);
+		try {
+			return genereRepository.findGenreByName(name);
+		} catch (Exception e) {
+			throw new BusinessException("Impossibile trovare il genere specificato \n"+e.getMessage());
+		}
 	}
 	@Override
 	public List<Genre> getRandomGenres() throws BusinessException {
-		return genereRepository.getRandomGenres(PageRequest.of(0, 3)).toList();
+		try {
+			return genereRepository.getRandomGenres(PageRequest.of(0, 3)).toList();
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}
 	}
 
 	@Override
-	public void addGenre(Genre genre) throws BusinessException{
-		genereRepository.save(genre);
+	public Genre addGenre(Genre genre) throws BusinessException{
+		try {
+			return genereRepository.save(genre);
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}
 	}
 
 	@Override
 	public List<Genre> getAllGenres() throws BusinessException {
-		return genereRepository.findAll();
+		try {
+			return genereRepository.findAll();
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}
 	}
 
 }

@@ -1,5 +1,6 @@
 package it.univaq.disim.mwt.letsjam.domain;
 
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -36,5 +37,19 @@ public class Instrument extends AbstractPersistableEntity {
 
 	@ManyToMany(mappedBy="instruments", fetch = FetchType.LAZY)
 	private Set<MusicSheet> musicSheets;
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Instrument instrument = (Instrument) o;
+		return Objects.equals(name, instrument.name) &&
+				Objects.equals(instrumentKey, instrument.instrumentKey);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, instrumentKey);
+	}
 
 }

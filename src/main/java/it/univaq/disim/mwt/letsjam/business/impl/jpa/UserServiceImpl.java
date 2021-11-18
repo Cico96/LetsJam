@@ -9,7 +9,6 @@ import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import it.univaq.disim.mwt.letsjam.domain.User;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,114 +30,143 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User findUserById(Long id) throws BusinessException {
-		return utenteRepository.findUserById(id);
+		try {
+			return utenteRepository.findUserById(id);	
+		} catch (Exception e) {
+			throw new BusinessException("Utente non trovato \n"+e.getMessage());
 		}
+	}
 	
 	@Override
 	public User findUserByUsername(String username) throws BusinessException {
-		return utenteRepository.findUserByUsername(username);
+		try {
+			return utenteRepository.findUserByUsername(username);
+		} catch (Exception e) {
+			throw new BusinessException("Utente non trovato \n"+e.getMessage());
+		}
 	}
 
 	@Override
 	public User findUserByEmail(String email) throws BusinessException {
-		return utenteRepository.findUserByEmail(email);
+		try {
+			return utenteRepository.findUserByEmail(email);	
+		} catch (Exception e) {
+			throw new BusinessException("Utente non trovato \n"+e.getMessage());
+		}
 	}
 
 	@Override
 	public boolean existsUserByUsername(String username) throws BusinessException {
-		// TODO Auto-generated method stub
-		return utenteRepository.existsUserByUsername(username);
+		try {
+			return utenteRepository.existsUserByUsername(username);
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());		
+		}
 	}
 
 	@Override
 	public boolean existsUserByEmail(String email) throws BusinessException {
-		// TODO Auto-generated method stub
-		return utenteRepository.existsUserByEmail(email);
-	}
-
-
-	@Override
-	public User insert(User user) throws BusinessException {
-		// TODO Auto-generated method stub
-		return utenteRepository.save(user);
+		try {
+			return utenteRepository.existsUserByEmail(email);
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}
 	}
 
 	@Override
 	public void deleteUserById(Long id) throws BusinessException {
-		utenteRepository.deleteById(id);
-
-	}
-
-	@Override
-	public boolean UserIsAdmin(Long id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			utenteRepository.deleteById(id);
+		} catch (Exception e) {
+			throw new BusinessException("Errore durante la rimozione dell'utente \n"+e.getMessage());
+		}
 	}
 
 	@Override
 	public void update(User user) throws BusinessException {
-		User user_old = em.find(User.class, user.getId());
-		user_old.setUsername(user.getUsername());
-		user_old.setFirstname(user.getFirstname());
-		user_old.setLastname(user.getLastname());
-		user_old.setEmail(user.getEmail());
-		user_old.setPreferredGenres(user.getPreferredGenres());
-		System.out.println(user.getAvatar());
-		if (user.getAvatar() != "") {
-			user_old.setAvatar(user.getAvatar());
-		} else {
-			user_old.setAvatar(null);
+		try {
+			User user_old = em.find(User.class, user.getId());
+			user_old.setUsername(user.getUsername());
+			user_old.setFirstname(user.getFirstname());
+			user_old.setLastname(user.getLastname());
+			user_old.setEmail(user.getEmail());
+			user_old.setPreferredGenres(user.getPreferredGenres());
+			user_old.setPreferredInstruments(user.getPreferredInstruments());
+			System.out.println(user.getAvatar());
+			if (user.getAvatar() != "") {
+				user_old.setAvatar(user.getAvatar());
+			} else {
+				user_old.setAvatar(null);
+			}
+			em.detach(user_old);
+			em.merge(user_old);
+		} catch (Exception e) {
+			throw new BusinessException("Errore durante l'aggiornamento dell'utente \n"+e.getMessage());
 		}
-		em.detach(user_old);
-		em.merge(user_old);
 	}
 
 	@Override
 	public void like(User user, MusicSheet musicSheet) throws BusinessException {
-		// TODO Auto-generated method stub
 		Set<MusicSheet> spartiti = user.getLikedMusicSheets();
 		spartiti.add(musicSheet);
 		user.setLikedMusicSheets(spartiti);
-		utenteRepository.save(user);
+		try {
+			utenteRepository.save(user);	
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}
 	}
 
 	@Override
 	public void dislike(User user, MusicSheet musicSheet) throws BusinessException {
-		// TODO Auto-generated method stub
 		Set<MusicSheet> spartiti = user.getLikedMusicSheets();
 		spartiti.remove(musicSheet);
 		user.setLikedMusicSheets(spartiti);
-		utenteRepository.save(user);
+		try {
+			utenteRepository.save(user);
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}
 	}
 
 	@Override
-	public void remove(User user, Genre genere) throws BusinessException {
-		// TODO Auto-generated method stub
+	public void removePreferredGenre(User user, Genre genere) throws BusinessException {
 		Set<Genre> preferredGenres = user.getPreferredGenres();
 		preferredGenres.add(genere);
 		user.setPreferredGenres(preferredGenres);
-		utenteRepository.save(user);
+		try {
+			utenteRepository.save(user);
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}
 	}
 
 	@Override
 	public void promoteToAdmin(Long id) {
-		String q = "UPDATE User ut SET ut.role = :amministratore WHERE ut.id = :id";
-		Query query =  em.createQuery(q);
-		query.setParameter("amministratore", "amministratore");
-		query.setParameter("id", id);
-		query.executeUpdate();
+		try {
+			utenteRepository.promoteToAdmin(id,"amministratore");
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}
 	}
 
 
 	@Override
 	public List<User> getAllUsers() throws BusinessException {
-		return utenteRepository.findAll();
+		try {
+			return utenteRepository.findAll();	
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}
 	}
 
 	@Override
 	public User addUser(User user) throws BusinessException {
-		utenteRepository.save(user);
-		return user;
-	}	
+		try {
+			return utenteRepository.save(user);
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}
+	}
 
 }

@@ -7,11 +7,7 @@ import org.springframework.stereotype.Service;
 
 import it.univaq.disim.mwt.letsjam.business.CommentService;
 import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.CommentRepository;
-import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MusicSheetRepository;
-import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.UserRepository;
 import it.univaq.disim.mwt.letsjam.domain.Comment;
-import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
-import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.exceptions.BusinessException;
 
 @Service
@@ -19,55 +15,50 @@ public class CommentServiceImpl implements CommentService {
 	@Autowired
 	private CommentRepository commentRepository;
 	
-	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired 
-	private MusicSheetRepository musicSheetRepository;
 
 	@Override
 	public Comment findCommentById(Long id) throws BusinessException {
-		// TODO Auto-generated method stub
-		return commentRepository.findCommentById(id);
+		try {
+			return commentRepository.findCommentById(id);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
-	public void update(Comment comment) throws BusinessException {
-		// TODO Auto-generated method stub
-		commentRepository.save(comment);
+	public Comment update(Comment comment) throws BusinessException {
+		try {
+			return commentRepository.save(comment);
+			
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}	
 	}
 
 	@Override
-	public void addComment(Long id_musicSheet, Long id_user, String content) throws BusinessException {
-		// TODO Auto-generated method stub
-		Comment new_commento = new Comment();
-		MusicSheet spartito = musicSheetRepository.findMusicSheetById(id_musicSheet);
-		User user = userRepository.findUserById(id_user);
-		new_commento.setMusicSheet(spartito);
-		new_commento.setUser(user);
-		new_commento.setContent(content);
-		commentRepository.save(new_commento);
-	}
-
-	@Override
-	public void addAnsewer(Comment comment, Long id_user, String content) {
-		// TODO Auto-generated method stub
-		Comment risposta = new Comment();
-		risposta.setContent(content);
-		User user = userRepository.findUserById(id_user);
-		risposta.setUser(user);
-		risposta.setParentComment(comment);
-		commentRepository.save(risposta);
+	public Comment addComment(Comment comment) throws BusinessException {
+		try {
+			return commentRepository.save(comment);
+		} catch (Exception e) {
+			throw new BusinessException("C'è stato un errore, non è stato possibile completare l'operazione richiesta \n"+e.getMessage());
+		}
 	}
 
 	@Override
 	public List<Comment> getMusicSheetComments(Long musicSheetId) throws BusinessException {
-		return commentRepository.getMusicSheetComments(musicSheetId);
+		try {
+			return commentRepository.getMusicSheetComments(musicSheetId);
+		} catch (Exception e) {
+			throw new BusinessException("Impossibile trovare i commenti per lo spartito \n"+e.getMessage());
+		}
 	}
 
 	@Override
 	public List<Comment> getReplies(Long parentId) throws BusinessException {
-		return commentRepository.getReplies(parentId);
+		try {
+			return commentRepository.getReplies(parentId);
+		} catch (Exception e) {
+			throw new BusinessException("Impossibile trovare le risposte al commento \n"+e.getMessage());
+		}
 	}
-
 }
