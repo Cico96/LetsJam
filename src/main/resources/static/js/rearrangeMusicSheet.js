@@ -31,6 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function createEmbed(embed){
     let checkbox = document.querySelectorAll('input[type=checkbox]:checked');
-    checkbox.map(instrument => instrument.getAttribute('name'));
-    console.log(checkbox);
+    checkbox = Array.from(checkbox).map(instrument => instrument.getAttribute('name'));
+    let formData = new FormData();
+    formData.append("instruments", JSON.stringify(checkbox));
+     return fetch('/musicsheets/addInstrumentsToScore', {
+            method: "POST",
+            ContentType: "application/json",
+            body: formData
+        }).then((response) => {
+            return response.json();
+        }).then((data) => {
+            console.log(data);
+            embed.loadJSON(data);
+        })
 }

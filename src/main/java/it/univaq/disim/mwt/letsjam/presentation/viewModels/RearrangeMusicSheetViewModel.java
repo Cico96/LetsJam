@@ -13,6 +13,8 @@ public class RearrangeMusicSheetViewModel {
 
     String author;
 
+    String content;
+
     Boolean visibility;
 
 }
