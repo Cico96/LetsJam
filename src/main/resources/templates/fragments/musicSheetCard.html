@@ -11,7 +11,7 @@
                     <div class="d-flex align-items-center" sec:authorize="hasRole('AMMINISTRATORE')">
                         <div th:id="${musicsheet.id}" class="verified-badge d-flex align-items-center" th:classappend="${!musicsheet.verified ? 'not-verified-badge' : ''}">
                             <svg th:replace="fragments/icons :: verifyBadge"></svg>
-                            Verificato
+                            [[#{musicsheets.verified}]]
                         </div>
                     </div>
                     <div class="d-flex flex-row align-items-center justify-content-between interaction-container" style="gap: 10px;">
@@ -52,7 +52,7 @@
         </div>
         <div class="verify-btn" sec:authorize="hasRole('AMMINISTRATORE')">
             <div th:data-verify="${musicsheet.id}" th:if="${!musicsheet.verified}" class="action-container">
-                <span class="d-flex flex-row align-items-center justify-content-end" style="gap:20px">Verifica spartito</span>
+                <span th:text="#{admin.manageSheets.verify}" class="d-flex flex-row align-items-center justify-content-end" style="gap:20px"></span>
             </div>
         </div>
     </div>
