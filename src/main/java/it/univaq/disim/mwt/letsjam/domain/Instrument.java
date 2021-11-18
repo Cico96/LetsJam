@@ -18,7 +18,13 @@ import javax.validation.constraints.Size;
 import it.univaq.disim.mwt.letsjam.presentation.validation.OnCreate;
 import it.univaq.disim.mwt.letsjam.presentation.validation.OnUpdate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "strumenti")

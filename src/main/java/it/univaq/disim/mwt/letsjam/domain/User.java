@@ -7,7 +7,6 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -76,6 +75,7 @@ public class User extends AbstractPersistableEntity{
     name = "strumenti_preferiti",
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "instrument_id"))
+    @JsonIgnore
     private Set<Instrument> preferredInstruments = new HashSet<>();
 
     
@@ -97,10 +97,6 @@ public class User extends AbstractPersistableEntity{
         return Objects.hash(firstname, lastname, email, username, password, role);
     }
 
-    /*@Transient
-    public UserRoles getRoles(){
-        return UserRoles.valueOf(this.getRole());
-    }*/
 }
 
 
