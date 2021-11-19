@@ -25,11 +25,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Controller
@@ -46,12 +55,14 @@ public class ProfileController {
 
 	@Autowired
 	private MusicSheetService spartitoService;
+
+	private final Path root = Paths.get("uploads");
     
 	@GetMapping("/profilo")
 	public String getProfilo(Model model, Authentication authentication) throws BusinessException {
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
 		List<MusicSheet> myMusicSheets = spartitoService.searchMusicSheetsByUserUsername(loggedUser.getUsername());
-		System.out.println(loggedUser.getAvatar());
+		System.out.println("ue genny "+loggedUser.getAvatar());
 		model.addAttribute("myMusicSheets", myMusicSheets);
 		model.addAttribute("profilo", loggedUser);
 		return "profile/profile";
@@ -62,12 +73,13 @@ public class ProfileController {
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
 		model.addAttribute("strumenti", instrumentService.getAllInstruments());
 		model.addAttribute("generi", genreService.getAllGenres());
+		System.out.println("uee "+loggedUser.getAvatar());
 		model.addAttribute("profilo", loggedUser);
 		return "profile/ModifyProfile";
 	}
 
 	@PostMapping("/modifica-profilo")
-	public String ModificaProfilo(@ModelAttribute User profilo, Model model, Authentication authentication) throws BusinessException {
+	public String ModificaProfilo(@RequestParam("imgInput") MultipartFile file, @ModelAttribute User profilo, Model model, Authentication authentication) throws BusinessException {
 		utenteService.update(profilo);
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
 		loggedUser.setUsername(profilo.getUsername());
@@ -76,12 +88,18 @@ public class ProfileController {
 		loggedUser.setEmail(profilo.getEmail());
 		loggedUser.setPreferredGenres(profilo.getPreferredGenres());
 		loggedUser.setPreferredInstruments(profilo.getPreferredInstruments());
-		System.out.println(profilo.getAvatar());
-		if (profilo.getAvatar() != "") {
-			loggedUser.setAvatar(profilo.getAvatar());
-		} else {
-			loggedUser.setAvatar(null);
+		
+		String fileExtension = (file.getOriginalFilename().split("\\."))[1];
+		String fileName = String.valueOf(Objects.hash(loggedUser.getEmail(), loggedUser.getId()))+"."+fileExtension;
+		try {
+			Files.copy(file.getInputStream(), this.root.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			System.out.println("Impossibile salvare il file sul disco");
+			e.printStackTrace();
 		}
+		loggedUser.setAvatar("/"+root.toString()+"/"+fileName);
+		utenteService.update(loggedUser);
+
 		List<MusicSheet> myMusicSheets = spartitoService.searchMusicSheetsByUserUsername(loggedUser.getUsername());
 		model.addAttribute("myMusicSheets", myMusicSheets);
 		model.addAttribute("profilo", loggedUser);
