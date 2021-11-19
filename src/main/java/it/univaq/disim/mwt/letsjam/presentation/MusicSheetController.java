@@ -227,23 +227,6 @@ public class MusicSheetController {
 		return "musicSheets/rearrangeMusicSheet";
 	}
 
-<<<<<<< HEAD
-=======
-	@PostMapping("/addInstrumentsToScore")
-	public ResponseEntity<String> addInstrumentsToScore(@RequestParam("instruments") String instrumentList, @RequestParam("content") String musicSheetContent){
-		if(instrumentList != null && instrumentList.length() > 0){
-			List<String> strumenti = (new JSONArray(instrumentList))
-					.toList()
-					.stream()
-					.map(Object::toString)
-					.collect(Collectors.toList());
-			JSONObject result = as.makeEmptyScore(strumenti);
-			return new ResponseEntity<String>(result.toString(), HttpStatus.OK);
-		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-	}
-
->>>>>>> c9bfb41d5b8b166dfff83bba0a05bc7dcf193a5e
 	@PostMapping("/rearrange")
 	public String rearrangeMusicSheets(@ModelAttribute RearrangeMusicSheetViewModel pageData, Model model, Authentication authentication){
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
