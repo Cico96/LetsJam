@@ -16,7 +16,6 @@
     </head>
         <body>
             <div layout:fragment="content" style="padding-top:90px">
-
                 <section id="flat-wrap" class="flat-wrap">
                     <div class="flat-inner-wrap">
                         <div id="create" class="flat-part-left mr-4">
@@ -31,23 +30,7 @@
                                         [[#{rearrange.musicsheet.author}]]
                                         <input th:field="${pageData.author}" id="sheet-author" name="title" type="text" required/>
                                     </label>
-                                    <div class="button wow fadeInUp mt-4" data-wow-delay=".7s"
-                                         style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp; width: fit-content;">
-                                        <a id="instrument-btn" class="btn" th:text="#{rearrange.musicsheet.instrument}"></a>
-                                    </div>
-
-                                    <div id="instrumentForSheet" class="instruments-for-sheet wrapper">
-                                        <h6 style="margin-bottom: 20px" class="align-center" th:text="#{createupload.selectInstruments}"></h6>
-                                        <div class="inner-wrp">
-                                            <div th:each="instrument : ${instruments}" class="check">
-                                                <input type="checkbox" th:name="${instrument.name}"/>
-                                                <label th:for="${instrument.name}" th:text="${instrument.name}"></label>
-                                            </div>
-                                        </div>
-                                        <div class="error-message mt-2 ml-5 mb-0" id="noInstrumentSelected" style="display: none;"
-                                             th:text="#{createupload.instruments.error}"></div>
-                                    </div>
-
+                                
                                     <div class="button wow fadeInUp submit mt-4" data-wow-delay=".7s"
                                          style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp; width: fit-content; display:none">
                                         <a id="check-instrument" class="btn" th:text="#{rearrange.musicsheet.check.instrument}"></a>
