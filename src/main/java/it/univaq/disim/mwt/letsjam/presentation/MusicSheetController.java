@@ -239,6 +239,7 @@ public class MusicSheetController {
 		data.setInstrumentMapping(mappings);
 
 		MusicSheet ms = new MusicSheet();
+		ms.setData(data);
 		ms.setAuthor(pageData.getAuthor());
 		ms.setTitle(pageData.getTitle());
 		ms.setInstruments(strumenti);
