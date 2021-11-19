@@ -151,7 +151,7 @@ function addRespondtextBox(el) {
   userImage.classList.add("user-image");
   userImage.append("\u00A0");
   userImage.style.background = loggedUser.avatar
-  ? loggedUser.avatar
+  ? "url("+loggedUser.avatar+")"
   : "url(https://avatars.dicebear.com/api/male/" +
     loggedUser.firstname +
     ".svg)";
@@ -181,7 +181,7 @@ function addComment(input, parent, isResponse) {
   let userImage = document.createElement("div");
   userImage.classList.add("user-image");
   userImage.style.background = loggedUser.avatar
-    ? loggedUser.avatar
+    ? "url("+loggedUser.avatar+")"
     : "url(https://avatars.dicebear.com/api/male/" +
       loggedUser.firstname +
       ".svg)";
@@ -265,7 +265,7 @@ async function showReplies(commentId){
       comment.classList = "comment response d-flex align-items-center justify-content-start";
       let userImage = document.createElement("div");
       userImage.classList.add("user-image");
-      userImage.style.background = r.userAvatar ? r.userAvatar : "url(https://avatars.dicebear.com/api/male/" +r.firstName +".svg)";
+      userImage.style.background = r.userAvatar ? "url("+r.userAvatar+")" : "url(https://avatars.dicebear.com/api/male/" +r.firstName +".svg)";
       userImage.style.backgroundPosition = "center";
       userImage.style.backgroundSize = "cover";
       userImage.append("\u00A0");

@@ -8,3 +8,4 @@ target/
 src/main/resources/config/application-dev.yml
 .idea
 /letsjam.iml
+uploads
