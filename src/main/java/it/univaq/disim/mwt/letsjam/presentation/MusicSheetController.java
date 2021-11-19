@@ -235,15 +235,34 @@ public class MusicSheetController {
 					.stream()
 					.map(Object::toString)
 					.collect(Collectors.toList());
-			JSONObject result = as.addInstrumentsToScore(strumenti, musicSheetContent);
+			JSONObject result = as.makeEmptyScore(strumenti);
 			return new ResponseEntity<String>(result.toString(), HttpStatus.OK);
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 
 	@PostMapping("/rearrange")
-	public String rearrangeMusicSheets(@ModelAttribute RearrangeMusicSheetViewModel pageData, Model model){
-		System.out.println(pageData.getAuthor());
+	public String rearrangeMusicSheets(@ModelAttribute RearrangeMusicSheetViewModel pageData, Model model, Authentication authentication){
+		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+
+		Map<String, String> mappings = as.getInstruments(new JSONObject(pageData.getContent()));
+		Set<Instrument> strumenti = as.toInstrumentSet(mappings);
+
+		MusicSheetData data = new MusicSheetData();
+		data.setContent(pageData.getContent());
+		data.setInstrumentMapping(mappings);
+
+		MusicSheet ms = new MusicSheet();
+		ms.setAuthor(pageData.getAuthor());
+		ms.setTitle(pageData.getTitle());
+		ms.setInstruments(strumenti);
+		ms.setVisibility(pageData.getVisibility());
+		ms.setUser(loggedUser);
+		ms.setVerified(false);
+		ms.setRearranged(true);
+		ms.setHasTablature(as.hasTablature(new JSONObject(pageData.getContent())));
+
+		spartitoService.addMusicSheet(ms);
 		model.addAttribute("pageData", pageData);
 		return "musicSheets/rearrangeMusicSheet";
 	}
