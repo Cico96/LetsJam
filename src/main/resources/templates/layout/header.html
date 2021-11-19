@@ -36,13 +36,27 @@
 	                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
 									<p class="lang" style="display: none;" th:text="${#locale}"></p>
 	                                <ul id="nav" class="navbar-nav ml-auto">
-	                                    <li class="nav-item"><a class="active" href="/home">Home</a></li>
-										<li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="/musicsheets/" th:text="#{common.musicsheets}"></a></li>
-	                                    <li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="/songs/" th:text="#{common.songs}"></a></li>
-										<li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="/musicsheets/create" th:text="#{common.createupload}"></a></li>
-	                                    <li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item"><a href="/about-us" th:text="#{common.aboutus}"></a></li>
-	                                    <li sec:authorize="isAuthenticated() && hasRole('AMMINISTRATORE')" class="nav-item"><a href="/admin/verifyMusicsheet" th:text="#{common.verifyMusicsheets}"></a></li>
-	                                    <li sec:authorize="isAuthenticated() && hasRole('AMMINISTRATORE')" class="nav-item"><a href="/admin/manageUsers" th:text="#{common.manageUsers}"></a></li>
+	                                    <li class="nav-item">
+											<a th:class="''+${#httpServletRequest.requestURI.equals('/home') ? 'active' : ''}" href="/home">Home</a>
+										</li>
+										<li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item">
+											<a th:class="''+${#httpServletRequest.requestURI.equals('/musicsheets/') ? 'active' : ''}" href="/musicsheets/" th:text="#{common.musicsheets}"></a>
+										</li>
+	                                    <li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item">
+											<a th:class="''+${#httpServletRequest.requestURI.equals('/songs/') ? 'active' : ''}" href="/songs/" th:text="#{common.songs}"></a>
+										</li>
+										<li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item">
+											<a th:class="''+${#httpServletRequest.requestURI.equals('/musicsheets/create') ? 'active' : ''}" href="/musicsheets/create" th:text="#{common.createupload}"></a>
+										</li>
+	                                    <li sec:authorize="isAnonymous() || (isAuthenticated() && hasRole('UTENTE'))" class="nav-item">
+											<a th:class="''+${#httpServletRequest.requestURI.equals('/about-us') ? 'active' : ''}" href="/about-us" th:text="#{common.aboutus}"></a>
+										</li>
+	                                    <li sec:authorize="isAuthenticated() && hasRole('AMMINISTRATORE')" class="nav-item">
+											<a th:class="''+${#httpServletRequest.requestURI.equals('/admin/verifyMusicsheet') ? 'active' : ''}" href="/admin/verifyMusicsheet" th:text="#{common.verifyMusicsheets}"></a>
+										</li>
+	                                    <li sec:authorize="isAuthenticated() && hasRole('AMMINISTRATORE')" class="nav-item">
+											<a th:class="''+${#httpServletRequest.requestURI.equals('/admin/manageUsers') ? 'active' : ''}" href="/admin/manageUsers" th:text="#{common.manageUsers}"></a>
+										</li>
 										<li class="ml-4 d-flex align-items-center justify-content-end">
 											<a class="p-0" th:with="loggedUser=${#authentication.getPrincipal().getUser()}" sec:authorize="isAuthenticated()" href="/profilo">
 												<img th:if="${loggedUser.avatar}" th:src="${loggedUser.avatar}" alt="profile avatar" class="profile">
@@ -50,7 +64,7 @@
 											</a>
 										</li>
 										<li class="nav-item ml-2" sec:authorize="isAuthenticated()">
-											<a sec:authentication="name" href="/profilo"></a>
+											<a sec:authentication="name" th:class="''+${#httpServletRequest.requestURI.equals('/profilo') ? 'active' : ''}" href="/profilo"></a>
 										</li>
 										<li class="nav-item flag-container" th:if="${#locale.toString() == 'it'}"><img th:src="@{/img/i18n/it-flag.png}" alt="it"></li>
 										<li class="nav-item flag-container" th:if="${#locale.toString() == 'en'}"><img th:src="@{/img/i18n/uk-flag.png}" alt="en"></li>

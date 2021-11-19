@@ -117,7 +117,7 @@
                 </form>
             </div>
             <div class="col pt-4 pb-4 pl-4 relative scores-view" style="padding: 20px;overflow-y: scroll; overflow-x:hidden">
-                <h1 class="mb-3">Gestisci gli spartiti</h1>
+                <h1 class="mb-3" th:text="#{admin.manageSheets.manage}"></h1>
                 <div th:each="musicSheet : ${musicSheets}" th:remove="tag">
                     <div th:replace="fragments/musicSheetCard :: musicSheetCard(musicsheet = ${musicSheet})"></div>
                 </div>
@@ -163,9 +163,9 @@
 
     </section>
     <div id="confirm-verify-modal" class="modal-wrap">
-        <span>Confermi di voler verificare lo spartito?</span>
+        <span th:text="#{admin.manageSheets.confirm}"></span>
         <div  id="verify">
-            <button class="upUs btn btn-hover btn-block btn-dark btn-outline-light btn-close-white" type="submit">Conferma</button>
+            <button th:text="#{admin.manageSheets.confirmButton}" class="upUs btn btn-hover btn-block btn-dark btn-outline-light btn-close-white" type="submit"></button>
         </div>
     </div>
 </div>

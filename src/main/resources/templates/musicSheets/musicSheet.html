@@ -151,9 +151,9 @@
     </a>
 
     <div sec:authorize="hasRole('AMMINISTRATORE')" id="confirm-verify-modal" class="modal-wrap">
-        <span>Confermi di voler verificare lo spartito?</span>
+        <span th:text="#{admin.manageSheets.confirm}"></span>
         <div id="verify">
-            <button class="upUs btn btn-hover btn-block btn-dark btn-outline-light btn-close-white" type="submit">Conferma</button>
+            <button th:text="#{admin.manageSheets.confirmButton}" class="upUs btn btn-hover btn-block btn-dark btn-outline-light btn-close-white" type="submit"></button>
         </div>
     </div>
 
