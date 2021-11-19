@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.visibilityToggle input').forEach(i=>{
         i.addEventListener('change', e=>{
             if(e.target.checked){
+                console.log(e.target);
                 e.target.parentElement.classList.add("active");
             }
             document.querySelector('.visibilityToggle input:not(:checked)')

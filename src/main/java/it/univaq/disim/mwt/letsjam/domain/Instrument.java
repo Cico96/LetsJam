@@ -42,6 +42,7 @@ public class Instrument extends AbstractPersistableEntity {
 	private String instrumentKey;
 
 	@ManyToMany(mappedBy="instruments", fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Set<MusicSheet> musicSheets;
 
 	@Override
