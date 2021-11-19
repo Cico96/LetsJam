@@ -13,17 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
         embed.loadJSON(musicSheetData.content);
         console.log(musicSheet, musicSheetData);
 
-        document.querySelector('#instrument-btn').addEventListener('click', () => {
-            document.querySelector('.instruments-for-sheet').style.display = 'block';
-            let divBtn = document.querySelector('div.button.wow.fadeInUp');
-            if(divBtn.style.display === 'none'){
-                divBtn.style.display = 'block';
-            }else{
-                divBtn.style.display = 'none';
-            }
-            document.querySelector('div.button.submit').style.display = 'block';
-        });
-
         document.querySelector('div.button.submit').addEventListener('click', () => {
             addInstrumentsToEmbed(embed);
         });
@@ -47,22 +36,4 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 });
 
-function addInstrumentsToEmbed(embed) {
-    let checkbox = document.querySelectorAll('input[type=checkbox]:checked');
-    checkbox = Array.from(checkbox).map(instrument => instrument.getAttribute('name'));
-    let formData = new FormData();
-    formData.append("instruments", JSON.stringify(checkbox));
-    embed.getJSON().then( result => {
-        formData.append("content", JSON.stringify(result));
-        return fetch('/musicsheets/addInstrumentsToScore', {
-                    method: "POST",
-                    ContentType: "application/json",
-                    body: formData
-                }).then((response) => {
-                    return response.json();
-                }).then((data) => {
-                    embed.loadJSON(data);
-                })
-    });
 
-}
