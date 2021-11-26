@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     person.forEach( p => {
         p.addEventListener('click', () => {
             document.querySelector('.chat-container').style.display = 'inline';
+
         });
     });
 });
