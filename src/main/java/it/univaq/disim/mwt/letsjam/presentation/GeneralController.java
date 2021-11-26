@@ -3,6 +3,7 @@ package it.univaq.disim.mwt.letsjam.presentation;
 import it.univaq.disim.mwt.letsjam.business.*;
 import it.univaq.disim.mwt.letsjam.domain.Conversation;
 import it.univaq.disim.mwt.letsjam.domain.Genre;
+import it.univaq.disim.mwt.letsjam.security.UserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -50,6 +51,11 @@ public class GeneralController {
         if(authentication !=null){
             //Logged
             User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+
+            if(loggedUser.getRole().equals(UserRoles.AMMINISTRATORE)){
+                return "home/adminPanel";
+            }
+
             System.out.println(loggedUser.getFirstname()+" "+loggedUser.getLastname() + " "+loggedUser.getRole());
 
             List<MusicSheet> latest = spartitoService.getLastInsertMusicSheets();
@@ -65,16 +71,7 @@ public class GeneralController {
         return "home/home";
     }
 
-    @GetMapping("admin/home")
-    public String adminHome(Model model, Authentication authentication){
-        if(authentication !=null){
-            //Logged
-            User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
-            return "home/adminPanel";
-        }
-        return "common/forbidden";
-    }
-	
+
     
     @GetMapping("forbidden")
     public String forbidden(Model model){

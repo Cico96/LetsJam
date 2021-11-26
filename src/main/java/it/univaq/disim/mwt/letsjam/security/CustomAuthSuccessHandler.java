@@ -49,7 +49,7 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
     protected String determineTargetUrl(final Authentication authentication) {
 
         Map<String, String> roleTargetUrlMap = new HashMap<>();
-        roleTargetUrlMap.put("ROLE_AMMINISTRATORE", "/admin/home");
+        roleTargetUrlMap.put("ROLE_AMMINISTRATORE", "/home");
         roleTargetUrlMap.put("ROLE_UTENTE", "/home");
 
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
