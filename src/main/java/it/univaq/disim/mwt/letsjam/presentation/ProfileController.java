@@ -59,6 +59,8 @@ public class ProfileController {
 	@Autowired
 	private UserService userService;
 
+
+
 	private final Path root = Paths.get("uploads");
     
 	@GetMapping("/profilo")

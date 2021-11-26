@@ -1,6 +1,7 @@
 package it.univaq.disim.mwt.letsjam.presentation;
 
 import it.univaq.disim.mwt.letsjam.business.*;
+import it.univaq.disim.mwt.letsjam.domain.Conversation;
 import it.univaq.disim.mwt.letsjam.domain.Genre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -23,8 +24,22 @@ public class GeneralController {
 	@Autowired
 	private GenreService genereService;
 
+	@Autowired
+    private ConversationService conversationService;
+
+	@Autowired
+    private UserService userService;
+
     @GetMapping("home")
     public String home(Model model, Authentication authentication){
+
+        Conversation conversation = new Conversation();
+        User sender = userService.findUserById((long) 4);
+        User receiver = userService.findUserById((long) 9);
+        conversation.setReceiver(receiver);
+        conversation.setSender(sender);
+        conversation.setChatMessages(null);
+        conversationService.addConversation(conversation);
         List<MusicSheet> mostpopular = spartitoService.getMostPopularMusicSheets();
         List<Genre> randomGenres = genereService.getRandomGenres();
         List<List<MusicSheet>> musicSheetByGenre = new ArrayList<>();
