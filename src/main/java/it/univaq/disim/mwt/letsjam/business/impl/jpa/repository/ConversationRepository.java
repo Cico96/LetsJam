@@ -15,5 +15,6 @@ public interface ConversationRepository extends MongoRepository<Conversation, St
     @Query("{'$or':[{'sender': ?0}, {'receiver': ?0}] }")
     List<Conversation> findConversationBySender(User user);
 
+    Conversation findConversationById(Long id);
 
 }

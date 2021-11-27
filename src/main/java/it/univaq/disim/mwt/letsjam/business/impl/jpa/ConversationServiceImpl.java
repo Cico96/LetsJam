@@ -53,4 +53,9 @@ public class ConversationServiceImpl implements ConversationService {
         });
         return users;
     }
+
+    @Override
+    public Conversation findConversationById(Long id) {
+        return conversationRepository.findConversationById(id);
+    }
 }
