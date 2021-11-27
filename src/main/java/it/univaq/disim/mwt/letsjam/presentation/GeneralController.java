@@ -40,22 +40,16 @@ public class GeneralController {
     @GetMapping("home")
     public String home(Model model, Authentication authentication){
 
-        
-        Message m = new Message();
-        m.setSenderId((long) 7);
-        m.setContent("Prova");
-        messageRepository.save(m);
+        // Conversation c = new Conversation();
+        // c.setReceiverId((long) 7);
+        // c.setSenderId((long) 4);
+        // HashSet<Message> messaggi = new HashSet<Message>();
+        // messaggi.add(m);
+        // c.setMessages(messaggi);
 
-        Conversation c = new Conversation();
-        c.setReceiverId((long) 7);
-        c.setSenderId((long) 4);
-        HashSet<Message> messaggi = new HashSet<Message>();
-        messaggi.add(m);
-        c.setMessages(messaggi);
+        // conversationService.addConversation(c);
 
-        conversationService.addConversation(c);
-
-        System.out.println(conversationService.findAllConversation(userService.findUserById((long) 4)).size());
+        // System.out.println(conversationService.findAllConversation(userService.findUserById((long) 4)).size());
 
         List<MusicSheet> mostpopular = spartitoService.getMostPopularMusicSheets();
         List<Genre> randomGenres = genereService.getRandomGenres();

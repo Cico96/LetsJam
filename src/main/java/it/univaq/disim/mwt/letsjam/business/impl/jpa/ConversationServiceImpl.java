@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class ConversationServiceImpl implements ConversationService {
@@ -32,15 +31,7 @@ public class ConversationServiceImpl implements ConversationService {
 
     @Override
     public List<Conversation> findAllConversation(User user) {
-        List<Conversation> conversations = conversationRepository.findConversationBySender(user.getId());
-        conversations.forEach(c -> {
-            c.setSender(userService.findUserById(c.getSenderId()));
-            c.setReceiver(userService.findUserById(c.getReceiverId()));
-            Set<Message> messages = c.getMessages();
-            messages.forEach(m -> m.setSender(userService.findUserById(m.getSenderId())));
-            c.setMessages(messages);
-        });
-        return conversations;
+        return conversationRepository.findConversationBySender(user.getId());
     }
 
     @Override

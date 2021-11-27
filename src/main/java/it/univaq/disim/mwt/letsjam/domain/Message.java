@@ -12,7 +12,9 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,12 +31,8 @@ public class Message {
     private String id;
 
     private String content;
-    
-    @JsonIgnore
-    private Long senderId;
+
+    private User sender;
 
     private LocalDateTime createDateTime = LocalDateTime.now();
-    
-    @Transient
-    private User sender;
 }

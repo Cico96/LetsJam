@@ -21,17 +21,9 @@ public class Conversation {
 
     @Id
     private String id;
-
-    @JsonIgnore
-    private Long receiverId;
     
-    @JsonIgnore
-    private Long senderId;
-    
-    @Transient
     private User sender;
     
-    @Transient
     private User receiver;
 
     private Set<Message> messages;
