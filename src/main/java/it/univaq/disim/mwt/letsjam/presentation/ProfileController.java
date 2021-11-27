@@ -67,19 +67,12 @@ public class ProfileController {
 	public String getProfilo(Model model, Authentication authentication) throws BusinessException {
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
 		List<MusicSheet> myMusicSheets = spartitoService.searchMusicSheetsByUserUsername(loggedUser.getUsername());
-		List<User> userList = userService.getAllUsers();
-		model.addAttribute("userList", userList);
+
 		model.addAttribute("myMusicSheets", myMusicSheets);
 		model.addAttribute("profilo", loggedUser);
 		return "profile/profile";
 	}
 
-	/*@GetMapping("/profilo")
-	public String listUserChat(){
-		List<User> userList = userService.getAllUsers();
-		System.out.println(userList);
-		return "profile/profile";
-	}*/
 
 	@GetMapping("/modifica-profilo")
 	public String getModificaProfilo(Model model, Authentication authentication) throws BusinessException {

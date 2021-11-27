@@ -10,6 +10,7 @@ import it.univaq.disim.mwt.letsjam.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,11 +32,25 @@ public class ConversationServiceImpl implements ConversationService {
 
     @Override
     public List<Conversation> findAllConversation(User user) {
-        return conversationRepository.findConversationBySender(user.getId());
+        return conversationRepository.findConversationBySender(user);
     }
 
     @Override
     public Message addMessage(Message message) {
         return chatMessageRepository.save(message);
+    }
+
+    @Override
+    public List<User> getUsersAlreadyTalking(User user) {
+        List<Conversation> conversations = conversationRepository.findConversationBySender(user);
+        List<User> users = new ArrayList<User>();
+        conversations.forEach(c->{
+            if(c.getSender().equals(user)){
+                users.add(c.getReceiver());
+            }else{
+                users.add(c.getSender());
+            }
+        });
+        return users;
     }
 }

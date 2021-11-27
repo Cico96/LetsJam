@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			return utenteRepository.findUserById(id);	
 		} catch (Exception e) {
+			System.out.println("id utente" + id);
 			throw new BusinessException("Utente non trovato \n"+e.getMessage());
 		}
 	}

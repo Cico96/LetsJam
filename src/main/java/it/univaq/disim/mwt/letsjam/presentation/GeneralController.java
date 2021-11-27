@@ -51,6 +51,13 @@ public class GeneralController {
 
         // System.out.println(conversationService.findAllConversation(userService.findUserById((long) 4)).size());
 
+        Conversation c = new Conversation();
+        User sender = userService.findUserById((long) 9);
+        User r = userService.findUserById((long) 4);
+        c.setSender(sender);
+        c.setReceiver(r);
+        conversationService.addConversation(c);
+
         List<MusicSheet> mostpopular = spartitoService.getMostPopularMusicSheets();
         List<Genre> randomGenres = genereService.getRandomGenres();
         List<List<MusicSheet>> musicSheetByGenre = new ArrayList<>();

@@ -13,4 +13,6 @@ public interface ConversationService {
     List<Conversation> findAllConversation(User user);
 
     Message addMessage(Message message);
+
+    List<User> getUsersAlreadyTalking(User user);
 }
