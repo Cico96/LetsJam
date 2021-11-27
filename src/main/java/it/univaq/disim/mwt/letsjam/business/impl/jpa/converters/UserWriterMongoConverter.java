@@ -24,7 +24,6 @@ public class UserWriterMongoConverter implements Converter<User, DBObject> {
         dbObject.put("avatar", user.getAvatar());
         dbObject.put("role", user.getRole().toString());
         dbObject.removeField("_class");
-        System.out.println("convert");
         return dbObject;
     }
 }

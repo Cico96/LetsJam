@@ -23,7 +23,6 @@ public class MongoConfig {
 
   @Bean
   public MongoCustomConversions mongoCustomConversions() {
-    System.out.println("ue");
     return new MongoCustomConversions(List.of(
         userWriterMongoConverter, 
         userReaderMongoConverter
