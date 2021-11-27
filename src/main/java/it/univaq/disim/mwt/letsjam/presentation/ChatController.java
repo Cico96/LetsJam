@@ -46,17 +46,16 @@ public class ChatController {
         List<User> users = conversationService.getUsersAlreadyTalking(loggedUser);
         List<User> allUsers = userService.getAllUsers();
         List<User> allUsersCopy = userService.getAllUsers();
-        System.out.println(conversationService.getUsersAlreadyTalking(loggedUser).size());
+        
         allUsers.forEach(user -> {
-            if(user.equals(loggedUser)){
-                allUsersCopy.remove(user);
-            }
             users.forEach(u->{
-               if(user.equals(u)){
+               if(user.getUsername().equals(u.getUsername())){
                    allUsersCopy.remove(user);
                }
             });
         });
+        allUsersCopy.remove(loggedUser);
+
         JSONArray result = new JSONArray();
         allUsersCopy.forEach(user -> {
             JSONObject obj = new JSONObject();
