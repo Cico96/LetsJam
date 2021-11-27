@@ -19,12 +19,14 @@ import it.univaq.disim.mwt.letsjam.presentation.validation.OnUpdate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "commenti")
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Comment extends AbstractPersistableEntity{
 
 	@Size(min = 3, max = 500, groups = {OnCreate.class, OnUpdate.class, Default.class})

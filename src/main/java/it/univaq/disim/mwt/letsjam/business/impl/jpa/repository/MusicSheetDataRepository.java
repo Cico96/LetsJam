@@ -8,6 +8,5 @@ import it.univaq.disim.mwt.letsjam.domain.MusicSheetData;
 
 @Repository
 public interface MusicSheetDataRepository extends MongoRepository<MusicSheetData, String> {
-    
 
 }

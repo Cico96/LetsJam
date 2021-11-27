@@ -1,8 +1,10 @@
 package it.univaq.disim.mwt.letsjam.presentation;
 
 import it.univaq.disim.mwt.letsjam.business.*;
+import it.univaq.disim.mwt.letsjam.business.impl.jpa.repository.MessageRepository;
 import it.univaq.disim.mwt.letsjam.domain.Conversation;
 import it.univaq.disim.mwt.letsjam.domain.Genre;
+import it.univaq.disim.mwt.letsjam.domain.Message;
 import it.univaq.disim.mwt.letsjam.security.UserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import it.univaq.disim.mwt.letsjam.domain.MusicSheet;
 import it.univaq.disim.mwt.letsjam.domain.User;
@@ -28,19 +31,32 @@ public class GeneralController {
 	@Autowired
     private ConversationService conversationService;
 
+    @Autowired
+    private MessageRepository messageRepository;
+
 	@Autowired
     private UserService userService;
 
     @GetMapping("home")
     public String home(Model model, Authentication authentication){
 
-        Conversation conversation = new Conversation();
-        User sender = userService.findUserById((long) 4);
-        User receiver = userService.findUserById((long) 9);
-        conversation.setReceiver(receiver);
-        conversation.setSender(sender);
-        conversation.setChatMessages(null);
-        conversationService.addConversation(conversation);
+        
+        Message m = new Message();
+        m.setSenderId((long) 7);
+        m.setContent("Prova");
+        messageRepository.save(m);
+
+        Conversation c = new Conversation();
+        c.setReceiverId((long) 7);
+        c.setSenderId((long) 4);
+        HashSet<Message> messaggi = new HashSet<Message>();
+        messaggi.add(m);
+        c.setMessages(messaggi);
+
+        conversationService.addConversation(c);
+
+        System.out.println(conversationService.findAllConversation(userService.findUserById((long) 4)).size());
+
         List<MusicSheet> mostpopular = spartitoService.getMostPopularMusicSheets();
         List<Genre> randomGenres = genereService.getRandomGenres();
         List<List<MusicSheet>> musicSheetByGenre = new ArrayList<>();

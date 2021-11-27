@@ -25,8 +25,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-//@DiscriminatorColumn(name = "role")
-//@DiscriminatorValue("utente")
+@ToString(exclude = {"password", "preferredGenres", "preferredInstruments", "likedMusicSheets"})
 public class User extends AbstractPersistableEntity{
 	
 	@NotEmpty(groups ={OnCreate.class, Default.class})
@@ -68,6 +67,7 @@ public class User extends AbstractPersistableEntity{
     name = "generi_preferiti", 
     joinColumns = @JoinColumn(name = "user_id"), 
     inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    @JsonIgnore
     private Set<Genre> preferredGenres = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
