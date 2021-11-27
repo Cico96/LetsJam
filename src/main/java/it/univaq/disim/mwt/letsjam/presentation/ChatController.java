@@ -3,6 +3,7 @@ package it.univaq.disim.mwt.letsjam.presentation;
 import it.univaq.disim.mwt.letsjam.business.ConversationService;
 import it.univaq.disim.mwt.letsjam.business.UserService;
 import it.univaq.disim.mwt.letsjam.domain.Conversation;
+import it.univaq.disim.mwt.letsjam.domain.Message;
 import it.univaq.disim.mwt.letsjam.domain.User;
 import it.univaq.disim.mwt.letsjam.security.CustomUserDetails;
 import org.json.JSONArray;
@@ -14,8 +15,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class ChatController {
@@ -66,4 +69,18 @@ public class ChatController {
 
         return new ResponseEntity<String> (result.toString(), HttpStatus.OK);
     }
+
+    @PostMapping("/addMessage")
+    public ResponseEntity<String> addMessage(@RequestParam("content") String content, @RequestParam("conversationId") String id){
+        Conversation conversation = conversationService.findConversationById(Long.parseLong(id));
+        Message message = new Message();
+        message.setContent(content);
+        Set<Message> messages = conversation.getMessages();
+        messages.add(message);
+        conversation.setMessages(messages);
+        conversationService.addConversation(conversation);
+        return new ResponseEntity<String>("Il messaggio è stato inviato correttamente", HttpStatus.OK);
+    }
+
+    //create end point to handle add conversation
 }

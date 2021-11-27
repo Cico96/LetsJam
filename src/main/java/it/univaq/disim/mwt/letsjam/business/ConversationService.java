@@ -15,4 +15,6 @@ public interface ConversationService {
     Message addMessage(Message message);
 
     List<User> getUsersAlreadyTalking(User user);
+
+    Conversation findConversationById(Long id);
 }

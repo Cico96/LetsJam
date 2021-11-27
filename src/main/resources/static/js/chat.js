@@ -20,4 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }).then(response => {
         return response.json();
     }).then(console.log);
+
+
+    const formData = new FormData();
+    formData.append("content", "prova");
+    formData.append("conversationId", "1");
+    fetch('/addMessage', {
+        method: "POST",
+        ContentType: "application/json",
+        body: formData
+    }).then(response => {
+        return response.json();
+    })
 });

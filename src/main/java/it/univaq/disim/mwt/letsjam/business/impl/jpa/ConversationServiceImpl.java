@@ -55,4 +55,9 @@ public class ConversationServiceImpl implements ConversationService {
 
         return new ArrayList<User>(new LinkedHashSet<>(users)); 
     }
+
+    @Override
+    public Conversation findConversationById(Long id) {
+        return conversationRepository.findConversationById(id);
+    }
 }
