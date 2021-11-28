@@ -19,7 +19,7 @@ public class Conversation {
     @Id
     private String id;
 
-    private int conversationId; 
+    private Long conversationId; 
     
     private User sender;
     

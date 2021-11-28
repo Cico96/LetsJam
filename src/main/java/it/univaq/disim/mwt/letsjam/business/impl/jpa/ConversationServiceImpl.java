@@ -58,6 +58,6 @@ public class ConversationServiceImpl implements ConversationService {
 
     @Override
     public Conversation findConversationById(Long id) {
-        return conversationRepository.findConversationById(id);
+        return conversationRepository.findByConversationId(id);
     }
 }
