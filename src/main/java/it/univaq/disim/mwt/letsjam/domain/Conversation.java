@@ -18,6 +18,8 @@ public class Conversation {
 
     @Id
     private String id;
+
+    private int conversationId; 
     
     private User sender;
     
