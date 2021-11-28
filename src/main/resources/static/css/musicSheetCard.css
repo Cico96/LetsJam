@@ -86,8 +86,8 @@ svg {
 .musicsheet-card:hover::before {
   opacity: 1;
   visibility: visible;
-  -webkit-transform: scale(1.05);
-  transform: scale(1.05);
+  -webkit-transform: scale(1.01);
+  transform: scale(1.01);
 }
 
 .musicsheet-card:hover h3 a {
