@@ -171,9 +171,9 @@ public class MusicSheetController {
 			song = new Song();
 			song.setTitle(pageData.getSongTitle());
 			song.setAuthor(pageData.getSongAuthor());
-			song.setGenre(genreService.findGenreById(pageData.getSongGenre()));
 			songService.updateSong(song);
 		}
+		song.setGenre(genreService.findGenreById(pageData.getSongGenre()));
 
 		spartito.setSong(song);
 		MusicSheet persistedMusicSheet = spartitoService.addMusicSheet(spartito);
