@@ -39,14 +39,7 @@ public class GeneralController {
 
     @GetMapping("home")
     public String home(Model model, Authentication authentication){
-
-        // Conversation c = new Conversation();
-        // User sender = userService.findUserById((long) 9);
-        // User r = userService.findUserById((long) 4);
-        // c.setSender(sender);
-        // c.setReceiver(r);
-        // conversationService.addConversation(c);
-
+        
         List<MusicSheet> mostpopular = spartitoService.getMostPopularMusicSheets();
         List<Genre> randomGenres = genereService.getRandomGenres();
         List<List<MusicSheet>> musicSheetByGenre = new ArrayList<>();
