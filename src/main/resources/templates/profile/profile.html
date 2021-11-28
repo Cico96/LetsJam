@@ -99,7 +99,7 @@
 
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-                                <div class="card m-0">
+                                <div class="card m-0 mr-3 ml-3 message-center">
 
                                     <!-- Row start -->
                                     <div class="row no-gutters">
@@ -107,12 +107,13 @@
                                             <div class="users-container">
                                                 <div class="chat-search-box">
                                                     <div class="input-group">
-                                                        <input class="form-control" placeholder="Search">
-                                                        <div class="input-group-btn">
-                                                            <button type="button" class="btn btn-info">
-                                                                <i class="fa fa-search"></i>
-                                                            </button>
-                                                        </div>
+                                                        <select class="form-select" th:aria-label="#{profile.addNewConversation}">
+                                                            <option selected th:text="#{profile.addNewConversation}"></option>
+                                                            <div th:each="user : ${notYetTalkingUsers}"  th:remove="tag">
+                                                                <option value="${user.username}" th:text="${user.username}" style="text-transform: capitalize;">
+                                                                </option>
+                                                            </div>
+                                                          </select>
                                                     </div>
                                                 </div>
                                                 <ul class="users">

@@ -375,3 +375,9 @@ ul {
     margin-bottom: 2rem;
     box-shadow: none;
 }
+
+.message-center{
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 1px 20px 0px rgb(50 50 50 / 10%);
+}

@@ -55,22 +55,18 @@ public class ConversationServiceImpl implements ConversationService {
     }
 
     @Override
-    public List<User> getUsersAlreadyTalking(User user) throws BusinessException {
-        try {
-            List<Conversation> conversations = conversationRepository.findConversationBySender(user);
-            List<User> users = new ArrayList<User>();
-            conversations.forEach(c->{
-                if(c.getSender().equals(user)){
-                    users.add(c.getReceiver());
-                }else{
-                    users.add(c.getSender());
-                }
-            });
+    public List<User> getUsersAlreadyTalking(User loggedUser) {
+        List<Conversation> conversations = conversationRepository.findConversationBySender(loggedUser);
+        List<User> users = new ArrayList<User>();
+        conversations.forEach(c->{
+            if(c.getSender().equals(loggedUser)){
+                users.add(c.getReceiver());
+            }else{
+                users.add(c.getSender());
+            }
+        });
 
-            return new ArrayList<User>(new LinkedHashSet<>(users));
-        } catch (Exception e) {
-            throw new BusinessException(e.getMessage());
-        }
+        return new ArrayList<User>(new LinkedHashSet<>(users)); 
     }
 
     @Override
@@ -80,5 +76,14 @@ public class ConversationServiceImpl implements ConversationService {
         } catch (Exception e) {
             throw new BusinessException("Non è stato possibile trovare la conversazione " + e.getMessage());
         }
+    }
+
+    @Override
+    public List<User> getUsersNotYetTalking(User loggedUser) {
+        List<User> alreadyTalkingUsers = getUsersAlreadyTalking(loggedUser);
+        List<User> allUsers = userService.getAllUsers();
+        allUsers.removeAll(alreadyTalkingUsers);
+		allUsers.remove(loggedUser);
+        return allUsers;
     }
 }

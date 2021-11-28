@@ -15,7 +15,9 @@ public interface ConversationService {
 
     Message addMessage(Message message) throws BusinessException;;
 
-    List<User> getUsersAlreadyTalking(User user) throws BusinessException;;
+    List<User> getUsersAlreadyTalking(User loggedUser);
+
+    List<User> getUsersNotYetTalking(User loggedUser);
 
     Conversation findConversationById(Long id) throws BusinessException;;
 }
