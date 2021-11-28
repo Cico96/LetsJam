@@ -41,5 +41,5 @@ document.addEventListener('DOMContentLoaded', () => {
         body: body
     }).then(response => {
         return response.json();
-    }).then(console.log);
+    }).then(console.log);*/
 });
