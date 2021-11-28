@@ -19,17 +19,27 @@ document.addEventListener('DOMContentLoaded', () => {
         ContentType: "application/json",
     }).then(response => {
         return response.json();
-    }).then(console.log);
+    });
 
 
     const formData = new FormData();
     formData.append("content", "prova");
-    formData.append("conversationId", "1");
+    formData.append("conversationId", "4");
     fetch('/addMessage', {
         method: "POST",
         ContentType: "application/json",
         body: formData
     }).then(response => {
         return response.json();
-    })
+    });
+
+    const body = new FormData();
+    body.append("username", "sfranzi");
+    fetch('/addConversation', {
+        method: "POST",
+        ContentType: "application/json",
+        body: body
+    }).then(response => {
+        return response.json();
+    }).then(console.log);
 });

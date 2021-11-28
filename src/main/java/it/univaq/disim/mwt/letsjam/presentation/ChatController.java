@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -38,6 +39,7 @@ public class ChatController {
         conversations.forEach(c -> {
             JSONObject obj = new JSONObject();
             obj.put("username", c.getReceiver().getUsername());
+            obj.put("conversationId", c.getConversationId());
             result.put(obj);
         });
         return new ResponseEntity<String>(result.toString(), HttpStatus.OK);
@@ -71,16 +73,27 @@ public class ChatController {
     }
 
     @PostMapping("/addMessage")
-    public ResponseEntity<String> addMessage(@RequestParam("content") String content, @RequestParam("conversationId") String id){
+    public ResponseEntity<String> addMessage(@RequestParam("content") String content, @RequestParam("conversationId") String id, Authentication authentication){
+        User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
         Conversation conversation = conversationService.findConversationById(Long.parseLong(id));
         Message message = new Message();
         message.setContent(content);
-        Set<Message> messages = conversation.getMessages();
+        message.setSender(loggedUser);
+        Set<Message> messages = (conversation.getMessages() == null)? new HashSet<Message>() : conversation.getMessages();
         messages.add(message);
         conversation.setMessages(messages);
         conversationService.addConversation(conversation);
         return new ResponseEntity<String>("Il messaggio è stato inviato correttamente", HttpStatus.OK);
     }
 
-    //create end point to handle add conversation
+    @PostMapping("/addConversation")
+    public ResponseEntity<String> addConversation(@RequestParam("username") String username, Authentication authentication){
+        User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+        User user = userService.findUserByUsername(username);
+        Conversation conversation = new Conversation();
+        conversation.setReceiver(user);
+        conversation.setSender(loggedUser);
+        conversationService.addConversation(conversation);
+        return new ResponseEntity<String>("La conversazione è stata inserita correttamente", HttpStatus.OK);
+    }
 }
