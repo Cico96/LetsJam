@@ -116,13 +116,13 @@
                                                     </div>
                                                 </div>
                                                 <ul class="users">
-                                                    <li class="person" data-chat="person1" th:each="user : ${userList}">
+                                                    <li class="person" data-chat="person1">
                                                         <div class="user">
                                                             <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
                                                             <span class="status busy"></span>
                                                         </div>
                                                         <p class="name-time">
-                                                            <span class="name" th:text="${user.username}"></span>
+                                                            <span class="name"></span>
                                                             <!--<span class="time">15/02/2019</span>-->
                                                         </p>
                                                     </li>
@@ -199,7 +199,11 @@
                                                     </li>
                                                 </ul>
                                                 <div class="form-group mt-3 mb-0">
-                                                    <textarea class="form-control" rows="3" placeholder="Type your message here..."></textarea>
+                                                    <textarea id="text-area" class="form-control" rows="3" placeholder="Type your message here..."></textarea>
+                                                    <div class="button wow fadeInUp mt-4" data-wow-delay=".7s" id="send-button"
+                                                         style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp; width: fit-content;">
+                                                        <a class="btn" th:text="#{profile.button}"></a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

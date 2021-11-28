@@ -21,17 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return response.json();
     });
 
+    document.getElementById('send-button').addEventListener('click', addMessage);
 
-    const formData = new FormData();
-    formData.append("content", "prova");
-    formData.append("conversationId", "4");
-    fetch('/addMessage', {
-        method: "POST",
-        ContentType: "application/json",
-        body: formData
-    }).then(response => {
-        return response.json();
-    });
 
     const body = new FormData();
     body.append("username", "sfranzi");
@@ -42,4 +33,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }).then(response => {
         return response.json();
     }).then(console.log);
+
 });
+
+addMessage(){
+   const content = document.getElementById('text-area').value;
+   const formData = new FormData();
+   formData.append("content", content);
+   formData.append("conversationId", "4");
+   fetch('/addMessage', {
+       method: "POST",
+       ContentType: "application/json",
+       body: formData
+   }).then(response => {
+       return response.json();
+   });
+}
+
+
+
