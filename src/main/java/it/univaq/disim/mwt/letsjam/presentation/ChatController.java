@@ -38,6 +38,7 @@ public class ChatController {
         conversations.forEach(c -> {
             JSONObject obj = new JSONObject();
             obj.put("username", c.getReceiver().getUsername());
+            obj.put("conversationId", c.getConversationId());
             result.put(obj);
         });
         return new ResponseEntity<String>(result.toString(), HttpStatus.OK);
@@ -46,21 +47,10 @@ public class ChatController {
     @PostMapping("/getUsersNotYetTalking")
     public ResponseEntity<String> getUsersNotYetTalking(Authentication authentication){
         User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
-        List<User> users = conversationService.getUsersAlreadyTalking(loggedUser);
-        List<User> allUsers = userService.getAllUsers();
-        List<User> allUsersCopy = userService.getAllUsers();
-        
-        allUsers.forEach(user -> {
-            users.forEach(u->{
-               if(user.getUsername().equals(u.getUsername())){
-                   allUsersCopy.remove(user);
-               }
-            });
-        });
-        allUsersCopy.remove(loggedUser);
+        List<User> notYetTalkingUsers = conversationService.getUsersNotYetTalking(loggedUser);
 
         JSONArray result = new JSONArray();
-        allUsersCopy.forEach(user -> {
+        notYetTalkingUsers.forEach(user -> {
             JSONObject obj = new JSONObject();
             obj.put("username",user.getUsername());
             obj.put("id", user.getId());

@@ -42,11 +42,11 @@ public class ConversationServiceImpl implements ConversationService {
     }
 
     @Override
-    public List<User> getUsersAlreadyTalking(User user) {
-        List<Conversation> conversations = conversationRepository.findConversationBySender(user);
+    public List<User> getUsersAlreadyTalking(User loggedUser) {
+        List<Conversation> conversations = conversationRepository.findConversationBySender(loggedUser);
         List<User> users = new ArrayList<User>();
         conversations.forEach(c->{
-            if(c.getSender().equals(user)){
+            if(c.getSender().equals(loggedUser)){
                 users.add(c.getReceiver());
             }else{
                 users.add(c.getSender());
@@ -59,5 +59,14 @@ public class ConversationServiceImpl implements ConversationService {
     @Override
     public Conversation findConversationById(Long id) {
         return conversationRepository.findByConversationId(id);
+    }
+
+    @Override
+    public List<User> getUsersNotYetTalking(User loggedUser) {
+        List<User> alreadyTalkingUsers = getUsersAlreadyTalking(loggedUser);
+        List<User> allUsers = userService.getAllUsers();
+        allUsers.removeAll(alreadyTalkingUsers);
+		allUsers.remove(loggedUser);
+        return allUsers;
     }
 }

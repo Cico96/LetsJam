@@ -1,5 +1,6 @@
 package it.univaq.disim.mwt.letsjam.presentation;
 
+import it.univaq.disim.mwt.letsjam.business.ConversationService;
 import it.univaq.disim.mwt.letsjam.business.GenreService;
 import it.univaq.disim.mwt.letsjam.business.InstrumentService;
 import it.univaq.disim.mwt.letsjam.business.MusicSheetService;
@@ -59,6 +60,7 @@ public class ProfileController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired ConversationService conversationService;
 
 
 	private final Path root = Paths.get("uploads");
@@ -67,7 +69,9 @@ public class ProfileController {
 	public String getProfilo(Model model, Authentication authentication) throws BusinessException {
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
 		List<MusicSheet> myMusicSheets = spartitoService.searchMusicSheetsByUserUsername(loggedUser.getUsername());
+		List<User> notYetTalkingUsers = conversationService.getUsersNotYetTalking(loggedUser);
 
+		model.addAttribute("notYetTalkingUsers", notYetTalkingUsers);
 		model.addAttribute("myMusicSheets", myMusicSheets);
 		model.addAttribute("profilo", loggedUser);
 		return "profile/profile";

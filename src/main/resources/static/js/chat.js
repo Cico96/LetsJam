@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }).then(console.log);
 
 
-    const formData = new FormData();
+    /*const formData = new FormData();
     formData.append("content", "prova");
     formData.append("conversationId", "1");
     fetch('/addMessage', {
@@ -31,5 +31,5 @@ document.addEventListener('DOMContentLoaded', () => {
         body: formData
     }).then(response => {
         return response.json();
-    })
+    })*/
 });
