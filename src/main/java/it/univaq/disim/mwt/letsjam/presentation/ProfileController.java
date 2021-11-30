@@ -83,7 +83,6 @@ public class ProfileController {
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
 		model.addAttribute("strumenti", instrumentService.getAllInstruments());
 		model.addAttribute("generi", genreService.getAllGenres());
-		System.out.println("uee "+loggedUser.getAvatar());
 		model.addAttribute("profilo", loggedUser);
 		return "profile/ModifyProfile";
 	}
@@ -99,15 +98,19 @@ public class ProfileController {
 		loggedUser.setPreferredGenres(profilo.getPreferredGenres());
 		loggedUser.setPreferredInstruments(profilo.getPreferredInstruments());
 		
-		String fileExtension = (file.getOriginalFilename().split("\\."))[1];
-		String fileName = String.valueOf(Objects.hash(loggedUser.getEmail(), loggedUser.getId()))+"."+fileExtension;
-		try {
-			Files.copy(file.getInputStream(), this.root.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e) {
-			System.out.println("Impossibile salvare il file sul disco");
-			e.printStackTrace();
+		if(file != null && !file.getOriginalFilename().isEmpty()){
+			System.out.println(file.getOriginalFilename());
+			String fileExtension = (file.getOriginalFilename().split("\\."))[1];
+			String fileName = String.valueOf(Objects.hash(loggedUser.getEmail(), loggedUser.getId()))+"."+fileExtension;
+			try {
+				Files.copy(file.getInputStream(), this.root.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				System.out.println("Impossibile salvare il file sul disco");
+				e.printStackTrace();
+			}
+			loggedUser.setAvatar("/"+root.toString()+"/"+fileName);
 		}
-		loggedUser.setAvatar("/"+root.toString()+"/"+fileName);
+
 		utenteService.update(loggedUser);
 
 		List<MusicSheet> myMusicSheets = spartitoService.searchMusicSheetsByUserUsername(loggedUser.getUsername());
