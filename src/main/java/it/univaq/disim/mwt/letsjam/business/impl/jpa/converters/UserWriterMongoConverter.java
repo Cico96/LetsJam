@@ -1,8 +1,5 @@
 package it.univaq.disim.mwt.letsjam.business.impl.jpa.converters;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
-
 import org.bson.Document;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.convert.WritingConverter;

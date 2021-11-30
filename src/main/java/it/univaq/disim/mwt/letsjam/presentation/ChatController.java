@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,6 +36,7 @@ public class ChatController {
     public ResponseEntity<String> showAllConversation(Authentication authentication){
         User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
         List<Conversation> conversations = conversationService.findAllConversation(loggedUser);
+        conversations = new ArrayList<Conversation>(new LinkedHashSet<Conversation>(conversations));
         JSONArray result = new JSONArray();
 
         conversations.forEach(c -> {

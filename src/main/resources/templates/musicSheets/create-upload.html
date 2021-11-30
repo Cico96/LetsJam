@@ -52,13 +52,6 @@
                                             [[#{createupload.song.author}]]
                                             <input name="songTitle" type="text" th:field="*{songAuthor}" />
                                         </label>
-
-                                        <div class="d-flex flex-column align-items-start w-100 mt-2">
-                                            <label name="song" class="mb-0" style="width: 100%;" th:text="#{createupload.song.genre}"></label>
-                                            <select class="form-select w-100" name="genre" th:field="${pageData.songGenre}">
-                                                <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}"></option>
-                                            </select>
-                                        </div>
                                         
                                     </div>
                                     <!-- Existing song -->
@@ -67,11 +60,20 @@
                                         <!-- songs result from search -->
                                     </ul>
                                     <!--  -->
+
+                                    <div class="d-flex flex-column align-items-start w-100 mt-2">
+                                        <label name="song" class="mb-0" style="width: 100%;" th:text="#{createupload.song.genre}"></label>
+                                        <select class="form-select w-100" name="genre" th:field="${pageData.songGenre}">
+                                            <option selected th:text="#{createupload.song.chooseGenre}"></option>
+                                            <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}"></option>
+                                        </select>
+                                    </div>
                                     
                                     <!-- hidden fields-->
                                     <input id="selectedSong" th:field="${pageData.brano}" type="hidden"/>
                                     <input id="musicSheetContent" th:field="${pageData.content}" type="hidden"/>
                                     <input id="songType" th:field="${pageData.songType}" type="hidden" />
+                                    <input id="visibility" th:field="${pageData.visibility}" type="hidden" />
                                     <!-- -->
 
                                     <div class="d-flex flex-column align-items-start mt-3">
@@ -79,11 +81,11 @@
                                         <div class="btn-group btn-group-toggle visibilityToggle" data-toggle="buttons">
                                             <label class="btn btn-primary active" th:inline="text">
                                                 [[#{createupload.musicsheet.visibility.private}]]
-                                                <input type="radio" name="musicSheetVisibility" th:field="${pageData.visibility}" id="option1" value="0" autocomplete="off" checked>
+                                                <input type="radio" name="musicSheetVisibility" id="option1" value="0" autocomplete="off" checked>
                                             </label>
                                             <label class="btn btn-primary" th:inline="text">
                                                 [[#{createupload.musicsheet.visibility.public}]]
-                                                <input type="radio" name="musicSheetVisibility" id="option2" autocomplete="off" th:field="${pageData.visibility}" value="1">
+                                                <input type="radio" name="musicSheetVisibility" id="option2" autocomplete="off" value="1">
                                             </label>
                                         </div>
                                     </div>

@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('div.submit').addEventListener('click', e=> {
         embed.getJSON().then(json => {
             document.querySelector('#musicSheetContent').value = JSON.stringify(json);
+            document.querySelector("input#visibility").value = (document.querySelector('.visibilityToggle input:checked').value == 1) ? true : false;
             document.querySelector('#createForm').submit();
         });
     });

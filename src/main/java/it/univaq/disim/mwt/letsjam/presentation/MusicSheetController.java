@@ -131,6 +131,8 @@ public class MusicSheetController {
 	public String upload(@ModelAttribute CreateUpdateSheetViewModel pageData, Authentication authentication,Model model){
 		User loggedUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
 
+		System.out.println(pageData.getVisibility());
+
 		Map<String, String> mappings = as.getInstruments(new JSONObject(pageData.getContent()));
 		Set<Instrument> strumenti = as.toInstrumentSet(mappings);
 
@@ -169,19 +171,19 @@ public class MusicSheetController {
 			song = new Song();
 			song.setTitle(pageData.getSongTitle());
 			song.setAuthor(pageData.getSongAuthor());
-			song.setGenre(genreService.findGenreById(pageData.getSongGenre()));
 			songService.updateSong(song);
 		}
+		song.setGenre(genreService.findGenreById(pageData.getSongGenre()));
 
 		spartito.setSong(song);
-		spartitoService.addMusicSheet(spartito);
+		MusicSheet persistedMusicSheet = spartitoService.addMusicSheet(spartito);
 		
 		List<Instrument> instrumentList = instrumentService.getAllInstruments();
 		List<Genre> generi = genreService.getAllGenres();
 		model.addAttribute("genres", generi);
 		model.addAttribute("instruments", instrumentList);
 		model.addAttribute("pageData", new CreateUpdateSheetViewModel());
-		return "musicSheets/create-upload";
+		return "redirect:"+persistedMusicSheet.getId();
 	}
 	
 
@@ -249,9 +251,9 @@ public class MusicSheetController {
 		ms.setRearranged(true);
 		ms.setHasTablature(as.hasTablature(new JSONObject(pageData.getContent())));
 
-		spartitoService.addMusicSheet(ms);
+		ms = spartitoService.addMusicSheet(ms);
 		model.addAttribute("pageData", pageData);
-		return "musicSheets/rearrangeMusicSheet";
+		return "redirect:"+ms.getId();
 	}
 
 

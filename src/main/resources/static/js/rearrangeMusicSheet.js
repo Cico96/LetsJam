@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('rearrange-submit').addEventListener('click', () => {
             embed.getJSON().then( result => {
                 document.getElementById('musicSheetContent').value = JSON.stringify(result);
+                document.querySelector("input#visibility").value = (document.querySelector('.visibilityToggle input:checked').value == 1) ? true : false;
                 document.getElementById('createForm').submit();
             });
         });
