@@ -59,7 +59,7 @@ public class ConversationServiceImpl implements ConversationService {
         List<Conversation> conversations = conversationRepository.findConversationBySender(loggedUser);
         List<User> users = new ArrayList<User>();
         conversations.forEach(c->{
-            if(c.getSender().equals(loggedUser)){
+            if(c.getSender() != null && c.getSender().equals(loggedUser)){
                 users.add(c.getReceiver());
             }else{
                 users.add(c.getSender());
